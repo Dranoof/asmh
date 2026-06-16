@@ -1,1 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. ASMH Drug Reference Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── DARK THEME ─────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg:       #0d1117;
+  --bg2:      #161b27;
+  --bg3:      #1e2535;
+  --card:     #1a2030;
+  --card-h:   #202840;
+  --border:   rgba(255,255,255,0.07);
+  --border2:  rgba(255,255,255,0.14);
+  --text:     #e6edf3;
+  --text2:    #c9d1d9;
+  --muted:    #7d8da1;
+  --accent:   #3b82f6;
+  --accent2:  #60a5fa;
+  --teal:     #2dd4bf;
+  --amber:    #fbbf24;
+  --rose:     #fb7185;
+  --green:    #4ade80;
+  --hdr-bg:   rgba(13,17,23,0.92);
+  --aside-bg: #111825;
+  --shadow:   0 4px 24px rgba(0,0,0,0.4);
+  --inj-col:  #f43f5e;
+  --top-col:  #14b8a6;
+  --cmb-col:  #8b5cf6;
+  --logo-gr:  linear-gradient(135deg,#3b82f6,#8b5cf6);
+}
+
+/* ── LIGHT THEME ─────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:       #f0f4f8;
+  --bg2:      #e8edf4;
+  --bg3:      #dde3ed;
+  --card:     #ffffff;
+  --card-h:   #f5f8ff;
+  --border:   rgba(0,0,0,0.09);
+  --border2:  rgba(0,0,0,0.16);
+  --text:     #111827;
+  --text2:    #374151;
+  --muted:    #6b7280;
+  --accent:   #2563eb;
+  --accent2:  #1d4ed8;
+  --teal:     #0d9488;
+  --amber:    #d97706;
+  --rose:     #e11d48;
+  --green:    #16a34a;
+  --hdr-bg:   rgba(240,244,248,0.94);
+  --aside-bg: #e2e8f2;
+  --shadow:   0 4px 24px rgba(0,0,0,0.10);
+  --inj-col:  #e11d48;
+  --top-col:  #0d9488;
+  --cmb-col:  #7c3aed;
+  --logo-gr:  linear-gradient(135deg,#2563eb,#7c3aed);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* ── HEADER ─────────────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--hdr-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border2);
+  padding: 0 18px;
+  height: 60px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: var(--shadow);
+}
+
+.logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; text-decoration: none; }
+.logo-badge {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--logo-gr);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+.logo-text { font-size: 14px; font-weight: 700; color: var(--text); }
+.logo-sub { font-size: 10px; color: var(--muted); letter-spacing: 0.03em; margin-top: 1px; }
+
+.search-wrap { flex: 1; max-width: 500px; margin: 0 auto; position: relative; }
+.search-icon {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; stroke: var(--muted); fill: none;
+  stroke-width: 2; stroke-linecap: round; pointer-events: none;
+}
+#searchInput {
+  width: 100%; height: 38px;
+  background: var(--bg3);
+  border: 1.5px solid var(--border2);
+  border-radius: 10px;
+  padding: 0 44px 0 38px;
+  font-family: inherit; font-size: 13.5px; color: var(--text);
+  outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+}
+#searchInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+#searchInput::placeholder { color: var(--muted); }
+.search-kbd {
+  position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
+  font-size: 10px; color: var(--muted); background: var(--bg2);
+  border: 1px solid var(--border2); border-radius: 5px; padding: 2px 6px;
+  font-family: 'JetBrains Mono', monospace; pointer-events: none;
+}
+.search-clear {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px; border-radius: 50%; background: var(--muted);
+  border: none; cursor: pointer; display: none; align-items: center; justify-content: center;
+  color: var(--bg); font-size: 12px; font-weight: 700; line-height: 1;
+  transition: background 0.12s;
+}
+.search-clear:hover { background: var(--rose); }
+.search-clear.visible { display: flex; }
+
+.hdr-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+/* Theme toggle */
+.theme-btn {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--bg3); border: 1.5px solid var(--border2);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 17px; transition: all 0.15s; color: var(--text);
+}
+.theme-btn:hover { background: var(--card-h); border-color: var(--accent); }
+
+/* Mobile menu btn */
+.menu-btn {
+  display: none; width: 38px; height: 38px; border-radius: 10px;
+  background: var(--bg3); border: 1.5px solid var(--border2);
+  cursor: pointer; align-items: center; justify-content: center; flex-direction: column; gap: 4px;
+}
+.menu-btn span { width: 18px; height: 2px; background: var(--text); border-radius: 2px; display: block; transition: all 0.2s; }
+
+/* Filter chips */
+.filter-chips { display: flex; gap: 5px; flex-shrink: 0; }
+.chip {
+  height: 30px; padding: 0 12px;
+  background: var(--bg3); border: 1.5px solid var(--border2);
+  border-radius: 8px; color: var(--muted);
+  font-family: inherit; font-size: 11.5px; font-weight: 500;
+  cursor: pointer; transition: all 0.13s; white-space: nowrap;
+}
+.chip:hover { color: var(--text); background: var(--card-h); border-color: var(--border2); }
+.chip.active { color: var(--accent2); border-color: var(--accent); background: rgba(59,130,246,0.1); }
+
+/* ── LAYOUT ──────────────────────────────────────────────────── */
+.layout { display: grid; grid-template-columns: 228px 1fr; height: calc(100vh - 60px); overflow: hidden; }
+
+/* ── SIDEBAR ─────────────────────────────────────────────────── */
+aside {
+  background: var(--aside-bg);
+  border-right: 1px solid var(--border2);
+  overflow-y: auto; padding: 12px 8px;
+  transition: transform 0.25s, background 0.2s;
+}
+aside::-webkit-scrollbar { width: 4px; }
+aside::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+aside::-webkit-scrollbar-track { background: transparent; }
+
+.nav-label {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 8px 10px 4px; margin-bottom: 2px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 8px 10px; border-radius: 9px;
+  cursor: pointer; font-size: 13px; font-weight: 500; color: var(--muted);
+  transition: all 0.13s; margin-bottom: 1px;
+  border: none; background: none; width: 100%; text-align: left;
+}
+.nav-item:hover { background: var(--card); color: var(--text); }
+.nav-item.active { background: rgba(59,130,246,0.12); color: var(--accent2); }
+[data-theme="light"] .nav-item:hover { background: var(--bg3); }
+[data-theme="light"] .nav-item.active { background: rgba(37,99,235,0.1); color: var(--accent2); }
+
+.nav-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.nav-count {
+  margin-left: auto; font-size: 9.5px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 20px; padding: 1px 7px; color: var(--muted); flex-shrink: 0;
+}
+.nav-divider { height: 1px; background: var(--border2); margin: 8px 6px; }
+
+/* ── MAIN CONTENT ────────────────────────────────────────────── */
+main {
+  overflow-y: auto; padding: 24px 26px;
+  background: var(--bg); transition: background 0.2s;
+}
+main::-webkit-scrollbar { width: 4px; }
+main::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+main::-webkit-scrollbar-track { background: transparent; }
+
+/* ── WELCOME ─────────────────────────────────────────────────── */
+.welcome {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 70vh; flex-direction: column; gap: 16px;
+  color: var(--muted); text-align: center; padding: 40px;
+}
+.welcome-icon {
+  width: 72px; height: 72px; border-radius: 18px;
+  background: var(--card); border: 1.5px solid var(--border2);
+  display: flex; align-items: center; justify-content: center; font-size: 32px;
+  box-shadow: var(--shadow);
+}
+.welcome h2 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+.welcome p { font-size: 14px; color: var(--muted); max-width: 320px; line-height: 1.6; }
+.quick-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 8px; }
+.qpill {
+  padding: 7px 16px; border-radius: 100px;
+  background: var(--card); border: 1.5px solid var(--border2);
+  font-size: 12.5px; font-weight: 500; cursor: pointer;
+  transition: all 0.13s; color: var(--text2);
+}
+.qpill:hover { border-color: var(--accent); color: var(--accent2); background: rgba(59,130,246,0.07); }
+
+/* ── CATEGORY HEADER ─────────────────────────────────────────── */
+.cat-hdr {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px; padding-bottom: 16px;
+  border-bottom: 1.5px solid var(--border2);
+}
+.cat-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.cat-title { font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+.cat-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+/* ── LEGEND ──────────────────────────────────────────────────── */
+.legend {
+  display: flex; gap: 0; flex-wrap: wrap;
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 10px; overflow: hidden; margin-bottom: 20px;
+}
+.li {
+  display: flex; align-items: center; gap: 5px;
+  padding: 8px 14px; font-size: 11px;
+  border-right: 1px solid var(--border);
+}
+.li:last-child { border-right: none; }
+.lk { font-family: 'JetBrains Mono', monospace; color: var(--accent2); font-weight: 600; font-size: 10.5px; }
+.lv { color: var(--muted); }
+
+/* ── SECTION HEADING ─────────────────────────────────────────── */
+.sec-head {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+  margin: 24px 0 10px; padding-bottom: 6px;
+  border-bottom: 1.5px solid var(--border2);
+  display: flex; align-items: center; gap: 7px;
+}
+.sec-head::before { content: ''; display: block; width: 3px; height: 12px; border-radius: 3px; background: var(--accent); flex-shrink: 0; }
+
+/* ── DRUG CARDS ──────────────────────────────────────────────── */
+.drug-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-bottom: 4px; }
+
+.dc {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  cursor: default; position: relative;
+}
+.dc:hover { border-color: var(--border2); background: var(--card-h); box-shadow: var(--shadow); }
+.dc.inj { border-left: 3px solid var(--inj-col); }
+.dc.topical { border-left: 3px solid var(--top-col); }
+.dc.combo { border-left: 3px solid var(--cmb-col); }
+
+.route-badge {
+  position: absolute; top: 10px; right: 12px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.05em;
+  padding: 2px 7px; border-radius: 20px; text-transform: uppercase;
+}
+.rb-inj { background: rgba(244,63,94,0.15); color: var(--inj-col); }
+.rb-topical { background: rgba(20,184,166,0.15); color: var(--top-col); }
+.rb-combo { background: rgba(139,92,246,0.15); color: var(--cmb-col); }
+
+.dn { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.35; padding-right: 50px; }
+.dd { font-size: 12px; color: var(--text2); line-height: 1.6; font-family: 'JetBrains Mono', monospace; }
+.dtags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.pill { height: 20px; padding: 0 8px; border-radius: 100px; font-size: 10px; font-weight: 600; display: inline-flex; align-items: center; }
+.pb { background: rgba(59,130,246,0.12); color: var(--accent2); }
+.pt { background: rgba(20,184,166,0.12); color: var(--teal); }
+.pa { background: rgba(245,158,11,0.12); color: var(--amber); }
+.pr { background: rgba(244,63,94,0.12); color: var(--rose); }
+.pv { background: rgba(139,92,246,0.12); color: #a78bfa; }
+.pg { background: rgba(34,197,94,0.12); color: var(--green); }
+.pm { background: var(--bg3); color: var(--muted); }
+
+/* ── ANTIBIOTIC TABLE ────────────────────────────────────────── */
+.abx-wrap { overflow-x: auto; border-radius: 12px; border: 1.5px solid var(--border2); margin-bottom: 20px; }
+.abx-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 600px; }
+.abx-table thead tr { background: var(--bg3); }
+.abx-table th {
+  padding: 11px 14px; text-align: left;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--muted);
+  border-bottom: 1.5px solid var(--border2);
+}
+.abx-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--muted); background: var(--card); }
+.abx-table tr:last-child td { border-bottom: none; }
+.abx-table tbody tr:hover td { background: var(--card-h); }
+.abx-table td:first-child { color: var(--text); font-weight: 600; font-size: 13px; }
+.abx-table td:nth-child(2) { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent2); }
+.ind-item { display: flex; align-items: center; gap: 6px; font-size: 11.5px; padding: 1.5px 0; }
+.ind-item::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+/* ── PAEDIATRIC CARDS ────────────────────────────────────────── */
+.paed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; margin-bottom: 6px; }
+.paed-card {
+  background: var(--card); border: 1.5px solid var(--border2);
+  border-radius: 12px; overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+.paed-card:hover { box-shadow: var(--shadow); }
+.paed-drug {
+  font-size: 13px; font-weight: 600; color: var(--text);
+  padding: 11px 14px 10px; background: var(--bg3);
+  border-bottom: 1px solid var(--border2);
+}
+.age-row {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 8px 14px; border-bottom: 1px solid var(--border); font-size: 12px;
+}
+.age-row:last-child { border-bottom: none; }
+.age-label { color: var(--muted); min-width: 140px; font-size: 11.5px; flex-shrink: 0; }
+.age-dose { font-family: 'JetBrains Mono', monospace; color: var(--teal); font-size: 11.5px; }
+
+/* ── G6PD ────────────────────────────────────────────────────── */
+.emerg-banner {
+  background: rgba(244,63,94,0.07); border: 1.5px solid rgba(244,63,94,0.22);
+  border-radius: 12px; padding: 13px 16px; margin-bottom: 16px;
+  font-size: 12.5px; color: var(--rose); font-weight: 500; line-height: 1.55;
+}
+.g6pd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+.g6pd-col { background: var(--card); border: 1.5px solid var(--border2); border-radius: 12px; overflow: hidden; }
+.g6pd-ch { padding: 11px 15px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 7px; }
+.g6pd-ch.def { background: rgba(244,63,94,0.1); color: var(--rose); }
+.g6pd-ch.pos { background: rgba(245,158,11,0.1); color: var(--amber); }
+.g6pd-body { padding: 12px 15px; }
+.g6pd-grp { margin-bottom: 12px; }
+.g6pd-gn { font-size: 9.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.g6pd-drug { font-size: 12px; color: var(--text2); padding: 2px 0; line-height: 1.5; }
+
+/* ── SEARCH RESULTS ──────────────────────────────────────────── */
+#searchResults {
+  display: none; position: absolute;
+  top: 60px; left: 228px; right: 0; bottom: 0;
+  background: var(--bg); z-index: 100; overflow-y: auto;
+}
+.sr-header {
+  padding: 14px 24px 10px; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.result-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 24px; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background 0.12s;
+}
+.result-item:hover { background: var(--card); }
+.result-cat-badge {
+  flex-shrink: 0; font-size: 10px; font-weight: 600;
+  padding: 3px 9px; border-radius: 6px;
+  background: var(--bg3); color: var(--muted);
+  margin-top: 2px; white-space: nowrap;
+}
+.result-name { font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.result-dose { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+mark { background: rgba(59,130,246,0.25); color: var(--accent2); border-radius: 3px; padding: 0 2px; }
+.no-results { text-align: center; padding: 80px 20px; color: var(--muted); }
+.no-results .nr-icon { font-size: 40px; margin-bottom: 12px; }
+.no-results p { font-size: 15px; margin-bottom: 6px; font-weight: 600; color: var(--text); }
+.no-results span { font-size: 13px; }
+
+/* ── MOBILE OVERLAY ──────────────────────────────────────────── */
+.sidebar-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  z-index: 150; backdrop-filter: blur(2px);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 820px) {
+  .filter-chips { display: none; }
+  .menu-btn { display: flex; }
+  .layout { grid-template-columns: 1fr; }
+  aside {
+    position: fixed; left: 0; top: 60px; bottom: 0;
+    width: 260px; z-index: 160;
+    transform: translateX(-100%); transition: transform 0.25s;
+    box-shadow: var(--shadow);
+  }
+  aside.open { transform: translateX(0); }
+  .sidebar-overlay.open { display: block; }
+  #searchResults { left: 0; }
+  main { padding: 16px; }
+  .g6pd-grid { grid-template-columns: 1fr; }
+  .drug-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 500px) {
+  .logo-sub { display: none; }
+  .paed-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="logo">
+    <div class="logo-badge">Rx</div>
+    <div>
+      <div class="logo-text">IGMH Drug Portal</div>
+      <div class="logo-sub">MO Reference Handbook</div>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Search drug, class, or condition…" autocomplete="off" spellcheck="false">
+    <span class="search-kbd" id="searchKbd">/</span>
+    <button class="search-clear" id="searchClear" aria-label="Clear">✕</button>
+  </div>
+
+  <div class="hdr-right">
+    <div class="filter-chips">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="adults">Adults</button>
+      <button class="chip" data-filter="paeds">Paeds</button>
+      <button class="chip" data-filter="pregnancy">Pregnancy</button>
+      <button class="chip" data-filter="lactation">Lactation</button>
+    </div>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle dark/light mode">🌙</button>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="layout">
+  <aside id="sidebar">
+    <div class="nav-label">Adult OPD</div>
+    <button class="nav-item" data-cat="pain"><span class="nav-dot" style="background:#f43f5e"></span>Pain &amp; Fever<span class="nav-count">12</span></button>
+    <button class="nav-item" data-cat="respiratory"><span class="nav-dot" style="background:#3b82f6"></span>Respiratory<span class="nav-count">20</span></button>
+    <button class="nav-item" data-cat="cardiovascular"><span class="nav-dot" style="background:#f59e0b"></span>Cardiovascular<span class="nav-count">16</span></button>
+    <button class="nav-item" data-cat="gi"><span class="nav-dot" style="background:#14b8a6"></span>Gastro<span class="nav-count">18</span></button>
+    <button class="nav-item" data-cat="endo"><span class="nav-dot" style="background:#8b5cf6"></span>Endocrine<span class="nav-count">14</span></button>
+    <button class="nav-item" data-cat="derm"><span class="nav-dot" style="background:#ec4899"></span>Dermatology<span class="nav-count">14</span></button>
+    <button class="nav-item" data-cat="eyes"><span class="nav-dot" style="background:#06b6d4"></span>Eyes &amp; ENT<span class="nav-count">12</span></button>
+    <button class="nav-item" data-cat="psych"><span class="nav-dot" style="background:#a855f7"></span>Psychiatry<span class="nav-count">16</span></button>
+    <button class="nav-item" data-cat="antibiotics"><span class="nav-dot" style="background:#22c55e"></span>Antibiotics<span class="nav-count">13</span></button>
+    <button class="nav-item" data-cat="antifungal"><span class="nav-dot" style="background:#f97316"></span>Antifungal / Antiviral<span class="nav-count">8</span></button>
+    <button class="nav-item" data-cat="vitamins"><span class="nav-dot" style="background:#eab308"></span>Vitamins &amp; Misc<span class="nav-count">10</span></button>
+    <div class="nav-divider"></div>
+    <div class="nav-label">Paediatrics</div>
+    <button class="nav-item" data-cat="paed-opd"><span class="nav-dot" style="background:#60a5fa"></span>Paeds OPD<span class="nav-count">20</span></button>
+    <button class="nav-item" data-cat="paed-acute"><span class="nav-dot" style="background:#f87171"></span>Paeds Acute<span class="nav-count">8</span></button>
+    <div class="nav-divider"></div>
+    <div class="nav-label">Special Populations</div>
+    <button class="nav-item" data-cat="gynae"><span class="nav-dot" style="background:#fb7185"></span>Gynaecology<span class="nav-count">8</span></button>
+    <button class="nav-item" data-cat="pregnancy"><span class="nav-dot" style="background:#c084fc"></span>Pregnancy<span class="nav-count">14</span></button>
+    <button class="nav-item" data-cat="lactation"><span class="nav-dot" style="background:#86efac"></span>Lactation<span class="nav-count">12</span></button>
+    <button class="nav-item" data-cat="g6pd"><span class="nav-dot" style="background:#fbbf24"></span>G6PD Guide<span class="nav-count">—</span></button>
+  </aside>
+
+  <main id="mainContent">
+    <div class="welcome" id="welcomeScreen">
+      <div class="welcome-icon">💊</div>
+      <h2>IGMH Drug Reference</h2>
+      <p>Select a category from the sidebar, or search for any drug, condition, or antibiotic class.</p>
+      <div class="quick-pills">
+        <div class="qpill" data-cat="pain">Pain &amp; Fever</div>
+        <div class="qpill" data-cat="antibiotics">Antibiotics</div>
+        <div class="qpill" data-cat="cardiovascular">Cardiovascular</div>
+        <div class="qpill" data-cat="paed-opd">Paediatrics</div>
+        <div class="qpill" data-cat="endo">Diabetes</div>
+        <div class="qpill" data-cat="g6pd">G6PD Guide</div>
+        <div class="qpill" data-cat="pregnancy">Pregnancy</div>
+        <div class="qpill" data-cat="paed-acute">Paeds Acute</div>
+      </div>
+    </div>
+    <div id="catContent" style="display:none"></div>
+  </main>
+</div>
+
+<div id="searchResults">
+  <div class="sr-header">
+    <span id="srLabel">Results</span>
+  </div>
+  <div id="searchList"></div>
+</div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────
+var cats = {
+  pain: { title:'Pain, Fever & Inflammation', icon:'🔥', color:'#f43f5e',
+    sections:[
+      { name:'Fever / Pain — Oral', drugs:[
+        {n:'Tab. Paracetamol 500 mg', d:'QID / TDS', t:['PO','OTC']},
+        {n:'Tab. Paracetamol 650 mg', d:'BD', t:['PO']},
+        {n:'Tab/Cap. Tramadol 50 mg', d:'50–100 mg q4–6h · Max 400 mg/day', t:['PO','Opioid-like']},
+        {n:'Tab. Panadeine (PCM 500 + Codeine 8 mg)', d:'BD / TDS', t:['PO','Combo']}
+      ]},
+      { name:'Fever / Pain — Parenteral', drugs:[
+        {n:'Inj. Paracetamol 10 mg/mL', d:'500 mg IV slow over 15 min', t:['IV'], tp:'inj'},
+        {n:'Inj. Tramadol 50 mg/mL', d:'50–100 mg IV stat + Inj. Emeset 4 mg IV stat', t:['IV'], tp:'inj'}
+      ]},
+      { name:'Musculoskeletal / NSAIDs', drugs:[
+        {n:'Tab. Aceclofenac 100 mg', d:'BD (AF) × 7 days', t:['PO','NSAID']},
+        {n:'Tab. Diclofenac Na (Voltaren) 50 mg', d:'BD/TDS (AF) × 3 days', t:['PO','NSAID']},
+        {n:'Tab. Mefenamic Acid 500 mg', d:'BD (AF) × 3 days', t:['PO','NSAID']},
+        {n:'Tab. Ibuprofen 400 mg', d:'QID / TDS', t:['PO','NSAID']},
+        {n:'Tab. Methocarbamol 500 mg', d:'BD (AF) × 7 days', t:['PO','Relaxant']},
+        {n:'Tab. Chymoral Forte 100,000U', d:'TDS (BF) × 7–10 days', t:['PO','Enzyme']},
+        {n:'Divon Gel / Voltaren Emulgel', d:'Apply BD/TDS × 5–7 days', t:['Topical'], tp:'topical'},
+        {n:'Inj. Diclofenac 75 mg/3 mL', d:'3 mL IM stat', t:['IM'], tp:'inj'}
+      ]},
+      { name:'Muscle Relaxants', drugs:[
+        {n:'Tab. Baclofen 10 mg', d:'Start 5 mg TDS × 3d → 10 mg TDS × 3d', t:['PO']},
+        {n:'Tolperisone HCL 50 mg', d:'50–150 mg TDS × 3 days', t:['PO']}
+      ]},
+      { name:'Migraine', drugs:[
+        {n:'Tab. Sumatriptan', d:'50–100 mg stat', t:['PO','Triptan']},
+        {n:'Amitriptyline 10 mg (prophylaxis)', d:'HS × 15 days (AF)', t:['PO','TCA']}
+      ]},
+      { name:'Vertigo / Dizziness', drugs:[
+        {n:'Tab. Cinnarizine 25 mg', d:'TDS × 3 days', t:['PO']},
+        {n:'Tab. Cinnarizine 75 mg', d:'OD × 3 days', t:['PO']},
+        {n:'Tab. Betahistine (Menaril) 8 mg', d:'TDS × 10 days', t:['PO']},
+        {n:'Tab. Prochlorperazine (Stemetil) 5 mg', d:'1 tab TDS × 3 days', t:['PO']}
+      ]},
+      { name:'Antispasmodics', drugs:[
+        {n:'Tab. Hyoscine Butylbromide (Buscopan) 10 mg', d:'2 tab QID', t:['PO']},
+        {n:'Tab. Mebeverine HCL 135 mg', d:'1 tab TDS', t:['PO','IBS']},
+        {n:'Tab. Dicycloverine HCL 10–40 mg', d:'1 tab TDS', t:['PO']},
+        {n:'Inj. Buscopan 20 mg', d:'IV stat', t:['IV'], tp:'inj'}
+      ]}
+    ]
+  },
+  respiratory: { title:'Respiratory', icon:'🫁', color:'#3b82f6',
+    sections:[
+      { name:'Antihistamines — Allergic Rhinitis', drugs:[
+        {n:'Tab. Fexofenadine 180 mg', d:'HS × 10 days', t:['PO','2nd gen']},
+        {n:'Tab. Levocetirizine 5 mg', d:'HS × 10 days', t:['PO','2nd gen']},
+        {n:'Tab. Cetirizine HCL 10 mg', d:'HS × 10 days – 3 months', t:['PO','2nd gen']},
+        {n:'Tab. Loratadine 10 mg', d:'1 tab OD', t:['PO','2nd gen']},
+        {n:'Tab. Montelukast 5–10 mg', d:'HS × 7 days', t:['PO','LTRA']},
+        {n:'Tab. Chlorpheniramine Maleate 4 mg', d:'1 tab q4–6h', t:['PO','1st gen']}
+      ]},
+      { name:'Productive Cough', drugs:[
+        {n:'Syr. Cofsy', d:'5–10 mL TDS', t:['PO','Expectorant']},
+        {n:'Syr. Ambrodil HCL (15 mg/5 mL)', d:'10 mL BD × 5 days', t:['PO','Mucolytic']},
+        {n:'Tab. Bromhexine 8 mg', d:'TDS × 3 days', t:['PO']}
+      ]},
+      { name:'Dry Cough', drugs:[
+        {n:'Syr. Ascoril D', d:'7.5–10 mL TDS × 5 days', t:['PO','Antitussive']},
+        {n:'Syr. Tuscure / Contus', d:'5 mL BD × 5 days', t:['PO','Antitussive']}
+      ]},
+      { name:'Nasal Drops / Sprays', drugs:[
+        {n:'Oxymetazoline (Nasivion A 0.05%)', d:'2 drops/nostril BD/TDS × 3 days MAX', t:['Nasal'], tp:'topical'},
+        {n:'Xylometazoline HCL (Otrivin A 0.1%)', d:'2 drops BD × 3 days MAX', t:['Nasal'], tp:'topical'},
+        {n:'Mometasone Furoate Nasal Spray 27.5 mcg/puff', d:'1–2 puffs/nostril HS × 3 months', t:['Nasal','Steroid'], tp:'topical'},
+        {n:'Fluticasone Furoate Nasal Spray 27.5 mcg/puff', d:'1–2 puffs HS both nostrils × 1 month', t:['Nasal','Steroid'], tp:'topical'}
+      ]},
+      { name:'Inhalers — Relievers (SABA / Anticholinergic)', drugs:[
+        {n:'Salbutamol (Asthalin / Ventolin) MDI', d:'1–2 puffs SOS · Max 4 puffs/24h', t:['Inhaler','SABA']},
+        {n:'Ipratropium Bromide 17 mcg/actuation', d:'COPD: 2 puffs QID then SOS\nAcute Asthma: 8 puffs q20min × 3 doses', t:['Inhaler','Anticholinergic']},
+        {n:'Tiotropium 2.5 mcg/actuation', d:'COPD: 2 puffs OD (5 mcg)\nAsthma: 2 puffs OD (2.5 mcg)', t:['Inhaler','LAMA']}
+      ]},
+      { name:'Inhalers — Combination / Controllers', drugs:[
+        {n:'Fluticasone + Salmeterol (Seretide 250/50 mcg)', d:'2 puffs BD — rinse mouth after use', t:['Inhaler','ICS/LABA'], tp:'combo'},
+        {n:'Budesonide + Formoterol (Symbicort 80/4.5 or 160/4.5 mcg)', d:'2 puffs BD', t:['Inhaler','ICS/LABA'], tp:'combo'},
+        {n:'Montelukast 10 mg (preventer)', d:'1 tab OD at HS', t:['PO','LTRA']}
+      ]},
+      { name:'Nebulization', drugs:[
+        {n:'Salbutamol Nebulizer 5 mg/2.5 mL', d:'2.5 mL stat via nebulizer', t:['Neb']},
+        {n:'Ipratropium Bromide 250 mcg', d:'2 mL stat via nebulizer', t:['Neb']},
+        {n:'Standard Nebulization Protocol', d:'1 mL Asthalin + 1 mL Ipravent + 2 mL NS', t:['Neb','Protocol']}
+      ]},
+      { name:'Smoking Cessation', drugs:[
+        {n:'Nicotine Patch — >10 cigs/day', d:'21 mg/d × 6wk → 14 mg/d × 2wk → 7 mg/d × 2wk', t:['Patch','NRT']},
+        {n:'Nicotine Patch — <10 cigs/day', d:'14 mg/d × 6wk → 7 mg/d × 2wk → stop', t:['Patch','NRT']},
+        {n:'Nicotine Gum 2 mg — >25 cigs/day', d:'4 mg: 1 piece q2h × 6wk → q4h × 3wk → TDS × 3wk', t:['Gum','NRT']}
+      ]}
+    ]
+  },
+  cardiovascular: { title:'Cardiovascular', icon:'❤️', color:'#f59e0b',
+    sections:[
+      { name:'Hypertension — Calcium Channel Blockers', drugs:[
+        {n:'Tab. Amlodipine 5 mg', d:'1 tab OD/BD × 3 months', t:['PO','CCB']},
+        {n:'Tab. Nifedipine 5–20 mg', d:'Initially 5 mg TDS → 10–20 mg TDS', t:['PO','CCB']}
+      ]},
+      { name:'Hypertension — ARBs (DM / <55 yrs)', drugs:[
+        {n:'Tab. Losartan Potassium 50 mg', d:'1 tab OD × 3 months', t:['PO','ARB']},
+        {n:'Tab. Telmisartan 40 mg', d:'1 tab OD/BD × 3 months', t:['PO','ARB']},
+        {n:'Tab. Candesartan Cilexetil 4 mg', d:'1 tab BD', t:['PO','ARB']}
+      ]},
+      { name:'Hypertension — ACE Inhibitors', drugs:[
+        {n:'Tab. Enalapril 5 mg', d:'1 tab OD', t:['PO','ACEi']},
+        {n:'Tab. Captopril 25 mg', d:'1 tab BD', t:['PO','ACEi']}
+      ]},
+      { name:'Hypertension — Diuretics', drugs:[
+        {n:'Tab. Furosemide 20–80 mg', d:'1 tab BD', t:['PO','Loop']},
+        {n:'Tab. Hydrochlorothiazide 12.5–50 mg', d:'1 tab OD', t:['PO','Thiazide']},
+        {n:'Inj. Lasix (Furosemide) 10 mg/mL', d:'20 mg IV stat', t:['IV'], tp:'inj'}
+      ]},
+      { name:'Hypertension — Beta Blockers (CAD)', drugs:[
+        {n:'Tab. Carvedilol', d:'6.25 mg BD × 14d → 12.5 mg BD × 7d → 25 mg BD × 3mo', t:['PO','BB']},
+        {n:'Tab. Metoprolol (Metolar) 25 mg', d:'½–0–½ × 3 months', t:['PO','BB']},
+        {n:'Tab. Nebivolol 2.5 mg', d:'1 tab OD × 3 months', t:['PO','BB']}
+      ]},
+      { name:'Hypertensive Emergency — BP >220/120 mmHg', drugs:[
+        {n:'IV Labetalol', d:'20–80 mg bolus over 10 min — goal: 10–20% reduction in DBP', t:['IV','Emergency'], tp:'inj'},
+        {n:'IV Nicardipine', d:'2–10 mg/hr infusion', t:['IV','Emergency'], tp:'inj'},
+        {n:'IV Hydralazine', d:'Bolus 10–20 mg', t:['IV','Emergency'], tp:'inj'}
+      ]},
+      { name:'Hyperlipidaemia', drugs:[
+        {n:'Tab. Rosuvastatin Calcium 5–20 mg', d:'1 tab HS × 3 months', t:['PO','Statin']},
+        {n:'Tab. Atorvastatin 10–20 mg', d:'1 tab HS × 1 month', t:['PO','Statin']},
+        {n:'Tab. Fenofibrate 200 mg', d:'1 tab HS × 3 months (high TG)', t:['PO','Fibrate']},
+        {n:'Cap. Maxepa Omega-3 (180+120 mg)', d:'1 cap OD × 1 month', t:['PO','Omega-3']}
+      ]},
+      { name:'Myocardial Infarction — Loading Doses', drugs:[
+        {n:'Tab. Clopidogrel', d:'300 mg stat → 75 mg OD', t:['PO','Antiplatelet']},
+        {n:'Tab. Aspirin', d:'300 mg stat → 75–300 mg OD', t:['PO','Antiplatelet']},
+        {n:'Tab. Atorvastatin 80 mg', d:'1 tab OD', t:['PO','Statin']}
+      ]},
+      { name:'Chest Pain — GTN', drugs:[
+        {n:'Tab. GTN 0.5 mg Sublingual', d:'SL q5min — max 3 doses', t:['SL','Nitrate']},
+        {n:'GTN Metered Spray 400 mcg/dose', d:'1–2 sprays under tongue q3–5min — max 3 doses', t:['SL','Nitrate']},
+        {n:'IV GTN', d:'10–100 mcg/min — start low', t:['IV','Nitrate'], tp:'inj'}
+      ]}
+    ]
+  },
+  gi: { title:'Gastrointestinal', icon:'🫀', color:'#14b8a6',
+    sections:[
+      { name:'Gastritis / GERD', drugs:[
+        {n:'Tab. Pantoprazole 20 mg', d:'BD (20 min before food) × 5 days', t:['PO','PPI']},
+        {n:'Tab. Pantoprazole 40 mg', d:'OD/BD (20 min BF) × 5 days', t:['PO','PPI']},
+        {n:'Cap. Esomeprazole 40 mg', d:'1 cap OD × 1 month', t:['PO','PPI']},
+        {n:'Tab. Ranitidine HCL 150 mg', d:'BD (30 min BF) × 5 days', t:['PO','H2RA']},
+        {n:'Gaviscon (Sodium Alginate)', d:'10 mL TDS — 15–30 min before meal', t:['PO','Antacid']},
+        {n:'Relcer (Oxetacaine + Aluminium + Mg)', d:'10 mL TDS (15–30 min before meal)', t:['PO','Antacid']},
+        {n:'Inj. Pantoprazole 40 mg', d:'1 vial IV stat', t:['IV'], tp:'inj'},
+        {n:'Inj. Ranitidine 50 mg', d:'IV stat', t:['IV'], tp:'inj'}
+      ]},
+      { name:'Antiemetics / Nausea', drugs:[
+        {n:'Tab. Ondansetron (Emeset) 4 mg', d:'TDS/BD (SOS) × 3 days', t:['PO','Antiemetic']},
+        {n:'Tab. Domperidone 10–20 mg', d:'TDS/QID before meals', t:['PO','Prokinetic']},
+        {n:'Tab. Promethazine HCL 10–25 mg', d:'QID/TDS', t:['PO']},
+        {n:'Inj. Ondansetron 2 mg/5 mL', d:'4 mg IV stat', t:['IV'], tp:'inj'},
+        {n:'Inj. Metoclopramide (Perinorm) 10 mg', d:'IV stat', t:['IV'], tp:'inj'}
+      ]},
+      { name:'Motion Sickness', drugs:[
+        {n:'Promethazine HCL 10 mg', d:'20 mg night before + same dose morning', t:['PO']},
+        {n:'Dimenhydrinate', d:'PO: 100–150 mg q8–12h · Inj: 50–100 mg q4–6h', t:['PO','IM']}
+      ]},
+      { name:'Diarrhoea', drugs:[
+        {n:'Tab. Loperamide 1 mg', d:'Start 4 mg → 2 mg after each loose stool · Max 4 tabs/day', t:['PO']},
+        {n:'ORS Sachet', d:'1 sachet in 1 L water — consume in 24h', t:['PO','ORS']},
+        {n:'Coslyte (Na/K/Citrate/Dextrose)', d:'1 sachet in 1 L drinking water', t:['PO','ORS']}
+      ]},
+      { name:'Constipation', drugs:[
+        {n:'Syr. Lactulose (Duphalac) 3.35 g', d:'15–30 mL HS × 3 days', t:['PO','Osmotic']},
+        {n:'Tab. Bisacodyl 5 mg', d:'1 tab HS × 3 days', t:['PO','Stimulant']},
+        {n:'Tab. Docusate Sodium 120 mg', d:'1 tab HS', t:['PO','Stool softener']},
+        {n:'Suppository Glycerol 1.15 g', d:'2 sticks PR OD', t:['PR'], tp:'inj'}
+      ]},
+      { name:'Sore Throat / Adjuncts', drugs:[
+        {n:'Chlorhexidine Gargle', d:'20 mL in half glass water, gargle 30 sec BD', t:['Topical']},
+        {n:'Drez Gargle', d:'20 mL gargled 30 sec BD × 5 days', t:['Topical']},
+        {n:'Tab. Diosmin + Hesperidin (Haemorrhoids)', d:'1 tab BD × 3 months', t:['PO']}
+      ]}
+    ]
+  },
+  endo: { title:'Endocrine', icon:'🩺', color:'#8b5cf6',
+    sections:[
+      { name:'Diabetes — Biguanide', drugs:[
+        {n:'Tab. Metformin HCL 500 mg', d:'1 tab HS/BD/TDS (AF) × 3 months', t:['PO','Biguanide']},
+        {n:'Tab. Metformin HCL 850 mg', d:'1 tab OD/BD × 3 months', t:['PO','Biguanide']},
+        {n:'Tab. Metformin SR 500 mg', d:'1 tab BD × 1 month', t:['PO','SR']}
+      ]},
+      { name:'Diabetes — Sulfonylureas', drugs:[
+        {n:'Tab. Glimepiride 1 mg', d:'1 tab BD × 3 months', t:['PO','SU']},
+        {n:'Tab. Glimepiride 2 mg', d:'1 tab OD × 1 month', t:['PO','SU']},
+        {n:'Tab. Gliclazide 40–80 mg', d:'1 tab OD × 3 months', t:['PO','SU']}
+      ]},
+      { name:'Diabetes — DPP4 Inhibitors', drugs:[
+        {n:'Tab. Sitagliptin 50–100 mg', d:'100 mg OD × 2 months', t:['PO','DPP4-i']},
+        {n:'Tab. Galvus Met (Vildagliptin + Metformin)', d:'1 tab BD (AF) × 3 months', t:['PO','Combo'], tp:'combo'}
+      ]},
+      { name:'Insulin', drugs:[
+        {n:'Insulin Actrapid 100 IU/mL', d:'Type II: 0.3–0.6 IU/kg/day\nType I: 0.5–1.0 IU/kg/day', t:['SC','Insulin']},
+        {n:'Insulin Glargine 100 IU/mL', d:'20 IU HS SC × 3 months', t:['SC','Basal']},
+        {n:'Insulin Human N 100 IU/mL', d:'Type II: Start 0.2 IU/kg/day · 1–2 doses\nType I: 0.5–1.0 IU/kg/day divided', t:['SC','NPH']}
+      ]},
+      { name:'Thyroid — Hyperthyroidism', drugs:[
+        {n:'Tab. Carbimazole', d:'Initially 20–60 mg OD → taper to 5–15 mg OD × 12–18 months', t:['PO','Antithyroid']},
+        {n:'Tab. Propylthiouracil 50 mg', d:'2 tab TDS initially → 1 tab BD/TDS', t:['PO','Antithyroid']},
+        {n:'Tab. Propranolol HCL 10–40 mg', d:'1 tab TDS/QID (symptom control)', t:['PO','BB']}
+      ]},
+      { name:'Thyroid — Hypothyroidism', drugs:[
+        {n:'Tab. Thyronorm (Levothyroxine)', d:'100–125 mcg OD', t:['PO','T4']}
+      ]},
+      { name:'Urinary System', drugs:[
+        {n:'Tab. Augmentin 325/625 mg (UTI)', d:'1 tab BD/TDS × 5–7 days (Cystitis)', t:['PO','UTI']},
+        {n:'Tab. Ciprofloxacin 250 mg (UTI)', d:'BD × 5–7 days (Pyelonephritis)', t:['PO','UTI']},
+        {n:'Tab. Urimax (Tamsulosin) 400 mcg', d:'1 tab HS × 3 months (BPH)', t:['PO','Alpha-blocker']},
+        {n:'Tab. Tolterodine Tartrate 2 mg', d:'1 tab HS × 3 months (Overactive bladder)', t:['PO','Anticholinergic']},
+        {n:'Tab. Flavoxate HCL 100 mg', d:'100–200 mg q6–8h (Bladder relaxant)', t:['PO']}
+      ]}
+    ]
+  },
+  derm: { title:'Dermatology', icon:'🩹', color:'#ec4899',
+    sections:[
+      { name:'Itchy / Dry Skin', drugs:[
+        {n:'Disuf B Cream (Fusidic Acid 2% + Betamethasone 0.1%)', d:'Apply BD × 5 days', t:['Topical','Steroid'], tp:'topical'},
+        {n:'Caladryl Lotion (Calamine + Diphenhydramine + Camphor)', d:'Apply HS × 5 days', t:['Topical'], tp:'topical'},
+        {n:'Cream Mometasone Furoate 0.1%', d:'Apply over rashes BD × 10 days', t:['Topical','Steroid'], tp:'topical'},
+        {n:'Hydrocortisone 1% Cream', d:'Apply BD/TDS', t:['Topical','Mild Steroid'], tp:'topical'},
+        {n:'Cream Clobetasol Propionate', d:'Apply over region × 5 days', t:['Topical','Strong Steroid'], tp:'topical'},
+        {n:'Tab. Prednisolone (Wysolone) 10 mg', d:'1 tab BD × 5 days — CAUTION: DM', t:['PO','Steroid']}
+      ]},
+      { name:'Seborrhoeic Dermatitis / Dandruff', drugs:[
+        {n:'Ketoconazole Shampoo 2%', d:'Apply once q3 days × 1 month', t:['Topical','Antifungal'], tp:'topical'},
+        {n:'Ketoconazole Cream 2%', d:'Apply BD × 4 weeks', t:['Topical','Antifungal'], tp:'topical'},
+        {n:'Clobetasol (Cloderm) Scalp 0.05%', d:'Thin film dry scalp OD × 15 min then rinse — max 4 weeks', t:['Topical','Steroid'], tp:'topical'}
+      ]},
+      { name:'Pityriasis / Sunburn', drugs:[
+        {n:'Calamine 15% + Zinc Oxide 5%', d:'Apply BD/TDS', t:['Topical'], tp:'topical'}
+      ]},
+      { name:'Oral Ulcers', drugs:[
+        {n:'Triamcinolone Acetonide (Aristocort) 0.1% Paste', d:'Apply without rubbing BD/TDS after meals × 7 days', t:['Oral','Steroid'], tp:'topical'}
+      ]},
+      { name:'Scalp / Hair', drugs:[
+        {n:'Tab. Finasteride 5 mg', d:'1 tab OD × 3 months (Male hair loss)', t:['PO']},
+        {n:'Cap. Biotin + Vit E (250 mcg + 50 mg)', d:'Morning × 14 days', t:['PO','Supplement']}
+      ]}
+    ]
+  },
+  eyes: { title:'Eyes & ENT', icon:'👁️', color:'#06b6d4',
+    sections:[
+      { name:'Eye — Pain & Inflammation', drugs:[
+        {n:'Nepafenac 1 mg/mL', d:'1 drop QID × 5 days → BD × 5 days', t:['Eye Drop','NSAID'], tp:'topical'},
+        {n:'Fluorometholone', d:'1 gtt QID × 15 days → BD × 15 days', t:['Eye Drop','Steroid'], tp:'topical'},
+        {n:'Naphazoline Eye Drops', d:'1 drop TDS in both eyes × 2 weeks — ⚠️ CAUTION GLAUCOMA', t:['Eye Drop'], tp:'topical'}
+      ]},
+      { name:'Eye — Allergic / Conjunctivitis', drugs:[
+        {n:'Olopatadine 0.1%', d:'1–2 drops TDS × 1 month', t:['Eye Drop','Antihistamine'], tp:'topical'},
+        {n:'Tobramycin + Dexamethasone 0.3%+0.1%', d:'1 drop QID × 5d → BD × 5d', t:['Eye Drop','Combo'], tp:'combo'}
+      ]},
+      { name:'Eye — Antibacterial', drugs:[
+        {n:'Moxifloxacin 0.5% Eye Drops', d:'HS in both eyes × 10 days', t:['Eye Drop','FQ'], tp:'topical'},
+        {n:'Tobramycin Drops 0.3%', d:'2 drops BD × 5 days', t:['Eye Drop','AB'], tp:'topical'},
+        {n:'Moxifloxacin Eye Ointment 0.5%', d:'Apply HS × 5 days', t:['Eye Oint','FQ'], tp:'topical'}
+      ]},
+      { name:'Eye — Dry Eyes / Lubricants', drugs:[
+        {n:'Systane Lubricating Eye Drops 15 mL', d:'1–2 drops as needed', t:['Eye Drop','Lubricant'], tp:'topical'},
+        {n:'Hydroxypropyl Methylcellulose', d:'2 drops per eye QID/TDS × 7 days', t:['Eye Drop','Lubricant'], tp:'topical'}
+      ]},
+      { name:'Eye — Special', drugs:[
+        {n:"Welders Eye — Lignocaine 2%", d:'0.25 mL Lignocaine + 0.75 mL NS → 2 drops stat in both eyes', t:['Eye Drop','Emergency']},
+        {n:'Foreign Body', d:'Eye irrigation with Normal Saline', t:['Procedure']}
+      ]},
+      { name:'Ear — Pain / Infection', drugs:[
+        {n:'Candibiotic Ear Drops', d:'2 drops BD', t:['Ear Drop','Combo'], tp:'topical'},
+        {n:'Waxolve (Paradichlorobenzene + Benzocaine)', d:'2 drops BD × 3 days (wax)', t:['Ear Drop','Wax'], tp:'topical'},
+        {n:'Ciprofloxacin 0.3% + Hydrocortisone 1%', d:'4 drops BD × 7 days into affected ear', t:['Ear Drop','AB'], tp:'topical'}
+      ]},
+      { name:"Menière's Disease", drugs:[
+        {n:"Tab. Betahistine Dihydrochloride", d:'8–16 mg BD/TDS', t:['PO','Vestibular']}
+      ]}
+    ]
+  },
+  psych: { title:'Psychiatry & Neurology', icon:'🧠', color:'#a855f7',
+    sections:[
+      { name:'Antidepressants — SSRIs', drugs:[
+        {n:'Tab. Fluoxetine (Fludac) 20 mg', d:'1 cap HS × 3 months', t:['PO','SSRI']},
+        {n:'Tab. Sertraline 50 mg', d:'1 tab OD — weekly increments by 50 mg if needed', t:['PO','SSRI']},
+        {n:'Tab. Paroxetine 20 mg', d:'1 tab OD — weekly increments by 10 mg if needed', t:['PO','SSRI']},
+        {n:'Tab. Citalopram 20 mg', d:'1 tab OD', t:['PO','SSRI']}
+      ]},
+      { name:'Antidepressants — TCAs', drugs:[
+        {n:'Tab. Amitriptyline HCL 10–25 mg', d:'50–75 mg OD', t:['PO','TCA']},
+        {n:'Tab. Clomipramine HCL 10 mg', d:'1 tab OD → up to 150 mg OD', t:['PO','TCA']},
+        {n:'Tab. Imipramine 25 mg', d:'1 tab TDS', t:['PO','TCA']}
+      ]},
+      { name:'Mood Stabilizers', drugs:[
+        {n:'Lithium (Camcolit) 400 mg', d:'OD/BD/TDS — monitor serum Li q12h twice weekly. Keep <1.5 mEq/L', t:['PO','Mood']},
+        {n:'Tab. Carbamazepine (Tegretol) 200 mg', d:'1 tab BD', t:['PO','Mood']},
+        {n:'Lamotrigine (Lamictal)', d:'25 mg OD × 2wk → 50 mg OD × 2wk', t:['PO','Mood']}
+      ]},
+      { name:'Antipsychotics', drugs:[
+        {n:'Tab. Haloperidol 5 mg (Typical)', d:'1 tab BD/TDS', t:['PO','Typical']},
+        {n:'Tab. Olanzapine 10 mg (Atypical)', d:'1 tab OD', t:['PO','Atypical']},
+        {n:'Tab. Risperidone 2 mg (Atypical)', d:'1 tab OD', t:['PO','Atypical']},
+        {n:'Tab. Clozapine 25 mg (Atypical)', d:'½ tab OD/BD', t:['PO','Atypical']}
+      ]},
+      { name:'Anticonvulsants', drugs:[
+        {n:'Phenobarbital 100 mg', d:'1 tab HS', t:['PO','AED']},
+        {n:'Topiramate 25 mg', d:'1 tab BD', t:['PO','AED']},
+        {n:'Gabapentin 300 mg', d:'1 tab TDS', t:['PO','AED','Neuropathic']},
+        {n:'Pregabalin 150 mg', d:'1 tab OD', t:['PO','AED','Neuropathic']},
+        {n:'Levetiracetam 500 mg', d:'1 tab BD', t:['PO','AED']}
+      ]},
+      { name:'Anxiolytic / Hypnotics', drugs:[
+        {n:'Tab. Alprazolam 0.25 mg', d:'HS × 1 month', t:['PO','BZD']},
+        {n:'Tab. Zolpidem Tartrate 5–10 mg', d:'1 tab HS (sleep disorder)', t:['PO','Z-drug']},
+        {n:'Tab. Midazolam 7.5–15 mg', d:'7.5–15 mg once at bedtime', t:['PO','BZD']}
+      ]},
+      { name:'Neuropathic Pain', drugs:[
+        {n:'Tab. Neurobion Forte', d:'OD/BD × 2 months', t:['PO','B-Vitamins']},
+        {n:'Tab. Pregabalin 75 mg', d:'1 tab BD × 5d → 1 tab QID', t:['PO','Neuropathic']},
+        {n:'Tab. Gabapentin 300 mg', d:'Day 1: OD · Day 2: BD · Day 3: TDS (titrate up)', t:['PO','Neuropathic']},
+        {n:'Tab. Amitriptyline HCL 10 mg', d:'1 tab HS × 15 days (AF)', t:['PO','TCA']}
+      ]}
+    ]
+  },
+  antibiotics: { title:'Antibiotics', icon:'💊', color:'#22c55e', isTable:true,
+    abxData:[
+      {nm:'Cefo-L (Cefixime + Lactobacillus)', d:'PO: 200 mg BD × 5d\nIV: 1.2 g QID/TDS', inds:['UTI','URTI/LRTI','Otitis Media','Diarrhoea (Kids)'], cls:'Cephalosporin (Beta-Lactam)'},
+      {nm:'Augmentin (Amoxicillin + Clavulanate)', d:'PO: 625 mg BD/TDS × 5–7d\nIV: 1.2 g QID/TDS', inds:['Skin & Suture','Cellulitis','Otitis Media','UTI','URTI/LRTI'], cls:'Penicillin'},
+      {nm:'Azithromycin', d:'PO: 500 mg OD × 5–7 days', inds:['URTI','Pneumonia','Sinusitis','COPD exacerbation'], cls:'Macrolide'},
+      {nm:'Metronidazole', d:'PO: 200–400 mg TDS × 3–7d\nIV: 500 mg TDS × 3d', inds:['Intra-abdominal','Diabetic wound','Cellulitis','PID','Bacterial vaginosis','Giardiasis'], cls:'Nitroimidazole'},
+      {nm:'Cefuroxime', d:'PO: 250–500 mg BD\nIV: 500–750 mg TDS', inds:['URTI','Otitis Media','Skin & Suture','UTI'], cls:'Cephalosporin (2nd gen)'},
+      {nm:'Ciprofloxacin', d:'PO: 250–500 mg BD × 5–7d\nIV: 400 mg BD', inds:['UTI','Pyelonephritis','AGE','Typhoid','LRTI','Otitis Media/Externa'], cls:'Fluoroquinolone'},
+      {nm:'Ceftriaxone', d:'IV: 1 g BD × 3–4 days', inds:['Typhoid','Septicaemia','Meningitis','LRTI','UTI','PID','Gonorrhoea'], cls:'Cephalosporin (3rd gen)'},
+      {nm:'Levofloxacin', d:'PO/IV: 500–750 mg OD × 7–14d', inds:['Pneumonia','Complicated skin','UTI/Pyelonephritis','Bacterial prostatitis'], cls:'Quinolone'},
+      {nm:'Cephalexin', d:'PO: 500 mg TDS × 5 days', inds:['Skin infections','URTI'], cls:'Cephalosporin (1st gen)'},
+      {nm:'Cefotaxime', d:'IV: 1 g BD', inds:['Typhoid','Sepsis','Meningitis'], cls:'Cephalosporin (3rd gen)'},
+      {nm:'Meropenem', d:'IV: 1 g TDS', inds:['Severe sepsis','Multi-drug resistant'], cls:'Carbapenem'},
+      {nm:'Nitrofurantoin 100 mg', d:'BD × 5 days with meals', inds:['Uncomplicated UTI'], cls:'Nitrofuran'},
+      {nm:'Dicloxacillin 125–500 mg', d:'PO: QID', inds:['Skin infections (Impetigo/Cellulitis/Boils)','Osteomyelitis','Septic arthritis'], cls:'Beta-Lactam Penicillin'}
+    ]
+  },
+  antifungal: { title:'Antifungal / Antiviral', icon:'🍄', color:'#f97316',
+    sections:[
+      { name:'Systemic Antifungals', drugs:[
+        {n:'Tab. Griseofulvin 500 mg', d:'OD or 250 mg BD × 2–8 wk (skin/scalp)\nBD × 6 months (fingernail)\nBD × >12 months (toenail)', t:['PO','Tinea']},
+        {n:'Tab. Terbinafine 250 mg', d:'OD × 6 wk (fingernail) / 12 wk (toenail)', t:['PO','Tinea']},
+        {n:'Tab. Fluconazole 100 mg', d:'Oral candida: 200 mg day 1 → 100 mg OD × 2wk\nVVC (uncomplicated): 150 mg stat', t:['PO','Candida','Azole']}
+      ]},
+      { name:'Topical Antifungals', drugs:[
+        {n:'Clotrimazole 1%', d:'Apply BD/TDS × 1 month', t:['Topical','Azole'], tp:'topical'},
+        {n:'Terbinafine Topical', d:'Apply BD × 4 weeks max', t:['Topical','Tinea pedis'], tp:'topical'},
+        {n:'Ketoconazole Shampoo 2%', d:'Apply once q3 days × 1 month', t:['Topical','Scalp'], tp:'topical'},
+        {n:'Candid Mouth Paint (Clotrimazole 1%)', d:'10–20 drops QID × 3–5 days', t:['Oral','Candida']},
+        {n:'Nystatin (1 Lac Unit)', d:'5 mL QID — hold in mouth before swallowing. Continue 2 days after cure', t:['PO','Candida']}
+      ]},
+      { name:'Anti-Helminthics', drugs:[
+        {n:'Albendazole 400 mg', d:'Stat — repeat in 2 weeks', t:['PO','Deworming']},
+        {n:'Mebendazole 100 mg', d:'BD × 5 days', t:['PO','Deworming']}
+      ]},
+      { name:'Antivirals', drugs:[
+        {n:'Tab. Acyclovir 800 mg — Shingles/VZV', d:'Shingles: q4h × 7–10 days\nVZV: q4h × 5–7 days', t:['PO','Acyclovir']},
+        {n:'Tab. Acyclovir 200 mg — Herpes simplex', d:'q4h × 5–10 days', t:['PO','Acyclovir']},
+        {n:'Tab. Tamiflu (Oseltamivir) 75 mg', d:'BD × 5 days (Influenza)', t:['PO','Influenza']}
+      ]}
+    ]
+  },
+  vitamins: { title:'Vitamins, Bones & Misc', icon:'💎', color:'#eab308',
+    sections:[
+      { name:'Vitamins', drugs:[
+        {n:'Tab. Ascorbic Acid 1000 mg', d:'Morning × 2 weeks', t:['PO','Vit C']},
+        {n:'Cap. Nutrolin B (B-complex + Lactobacillus)', d:'BD × 5 days', t:['PO','B-complex']},
+        {n:'Cap. Becosule', d:'OD × 3 months', t:['PO','B-complex']}
+      ]},
+      { name:'Bones & Joints', drugs:[
+        {n:'Tab. Shelcal (Calcium Carbonate + Vit D3)', d:'OD × 3 months', t:['PO','Ca','Vit D']},
+        {n:'Tab. Milical (Calcium Citrate + Vit D3)', d:'Morning × 3 months', t:['PO','Ca','Vit D']},
+        {n:'Cap. Lumia 60K', d:'Once a month in morning × 15 weeks', t:['PO','Vit D']},
+        {n:'Cholecalciferol Sachet 600,000 IU', d:'1 sachet weekly in milk × 8 weeks', t:['PO','Vit D3']}
+      ]},
+      { name:'Blood / Iron', drugs:[
+        {n:'Tab. Folic Acid 5 mg', d:'Morning (AF) × 1 month', t:['PO','Folate']},
+        {n:'Syr. Dexorange (Iron + Folic Acid + Vit B12)', d:'15 mL OD/BD with food — NEVER on empty stomach', t:['PO','Iron']}
+      ]},
+      { name:'Systemic Steroids', drugs:[
+        {n:'Tab. Prednisolone 10 mg', d:'Allergy/Inflam: 5–60 mg/day in 2–4 divided doses\nEg: TDS × 5d → BD × 5d → OD × 5d\nAsthma/COPD: 40–60 mg/day in 1–2 doses', t:['PO','Steroid','CAUTION DM']},
+        {n:'Tab. Dexamethasone 0.5 mg', d:'0.75–9 mg OD in 2–5 divided doses', t:['PO','Steroid']}
+      ]},
+      { name:'IV Fluids', drugs:[
+        {n:"Ringer's Lactate", d:'80–100 mL/hr', t:['IV'], tp:'inj'},
+        {n:'Normal Saline 500 mL', d:'40–120 mL/hr', t:['IV'], tp:'inj'},
+        {n:'Dextrose 5%', d:'120 mL/hr', t:['IV'], tp:'inj'}
+      ]}
+    ]
+  },
+  'paed-opd': { title:'Paediatrics — OPD', icon:'👶', color:'#60a5fa', isPaed:true,
+    sections:[
+      { name:'Pain / Fever', drugs:[
+        {n:'Paracetamol', doses:[{a:'PO',v:'15 mg/kg q4–6h'},{a:'PR',v:'15 mg/kg'},{a:'IM',v:'5 mg/kg'},{a:'⚠️ CI',v:'Hepatic impairment, Nephropathy'}]},
+        {n:'Ibuprofen', doses:[{a:'PO',v:'5–10 mg/kg q6–8h'},{a:'⚠️ CI',v:'NSAID allergy, PUD, GI bleeding'}]},
+        {n:'Mefenamic Acid', doses:[{a:'PO',v:'5–10 mg/kg/dose'},{a:'⚠️ CI',v:'GI inflammation, PUD, Aspirin allergy, Seizures'}]}
+      ]},
+      { name:'Antihistamines (Allergic Rhinitis)', drugs:[
+        {n:'Cetirizine Dihydrochloride', doses:[{a:'6mo–2yr',v:'2.5 mg HS'},{a:'2–6yr',v:'2.5 mg BD or 5 mg HS'},{a:'>6yr',v:'5–10 mg HS'}]},
+        {n:'Fexofenadine', doses:[{a:'6mo–2yr',v:'15 mg BD'},{a:'2–12yr',v:'30 mg BD'},{a:'>12yr',v:'60 mg BD'}]},
+        {n:'Loratadine', doses:[{a:'>2yr (up to 30 kg)',v:'5 mg OD'},{a:'>12yr',v:'10 mg OD'}]},
+        {n:'Chlorpheniramine Maleate', doses:[{a:'1–6yr',v:'1 mg q4–6h'},{a:'6–12yr',v:'2 mg q4–6h'},{a:'>12yr',v:'4 mg q4–6h'}]}
+      ]},
+      { name:'Cough', drugs:[
+        {n:'Bromhexine (Productive Cough)', doses:[{a:'2–5yr',v:'2 mg TDS'},{a:'6–12yr',v:'4 mg TDS'},{a:'>12yr',v:'8 mg TDS'}]},
+        {n:'Ambroxol HCL 30 mg/5 mL', doses:[{a:'Up to 2yr',v:'2.5 mL BD'},{a:'2–5yr',v:'2.5 mL TDS'},{a:'>5yr',v:'5 mL BD/TDS'}]},
+        {n:'Ascoril-D (Dry Cough)', doses:[{a:'2–6yr',v:'2.5 mL TDS'},{a:'6–12yr',v:'2.5–5 mL q4–6h'},{a:'>12yr',v:'5–10 mL q4–6h'}]}
+      ]},
+      { name:'Vomiting', drugs:[
+        {n:'Domperidone (0.2–0.4 mg/kg/dose q4–8h)', doses:[{a:'1–2yr (10–12 kg)',v:'3.0–3.5 mL × day'},{a:'2–3yr (12–14 kg)',v:'3.5–4.0 mL'},{a:'3–4yr (14–18 kg)',v:'4.0–5.5 mL'},{a:'4–5yr (18–20 kg)',v:'5.5–6.0 mL'}]},
+        {n:'Ondansetron 4 mg/5 mL (0.15 mL/kg TDS)', doses:[{a:'<4yr',v:'2 mg q4h'},{a:'4–11yr',v:'4 mg q4h'},{a:'>12yr',v:'8 mg q4h'},{a:'IV >3yr',v:'0.15–0.45 mg/kg/dose'}]}
+      ]},
+      { name:'Acute Diarrhoea', drugs:[
+        {n:'Loperamide 2 mg (>6 years only)', doses:[{a:'6–12yr',v:'2 mg after 1st loose stool → 1 mg after each · max 4 tabs/day'},{a:'>12yr',v:'Same as adults'}]},
+        {n:'Zinc Sulphate (Oral)', doses:[{a:'<6mo',v:'10 mg/day × 14 days'},{a:'>6mo',v:'20 mg/day × 14 days'}]}
+      ]},
+      { name:'Constipation', drugs:[
+        {n:'Glycerol Suppository 1.15 g', doses:[{a:'2–6yr',v:'1 stick PR in 24h'},{a:'>6yr',v:'2 sticks PR in 24h'}]},
+        {n:'Bisacodyl (Dulcolax) 5 mg', doses:[{a:'4–10yr',v:'1 tab HS'}]},
+        {n:'Syr. Lactulose 3.35 g/5 mL', doses:[{a:'All ages',v:'1–3 mL/kg/day in divided doses · Max 60 mL/day'}]}
+      ]},
+      { name:'Nasal Congestion', drugs:[
+        {n:'Nasal Decongestants', doses:[{a:'<2yr',v:'Sodium Chloride Nasal Sol: 2–6 drops/nostril SOS'},{a:'2–6yr',v:'Otrivin P 0.05%: 1–2 drops TDS × 4 days'},{a:'>6yr',v:'Oxymetazoline (Nasivion 0.05%): 2–3 drops q8h'}]}
+      ]},
+      { name:'Pain / Fever (Parenteral)', drugs:[
+        {n:'PCM Suppository', doses:[{a:'3–11mo',v:'60–125 mg'},{a:'1–4yr',v:'125–250 mg'},{a:'5–12yr',v:'250–500 mg'}]},
+        {n:'PCM IV (2–12yr)', doses:[{a:'q4h dose',v:'12.5 mg/kg'},{a:'q6h dose',v:'15 mg/kg'}]}
+      ]},
+      { name:'IV Fluid Rate', drugs:[
+        {n:'Iveolyte P 500–1000 mL', doses:[{a:'Rate',v:'90 mL/hour'}]},
+        {n:'4:2:1 Maintenance', doses:[{a:'First 10 kg',v:'4 mL/kg/hr = 40 mL/hr'},{a:'Next 10 kg',v:'2 mL/kg/hr = 20 mL/hr'},{a:'>20 kg',v:'1 mL/kg/hr'}]}
+      ]}
+    ]
+  },
+  'paed-acute': { title:'Paediatrics — Acute', icon:'🚨', color:'#f87171', isPaed:true,
+    sections:[
+      { name:'Anticonvulsants — Status Epilepticus', drugs:[
+        {n:'Lorazepam', doses:[{a:'Status IV/IM',v:'0.05–0.1 mg/kg over 2–5 min — may repeat × 1 after 10–15 min'},{a:'Sedation',v:'0.05 mg/kg q4–8h PO/IV/IM'}]},
+        {n:'Diazepam', doses:[{a:'>1mo IV',v:'0.2–0.5 mg/kg — repeat q3–5min'},{a:'<5yr max',v:'5 mg'},{a:'>5yr max',v:'10 mg'},{a:'PR',v:'0.3–0.5 mg/kg/dose'}]},
+        {n:'Midazolam', doses:[{a:'Status',v:'0.2 mg/kg IV/IM bolus → 0.1–0.2 mg/kg/hour IV infusion'}]}
+      ]},
+      { name:'Allergic Reaction', drugs:[
+        {n:'Hydrocortisone IV/IM', doses:[{a:'<12yr',v:'1–5 mg/kg/day in divided doses q12–24h'},{a:'>12yr',v:'100–500 mg q2h/4h/6h'}]},
+        {n:'Avil (Pheniramine)', doses:[{a:'Neonatal (3 kg+)',v:'1.13–2.83 mg/kg IM q24h'},{a:'1–3yr (4–20 kg)',v:'0.75 mg/kg PO q8h'}]}
+      ]},
+      { name:'Dyspnoea / SOB', drugs:[
+        {n:'Salbutamol Nebulization', doses:[{a:'Neb standard',v:'0.15 mg/kg/dose with 1.5 mL NS q20min × 3 doses via 6 L/min airflow'},{a:'Standard neb order',v:'0.5 mL Asthalin + 0.5 mL Ipravent + 1 mL NS'},{a:'Inj SC/IM/IV',v:'4–6 mcg/kg q6–8h'},{a:'MDI acute',v:'2–4 puffs × 3 doses at 20-min intervals → 2 puffs q4–6h'}]},
+        {n:'Ipratropium Bromide Neb', doses:[{a:'Neb',v:'250 mcg in 2 mL NS q20min × 3 doses → q2–4h'},{a:'MDI',v:'1–2 puffs TDS'}]}
+      ]},
+      { name:'Pain / Fever (Parenteral)', drugs:[
+        {n:'PCM Suppository', doses:[{a:'3–11mo',v:'60–125 mg'},{a:'1–4yr',v:'125–250 mg'},{a:'5–12yr',v:'250–500 mg'}]},
+        {n:'PCM IV (2–12yr)', doses:[{a:'q4h dose',v:'12.5 mg/kg'},{a:'q6h dose',v:'15 mg/kg'}]}
+      ]},
+      { name:'IV Fluid Rate', drugs:[
+        {n:'Iveolyte P 500–1000 mL', doses:[{a:'Rate',v:'90 mL/hour'}]},
+        {n:'4:2:1 Maintenance', doses:[{a:'First 10 kg',v:'4 mL/kg/hr = 40 mL/hr'},{a:'Next 10 kg',v:'2 mL/kg/hr = 20 mL/hr'},{a:'>20 kg',v:'1 mL/kg/hr'}]}
+      ]}
+    ]
+  },
+  gynae: { title:'Gynaecology', icon:'🌸', color:'#fb7185',
+    sections:[
+      { name:'Dysmenorrhoea', drugs:[
+        {n:'Tab. Mefenamic Acid 250–500 mg', d:'1 tab BD/TDS × 3–7 days', t:['PO','NSAID']}
+      ]},
+      { name:'Delaying Menstruation', drugs:[
+        {n:'Tab. Norethisterone (Progesterone) 5 mg', d:'1 pill TDS starting 3 days before period × max 20 days\n⚠️ NOT a contraceptive — menses returns 2–3 days after stopping', t:['PO','Progestin']}
+      ]},
+      { name:'Oral Contraceptives', drugs:[
+        {n:'Tab. Ovral (Ethinylestradiol + Levonorgestrel)', d:'1 pill OD × 21 days — start on 1st day of period at same time daily', t:['PO','Combined OCP']},
+        {n:'Tab. Cyproterone Acetate + Ethinylestradiol', d:'From 2nd day of period × 21 days × 3 months', t:['PO','OCP']}
+      ]},
+      { name:'Emergency Contraception', drugs:[
+        {n:'Tab. Levonorgestrel 750 mcg', d:'1 pill ASAP within 72h post-coitus → 2nd pill 12h later', t:['PO','Emergency']}
+      ]},
+      { name:'Bacterial Vaginosis', drugs:[
+        {n:'Tab. Metronidazole 400 mg', d:'1 tab BD × 5–7 days', t:['PO']},
+        {n:'Tab. Tinidazole 1 g', d:'2 g single dose OR 2 g × 2 days OR 1 g OD × 5 days', t:['PO']},
+        {n:'Metronidazole Gel 0.75%', d:'1 applicator intra-vaginally OD/BD × 5 days', t:['Vaginal'], tp:'topical'},
+        {n:'Clindamycin Gel 2%', d:'5 g (1 applicator) intra-vaginally HS × 3 days', t:['Vaginal'], tp:'topical'}
+      ]},
+      { name:'Vaginal Candidiasis', drugs:[
+        {n:'Tab. Clotrimazole VT 100 mg', d:'1 tab intra-vaginally HS × 3 days (6d for re-infection)', t:['Vaginal','Azole'], tp:'topical'},
+        {n:'Tab. Fluconazole 150 mg', d:'1 tab stat (uncomplicated)', t:['PO','Azole']},
+        {n:'Clotrimazole 2%', d:'Intra-vaginally OD × 3 days', t:['Vaginal','Azole'], tp:'topical'}
+      ]}
+    ]
+  },
+  pregnancy: { title:'Pregnancy — Safe Drugs', icon:'🤰', color:'#c084fc',
+    sections:[
+      { name:'Pain', drugs:[
+        {n:'Tab. Paracetamol 500 mg', d:'BD/TDS', t:['PO','✅ Safe']}
+      ]},
+      { name:'Allergy', drugs:[
+        {n:'Tab. Loratadine 10 mg', d:'1 tab HS', t:['PO']},
+        {n:'Tab. Fexofenadine 120/180 mg', d:'1 tab HS', t:['PO']},
+        {n:'Tab. Cetirizine HCL 10 mg', d:'1 tab HS', t:['PO']},
+        {n:'Inj. Promethazine 25 mg/5 mL', d:'25 mg IM stat (✅ Safe in 1st Trimester)', t:['IM'], tp:'inj'}
+      ]},
+      { name:'GERD / Vomiting / Nausea', drugs:[
+        {n:'Tab. Ranitidine 150 mg', d:'1 tab BD', t:['PO','H2RA']},
+        {n:'Tab. Metoclopramide 10–15 mg', d:'1 tab QID (30 min before meal) × 4 wk — max 12 wk', t:['PO']},
+        {n:'Tab. Doxylamine + Pyridoxine (10+10 mg)', d:'1 tab TDS × 3 days (✅ 1st Trimester)', t:['PO']},
+        {n:'Tab. Pyridoxine (Vit B6) 25 mg', d:'TDS', t:['PO']},
+        {n:'⚠️ Ondansetron — AVOID', d:'Causes Cleft Lip — use alternatives above', t:['⚠️ AVOID']}
+      ]},
+      { name:'Hypertension (Pregnancy)', drugs:[
+        {n:'Tab. Methyldopa (Aldomet) 250 mg', d:'2–0–2 × 3 months', t:['PO','✅ 1st line']},
+        {n:'Tab. Depin Retard (Nifedipine) 10 mg', d:'TDS', t:['PO']}
+      ]},
+      { name:'Antibiotics (Safe in Pregnancy)', drugs:[
+        {n:'Tab. Azithromycin 500 mg', d:'OD × 5 days', t:['PO','Macrolide']},
+        {n:'Tab. Cefo-L (Cefixime + Lactobacillus) 200 mg', d:'BD × 5 days', t:['PO','Cephalosporin']},
+        {n:'Tab. Augmentin 325/625 mg', d:'1 tab BD/TDS × 5 days', t:['PO','Penicillin']}
+      ]},
+      { name:'IV Fluids (Pregnancy)', drugs:[
+        {n:"IVF Ringer's Lactate", d:'500 mL at 100 mL/hr (✅ 1st Trimester)', t:['IV'], tp:'inj'},
+        {n:'IVF Normal Saline + Dextrose', d:'100 mL/hour', t:['IV'], tp:'inj'}
+      ]}
+    ]
+  },
+  lactation: { title:'Lactation — Safe Drugs', icon:'🤱', color:'#86efac',
+    sections:[
+      { name:'Pain', drugs:[
+        {n:'Tab. Paracetamol 500 mg', d:'BD/TDS', t:['PO','✅ Safe']}
+      ]},
+      { name:'Allergy', drugs:[
+        {n:'Tab. Loratadine 10 mg', d:'1 tab HS', t:['PO']},
+        {n:'Tab. Fexofenadine 120/180 mg', d:'1 tab HS', t:['PO']}
+      ]},
+      { name:'GERD / GI', drugs:[
+        {n:'Tab. Famotidine 40 mg', d:'1 tab OD (✅ Preferred in Lactation)', t:['PO','H2RA']},
+        {n:'Tab. Ranitidine 150 mg', d:'1 tab BD', t:['PO','H2RA']}
+      ]},
+      { name:'Hypertension (Lactation)', drugs:[
+        {n:'Tab. Methyldopa (Aldomet) 250 mg', d:'2–0–2 × 3 months', t:['PO','✅ Safe']},
+        {n:'Tab. Depin Retard (Nifedipine) 10 mg', d:'1 tab TDS', t:['PO']}
+      ]},
+      { name:'Antibiotics (Safe in Lactation)', drugs:[
+        {n:'Tab. Azithromycin 500 mg', d:'OD × 5 days', t:['PO']},
+        {n:'Tab. Cefo-L 200 mg', d:'BD × 5 days', t:['PO']},
+        {n:'Tab. Augmentin 325/625 mg', d:'1 tab BD/TDS × 5 days', t:['PO']}
+      ]},
+      { name:'Cough (Lactation)', drugs:[
+        {n:'Syr. Bromhexine', d:'10–20 mL TDS/BD', t:['PO','Productive Cough']}
+      ]}
+    ]
+  },
+  g6pd: { title:'G6PD Drug Guide', icon:'⚠️', color:'#fbbf24', isG6PD:true }
+};
+
+// ── DRUG DATABASE ─────────────────────────────────────────────
+var drugDB = [];
+(function(){
+  for(var k in cats){
+    var cat = cats[k];
+    if(cat.sections){
+      cat.sections.forEach(function(s){
+        s.drugs.forEach(function(drug){
+          var nm = drug.n||drug.nm||'';
+          var dose = drug.d||'';
+          if(nm) drugDB.push({name:nm,dose:dose,cat:cat.title,catKey:k,tags:drug.t||[]});
+        });
+      });
+    }
+    if(cat.abxData){
+      cat.abxData.forEach(function(ab){
+        drugDB.push({name:ab.nm,dose:ab.d,cat:'Antibiotics',catKey:'antibiotics',tags:[ab.cls]});
+      });
+    }
+  }
+})();
+
+// ── PILL COLOURS ─────────────────────────────────────────────
+function tc(tag){
+  var t=tag.toLowerCase();
+  if(['iv','im','inj','sc','pr','neb'].some(function(x){return t.indexOf(x)>=0;})) return 'pr';
+  if(['nsaid','steroid','caution'].some(function(x){return t.indexOf(x)>=0;})) return 'pa';
+  if(['saba','laba','ics','anticholinergic','lama','bb','ccb','arb','acei'].some(function(x){return t.indexOf(x)>=0;})) return 'pb';
+  if(['topical','nasal','eye','ear','vaginal','oral'].some(function(x){return t.indexOf(x)>=0;})) return 'pt';
+  if(['ssri','tca','maoi','nri'].some(function(x){return t.indexOf(x)>=0;})) return 'pv';
+  if(['✅','safe'].some(function(x){return t.indexOf(x)>=0;})) return 'pg';
+  if(['⚠️','avoid','emergency'].some(function(x){return t.indexOf(x)>=0;})) return 'pr';
+  return 'pm';
+}
+
+// ── RENDERERS ─────────────────────────────────────────────────
+var LEGEND = '<div class="legend"><div class="li"><span class="lk">OD</span><span class="lv">Once daily</span></div><div class="li"><span class="lk">BD</span><span class="lv">Twice daily</span></div><div class="li"><span class="lk">TDS</span><span class="lv">Three times</span></div><div class="li"><span class="lk">QID</span><span class="lv">Four times</span></div><div class="li"><span class="lk">HS</span><span class="lv">At bedtime</span></div><div class="li"><span class="lk">AF / BF</span><span class="lv">After / Before food</span></div><div class="li"><span class="lk">SOS</span><span class="lv">When required</span></div><div class="li"><span class="lk">LA</span><span class="lv">Local application</span></div></div>';
+
+function renderCard(drug){
+  var typeC = drug.tp==='inj'?' inj':drug.tp==='topical'?' topical':drug.tp==='combo'?' combo':'';
+  var rb = drug.tp==='inj'?'<span class="route-badge rb-inj">Inj</span>':drug.tp==='topical'?'<span class="route-badge rb-topical">Topical</span>':drug.tp==='combo'?'<span class="route-badge rb-combo">Combo</span>':'';
+  var tags = (drug.t||[]).map(function(t){return '<span class="pill '+tc(t)+'">'+t+'</span>';}).join('');
+  var dose = (drug.d||'').replace(/\n/g,'<br>');
+  return '<div class="dc'+typeC+'">'+rb+'<div class="dn">'+(drug.n||drug.nm||'')+'</div><div class="dd">'+dose+'</div>'+(tags?'<div class="dtags">'+tags+'</div>':'')+'</div>';
+}
+
+function renderPaedCard(drug){
+  var rows = drug.doses.map(function(d){return '<div class="age-row"><span class="age-label">'+d.a+'</span><span class="age-dose">'+d.v+'</span></div>';}).join('');
+  return '<div class="paed-card"><div class="paed-drug">'+drug.n+'</div>'+rows+'</div>';
+}
+
+function renderABX(cat){
+  var rows = cat.abxData.map(function(ab){
+    var inds = ab.inds.map(function(i){return '<div class="ind-item">'+i+'</div>';}).join('');
+    var d = ab.d.replace(/\n/g,'<br>');
+    return '<tr><td>'+ab.nm+'</td><td>'+d+'</td><td>'+inds+'</td><td><span class="pill pv">'+ab.cls+'</span></td></tr>';
+  }).join('');
+  return '<div class="abx-wrap"><table class="abx-table"><thead><tr><th>Drug</th><th>Dose</th><th>Indications</th><th>Class</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+
+function renderG6PD(){
+  return '<div class="emerg-banner">⚠️ The following drugs carry risk of haemolysis in G6PD-deficient patients. Always check before prescribing.</div><div class="g6pd-grid"><div class="g6pd-col"><div class="g6pd-ch def">🔴 Definite Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Antibacterials</div><div class="g6pd-drug">Nitrofurantoin, Nitrofurazone</div><div class="g6pd-drug">Ciprofloxacin, Moxifloxacin, Nalidixic acid, Norfloxacin, Ofloxacin</div><div class="g6pd-drug">Chloramphenicol</div><div class="g6pd-drug">Sulfonamides: Co-trimoxazole, Sulfadiazine, Sulfamethoxazole, Sulfasalazine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Primaquine, Pamaquine, Pentaquine, Mepacrine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimycobacterials</div><div class="g6pd-drug">Dapsone, Para-aminosalicylic acid</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antineoplastics</div><div class="g6pd-drug">Doxorubicin, Rasburicase</div></div><div class="g6pd-grp"><div class="g6pd-gn">Other</div><div class="g6pd-drug">Methylene blue, Phenylhydrazine, Phenazopyridine</div></div></div></div><div class="g6pd-col"><div class="g6pd-ch pos">🟡 Possible Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Analgesics</div><div class="g6pd-drug">Aspirin, Paracetamol, Phenylbutazone</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihistamines</div><div class="g6pd-drug">Diphenhydramine, Antazoline, Tripelennamine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihypertensives</div><div class="g6pd-drug">Hydralazine, Methyldopa</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Chloroquine, Proguanil, Pyrimethamine, Quinidine, Quinine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Cardiovascular</div><div class="g6pd-drug">Procainamide, Quinidine, Dopamine (L-dopa)</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antidiabetics</div><div class="g6pd-drug">Glibenclamide</div></div><div class="g6pd-grp"><div class="g6pd-gn">Anticonvulsants</div><div class="g6pd-drug">Phenytoin</div></div><div class="g6pd-grp"><div class="g6pd-gn">Food / Environmental</div><div class="g6pd-drug">Fava beans, Naphthalene (mothballs), Berberine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Vitamins</div><div class="g6pd-drug">Ascorbic Acid (Vit C — rare), Vitamin K substances</div></div></div></div></div><p style="font-size:11px;color:var(--muted);margin-top:8px">Source: MIMS Summary Table · Refer to www.g6pd.org for further information</p>';
+}
+
+// ── SHOW CATEGORY ─────────────────────────────────────────────
+function showCat(catKey){
+  var cat = cats[catKey];
+  if(!cat) return;
+  document.querySelectorAll('.nav-item').forEach(function(n){
+    n.classList.toggle('active', n.getAttribute('data-cat')===catKey);
+  });
+  document.getElementById('welcomeScreen').style.display='none';
+  document.getElementById('searchResults').style.display='none';
+  var inp = document.getElementById('searchInput');
+  inp.value='';
+  toggleClear(false);
+  document.getElementById('searchKbd').style.display='';
+  var content = document.getElementById('catContent');
+  content.style.display='block';
+  var html = '<div class="cat-hdr"><div class="cat-icon" style="background:'+cat.color+'22">'+cat.icon+'</div><div><div class="cat-title">'+cat.title+'</div><div class="cat-sub">ASMH Drug Handbook · Compiled by Dr. Anoof</div></div></div>'+LEGEND;
+  if(cat.isG6PD){
+    html += renderG6PD();
+  } else if(cat.isTable){
+    html += renderABX(cat);
+  } else if(cat.isPaed){
+    cat.sections.forEach(function(s){
+      html += '<div class="sec-head">'+s.name+'</div><div class="paed-grid">';
+      s.drugs.forEach(function(drug){ html += renderPaedCard(drug); });
+      html += '</div>';
+    });
+  } else {
+    cat.sections.forEach(function(s){
+      html += '<div class="sec-head">'+s.name+'</div><div class="drug-grid">';
+      s.drugs.forEach(function(drug){ html += renderCard(drug); });
+      html += '</div>';
+    });
+  }
+  content.innerHTML = html;
+  document.getElementById('mainContent').scrollTop = 0;
+  // close mobile sidebar
+  closeSidebar();
+}
+
+// ── THEME TOGGLE ──────────────────────────────────────────────
+var isDark = true;
+var themeBtn = document.getElementById('themeBtn');
+themeBtn.addEventListener('click', function(){
+  isDark = !isDark;
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  themeBtn.textContent = isDark ? '🌙' : '☀️';
+  themeBtn.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+});
+
+// ── MOBILE SIDEBAR ────────────────────────────────────────────
+var sidebar = document.getElementById('sidebar');
+var overlay = document.getElementById('sidebarOverlay');
+var menuBtn = document.getElementById('menuBtn');
+function closeSidebar(){
+  sidebar.classList.remove('open');
+  overlay.classList.remove('open');
+}
+menuBtn.addEventListener('click', function(){
+  var open = sidebar.classList.toggle('open');
+  overlay.classList.toggle('open', open);
+});
+overlay.addEventListener('click', closeSidebar);
+
+// ── NAV & QUICK PILLS ─────────────────────────────────────────
+document.querySelectorAll('.nav-item').forEach(function(btn){
+  btn.addEventListener('click', function(){ showCat(this.getAttribute('data-cat')); });
+});
+document.querySelectorAll('.qpill').forEach(function(p){
+  p.addEventListener('click', function(){ showCat(this.getAttribute('data-cat')); });
+});
+
+// ── FILTER CHIPS ──────────────────────────────────────────────
+document.querySelectorAll('.chip').forEach(function(c){
+  c.addEventListener('click', function(){
+    document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});
+    this.classList.add('active');
+  });
+});
+
+// ── SEARCH ────────────────────────────────────────────────────
+var si = document.getElementById('searchInput');
+var sr = document.getElementById('searchResults');
+var sl = document.getElementById('searchList');
+var mc = document.getElementById('mainContent');
+var searchKbd = document.getElementById('searchKbd');
+var clearBtn = document.getElementById('searchClear');
+var srLabel = document.getElementById('srLabel');
+
+function toggleClear(show){
+  clearBtn.classList.toggle('visible', show);
+  searchKbd.style.display = show ? 'none' : '';
+}
+
+function hl(text, q){
+  if(!q||!text) return text||'';
+  var re = new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  return text.replace(re,'<mark>$1</mark>');
+}
+
+si.addEventListener('input', function(){
+  var q = this.value.trim();
+  toggleClear(q.length > 0);
+  if(!q){ sr.style.display='none'; mc.style.display=''; return; }
+  var ql = q.toLowerCase();
+  mc.style.display='none'; sr.style.display='block';
+  var res = drugDB.filter(function(d){
+    return (d.name||'').toLowerCase().indexOf(ql)>=0||(d.dose||'').toLowerCase().indexOf(ql)>=0||
+           (d.cat||'').toLowerCase().indexOf(ql)>=0||d.tags.some(function(t){return t.toLowerCase().indexOf(ql)>=0;});
+  }).slice(0,50);
+  srLabel.textContent = res.length + ' result' + (res.length!==1?'s':'') + ' for "' + q + '"';
+  if(!res.length){
+    sl.innerHTML='<div class="no-results"><div class="nr-icon">🔍</div><p>No results found</p><span>Try a different drug name, class, or condition</span></div>';
+    return;
+  }
+  sl.innerHTML = res.map(function(r){
+    return '<div class="result-item" onclick="goToCat(\''+r.catKey+'\')"><div class="result-cat-badge">'+r.cat+'</div><div><div class="result-name">'+hl(r.name,q)+'</div><div class="result-dose">'+hl((r.dose||'').split('\n')[0],q)+'</div></div></div>';
+  }).join('');
+});
+
+clearBtn.addEventListener('click', function(){
+  si.value=''; si.dispatchEvent(new Event('input')); si.focus();
+});
+
+function goToCat(key){
+  sr.style.display='none'; mc.style.display='';
+  si.value=''; toggleClear(false);
+  showCat(key);
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key==='/' && document.activeElement!==si){ e.preventDefault(); si.focus(); }
+  if(e.key==='Escape'){
+    if(si.value){ si.value=''; si.dispatchEvent(new Event('input')); si.blur(); }
+    else { closeSidebar(); }
+  }
+});
+</script>
+
+<script id="asmh-enhancements">
+(function(){
+  // 1. Title & Favicon
+  document.title='Dr. ASMH Drug Reference Portal';
+  var fav=document.querySelector('link[rel*="icon"]')||document.createElement('link');
+  fav.rel='icon';fav.href='https://asmh.gov.mv/apple-touch-icon.png';document.head.appendChild(fav);
+
+  // 2. Brand styles
+  var st=document.createElement('style');
+  st.textContent='.logo-badge{background:transparent!important;box-shadow:none!important;}.chip.active,.chip:focus{background:#1a5f7a!important;color:#fff!important;border-color:#1a5f7a!important;}.chip:hover{border-color:#1a5f7a!important;color:#1a5f7a!important;}#notesNavBtn.active{background:#e0f2fe!important;color:#1a5f7a!important;}';
+  document.head.appendChild(st);
+
+  // 3. Text replacer
+  function rt(node,s,r){if(node.nodeType===3){if(node.nodeValue.includes(s))node.nodeValue=node.nodeValue.split(s).join(r);}else node.childNodes.forEach(function(c){rt(c,s,r);});}
+
+  // 4. MutationObserver for dynamic content
+  var obs=new MutationObserver(function(){
+    rt(document.body,'IGMH Drug Handbook','ASMH Drug Handbook');
+    rt(document.body,'IGMH','ASMH');
+    rt(document.body,'Neal Saeed','Dr. Anoof');
+  });
+
+  // 5. Apply ASMH logo to header
+  function applyLogo(){
+    var b=document.querySelector('.logo-badge');
+    var t=document.querySelector('.logo-text');
+    var s=document.querySelector('.logo-sub');
+    if(b&&!b.dataset.asmh){
+      b.dataset.asmh='1';b.innerHTML='';
+      b.style.cssText='background:transparent;padding:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center;';
+      var img=document.createElement('img');
+      img.src='https://asmh.gov.mv/storage/images/logos/asmh_logo2.svg?v=1781553113';
+      img.alt='ASMH';img.style.cssText='width:44px;height:44px;object-fit:contain;';
+      b.appendChild(img);
+    }
+    if(t)t.textContent='Dr. ASMH Drug Portal';
+    if(s)s.textContent='Dr. Abdul Samad Memorial Hospital';
+  }
+
+  // 6. Welcome screen redesign
+  function buildWelcome(){
+    var w=document.querySelector('#welcomeScreen');
+    if(!w||w.dataset.asmh)return;
+    w.dataset.asmh='1';
+    w.innerHTML='<div style="text-align:center;margin-bottom:32px;">'
+      +'<img src="https://asmh.gov.mv/storage/images/logos/asmh_logo.svg" alt="ASMH" style="width:90px;height:90px;object-fit:contain;margin-bottom:14px;filter:drop-shadow(0 2px 8px rgba(26,95,122,0.15));">'
+      +'<h1 style="font-size:1.85rem;font-weight:800;margin:0 0 6px;color:var(--text,#1e293b);">ASMH Drug Reference</h1>'
+      +'<p style="color:#64748b;font-size:0.95rem;margin:0 0 4px;">Dr. Abdul Samad Memorial Hospital</p>'
+      +'<p style="color:#94a3b8;font-size:0.85rem;margin:0;">Your quick-access clinical pharmacology guide</p>'
+      +'</div>'
+      +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:640px;margin:0 auto 32px;">'
+        +'<div style="background:#e6f4f8;border:1.5px solid #a8d5e2;border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;" onclick="document.querySelector('[data-filter=adults]').click()">'
+          +'<div style="font-size:28px;margin-bottom:6px;">&#x1F9D1;&#x200D;&#x2695;&#xFE0F;</div>'
+          +'<div style="font-weight:700;font-size:0.9rem;color:#1a5f7a;">Adults</div>'
+          +'<div style="font-size:0.75rem;color:#64748b;margin-top:3px;">OPD Drugs</div>'
+        +'</div>'
+        +'<div style="background:#e6f8f0;border:1.5px solid #a8e2c8;border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;" onclick="document.querySelector('[data-filter=paeds]').click()">'
+          +'<div style="font-size:28px;margin-bottom:6px;">&#x1F476;</div>'
+          +'<div style="font-weight:700;font-size:0.9rem;color:#1a7a50;">Paeds</div>'
+          +'<div style="font-size:0.75rem;color:#64748b;margin-top:3px;">Paediatric Doses</div>'
+        +'</div>'
+        +'<div style="background:#f0e6f8;border:1.5px solid #d0a8e2;border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;" onclick="document.querySelector('[data-filter=pregnancy]').click()">'
+          +'<div style="font-size:28px;margin-bottom:6px;">&#x1F930;</div>'
+          +'<div style="font-weight:700;font-size:0.9rem;color:#5f1a7a;">Pregnancy</div>'
+          +'<div style="font-size:0.75rem;color:#64748b;margin-top:3px;">Safe Drug Use</div>'
+        +'</div>'
+      +'</div>'
+      +'<div style="max-width:640px;margin:0 auto;">'
+        +'<div style="background:#e8f4f8;border:1.5px solid #a8d5e2;border-radius:14px;padding:16px 20px;display:flex;align-items:flex-start;gap:12px;">'
+          +'<span style="font-size:20px;">&#x1F4A1;</span>'
+          +'<div><div style="font-weight:700;font-size:0.9rem;color:#1a5f7a;margin-bottom:4px;">How to use</div>'
+          +'<div style="font-size:0.84rem;color:#64748b;line-height:1.6;">Use the <strong>search bar</strong> to find any drug, condition, or class. Browse categories from the <strong>sidebar</strong>, or filter by patient group above. Quick Links &amp; Notes are at the bottom of the sidebar.</div></div>'
+        +'</div>'
+      +'</div>';
+  }
+
+  // 7. Sidebar: Quick Links + Notes button
+  function buildSidebar(){
+    var aside=document.querySelector('aside');
+    if(!aside||aside.dataset.asmh)return;
+    aside.dataset.asmh='1';
+    // Quick Links
+    var d1=document.createElement('div');d1.className='nav-divider';
+    var l1=document.createElement('div');l1.className='nav-label';l1.textContent='Quick Links';
+    aside.appendChild(d1);aside.appendChild(l1);
+    [{name:'WebMD',url:'https://www.webmd.com',icon:'&#x1F310;',bg:'#e0e7ff'},
+     {name:'MedCalc',url:'https://www.medcalc.com',icon:'&#x1F9EE;',bg:'#dcfce7'},
+     {name:'Peaddose',url:'https://www.peaddose.com',icon:'&#x1F476;',bg:'#fef9c3'}
+    ].forEach(function(lk){
+      var a=document.createElement('a');
+      a.href=lk.url;a.target='_blank';a.rel='noopener noreferrer';a.className='nav-item';
+      a.style.cssText='display:flex;align-items:center;gap:10px;text-decoration:none;';
+      a.innerHTML='<span style="width:22px;height:22px;border-radius:6px;background:'+lk.bg+';display:inline-flex;align-items:center;justify-content:center;font-size:13px;">'+lk.icon+'</span><span>'+lk.name+'</span>';
+      aside.appendChild(a);
+    });
+    // Notes
+    var d2=document.createElement('div');d2.className='nav-divider';
+    var l2=document.createElement('div');l2.className='nav-label';l2.textContent='Notes';
+    var nb=document.createElement('button');
+    nb.id='notesNavBtn';nb.className='nav-item';
+    nb.style.cssText='display:flex;align-items:center;gap:10px;font-weight:600;width:100%;';
+    nb.innerHTML='<span style="width:22px;height:22px;border-radius:6px;background:#e0f2fe;display:inline-flex;align-items:center;justify-content:center;font-size:13px;">&#x1F4DD;</span><span>My Notes</span>';
+    aside.appendChild(d2);aside.appendChild(l2);aside.appendChild(nb);
+    nb.addEventListener('click',function(){showPanel('notes');});
+  }
+
+  // 8. Notes panel
+  function buildNotesPanel(){
+    var mc=document.querySelector('main');
+    if(!mc||document.querySelector('#notesPanel'))return;
+    if(!localStorage.getItem('asmh_notes')){
+      localStorage.setItem('asmh_notes',JSON.stringify([
+        {id:1,title:'Prescription Template',content:'Patient Name:\nAge:\nDiagnosis:\n\nRx:\n1. Tab. ___ ___ mg  ___  x ___ days\n2. Tab. ___ ___ mg  ___  x ___ days\n3. Tab. ___ ___ mg  ___  x ___ days\n\nAdvice:\n- Rest & hydration\n- Follow up in ___ days',updated:new Date().toLocaleDateString()},
+        {id:2,title:'Antibiotic Guidelines',content:'URTI:\n- Tab. Amoxicillin 500mg TDS x 5 days\n\nUTI:\n- Tab. Trimethoprim 200mg BD x 7 days\n\nSkin infection:\n- Tab. Flucloxacillin 500mg QID x 7 days',updated:new Date().toLocaleDateString()}
+      ]));
+    }
+    var np=document.createElement('div');np.id='notesPanel';np.style.cssText='display:none;height:100%;overflow:hidden;';
+    np.innerHTML='<div style="display:flex;height:100%;overflow:hidden;">'
+      +'<div id="notesListPane" style="width:240px;min-width:240px;border-right:1.5px solid #e2e8f0;display:flex;flex-direction:column;background:#f8fafc;overflow:hidden;">'
+        +'<div style="padding:16px 14px 10px;border-bottom:1px solid #e2e8f0;">'
+          +'<div style="font-weight:800;font-size:1rem;color:#1a3a4a;margin-bottom:10px;">&#x1F4DD; My Notes</div>'
+          +'<button id="addNoteBtn" style="width:100%;padding:8px 12px;background:#1a5f7a;color:#fff;border:none;border-radius:10px;font-weight:600;font-size:0.82rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;"><span>+</span> New Note</button>'
+        +'</div>'
+        +'<div id="notesList" style="flex:1;overflow-y:auto;padding:8px;"></div>'
+      +'</div>'
+      +'<div id="notesEditorPane" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">'
+        +'<div id="notesEditorEmpty" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#94a3b8;">'
+          +'<div style="font-size:48px;margin-bottom:12px;">&#x1F4C4;</div>'
+          +'<div style="font-weight:600;font-size:1rem;">Select a note or create a new one</div>'
+        +'</div>'
+        +'<div id="notesEditor" style="display:none;flex:1;flex-direction:column;overflow:hidden;">'
+          +'<div style="padding:14px 20px 10px;border-bottom:1.5px solid #e2e8f0;display:flex;align-items:center;gap:10px;">'
+            +'<input id="noteTitleInput" placeholder="Note title..." style="flex:1;font-size:1.05rem;font-weight:700;border:none;outline:none;background:transparent;color:#1a3a4a;padding:4px 0;">'
+            +'<button id="saveNoteBtn" style="padding:7px 18px;background:#1a5f7a;color:#fff;border:none;border-radius:8px;font-weight:600;font-size:0.82rem;cursor:pointer;">Save</button>'
+            +'<button id="deleteNoteBtn" style="padding:7px 14px;background:#fee2e2;color:#dc2626;border:none;border-radius:8px;font-weight:600;font-size:0.82rem;cursor:pointer;">Del</button>'
+          +'</div>'
+          +'<textarea id="noteBodyInput" placeholder="Start typing your note..." style="flex:1;padding:20px;border:none;outline:none;resize:none;font-size:0.92rem;line-height:1.7;font-family:inherit;background:#fff;color:#334155;"></textarea>'
+        +'</div>'
+      +'</div>'
+    +'</div>';
+    mc.appendChild(np);
+    var cId=null;
+    function gN(){return JSON.parse(localStorage.getItem('asmh_notes')||'[]');}
+    function sN(n){localStorage.setItem('asmh_notes',JSON.stringify(n));}
+    function rNL(){
+      var notes=gN(),list=document.querySelector('#notesList');
+      if(!list)return;list.innerHTML='';
+      notes.forEach(function(note){
+        var item=document.createElement('div');
+        item.style.cssText='padding:10px 12px;border-radius:10px;cursor:pointer;margin-bottom:4px;'+(note.id===cId?'background:#e0f2fe;':'');
+        item.innerHTML='<div style="font-weight:600;font-size:0.87rem;color:#1a3a4a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+note.title+'</div><div style="font-size:0.75rem;color:#94a3b8;margin-top:2px;">'+note.updated+'</div>';
+        item.addEventListener('mouseover',function(){if(note.id!==cId)item.style.background='#f1f5f9';});
+        item.addEventListener('mouseout',function(){if(note.id!==cId)item.style.background='';});
+        item.addEventListener('click',function(){oN(note.id);});
+        list.appendChild(item);
+      });
+    }
+    function oN(id){
+      var note=gN().find(function(n){return n.id===id;});
+      if(!note)return;cId=id;
+      document.querySelector('#notesEditorEmpty').style.display='none';
+      document.querySelector('#notesEditor').style.display='flex';
+      document.querySelector('#noteTitleInput').value=note.title;
+      document.querySelector('#noteBodyInput').value=note.content;
+      rNL();
+    }
+    document.querySelector('#addNoteBtn').addEventListener('click',function(){
+      var notes=gN(),nn={id:Date.now(),title:'New Note',content:'',updated:new Date().toLocaleDateString()};
+      notes.unshift(nn);sN(notes);rNL();oN(nn.id);
+    });
+    document.querySelector('#saveNoteBtn').addEventListener('click',function(){
+      if(!cId)return;var notes=gN(),idx=notes.findIndex(function(n){return n.id===cId;});
+      if(idx===-1)return;
+      notes[idx].title=document.querySelector('#noteTitleInput').value||'Untitled';
+      notes[idx].content=document.querySelector('#noteBodyInput').value;
+      notes[idx].updated=new Date().toLocaleDateString();
+      sN(notes);rNL();
+      var btn=document.querySelector('#saveNoteBtn');btn.textContent='Saved!';btn.style.background='#16a34a';
+      setTimeout(function(){btn.textContent='Save';btn.style.background='#1a5f7a';},1500);
+    });
+    document.querySelector('#deleteNoteBtn').addEventListener('click',function(){
+      if(!cId)return;if(!confirm('Delete this note?'))return;
+      sN(gN().filter(function(n){return n.id!==cId;}));cId=null;
+      document.querySelector('#notesEditorEmpty').style.display='flex';
+      document.querySelector('#notesEditor').style.display='none';
+      rNL();
+    });
+    rNL();
+  }
+
+  // 9. Add Medication feature
+  function wrapShowCat(){
+    if(typeof showCat==='undefined'||showCat._w)return;
+    var _o=showCat;
+    window.showCat=function(k){_o.apply(this,arguments);showPanel('cat');setTimeout(function(){injectAddBtn(k);},80);};
+    window.showCat._w=true;
+  }
+  function injectAddBtn(k){
+    var cc=document.querySelector('#catContent');if(!cc)return;
+    var ex=cc.querySelector('#addMedBtn');if(ex)ex.remove();
+    var ch=cc.querySelector('.cat-hdr');if(!ch)return;
+    var btn=document.createElement('button');btn.id='addMedBtn';
+    btn.style.cssText='margin-top:12px;padding:9px 20px;background:#1a5f7a;color:#fff;border:none;border-radius:10px;font-weight:600;font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:8px;';
+    btn.innerHTML='<span style="font-size:16px;">+</span> Add Medication';
+    btn.addEventListener('mouseover',function(){btn.style.background='#155070';});
+    btn.addEventListener('mouseout',function(){btn.style.background='#1a5f7a';});
+    btn.addEventListener('click',function(){showAddMedModal(k);});
+    ch.appendChild(btn);
+  }
+  function showAddMedModal(k){
+    var ex=document.querySelector('#addMedModal');if(ex)ex.remove();
+    var cat=window.cats&&window.cats[k];
+    var secs=cat?cat.sections.map(function(s){return s.name;}):[]; 
+    var modal=document.createElement('div');modal.id='addMedModal';
+    modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    var secsHTML=secs.map(function(s,i){return'<option value="'+i+'">'+s+'</option>';}).join('');
+    modal.innerHTML='<div style="background:#fff;border-radius:18px;width:100%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,0.2);overflow:hidden;">'
+      +'<div style="background:#1a5f7a;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;">'
+        +'<div style="color:#fff;font-weight:700;font-size:1.05rem;">+ Add New Medication</div>'
+        +'<button onclick="document.querySelector('#addMedModal').remove()" style="background:rgba(255,255,255,0.2);border:none;color:#fff;border-radius:8px;width:30px;height:30px;cursor:pointer;">X</button>'
+      +'</div>'
+      +'<div style="padding:22px;">'
+        +'<div style="margin-bottom:14px;"><label style="display:block;font-size:0.82rem;font-weight:600;color:#475569;margin-bottom:5px;">Medication Name *</label>'
+        +'<input id="newMedName" placeholder="e.g. Tab. Amoxicillin 500 mg" style="width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.9rem;outline:none;box-sizing:border-box;"></div>'
+        +'<div style="margin-bottom:14px;"><label style="display:block;font-size:0.82rem;font-weight:600;color:#475569;margin-bottom:5px;">Dose / Frequency *</label>'
+        +'<input id="newMedDose" placeholder="e.g. BD x 7 days (AF)" style="width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.9rem;outline:none;box-sizing:border-box;"></div>'
+        +'<div style="margin-bottom:14px;"><label style="display:block;font-size:0.82rem;font-weight:600;color:#475569;margin-bottom:5px;">Tags (comma-separated)</label>'
+        +'<input id="newMedTags" placeholder="e.g. PO, NSAID, OTC" style="width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.9rem;outline:none;box-sizing:border-box;"></div>'
+        +'<div style="margin-bottom:20px;"><label style="display:block;font-size:0.82rem;font-weight:600;color:#475569;margin-bottom:5px;">Add to Section</label>'
+        +'<select id="newMedSection" style="width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.9rem;outline:none;box-sizing:border-box;background:#fff;">'+secsHTML+'<option value="new">+ Create New Section</option></select></div>'
+        +'<div id="newSectionNameWrap" style="margin-bottom:20px;display:none;"><label style="display:block;font-size:0.82rem;font-weight:600;color:#475569;margin-bottom:5px;">New Section Name</label>'
+        +'<input id="newSectionName" placeholder="e.g. Topical Agents" style="width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.9rem;outline:none;box-sizing:border-box;"></div>'
+        +'<div style="display:flex;gap:10px;">'
+          +'<button onclick="document.querySelector('#addMedModal').remove()" style="flex:1;padding:11px;border:1.5px solid #e2e8f0;background:#f8fafc;border-radius:10px;font-weight:600;font-size:0.88rem;cursor:pointer;color:#64748b;">Cancel</button>'
+          +'<button id="confirmAddMedBtn" style="flex:2;padding:11px;background:#1a5f7a;color:#fff;border:none;border-radius:10px;font-weight:600;font-size:0.88rem;cursor:pointer;">Add Medication</button>'
+        +'</div>'
+      +'</div></div>';
+    document.body.appendChild(modal);
+    document.querySelector('#newMedSection').addEventListener('change',function(){document.querySelector('#newSectionNameWrap').style.display=this.value==='new'?'block':'none';});
+    modal.addEventListener('click',function(e){if(e.target===modal)modal.remove();});
+    document.querySelector('#confirmAddMedBtn').addEventListener('click',function(){
+      var name=document.querySelector('#newMedName').value.trim();
+      var dose=document.querySelector('#newMedDose').value.trim();
+      var tags=(document.querySelector('#newMedTags').value||'').split(',').map(function(t){return t.trim();}).filter(Boolean);
+      var sv=document.querySelector('#newMedSection').value;
+      if(!name||!dose){alert('Please fill in medication name and dose.');return;}
+      var nd={n:name,d:dose,t:tags};
+      var cat=window.cats&&window.cats[k];
+      if(sv==='new'){cat.sections.push({name:(document.querySelector('#newSectionName').value||'Other').trim(),drugs:[nd]});}
+      else{cat.sections[parseInt(sv)].drugs.push(nd);}
+      modal.remove();window.showCat(k);
+      var toast=document.createElement('div');toast.style.cssText='position:fixed;bottom:24px;right:24px;background:#1a5f7a;color:#fff;padding:12px 22px;border-radius:12px;font-weight:600;z-index:9999;';
+      toast.textContent='Medication added!';document.body.appendChild(toast);setTimeout(function(){toast.remove();},2500);
+    });
+  }
+
+  // 10. Panel switcher
+  function showPanel(w){
+    var wel=document.querySelector('#welcomeScreen');
+    var cat=document.querySelector('#catContent');
+    var np=document.querySelector('#notesPanel');
+    if(wel)wel.style.display=(w==='welcome')?'':'none';
+    if(cat)cat.style.display=(w==='cat')?'':'none';
+    if(np)np.style.display=(w==='notes')?'flex':'none';
+    if(w==='notes'){
+      document.querySelectorAll('.nav-item').forEach(function(b){b.classList.remove('active');});
+      var nb=document.querySelector('#notesNavBtn');if(nb)nb.classList.add('active');
+    }
+  }
+
+  // 11. Init
+  function init(){
+    applyLogo();buildWelcome();buildSidebar();buildNotesPanel();wrapShowCat();
+    rt(document.body,'IGMH Drug Handbook','ASMH Drug Handbook');
+    rt(document.body,'IGMH','ASMH');
+    rt(document.body,'Neal Saeed','Dr. Anoof');
+    var cc=document.querySelector('#catContent')||document.body;
+    obs.observe(cc,{childList:true,subtree:true});
+    document.querySelectorAll('.nav-item[data-cat]').forEach(function(btn){
+      btn.addEventListener('click',function(){var np=document.querySelector('#notesPanel');if(np)np.style.display='none';});
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
+})();
+</script>
+</body>
+</html>
