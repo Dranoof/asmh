@@ -601,7 +601,7 @@ mark { background: rgba(59,130,246,0.25); color: var(--accent2); border-radius: 
 </div>
 
 <script>
-// ── DATA ─────────────────────────────────────────────────────
+// -- DATA -----------------------------------------------------
 var cats = {
   pain: { title:'Pain, Fever & Inflammation', icon:'\uD83D\uDD25', color:'#f43f5e',
     sections:[
@@ -1156,7 +1156,7 @@ var cats = {
   g6pd: { title:'G6PD Drug Guide', icon:'\u26A0\uFE0F', color:'#fbbf24', isG6PD:true }
 };
 
-// ── DRUG DATABASE ─────────────────────────────────────────────
+// -- DRUG DATABASE ---------------------------------------------
 var drugDB = [];
 (function(){
   for(var k in cats){
@@ -1178,7 +1178,7 @@ var drugDB = [];
   }
 })();
 
-// ── PILL COLOURS ─────────────────────────────────────────────
+// -- PILL COLOURS ---------------------------------------------
 function tc(tag){
   var t=tag.toLowerCase();
   if(['iv','im','inj','sc','pr','neb'].some(function(x){return t.indexOf(x)>=0;})) return 'pr';
@@ -1191,7 +1191,7 @@ function tc(tag){
   return 'pm';
 }
 
-// ── RENDERERS ─────────────────────────────────────────────────
+// -- RENDERERS -------------------------------------------------
 var LEGEND = '<div class="legend"><div class="li"><span class="lk">OD</span><span class="lv">Once daily</span></div><div class="li"><span class="lk">BD</span><span class="lv">Twice daily</span></div><div class="li"><span class="lk">TDS</span><span class="lv">Three times</span></div><div class="li"><span class="lk">QID</span><span class="lv">Four times</span></div><div class="li"><span class="lk">HS</span><span class="lv">At bedtime</span></div><div class="li"><span class="lk">AF / BF</span><span class="lv">After / Before food</span></div><div class="li"><span class="lk">SOS</span><span class="lv">When required</span></div><div class="li"><span class="lk">LA</span><span class="lv">Local application</span></div></div>';
 
 function renderCard(drug){
@@ -1220,7 +1220,7 @@ function renderG6PD(){
   return '<div class="emerg-banner">\u26A0\uFE0F The following drugs carry risk of haemolysis in G6PD-deficient patients. Always check before prescribing.</div><div class="g6pd-grid"><div class="g6pd-col"><div class="g6pd-ch def">\uD83D\uDD34 Definite Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Antibacterials</div><div class="g6pd-drug">Nitrofurantoin, Nitrofurazone</div><div class="g6pd-drug">Ciprofloxacin, Moxifloxacin, Nalidixic acid, Norfloxacin, Ofloxacin</div><div class="g6pd-drug">Chloramphenicol</div><div class="g6pd-drug">Sulfonamides: Co-trimoxazole, Sulfadiazine, Sulfamethoxazole, Sulfasalazine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Primaquine, Pamaquine, Pentaquine, Mepacrine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimycobacterials</div><div class="g6pd-drug">Dapsone, Para-aminosalicylic acid</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antineoplastics</div><div class="g6pd-drug">Doxorubicin, Rasburicase</div></div><div class="g6pd-grp"><div class="g6pd-gn">Other</div><div class="g6pd-drug">Methylene blue, Phenylhydrazine, Phenazopyridine</div></div></div></div><div class="g6pd-col"><div class="g6pd-ch pos">\uD83D\uDFE1 Possible Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Analgesics</div><div class="g6pd-drug">Aspirin, Paracetamol, Phenylbutazone</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihistamines</div><div class="g6pd-drug">Diphenhydramine, Antazoline, Tripelennamine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihypertensives</div><div class="g6pd-drug">Hydralazine, Methyldopa</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Chloroquine, Proguanil, Pyrimethamine, Quinidine, Quinine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Cardiovascular</div><div class="g6pd-drug">Procainamide, Quinidine, Dopamine (L-dopa)</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antidiabetics</div><div class="g6pd-drug">Glibenclamide</div></div><div class="g6pd-grp"><div class="g6pd-gn">Anticonvulsants</div><div class="g6pd-drug">Phenytoin</div></div><div class="g6pd-grp"><div class="g6pd-gn">Food / Environmental</div><div class="g6pd-drug">Fava beans, Naphthalene (mothballs), Berberine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Vitamins</div><div class="g6pd-drug">Ascorbic Acid (Vit C \u2014 rare), Vitamin K substances</div></div></div></div></div><p style="font-size:11px;color:var(--muted);margin-top:8px">Source: MIMS Summary Table \u00B7 Refer to www.g6pd.org for further information</p>';
 }
 
-// ── SHOW CATEGORY ─────────────────────────────────────────────
+// -- SHOW CATEGORY ---------------------------------------------
 function showCat(catKey){
   var cat = cats[catKey];
   if(!cat) return;
@@ -1259,7 +1259,7 @@ function showCat(catKey){
   closeSidebar();
 }
 
-// ── THEME TOGGLE ──────────────────────────────────────────────
+// -- THEME TOGGLE ----------------------------------------------
 var isDark = true;
 var themeBtn = document.getElementById('themeBtn');
 themeBtn.addEventListener('click', function(){
@@ -1269,7 +1269,7 @@ themeBtn.addEventListener('click', function(){
   themeBtn.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
 });
 
-// ── MOBILE SIDEBAR ────────────────────────────────────────────
+// -- MOBILE SIDEBAR --------------------------------------------
 var sidebar = document.getElementById('sidebar');
 var overlay = document.getElementById('sidebarOverlay');
 var menuBtn = document.getElementById('menuBtn');
@@ -1283,7 +1283,7 @@ menuBtn.addEventListener('click', function(){
 });
 overlay.addEventListener('click', closeSidebar);
 
-// ── NAV & QUICK PILLS ─────────────────────────────────────────
+// -- NAV & QUICK PILLS -----------------------------------------
 document.querySelectorAll('.nav-item').forEach(function(btn){
   btn.addEventListener('click', function(){ showCat(this.getAttribute('data-cat')); });
 });
@@ -1291,7 +1291,7 @@ document.querySelectorAll('.qpill').forEach(function(p){
   p.addEventListener('click', function(){ showCat(this.getAttribute('data-cat')); });
 });
 
-// ── FILTER CHIPS ──────────────────────────────────────────────
+// -- FILTER CHIPS ----------------------------------------------
 document.querySelectorAll('.chip').forEach(function(c){
   c.addEventListener('click', function(){
     document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});
@@ -1299,7 +1299,7 @@ document.querySelectorAll('.chip').forEach(function(c){
   });
 });
 
-// ── SEARCH ────────────────────────────────────────────────────
+// -- SEARCH ----------------------------------------------------
 var si = document.getElementById('searchInput');
 var sr = document.getElementById('searchResults');
 var sl = document.getElementById('searchList');
@@ -1643,7 +1643,7 @@ document.addEventListener('keydown', function(e){
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();
 
-// ── FILES LIBRARY ───────────────────────────────────────────────────
+// -- FILES LIBRARY ---------------------------------------------------
 var filesLibData = {
   'national-guidelines': {
     title: 'National Guidelines',
