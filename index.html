@@ -603,7 +603,7 @@ mark { background: rgba(59,130,246,0.25); color: var(--accent2); border-radius: 
 <script>
 // ── DATA ─────────────────────────────────────────────────────
 var cats = {
-  pain: { title:'Pain, Fever & Inflammation', icon:'&#x1F525;', color:'#f43f5e',
+  pain: { title:'Pain, Fever & Inflammation', icon:'\uD83D\uDD25', color:'#f43f5e',
     sections:[
       { name:'Fever / Pain \u2014 Oral', drugs:[
         {n:'Tab. Paracetamol 500 mg', d:'QID / TDS', t:['PO','OTC']},
@@ -647,7 +647,7 @@ var cats = {
       ]}
     ]
   },
-  respiratory: { title:'Respiratory', icon:'&#x1FAC1;', color:'#3b82f6',
+  respiratory: { title:'Respiratory', icon:'\uD83E\uDEC1', color:'#3b82f6',
     sections:[
       { name:'Antihistamines \u2014 Allergic Rhinitis', drugs:[
         {n:'Tab. Fexofenadine 180 mg', d:'HS \u00D7 10 days', t:['PO','2nd gen']},
@@ -694,7 +694,7 @@ var cats = {
       ]}
     ]
   },
-  cardiovascular: { title:'Cardiovascular', icon:'&#x2764;&#xFE0F;', color:'#f59e0b',
+  cardiovascular: { title:'Cardiovascular', icon:'\u2764\uFE0F', color:'#f59e0b',
     sections:[
       { name:'Hypertension \u2014 Calcium Channel Blockers', drugs:[
         {n:'Tab. Amlodipine 5 mg', d:'1 tab OD/BD \u00D7 3 months', t:['PO','CCB']},
@@ -742,7 +742,7 @@ var cats = {
       ]}
     ]
   },
-  gi: { title:'Gastrointestinal', icon:'&#x1FAC0;', color:'#14b8a6',
+  gi: { title:'Gastrointestinal', icon:'\uD83E\uDEC0', color:'#14b8a6',
     sections:[
       { name:'Gastritis / GERD', drugs:[
         {n:'Tab. Pantoprazole 20 mg', d:'BD (20 min before food) \u00D7 5 days', t:['PO','PPI']},
@@ -783,7 +783,7 @@ var cats = {
       ]}
     ]
   },
-  endo: { title:'Endocrine', icon:'&#x1FA7A;', color:'#8b5cf6',
+  endo: { title:'Endocrine', icon:'\uD83E\uDE7A', color:'#8b5cf6',
     sections:[
       { name:'Diabetes \u2014 Biguanide', drugs:[
         {n:'Tab. Metformin HCL 500 mg', d:'1 tab HS/BD/TDS (AF) \u00D7 3 months', t:['PO','Biguanide']},
@@ -821,7 +821,7 @@ var cats = {
       ]}
     ]
   },
-  derm: { title:'Dermatology', icon:'&#x1FA79;', color:'#ec4899',
+  derm: { title:'Dermatology', icon:'\uD83E\uDE79', color:'#ec4899',
     sections:[
       { name:'Itchy / Dry Skin', drugs:[
         {n:'Disuf B Cream (Fusidic Acid 2% + Betamethasone 0.1%)', d:'Apply BD \u00D7 5 days', t:['Topical','Steroid'], tp:'topical'},
@@ -848,12 +848,12 @@ var cats = {
       ]}
     ]
   },
-  eyes: { title:'Eyes & ENT', icon:'&#x1F441;️', color:'#06b6d4',
+  eyes: { title:'Eyes & ENT', icon:'\uD83D\uDC41️', color:'#06b6d4',
     sections:[
       { name:'Eye \u2014 Pain & Inflammation', drugs:[
         {n:'Nepafenac 1 mg/mL', d:'1 drop QID \u00D7 5 days \u2192 BD \u00D7 5 days', t:['Eye Drop','NSAID'], tp:'topical'},
         {n:'Fluorometholone', d:'1 gtt QID \u00D7 15 days \u2192 BD \u00D7 15 days', t:['Eye Drop','Steroid'], tp:'topical'},
-        {n:'Naphazoline Eye Drops', d:'1 drop TDS in both eyes \u00D7 2 weeks \u2014 &#x26A0;&#xFE0F; CAUTION GLAUCOMA', t:['Eye Drop'], tp:'topical'}
+        {n:'Naphazoline Eye Drops', d:'1 drop TDS in both eyes \u00D7 2 weeks \u2014 \u26A0\uFE0F CAUTION GLAUCOMA', t:['Eye Drop'], tp:'topical'}
       ]},
       { name:'Eye \u2014 Allergic / Conjunctivitis', drugs:[
         {n:'Olopatadine 0.1%', d:'1\u20132 drops TDS \u00D7 1 month', t:['Eye Drop','Antihistamine'], tp:'topical'},
@@ -882,7 +882,7 @@ var cats = {
       ]}
     ]
   },
-  psych: { title:'Psychiatry & Neurology', icon:'&#x1F9E0;', color:'#a855f7',
+  psych: { title:'Psychiatry & Neurology', icon:'\uD83E\uDDE0', color:'#a855f7',
     sections:[
       { name:'Antidepressants \u2014 SSRIs', drugs:[
         {n:'Tab. Fluoxetine (Fludac) 20 mg', d:'1 cap HS \u00D7 3 months', t:['PO','SSRI']},
@@ -926,7 +926,7 @@ var cats = {
       ]}
     ]
   },
-  antibiotics: { title:'Antibiotics', icon:'&#x1F48A;', color:'#22c55e', isTable:true,
+  antibiotics: { title:'Antibiotics', icon:'\uD83D\uDC8A', color:'#22c55e', isTable:true,
     abxData:[
       {nm:'Cefo-L (Cefixime + Lactobacillus)', d:'PO: 200 mg BD \u00D7 5d\nIV: 1.2 g QID/TDS', inds:['UTI','URTI/LRTI','Otitis Media','Diarrhoea (Kids)'], cls:'Cephalosporin (Beta-Lactam)'},
       {nm:'Augmentin (Amoxicillin + Clavulanate)', d:'PO: 625 mg BD/TDS \u00D7 5\u20137d\nIV: 1.2 g QID/TDS', inds:['Skin & Suture','Cellulitis','Otitis Media','UTI','URTI/LRTI'], cls:'Penicillin'},
@@ -943,7 +943,7 @@ var cats = {
       {nm:'Dicloxacillin 125\u2013500 mg', d:'PO: QID', inds:['Skin infections (Impetigo/Cellulitis/Boils)','Osteomyelitis','Septic arthritis'], cls:'Beta-Lactam Penicillin'}
     ]
   },
-  antifungal: { title:'Antifungal / Antiviral', icon:'&#x1F344;', color:'#f97316',
+  antifungal: { title:'Antifungal / Antiviral', icon:'\uD83C\uDF44', color:'#f97316',
     sections:[
       { name:'Systemic Antifungals', drugs:[
         {n:'Tab. Griseofulvin 500 mg', d:'OD or 250 mg BD \u00D7 2\u20138 wk (skin/scalp)\nBD \u00D7 6 months (fingernail)\nBD \u00D7 >12 months (toenail)', t:['PO','Tinea']},
@@ -968,7 +968,7 @@ var cats = {
       ]}
     ]
   },
-  vitamins: { title:'Vitamins, Bones & Misc', icon:'&#x1F48E;', color:'#eab308',
+  vitamins: { title:'Vitamins, Bones & Misc', icon:'\uD83D\uDC8E', color:'#eab308',
     sections:[
       { name:'Vitamins', drugs:[
         {n:'Tab. Ascorbic Acid 1000 mg', d:'Morning \u00D7 2 weeks', t:['PO','Vit C']},
@@ -996,12 +996,12 @@ var cats = {
       ]}
     ]
   },
-  'paed-opd': { title:'Paediatrics \u2014 OPD', icon:'&#x1F476;', color:'#60a5fa', isPaed:true,
+  'paed-opd': { title:'Paediatrics \u2014 OPD', icon:'\uD83D\uDC76', color:'#60a5fa', isPaed:true,
     sections:[
       { name:'Pain / Fever', drugs:[
-        {n:'Paracetamol', doses:[{a:'PO',v:'15 mg/kg q4\u20136h'},{a:'PR',v:'15 mg/kg'},{a:'IM',v:'5 mg/kg'},{a:'&#x26A0;&#xFE0F; CI',v:'Hepatic impairment, Nephropathy'}]},
-        {n:'Ibuprofen', doses:[{a:'PO',v:'5\u201310 mg/kg q6\u20138h'},{a:'&#x26A0;&#xFE0F; CI',v:'NSAID allergy, PUD, GI bleeding'}]},
-        {n:'Mefenamic Acid', doses:[{a:'PO',v:'5\u201310 mg/kg/dose'},{a:'&#x26A0;&#xFE0F; CI',v:'GI inflammation, PUD, Aspirin allergy, Seizures'}]}
+        {n:'Paracetamol', doses:[{a:'PO',v:'15 mg/kg q4\u20136h'},{a:'PR',v:'15 mg/kg'},{a:'IM',v:'5 mg/kg'},{a:'\u26A0\uFE0F CI',v:'Hepatic impairment, Nephropathy'}]},
+        {n:'Ibuprofen', doses:[{a:'PO',v:'5\u201310 mg/kg q6\u20138h'},{a:'\u26A0\uFE0F CI',v:'NSAID allergy, PUD, GI bleeding'}]},
+        {n:'Mefenamic Acid', doses:[{a:'PO',v:'5\u201310 mg/kg/dose'},{a:'\u26A0\uFE0F CI',v:'GI inflammation, PUD, Aspirin allergy, Seizures'}]}
       ]},
       { name:'Antihistamines (Allergic Rhinitis)', drugs:[
         {n:'Cetirizine Dihydrochloride', doses:[{a:'6mo\u20132yr',v:'2.5 mg HS'},{a:'2\u20136yr',v:'2.5 mg BD or 5 mg HS'},{a:'>6yr',v:'5\u201310 mg HS'}]},
@@ -1040,7 +1040,7 @@ var cats = {
       ]}
     ]
   },
-  'paed-acute': { title:'Paediatrics \u2014 Acute', icon:'&#x1F6A8;', color:'#f87171', isPaed:true,
+  'paed-acute': { title:'Paediatrics \u2014 Acute', icon:'\uD83D\uDEA8', color:'#f87171', isPaed:true,
     sections:[
       { name:'Anticonvulsants \u2014 Status Epilepticus', drugs:[
         {n:'Lorazepam', doses:[{a:'Status IV/IM',v:'0.05\u20130.1 mg/kg over 2\u20135 min \u2014 may repeat \u00D7 1 after 10\u201315 min'},{a:'Sedation',v:'0.05 mg/kg q4\u20138h PO/IV/IM'}]},
@@ -1065,13 +1065,13 @@ var cats = {
       ]}
     ]
   },
-  gynae: { title:'Gynaecology', icon:'&#x1F338;', color:'#fb7185',
+  gynae: { title:'Gynaecology', icon:'\uD83C\uDF38', color:'#fb7185',
     sections:[
       { name:'Dysmenorrhoea', drugs:[
         {n:'Tab. Mefenamic Acid 250\u2013500 mg', d:'1 tab BD/TDS \u00D7 3\u20137 days', t:['PO','NSAID']}
       ]},
       { name:'Delaying Menstruation', drugs:[
-        {n:'Tab. Norethisterone (Progesterone) 5 mg', d:'1 pill TDS starting 3 days before period \u00D7 max 20 days\n&#x26A0;&#xFE0F; NOT a contraceptive \u2014 menses returns 2\u20133 days after stopping', t:['PO','Progestin']}
+        {n:'Tab. Norethisterone (Progesterone) 5 mg', d:'1 pill TDS starting 3 days before period \u00D7 max 20 days\n\u26A0\uFE0F NOT a contraceptive \u2014 menses returns 2\u20133 days after stopping', t:['PO','Progestin']}
       ]},
       { name:'Oral Contraceptives', drugs:[
         {n:'Tab. Ovral (Ethinylestradiol + Levonorgestrel)', d:'1 pill OD \u00D7 21 days \u2014 start on 1st day of period at same time daily', t:['PO','Combined OCP']},
@@ -1093,7 +1093,7 @@ var cats = {
       ]}
     ]
   },
-  pregnancy: { title:'Pregnancy \u2014 Safe Drugs', icon:'&#x1F930;', color:'#c084fc',
+  pregnancy: { title:'Pregnancy \u2014 Safe Drugs', icon:'\uD83E\uDD30', color:'#c084fc',
     sections:[
       { name:'Pain', drugs:[
         {n:'Tab. Paracetamol 500 mg', d:'BD/TDS', t:['PO','✅ Safe']}
@@ -1109,7 +1109,7 @@ var cats = {
         {n:'Tab. Metoclopramide 10\u201315 mg', d:'1 tab QID (30 min before meal) \u00D7 4 wk \u2014 max 12 wk', t:['PO']},
         {n:'Tab. Doxylamine + Pyridoxine (10+10 mg)', d:'1 tab TDS \u00D7 3 days (✅ 1st Trimester)', t:['PO']},
         {n:'Tab. Pyridoxine (Vit B6) 25 mg', d:'TDS', t:['PO']},
-        {n:'&#x26A0;&#xFE0F; Ondansetron \u2014 AVOID', d:'Causes Cleft Lip \u2014 use alternatives above', t:['&#x26A0;&#xFE0F; AVOID']}
+        {n:'\u26A0\uFE0F Ondansetron \u2014 AVOID', d:'Causes Cleft Lip \u2014 use alternatives above', t:['\u26A0\uFE0F AVOID']}
       ]},
       { name:'Hypertension (Pregnancy)', drugs:[
         {n:'Tab. Methyldopa (Aldomet) 250 mg', d:'2\u20130\u20132 \u00D7 3 months', t:['PO','✅ 1st line']},
@@ -1126,7 +1126,7 @@ var cats = {
       ]}
     ]
   },
-  lactation: { title:'Lactation \u2014 Safe Drugs', icon:'&#x1F931;', color:'#86efac',
+  lactation: { title:'Lactation \u2014 Safe Drugs', icon:'\uD83E\uDD31', color:'#86efac',
     sections:[
       { name:'Pain', drugs:[
         {n:'Tab. Paracetamol 500 mg', d:'BD/TDS', t:['PO','✅ Safe']}
@@ -1153,7 +1153,7 @@ var cats = {
       ]}
     ]
   },
-  g6pd: { title:'G6PD Drug Guide', icon:'&#x26A0;&#xFE0F;', color:'#fbbf24', isG6PD:true }
+  g6pd: { title:'G6PD Drug Guide', icon:'\u26A0\uFE0F', color:'#fbbf24', isG6PD:true }
 };
 
 // ── DRUG DATABASE ─────────────────────────────────────────────
@@ -1187,7 +1187,7 @@ function tc(tag){
   if(['topical','nasal','eye','ear','vaginal','oral'].some(function(x){return t.indexOf(x)>=0;})) return 'pt';
   if(['ssri','tca','maoi','nri'].some(function(x){return t.indexOf(x)>=0;})) return 'pv';
   if(['✅','safe'].some(function(x){return t.indexOf(x)>=0;})) return 'pg';
-  if(['&#x26A0;&#xFE0F;','avoid','emergency'].some(function(x){return t.indexOf(x)>=0;})) return 'pr';
+  if(['\u26A0\uFE0F','avoid','emergency'].some(function(x){return t.indexOf(x)>=0;})) return 'pr';
   return 'pm';
 }
 
@@ -1217,7 +1217,7 @@ function renderABX(cat){
 }
 
 function renderG6PD(){
-  return '<div class="emerg-banner">&#x26A0;&#xFE0F; The following drugs carry risk of haemolysis in G6PD-deficient patients. Always check before prescribing.</div><div class="g6pd-grid"><div class="g6pd-col"><div class="g6pd-ch def">&#x1F534; Definite Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Antibacterials</div><div class="g6pd-drug">Nitrofurantoin, Nitrofurazone</div><div class="g6pd-drug">Ciprofloxacin, Moxifloxacin, Nalidixic acid, Norfloxacin, Ofloxacin</div><div class="g6pd-drug">Chloramphenicol</div><div class="g6pd-drug">Sulfonamides: Co-trimoxazole, Sulfadiazine, Sulfamethoxazole, Sulfasalazine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Primaquine, Pamaquine, Pentaquine, Mepacrine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimycobacterials</div><div class="g6pd-drug">Dapsone, Para-aminosalicylic acid</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antineoplastics</div><div class="g6pd-drug">Doxorubicin, Rasburicase</div></div><div class="g6pd-grp"><div class="g6pd-gn">Other</div><div class="g6pd-drug">Methylene blue, Phenylhydrazine, Phenazopyridine</div></div></div></div><div class="g6pd-col"><div class="g6pd-ch pos">&#x1F7E1; Possible Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Analgesics</div><div class="g6pd-drug">Aspirin, Paracetamol, Phenylbutazone</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihistamines</div><div class="g6pd-drug">Diphenhydramine, Antazoline, Tripelennamine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihypertensives</div><div class="g6pd-drug">Hydralazine, Methyldopa</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Chloroquine, Proguanil, Pyrimethamine, Quinidine, Quinine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Cardiovascular</div><div class="g6pd-drug">Procainamide, Quinidine, Dopamine (L-dopa)</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antidiabetics</div><div class="g6pd-drug">Glibenclamide</div></div><div class="g6pd-grp"><div class="g6pd-gn">Anticonvulsants</div><div class="g6pd-drug">Phenytoin</div></div><div class="g6pd-grp"><div class="g6pd-gn">Food / Environmental</div><div class="g6pd-drug">Fava beans, Naphthalene (mothballs), Berberine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Vitamins</div><div class="g6pd-drug">Ascorbic Acid (Vit C \u2014 rare), Vitamin K substances</div></div></div></div></div><p style="font-size:11px;color:var(--muted);margin-top:8px">Source: MIMS Summary Table \u00B7 Refer to www.g6pd.org for further information</p>';
+  return '<div class="emerg-banner">\u26A0\uFE0F The following drugs carry risk of haemolysis in G6PD-deficient patients. Always check before prescribing.</div><div class="g6pd-grid"><div class="g6pd-col"><div class="g6pd-ch def">\uD83D\uDD34 Definite Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Antibacterials</div><div class="g6pd-drug">Nitrofurantoin, Nitrofurazone</div><div class="g6pd-drug">Ciprofloxacin, Moxifloxacin, Nalidixic acid, Norfloxacin, Ofloxacin</div><div class="g6pd-drug">Chloramphenicol</div><div class="g6pd-drug">Sulfonamides: Co-trimoxazole, Sulfadiazine, Sulfamethoxazole, Sulfasalazine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Primaquine, Pamaquine, Pentaquine, Mepacrine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimycobacterials</div><div class="g6pd-drug">Dapsone, Para-aminosalicylic acid</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antineoplastics</div><div class="g6pd-drug">Doxorubicin, Rasburicase</div></div><div class="g6pd-grp"><div class="g6pd-gn">Other</div><div class="g6pd-drug">Methylene blue, Phenylhydrazine, Phenazopyridine</div></div></div></div><div class="g6pd-col"><div class="g6pd-ch pos">\uD83D\uDFE1 Possible Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Analgesics</div><div class="g6pd-drug">Aspirin, Paracetamol, Phenylbutazone</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihistamines</div><div class="g6pd-drug">Diphenhydramine, Antazoline, Tripelennamine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihypertensives</div><div class="g6pd-drug">Hydralazine, Methyldopa</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Chloroquine, Proguanil, Pyrimethamine, Quinidine, Quinine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Cardiovascular</div><div class="g6pd-drug">Procainamide, Quinidine, Dopamine (L-dopa)</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antidiabetics</div><div class="g6pd-drug">Glibenclamide</div></div><div class="g6pd-grp"><div class="g6pd-gn">Anticonvulsants</div><div class="g6pd-drug">Phenytoin</div></div><div class="g6pd-grp"><div class="g6pd-gn">Food / Environmental</div><div class="g6pd-drug">Fava beans, Naphthalene (mothballs), Berberine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Vitamins</div><div class="g6pd-drug">Ascorbic Acid (Vit C \u2014 rare), Vitamin K substances</div></div></div></div></div><p style="font-size:11px;color:var(--muted);margin-top:8px">Source: MIMS Summary Table \u00B7 Refer to www.g6pd.org for further information</p>';
 }
 
 // ── SHOW CATEGORY ─────────────────────────────────────────────
@@ -1265,7 +1265,7 @@ var themeBtn = document.getElementById('themeBtn');
 themeBtn.addEventListener('click', function(){
   isDark = !isDark;
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-  themeBtn.textContent = isDark ? '&#x1F319;' : '☀️';
+  themeBtn.textContent = isDark ? '\uD83C\uDF19' : '☀️';
   themeBtn.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
 });
 
@@ -1331,7 +1331,7 @@ si.addEventListener('input', function(){
   }).slice(0,50);
   srLabel.textContent = res.length + ' result' + (res.length!==1?'s':'') + ' for "' + q + '"';
   if(!res.length){
-    sl.innerHTML='<div class="no-results"><div class="nr-icon">&#x1F50D;</div><p>No results found</p><span>Try a different drug name, class, or condition</span></div>';
+    sl.innerHTML='<div class="no-results"><div class="nr-icon">\uD83D\uDD0D</div><p>No results found</p><span>Try a different drug name, class, or condition</span></div>';
     return;
   }
   sl.innerHTML = res.map(function(r){
@@ -1410,24 +1410,24 @@ document.addEventListener('keydown', function(e){
       +'</div>'
       +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:640px;margin:0 auto 32px;">'
         +'<div style="background:#e6f4f8;border:1.5px solid #a8d5e2;border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;" onclick="document.querySelector('[data-filter=adults]').click()">'
-          +'<div style="font-size:28px;margin-bottom:6px;">&#x1F9D1;&#x200D;&#x2695;&#xFE0F;</div>'
+          +'<div style="font-size:28px;margin-bottom:6px;">\uD83E\uDDD1\u200D\u2695\uFE0F</div>'
           +'<div style="font-weight:700;font-size:0.9rem;color:#1a5f7a;">Adults</div>'
           +'<div style="font-size:0.75rem;color:#64748b;margin-top:3px;">OPD Drugs</div>'
         +'</div>'
         +'<div style="background:#e6f8f0;border:1.5px solid #a8e2c8;border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;" onclick="document.querySelector('[data-filter=paeds]').click()">'
-          +'<div style="font-size:28px;margin-bottom:6px;">&#x1F476;</div>'
+          +'<div style="font-size:28px;margin-bottom:6px;">\uD83D\uDC76</div>'
           +'<div style="font-weight:700;font-size:0.9rem;color:#1a7a50;">Paeds</div>'
           +'<div style="font-size:0.75rem;color:#64748b;margin-top:3px;">Paediatric Doses</div>'
         +'</div>'
         +'<div style="background:#f0e6f8;border:1.5px solid #d0a8e2;border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;" onclick="document.querySelector('[data-filter=pregnancy]').click()">'
-          +'<div style="font-size:28px;margin-bottom:6px;">&#x1F930;</div>'
+          +'<div style="font-size:28px;margin-bottom:6px;">\uD83E\uDD30</div>'
           +'<div style="font-weight:700;font-size:0.9rem;color:#5f1a7a;">Pregnancy</div>'
           +'<div style="font-size:0.75rem;color:#64748b;margin-top:3px;">Safe Drug Use</div>'
         +'</div>'
       +'</div>'
       +'<div style="max-width:640px;margin:0 auto;">'
         +'<div style="background:#e8f4f8;border:1.5px solid #a8d5e2;border-radius:14px;padding:16px 20px;display:flex;align-items:flex-start;gap:12px;">'
-          +'<span style="font-size:20px;">&#x1F4A1;</span>'
+          +'<span style="font-size:20px;">\uD83D\uDCA1</span>'
           +'<div><div style="font-weight:700;font-size:0.9rem;color:#1a5f7a;margin-bottom:4px;">How to use</div>'
           +'<div style="font-size:0.84rem;color:#64748b;line-height:1.6;">Use the <strong>search bar</strong> to find any drug, condition, or class. Browse categories from the <strong>sidebar</strong>, or filter by patient group above. Quick Links &amp; Notes are at the bottom of the sidebar.</div></div>'
         +'</div>'
@@ -1443,9 +1443,9 @@ document.addEventListener('keydown', function(e){
     var d1=document.createElement('div');d1.className='nav-divider';
     var l1=document.createElement('div');l1.className='nav-label';l1.textContent='Quick Links';
     aside.appendChild(d1);aside.appendChild(l1);
-    [{name:'WebMD',url:'https://www.webmd.com',icon:'&#x1F310;',bg:'#e0e7ff'},
-     {name:'MedCalc',url:'https://www.medcalc.com',icon:'&#x1F9EE;',bg:'#dcfce7'},
-     {name:'Peaddose',url:'https://www.peaddose.com',icon:'&#x1F476;',bg:'#fef9c3'}
+    [{name:'WebMD',url:'https://www.webmd.com',icon:'\uD83C\uDF10',bg:'#e0e7ff'},
+     {name:'MedCalc',url:'https://www.medcalc.com',icon:'\uD83E\uDDEE',bg:'#dcfce7'},
+     {name:'Peaddose',url:'https://www.peaddose.com',icon:'\uD83D\uDC76',bg:'#fef9c3'}
     ].forEach(function(lk){
       var a=document.createElement('a');
       a.href=lk.url;a.target='_blank';a.rel='noopener noreferrer';a.className='nav-item';
@@ -1459,7 +1459,7 @@ document.addEventListener('keydown', function(e){
     var nb=document.createElement('button');
     nb.id='notesNavBtn';nb.className='nav-item';
     nb.style.cssText='display:flex;align-items:center;gap:10px;font-weight:600;width:100%;';
-    nb.innerHTML='<span style="width:22px;height:22px;border-radius:6px;background:#e0f2fe;display:inline-flex;align-items:center;justify-content:center;font-size:13px;">&#x1F4DD;</span><span>My Notes</span>';
+    nb.innerHTML='<span style="width:22px;height:22px;border-radius:6px;background:#e0f2fe;display:inline-flex;align-items:center;justify-content:center;font-size:13px;">\uD83D\uDCDD</span><span>My Notes</span>';
     aside.appendChild(d2);aside.appendChild(l2);aside.appendChild(nb);
     nb.addEventListener('click',function(){showPanel('notes');});
   }
@@ -1478,14 +1478,14 @@ document.addEventListener('keydown', function(e){
     np.innerHTML='<div style="display:flex;height:100%;overflow:hidden;">'
       +'<div id="notesListPane" style="width:240px;min-width:240px;border-right:1.5px solid #e2e8f0;display:flex;flex-direction:column;background:#f8fafc;overflow:hidden;">'
         +'<div style="padding:16px 14px 10px;border-bottom:1px solid #e2e8f0;">'
-          +'<div style="font-weight:800;font-size:1rem;color:#1a3a4a;margin-bottom:10px;">&#x1F4DD; My Notes</div>'
+          +'<div style="font-weight:800;font-size:1rem;color:#1a3a4a;margin-bottom:10px;">\uD83D\uDCDD My Notes</div>'
           +'<button id="addNoteBtn" style="width:100%;padding:8px 12px;background:#1a5f7a;color:#fff;border:none;border-radius:10px;font-weight:600;font-size:0.82rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;"><span>+</span> New Note</button>'
         +'</div>'
         +'<div id="notesList" style="flex:1;overflow-y:auto;padding:8px;"></div>'
       +'</div>'
       +'<div id="notesEditorPane" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">'
         +'<div id="notesEditorEmpty" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#94a3b8;">'
-          +'<div style="font-size:48px;margin-bottom:12px;">&#x1F4C4;</div>'
+          +'<div style="font-size:48px;margin-bottom:12px;">\uD83D\uDCC4</div>'
           +'<div style="font-weight:600;font-size:1rem;">Select a note or create a new one</div>'
         +'</div>'
         +'<div id="notesEditor" style="display:none;flex:1;flex-direction:column;overflow:hidden;">'
@@ -1647,72 +1647,72 @@ document.addEventListener('keydown', function(e){
 var filesLibData = {
   'national-guidelines': {
     title: 'National Guidelines',
-    icon: '&#x1F1F2;&#x1F1FB;',
+    icon: '\uD83C\uDDF2\uD83C\uDDFB',
     color: '#3b82f6',
     desc: 'Official Ministry of Health & WHO clinical guidelines',
     files: [
-      { name: 'ASMH Standard Treatment Guidelines 2023', meta: 'Ministry of Health \u00B7 2023', tag: 'pdf', icon: '&#x1F4D5;' },
-      { name: 'Maldives Essential Medicines List', meta: 'Ministry of Health \u00B7 2022', tag: 'pdf', icon: '&#x1F4D5;' },
-      { name: 'WHO Model Formulary for Children', meta: 'World Health Organization', tag: 'link', icon: '&#x1F310;' },
-      { name: 'ASMH Infection Control Policy', meta: 'Dr. ASMH \u00B7 Updated 2024', tag: 'pdf', icon: '&#x1F4C4;' },
-      { name: 'National Antibiotic Stewardship Guidelines', meta: 'Ministry of Health \u00B7 2023', tag: 'pdf', icon: '&#x1F4D5;' },
-      { name: 'Maldives Immunization Schedule', meta: 'Ministry of Health \u00B7 2024', tag: 'link', icon: '&#x1F310;' }
+      { name: 'ASMH Standard Treatment Guidelines 2023', meta: 'Ministry of Health \u00B7 2023', tag: 'pdf', icon: '\uD83D\uDCD5' },
+      { name: 'Maldives Essential Medicines List', meta: 'Ministry of Health \u00B7 2022', tag: 'pdf', icon: '\uD83D\uDCD5' },
+      { name: 'WHO Model Formulary for Children', meta: 'World Health Organization', tag: 'link', icon: '\uD83C\uDF10' },
+      { name: 'ASMH Infection Control Policy', meta: 'Dr. ASMH \u00B7 Updated 2024', tag: 'pdf', icon: '\uD83D\uDCC4' },
+      { name: 'National Antibiotic Stewardship Guidelines', meta: 'Ministry of Health \u00B7 2023', tag: 'pdf', icon: '\uD83D\uDCD5' },
+      { name: 'Maldives Immunization Schedule', meta: 'Ministry of Health \u00B7 2024', tag: 'link', icon: '\uD83C\uDF10' }
     ]
   },
   'notes': {
     title: 'Clinical Notes',
-    icon: '&#x1F4DD;',
+    icon: '\uD83D\uDCDD',
     color: '#f59e0b',
     desc: 'Clinical pearls, quick references and MO notes',
     files: [
-      { name: 'Approach to Fever in OPD', meta: 'Dr. Anoof \u00B7 Quick Reference', tag: 'note', icon: '&#x1F4CB;' },
-      { name: 'Common OPD Prescribing Tips', meta: 'ASMH MO Team \u00B7 2024', tag: 'note', icon: '&#x1F4CB;' },
-      { name: 'IV Fluid Calculations Cheat Sheet', meta: 'Dr. Anoof \u00B7 Paeds', tag: 'note', icon: '&#x1F4CB;' },
-      { name: 'Antibiotic Dose Adjustment in Renal Failure', meta: 'Quick Reference Card', tag: 'note', icon: '&#x1F4CB;' },
-      { name: 'Drug-Drug Interactions to Avoid in OPD', meta: 'Safety Notes', tag: 'note', icon: '&#x26A0;&#xFE0F;' },
-      { name: 'Paediatric Weight Estimation Guide', meta: 'Emergency Quick Ref', tag: 'note', icon: '&#x1F4CB;' }
+      { name: 'Approach to Fever in OPD', meta: 'Dr. Anoof \u00B7 Quick Reference', tag: 'note', icon: '\uD83D\uDCCB' },
+      { name: 'Common OPD Prescribing Tips', meta: 'ASMH MO Team \u00B7 2024', tag: 'note', icon: '\uD83D\uDCCB' },
+      { name: 'IV Fluid Calculations Cheat Sheet', meta: 'Dr. Anoof \u00B7 Paeds', tag: 'note', icon: '\uD83D\uDCCB' },
+      { name: 'Antibiotic Dose Adjustment in Renal Failure', meta: 'Quick Reference Card', tag: 'note', icon: '\uD83D\uDCCB' },
+      { name: 'Drug-Drug Interactions to Avoid in OPD', meta: 'Safety Notes', tag: 'note', icon: '\u26A0\uFE0F' },
+      { name: 'Paediatric Weight Estimation Guide', meta: 'Emergency Quick Ref', tag: 'note', icon: '\uD83D\uDCCB' }
     ]
   },
   'protocols': {
     title: 'Protocols',
-    icon: '&#x1F4CB;',
+    icon: '\uD83D\uDCCB',
     color: '#8b5cf6',
     desc: 'Clinical protocols and management algorithms',
     files: [
-      { name: 'Acute Asthma Management Protocol', meta: 'ASMH Emergency \u00B7 2023', tag: 'pdf', icon: '&#x1F4C4;' },
-      { name: 'Diabetic Ketoacidosis Protocol', meta: 'ASMH Internal Medicine', tag: 'pdf', icon: '&#x1F4C4;' },
-      { name: 'Sepsis Bundle Protocol', meta: 'ASMH Critical Care', tag: 'pdf', icon: '&#x1F4C4;' },
-      { name: 'Paediatric Resuscitation Algorithm', meta: 'ASMH Paeds \u00B7 2024', tag: 'pdf', icon: '&#x1F4C4;' },
-      { name: 'Status Epilepticus Management', meta: 'ASMH Emergency', tag: 'pdf', icon: '&#x1F4C4;' },
-      { name: 'Hypertensive Emergency Protocol', meta: 'ASMH Cardiology', tag: 'pdf', icon: '&#x1F4C4;' }
+      { name: 'Acute Asthma Management Protocol', meta: 'ASMH Emergency \u00B7 2023', tag: 'pdf', icon: '\uD83D\uDCC4' },
+      { name: 'Diabetic Ketoacidosis Protocol', meta: 'ASMH Internal Medicine', tag: 'pdf', icon: '\uD83D\uDCC4' },
+      { name: 'Sepsis Bundle Protocol', meta: 'ASMH Critical Care', tag: 'pdf', icon: '\uD83D\uDCC4' },
+      { name: 'Paediatric Resuscitation Algorithm', meta: 'ASMH Paeds \u00B7 2024', tag: 'pdf', icon: '\uD83D\uDCC4' },
+      { name: 'Status Epilepticus Management', meta: 'ASMH Emergency', tag: 'pdf', icon: '\uD83D\uDCC4' },
+      { name: 'Hypertensive Emergency Protocol', meta: 'ASMH Cardiology', tag: 'pdf', icon: '\uD83D\uDCC4' }
     ]
   },
   'references': {
     title: 'References',
-    icon: '&#x1F4DA;',
+    icon: '\uD83D\uDCDA',
     color: '#14b8a6',
     desc: 'Textbooks, journals and online reference tools',
     files: [
-      { name: 'BNF Online', meta: 'British National Formulary', tag: 'link', icon: '&#x1F310;' },
-      { name: 'Micromedex Drug Reference', meta: 'Clinical Decision Support', tag: 'link', icon: '&#x1F310;' },
-      { name: 'UpToDate', meta: 'Evidence-based clinical resource', tag: 'link', icon: '&#x1F310;' },
-      { name: 'PubMed / MEDLINE', meta: 'National Library of Medicine', tag: 'link', icon: '&#x1F310;' },
-      { name: 'WHO Essential Medicines', meta: 'World Health Organization', tag: 'link', icon: '&#x1F310;' },
-      { name: 'ASMH Pharmacy Formulary', meta: 'Internal Reference', tag: 'doc', icon: '&#x1F4C4;' }
+      { name: 'BNF Online', meta: 'British National Formulary', tag: 'link', icon: '\uD83C\uDF10' },
+      { name: 'Micromedex Drug Reference', meta: 'Clinical Decision Support', tag: 'link', icon: '\uD83C\uDF10' },
+      { name: 'UpToDate', meta: 'Evidence-based clinical resource', tag: 'link', icon: '\uD83C\uDF10' },
+      { name: 'PubMed / MEDLINE', meta: 'National Library of Medicine', tag: 'link', icon: '\uD83C\uDF10' },
+      { name: 'WHO Essential Medicines', meta: 'World Health Organization', tag: 'link', icon: '\uD83C\uDF10' },
+      { name: 'ASMH Pharmacy Formulary', meta: 'Internal Reference', tag: 'doc', icon: '\uD83D\uDCC4' }
     ]
   },
   'forms': {
     title: 'Forms & Charts',
-    icon: '&#x1F4CA;',
+    icon: '\uD83D\uDCCA',
     color: '#ec4899',
     desc: 'Clinical forms, growth charts and scoring tools',
     files: [
-      { name: 'WHO Growth Charts (Boys)', meta: '0–18 years \u00B7 Weight / Height', tag: 'pdf', icon: '&#x1F4CA;' },
-      { name: 'WHO Growth Charts (Girls)', meta: '0–18 years \u00B7 Weight / Height', tag: 'pdf', icon: '&#x1F4CA;' },
-      { name: 'PHQ-9 Depression Screening', meta: 'Psychiatry Scoring Tool', tag: 'pdf', icon: '&#x1F4CB;' },
-      { name: 'CURB-65 Pneumonia Severity Score', meta: 'Respiratory Quick Score', tag: 'note', icon: '&#x1F4CB;' },
-      { name: 'Paediatric Broselow Reference', meta: 'Emergency Weight / Dose', tag: 'doc', icon: '&#x1F4CA;' },
-      { name: 'OPD Referral Form', meta: 'ASMH Standard Form', tag: 'doc', icon: '&#x1F4C4;' }
+      { name: 'WHO Growth Charts (Boys)', meta: '0–18 years \u00B7 Weight / Height', tag: 'pdf', icon: '\uD83D\uDCCA' },
+      { name: 'WHO Growth Charts (Girls)', meta: '0–18 years \u00B7 Weight / Height', tag: 'pdf', icon: '\uD83D\uDCCA' },
+      { name: 'PHQ-9 Depression Screening', meta: 'Psychiatry Scoring Tool', tag: 'pdf', icon: '\uD83D\uDCCB' },
+      { name: 'CURB-65 Pneumonia Severity Score', meta: 'Respiratory Quick Score', tag: 'note', icon: '\uD83D\uDCCB' },
+      { name: 'Paediatric Broselow Reference', meta: 'Emergency Weight / Dose', tag: 'doc', icon: '\uD83D\uDCCA' },
+      { name: 'OPD Referral Form', meta: 'ASMH Standard Form', tag: 'doc', icon: '\uD83D\uDCC4' }
     ]
   }
 };
