@@ -513,80 +513,80 @@ mark { background: rgba(59,130,246,0.25); color: var(--accent2); border-radius: 
 var cats = {
   pain: { title:'Pain, Fever & Inflammation', icon:'&#x1F525;', color:'#f43f5e',
     sections:[
-      { name:'Fever / Pain &mdash; Oral', drugs:[
+      { name:'Fever / Pain \u2014 Oral', drugs:[
         {n:'Tab. Paracetamol 500 mg', d:'QID / TDS', t:['PO','OTC']},
         {n:'Tab. Paracetamol 650 mg', d:'BD', t:['PO']},
-        {n:'Tab/Cap. Tramadol 50 mg', d:'50&ndash;100 mg q4&ndash;6h &middot; Max 400 mg/day', t:['PO','Opioid-like']},
+        {n:'Tab/Cap. Tramadol 50 mg', d:'50\u2013100 mg q4\u20136h \u00B7 Max 400 mg/day', t:['PO','Opioid-like']},
         {n:'Tab. Panadeine (PCM 500 + Codeine 8 mg)', d:'BD / TDS', t:['PO','Combo']}
       ]},
-      { name:'Fever / Pain &mdash; Parenteral', drugs:[
+      { name:'Fever / Pain \u2014 Parenteral', drugs:[
         {n:'Inj. Paracetamol 10 mg/mL', d:'500 mg IV slow over 15 min', t:['IV'], tp:'inj'},
-        {n:'Inj. Tramadol 50 mg/mL', d:'50&ndash;100 mg IV stat + Inj. Emeset 4 mg IV stat', t:['IV'], tp:'inj'}
+        {n:'Inj. Tramadol 50 mg/mL', d:'50\u2013100 mg IV stat + Inj. Emeset 4 mg IV stat', t:['IV'], tp:'inj'}
       ]},
       { name:'Musculoskeletal / NSAIDs', drugs:[
-        {n:'Tab. Aceclofenac 100 mg', d:'BD (AF) &times; 7 days', t:['PO','NSAID']},
-        {n:'Tab. Diclofenac Na (Voltaren) 50 mg', d:'BD/TDS (AF) &times; 3 days', t:['PO','NSAID']},
-        {n:'Tab. Mefenamic Acid 500 mg', d:'BD (AF) &times; 3 days', t:['PO','NSAID']},
+        {n:'Tab. Aceclofenac 100 mg', d:'BD (AF) \u00D7 7 days', t:['PO','NSAID']},
+        {n:'Tab. Diclofenac Na (Voltaren) 50 mg', d:'BD/TDS (AF) \u00D7 3 days', t:['PO','NSAID']},
+        {n:'Tab. Mefenamic Acid 500 mg', d:'BD (AF) \u00D7 3 days', t:['PO','NSAID']},
         {n:'Tab. Ibuprofen 400 mg', d:'QID / TDS', t:['PO','NSAID']},
-        {n:'Tab. Methocarbamol 500 mg', d:'BD (AF) &times; 7 days', t:['PO','Relaxant']},
-        {n:'Tab. Chymoral Forte 100,000U', d:'TDS (BF) &times; 7&ndash;10 days', t:['PO','Enzyme']},
-        {n:'Divon Gel / Voltaren Emulgel', d:'Apply BD/TDS &times; 5&ndash;7 days', t:['Topical'], tp:'topical'},
+        {n:'Tab. Methocarbamol 500 mg', d:'BD (AF) \u00D7 7 days', t:['PO','Relaxant']},
+        {n:'Tab. Chymoral Forte 100,000U', d:'TDS (BF) \u00D7 7\u201310 days', t:['PO','Enzyme']},
+        {n:'Divon Gel / Voltaren Emulgel', d:'Apply BD/TDS \u00D7 5\u20137 days', t:['Topical'], tp:'topical'},
         {n:'Inj. Diclofenac 75 mg/3 mL', d:'3 mL IM stat', t:['IM'], tp:'inj'}
       ]},
       { name:'Muscle Relaxants', drugs:[
-        {n:'Tab. Baclofen 10 mg', d:'Start 5 mg TDS &times; 3d &rarr; 10 mg TDS &times; 3d', t:['PO']},
-        {n:'Tolperisone HCL 50 mg', d:'50&ndash;150 mg TDS &times; 3 days', t:['PO']}
+        {n:'Tab. Baclofen 10 mg', d:'Start 5 mg TDS \u00D7 3d \u2192 10 mg TDS \u00D7 3d', t:['PO']},
+        {n:'Tolperisone HCL 50 mg', d:'50\u2013150 mg TDS \u00D7 3 days', t:['PO']}
       ]},
       { name:'Migraine', drugs:[
-        {n:'Tab. Sumatriptan', d:'50&ndash;100 mg stat', t:['PO','Triptan']},
-        {n:'Amitriptyline 10 mg (prophylaxis)', d:'HS &times; 15 days (AF)', t:['PO','TCA']}
+        {n:'Tab. Sumatriptan', d:'50\u2013100 mg stat', t:['PO','Triptan']},
+        {n:'Amitriptyline 10 mg (prophylaxis)', d:'HS \u00D7 15 days (AF)', t:['PO','TCA']}
       ]},
       { name:'Vertigo / Dizziness', drugs:[
-        {n:'Tab. Cinnarizine 25 mg', d:'TDS &times; 3 days', t:['PO']},
-        {n:'Tab. Cinnarizine 75 mg', d:'OD &times; 3 days', t:['PO']},
-        {n:'Tab. Betahistine (Menaril) 8 mg', d:'TDS &times; 10 days', t:['PO']},
-        {n:'Tab. Prochlorperazine (Stemetil) 5 mg', d:'1 tab TDS &times; 3 days', t:['PO']}
+        {n:'Tab. Cinnarizine 25 mg', d:'TDS \u00D7 3 days', t:['PO']},
+        {n:'Tab. Cinnarizine 75 mg', d:'OD \u00D7 3 days', t:['PO']},
+        {n:'Tab. Betahistine (Menaril) 8 mg', d:'TDS \u00D7 10 days', t:['PO']},
+        {n:'Tab. Prochlorperazine (Stemetil) 5 mg', d:'1 tab TDS \u00D7 3 days', t:['PO']}
       ]},
       { name:'Antispasmodics', drugs:[
         {n:'Tab. Hyoscine Butylbromide (Buscopan) 10 mg', d:'2 tab QID', t:['PO']},
         {n:'Tab. Mebeverine HCL 135 mg', d:'1 tab TDS', t:['PO','IBS']},
-        {n:'Tab. Dicycloverine HCL 10&ndash;40 mg', d:'1 tab TDS', t:['PO']},
+        {n:'Tab. Dicycloverine HCL 10\u201340 mg', d:'1 tab TDS', t:['PO']},
         {n:'Inj. Buscopan 20 mg', d:'IV stat', t:['IV'], tp:'inj'}
       ]}
     ]
   },
   respiratory: { title:'Respiratory', icon:'&#x1FAC1;', color:'#3b82f6',
     sections:[
-      { name:'Antihistamines &mdash; Allergic Rhinitis', drugs:[
-        {n:'Tab. Fexofenadine 180 mg', d:'HS &times; 10 days', t:['PO','2nd gen']},
-        {n:'Tab. Levocetirizine 5 mg', d:'HS &times; 10 days', t:['PO','2nd gen']},
-        {n:'Tab. Cetirizine HCL 10 mg', d:'HS &times; 10 days &ndash; 3 months', t:['PO','2nd gen']},
+      { name:'Antihistamines \u2014 Allergic Rhinitis', drugs:[
+        {n:'Tab. Fexofenadine 180 mg', d:'HS \u00D7 10 days', t:['PO','2nd gen']},
+        {n:'Tab. Levocetirizine 5 mg', d:'HS \u00D7 10 days', t:['PO','2nd gen']},
+        {n:'Tab. Cetirizine HCL 10 mg', d:'HS \u00D7 10 days \u2013 3 months', t:['PO','2nd gen']},
         {n:'Tab. Loratadine 10 mg', d:'1 tab OD', t:['PO','2nd gen']},
-        {n:'Tab. Montelukast 5&ndash;10 mg', d:'HS &times; 7 days', t:['PO','LTRA']},
-        {n:'Tab. Chlorpheniramine Maleate 4 mg', d:'1 tab q4&ndash;6h', t:['PO','1st gen']}
+        {n:'Tab. Montelukast 5\u201310 mg', d:'HS \u00D7 7 days', t:['PO','LTRA']},
+        {n:'Tab. Chlorpheniramine Maleate 4 mg', d:'1 tab q4\u20136h', t:['PO','1st gen']}
       ]},
       { name:'Productive Cough', drugs:[
-        {n:'Syr. Cofsy', d:'5&ndash;10 mL TDS', t:['PO','Expectorant']},
-        {n:'Syr. Ambrodil HCL (15 mg/5 mL)', d:'10 mL BD &times; 5 days', t:['PO','Mucolytic']},
-        {n:'Tab. Bromhexine 8 mg', d:'TDS &times; 3 days', t:['PO']}
+        {n:'Syr. Cofsy', d:'5\u201310 mL TDS', t:['PO','Expectorant']},
+        {n:'Syr. Ambrodil HCL (15 mg/5 mL)', d:'10 mL BD \u00D7 5 days', t:['PO','Mucolytic']},
+        {n:'Tab. Bromhexine 8 mg', d:'TDS \u00D7 3 days', t:['PO']}
       ]},
       { name:'Dry Cough', drugs:[
-        {n:'Syr. Ascoril D', d:'7.5&ndash;10 mL TDS &times; 5 days', t:['PO','Antitussive']},
-        {n:'Syr. Tuscure / Contus', d:'5 mL BD &times; 5 days', t:['PO','Antitussive']}
+        {n:'Syr. Ascoril D', d:'7.5\u201310 mL TDS \u00D7 5 days', t:['PO','Antitussive']},
+        {n:'Syr. Tuscure / Contus', d:'5 mL BD \u00D7 5 days', t:['PO','Antitussive']}
       ]},
       { name:'Nasal Drops / Sprays', drugs:[
-        {n:'Oxymetazoline (Nasivion A 0.05%)', d:'2 drops/nostril BD/TDS &times; 3 days MAX', t:['Nasal'], tp:'topical'},
-        {n:'Xylometazoline HCL (Otrivin A 0.1%)', d:'2 drops BD &times; 3 days MAX', t:['Nasal'], tp:'topical'},
-        {n:'Mometasone Furoate Nasal Spray 27.5 mcg/puff', d:'1&ndash;2 puffs/nostril HS &times; 3 months', t:['Nasal','Steroid'], tp:'topical'},
-        {n:'Fluticasone Furoate Nasal Spray 27.5 mcg/puff', d:'1&ndash;2 puffs HS both nostrils &times; 1 month', t:['Nasal','Steroid'], tp:'topical'}
+        {n:'Oxymetazoline (Nasivion A 0.05%)', d:'2 drops/nostril BD/TDS \u00D7 3 days MAX', t:['Nasal'], tp:'topical'},
+        {n:'Xylometazoline HCL (Otrivin A 0.1%)', d:'2 drops BD \u00D7 3 days MAX', t:['Nasal'], tp:'topical'},
+        {n:'Mometasone Furoate Nasal Spray 27.5 mcg/puff', d:'1\u20132 puffs/nostril HS \u00D7 3 months', t:['Nasal','Steroid'], tp:'topical'},
+        {n:'Fluticasone Furoate Nasal Spray 27.5 mcg/puff', d:'1\u20132 puffs HS both nostrils \u00D7 1 month', t:['Nasal','Steroid'], tp:'topical'}
       ]},
-      { name:'Inhalers &mdash; Relievers (SABA / Anticholinergic)', drugs:[
-        {n:'Salbutamol (Asthalin / Ventolin) MDI', d:'1&ndash;2 puffs SOS &middot; Max 4 puffs/24h', t:['Inhaler','SABA']},
-        {n:'Ipratropium Bromide 17 mcg/actuation', d:'COPD: 2 puffs QID then SOS\nAcute Asthma: 8 puffs q20min &times; 3 doses', t:['Inhaler','Anticholinergic']},
+      { name:'Inhalers \u2014 Relievers (SABA / Anticholinergic)', drugs:[
+        {n:'Salbutamol (Asthalin / Ventolin) MDI', d:'1\u20132 puffs SOS \u00B7 Max 4 puffs/24h', t:['Inhaler','SABA']},
+        {n:'Ipratropium Bromide 17 mcg/actuation', d:'COPD: 2 puffs QID then SOS\nAcute Asthma: 8 puffs q20min \u00D7 3 doses', t:['Inhaler','Anticholinergic']},
         {n:'Tiotropium 2.5 mcg/actuation', d:'COPD: 2 puffs OD (5 mcg)\nAsthma: 2 puffs OD (2.5 mcg)', t:['Inhaler','LAMA']}
       ]},
-      { name:'Inhalers &mdash; Combination / Controllers', drugs:[
-        {n:'Fluticasone + Salmeterol (Seretide 250/50 mcg)', d:'2 puffs BD &mdash; rinse mouth after use', t:['Inhaler','ICS/LABA'], tp:'combo'},
+      { name:'Inhalers \u2014 Combination / Controllers', drugs:[
+        {n:'Fluticasone + Salmeterol (Seretide 250/50 mcg)', d:'2 puffs BD \u2014 rinse mouth after use', t:['Inhaler','ICS/LABA'], tp:'combo'},
         {n:'Budesonide + Formoterol (Symbicort 80/4.5 or 160/4.5 mcg)', d:'2 puffs BD', t:['Inhaler','ICS/LABA'], tp:'combo'},
         {n:'Montelukast 10 mg (preventer)', d:'1 tab OD at HS', t:['PO','LTRA']}
       ]},
@@ -596,217 +596,217 @@ var cats = {
         {n:'Standard Nebulization Protocol', d:'1 mL Asthalin + 1 mL Ipravent + 2 mL NS', t:['Neb','Protocol']}
       ]},
       { name:'Smoking Cessation', drugs:[
-        {n:'Nicotine Patch &mdash; >10 cigs/day', d:'21 mg/d &times; 6wk &rarr; 14 mg/d &times; 2wk &rarr; 7 mg/d &times; 2wk', t:['Patch','NRT']},
-        {n:'Nicotine Patch &mdash; <10 cigs/day', d:'14 mg/d &times; 6wk &rarr; 7 mg/d &times; 2wk &rarr; stop', t:['Patch','NRT']},
-        {n:'Nicotine Gum 2 mg &mdash; >25 cigs/day', d:'4 mg: 1 piece q2h &times; 6wk &rarr; q4h &times; 3wk &rarr; TDS &times; 3wk', t:['Gum','NRT']}
+        {n:'Nicotine Patch \u2014 >10 cigs/day', d:'21 mg/d \u00D7 6wk \u2192 14 mg/d \u00D7 2wk \u2192 7 mg/d \u00D7 2wk', t:['Patch','NRT']},
+        {n:'Nicotine Patch \u2014 <10 cigs/day', d:'14 mg/d \u00D7 6wk \u2192 7 mg/d \u00D7 2wk \u2192 stop', t:['Patch','NRT']},
+        {n:'Nicotine Gum 2 mg \u2014 >25 cigs/day', d:'4 mg: 1 piece q2h \u00D7 6wk \u2192 q4h \u00D7 3wk \u2192 TDS \u00D7 3wk', t:['Gum','NRT']}
       ]}
     ]
   },
   cardiovascular: { title:'Cardiovascular', icon:'&#x2764;&#xFE0F;', color:'#f59e0b',
     sections:[
-      { name:'Hypertension &mdash; Calcium Channel Blockers', drugs:[
-        {n:'Tab. Amlodipine 5 mg', d:'1 tab OD/BD &times; 3 months', t:['PO','CCB']},
-        {n:'Tab. Nifedipine 5&ndash;20 mg', d:'Initially 5 mg TDS &rarr; 10&ndash;20 mg TDS', t:['PO','CCB']}
+      { name:'Hypertension \u2014 Calcium Channel Blockers', drugs:[
+        {n:'Tab. Amlodipine 5 mg', d:'1 tab OD/BD \u00D7 3 months', t:['PO','CCB']},
+        {n:'Tab. Nifedipine 5\u201320 mg', d:'Initially 5 mg TDS \u2192 10\u201320 mg TDS', t:['PO','CCB']}
       ]},
-      { name:'Hypertension &mdash; ARBs (DM / <55 yrs)', drugs:[
-        {n:'Tab. Losartan Potassium 50 mg', d:'1 tab OD &times; 3 months', t:['PO','ARB']},
-        {n:'Tab. Telmisartan 40 mg', d:'1 tab OD/BD &times; 3 months', t:['PO','ARB']},
+      { name:'Hypertension \u2014 ARBs (DM / <55 yrs)', drugs:[
+        {n:'Tab. Losartan Potassium 50 mg', d:'1 tab OD \u00D7 3 months', t:['PO','ARB']},
+        {n:'Tab. Telmisartan 40 mg', d:'1 tab OD/BD \u00D7 3 months', t:['PO','ARB']},
         {n:'Tab. Candesartan Cilexetil 4 mg', d:'1 tab BD', t:['PO','ARB']}
       ]},
-      { name:'Hypertension &mdash; ACE Inhibitors', drugs:[
+      { name:'Hypertension \u2014 ACE Inhibitors', drugs:[
         {n:'Tab. Enalapril 5 mg', d:'1 tab OD', t:['PO','ACEi']},
         {n:'Tab. Captopril 25 mg', d:'1 tab BD', t:['PO','ACEi']}
       ]},
-      { name:'Hypertension &mdash; Diuretics', drugs:[
-        {n:'Tab. Furosemide 20&ndash;80 mg', d:'1 tab BD', t:['PO','Loop']},
-        {n:'Tab. Hydrochlorothiazide 12.5&ndash;50 mg', d:'1 tab OD', t:['PO','Thiazide']},
+      { name:'Hypertension \u2014 Diuretics', drugs:[
+        {n:'Tab. Furosemide 20\u201380 mg', d:'1 tab BD', t:['PO','Loop']},
+        {n:'Tab. Hydrochlorothiazide 12.5\u201350 mg', d:'1 tab OD', t:['PO','Thiazide']},
         {n:'Inj. Lasix (Furosemide) 10 mg/mL', d:'20 mg IV stat', t:['IV'], tp:'inj'}
       ]},
-      { name:'Hypertension &mdash; Beta Blockers (CAD)', drugs:[
-        {n:'Tab. Carvedilol', d:'6.25 mg BD &times; 14d &rarr; 12.5 mg BD &times; 7d &rarr; 25 mg BD &times; 3mo', t:['PO','BB']},
-        {n:'Tab. Metoprolol (Metolar) 25 mg', d:'½&ndash;0&ndash;½ &times; 3 months', t:['PO','BB']},
-        {n:'Tab. Nebivolol 2.5 mg', d:'1 tab OD &times; 3 months', t:['PO','BB']}
+      { name:'Hypertension \u2014 Beta Blockers (CAD)', drugs:[
+        {n:'Tab. Carvedilol', d:'6.25 mg BD \u00D7 14d \u2192 12.5 mg BD \u00D7 7d \u2192 25 mg BD \u00D7 3mo', t:['PO','BB']},
+        {n:'Tab. Metoprolol (Metolar) 25 mg', d:'½\u20130\u2013½ \u00D7 3 months', t:['PO','BB']},
+        {n:'Tab. Nebivolol 2.5 mg', d:'1 tab OD \u00D7 3 months', t:['PO','BB']}
       ]},
-      { name:'Hypertensive Emergency &mdash; BP >220/120 mmHg', drugs:[
-        {n:'IV Labetalol', d:'20&ndash;80 mg bolus over 10 min &mdash; goal: 10&ndash;20% reduction in DBP', t:['IV','Emergency'], tp:'inj'},
-        {n:'IV Nicardipine', d:'2&ndash;10 mg/hr infusion', t:['IV','Emergency'], tp:'inj'},
-        {n:'IV Hydralazine', d:'Bolus 10&ndash;20 mg', t:['IV','Emergency'], tp:'inj'}
+      { name:'Hypertensive Emergency \u2014 BP >220/120 mmHg', drugs:[
+        {n:'IV Labetalol', d:'20\u201380 mg bolus over 10 min \u2014 goal: 10\u201320% reduction in DBP', t:['IV','Emergency'], tp:'inj'},
+        {n:'IV Nicardipine', d:'2\u201310 mg/hr infusion', t:['IV','Emergency'], tp:'inj'},
+        {n:'IV Hydralazine', d:'Bolus 10\u201320 mg', t:['IV','Emergency'], tp:'inj'}
       ]},
       { name:'Hyperlipidaemia', drugs:[
-        {n:'Tab. Rosuvastatin Calcium 5&ndash;20 mg', d:'1 tab HS &times; 3 months', t:['PO','Statin']},
-        {n:'Tab. Atorvastatin 10&ndash;20 mg', d:'1 tab HS &times; 1 month', t:['PO','Statin']},
-        {n:'Tab. Fenofibrate 200 mg', d:'1 tab HS &times; 3 months (high TG)', t:['PO','Fibrate']},
-        {n:'Cap. Maxepa Omega-3 (180+120 mg)', d:'1 cap OD &times; 1 month', t:['PO','Omega-3']}
+        {n:'Tab. Rosuvastatin Calcium 5\u201320 mg', d:'1 tab HS \u00D7 3 months', t:['PO','Statin']},
+        {n:'Tab. Atorvastatin 10\u201320 mg', d:'1 tab HS \u00D7 1 month', t:['PO','Statin']},
+        {n:'Tab. Fenofibrate 200 mg', d:'1 tab HS \u00D7 3 months (high TG)', t:['PO','Fibrate']},
+        {n:'Cap. Maxepa Omega-3 (180+120 mg)', d:'1 cap OD \u00D7 1 month', t:['PO','Omega-3']}
       ]},
-      { name:'Myocardial Infarction &mdash; Loading Doses', drugs:[
-        {n:'Tab. Clopidogrel', d:'300 mg stat &rarr; 75 mg OD', t:['PO','Antiplatelet']},
-        {n:'Tab. Aspirin', d:'300 mg stat &rarr; 75&ndash;300 mg OD', t:['PO','Antiplatelet']},
+      { name:'Myocardial Infarction \u2014 Loading Doses', drugs:[
+        {n:'Tab. Clopidogrel', d:'300 mg stat \u2192 75 mg OD', t:['PO','Antiplatelet']},
+        {n:'Tab. Aspirin', d:'300 mg stat \u2192 75\u2013300 mg OD', t:['PO','Antiplatelet']},
         {n:'Tab. Atorvastatin 80 mg', d:'1 tab OD', t:['PO','Statin']}
       ]},
-      { name:'Chest Pain &mdash; GTN', drugs:[
-        {n:'Tab. GTN 0.5 mg Sublingual', d:'SL q5min &mdash; max 3 doses', t:['SL','Nitrate']},
-        {n:'GTN Metered Spray 400 mcg/dose', d:'1&ndash;2 sprays under tongue q3&ndash;5min &mdash; max 3 doses', t:['SL','Nitrate']},
-        {n:'IV GTN', d:'10&ndash;100 mcg/min &mdash; start low', t:['IV','Nitrate'], tp:'inj'}
+      { name:'Chest Pain \u2014 GTN', drugs:[
+        {n:'Tab. GTN 0.5 mg Sublingual', d:'SL q5min \u2014 max 3 doses', t:['SL','Nitrate']},
+        {n:'GTN Metered Spray 400 mcg/dose', d:'1\u20132 sprays under tongue q3\u20135min \u2014 max 3 doses', t:['SL','Nitrate']},
+        {n:'IV GTN', d:'10\u2013100 mcg/min \u2014 start low', t:['IV','Nitrate'], tp:'inj'}
       ]}
     ]
   },
   gi: { title:'Gastrointestinal', icon:'&#x1FAC0;', color:'#14b8a6',
     sections:[
       { name:'Gastritis / GERD', drugs:[
-        {n:'Tab. Pantoprazole 20 mg', d:'BD (20 min before food) &times; 5 days', t:['PO','PPI']},
-        {n:'Tab. Pantoprazole 40 mg', d:'OD/BD (20 min BF) &times; 5 days', t:['PO','PPI']},
-        {n:'Cap. Esomeprazole 40 mg', d:'1 cap OD &times; 1 month', t:['PO','PPI']},
-        {n:'Tab. Ranitidine HCL 150 mg', d:'BD (30 min BF) &times; 5 days', t:['PO','H2RA']},
-        {n:'Gaviscon (Sodium Alginate)', d:'10 mL TDS &mdash; 15&ndash;30 min before meal', t:['PO','Antacid']},
-        {n:'Relcer (Oxetacaine + Aluminium + Mg)', d:'10 mL TDS (15&ndash;30 min before meal)', t:['PO','Antacid']},
+        {n:'Tab. Pantoprazole 20 mg', d:'BD (20 min before food) \u00D7 5 days', t:['PO','PPI']},
+        {n:'Tab. Pantoprazole 40 mg', d:'OD/BD (20 min BF) \u00D7 5 days', t:['PO','PPI']},
+        {n:'Cap. Esomeprazole 40 mg', d:'1 cap OD \u00D7 1 month', t:['PO','PPI']},
+        {n:'Tab. Ranitidine HCL 150 mg', d:'BD (30 min BF) \u00D7 5 days', t:['PO','H2RA']},
+        {n:'Gaviscon (Sodium Alginate)', d:'10 mL TDS \u2014 15\u201330 min before meal', t:['PO','Antacid']},
+        {n:'Relcer (Oxetacaine + Aluminium + Mg)', d:'10 mL TDS (15\u201330 min before meal)', t:['PO','Antacid']},
         {n:'Inj. Pantoprazole 40 mg', d:'1 vial IV stat', t:['IV'], tp:'inj'},
         {n:'Inj. Ranitidine 50 mg', d:'IV stat', t:['IV'], tp:'inj'}
       ]},
       { name:'Antiemetics / Nausea', drugs:[
-        {n:'Tab. Ondansetron (Emeset) 4 mg', d:'TDS/BD (SOS) &times; 3 days', t:['PO','Antiemetic']},
-        {n:'Tab. Domperidone 10&ndash;20 mg', d:'TDS/QID before meals', t:['PO','Prokinetic']},
-        {n:'Tab. Promethazine HCL 10&ndash;25 mg', d:'QID/TDS', t:['PO']},
+        {n:'Tab. Ondansetron (Emeset) 4 mg', d:'TDS/BD (SOS) \u00D7 3 days', t:['PO','Antiemetic']},
+        {n:'Tab. Domperidone 10\u201320 mg', d:'TDS/QID before meals', t:['PO','Prokinetic']},
+        {n:'Tab. Promethazine HCL 10\u201325 mg', d:'QID/TDS', t:['PO']},
         {n:'Inj. Ondansetron 2 mg/5 mL', d:'4 mg IV stat', t:['IV'], tp:'inj'},
         {n:'Inj. Metoclopramide (Perinorm) 10 mg', d:'IV stat', t:['IV'], tp:'inj'}
       ]},
       { name:'Motion Sickness', drugs:[
         {n:'Promethazine HCL 10 mg', d:'20 mg night before + same dose morning', t:['PO']},
-        {n:'Dimenhydrinate', d:'PO: 100&ndash;150 mg q8&ndash;12h &middot; Inj: 50&ndash;100 mg q4&ndash;6h', t:['PO','IM']}
+        {n:'Dimenhydrinate', d:'PO: 100\u2013150 mg q8\u201312h \u00B7 Inj: 50\u2013100 mg q4\u20136h', t:['PO','IM']}
       ]},
       { name:'Diarrhoea', drugs:[
-        {n:'Tab. Loperamide 1 mg', d:'Start 4 mg &rarr; 2 mg after each loose stool &middot; Max 4 tabs/day', t:['PO']},
-        {n:'ORS Sachet', d:'1 sachet in 1 L water &mdash; consume in 24h', t:['PO','ORS']},
+        {n:'Tab. Loperamide 1 mg', d:'Start 4 mg \u2192 2 mg after each loose stool \u00B7 Max 4 tabs/day', t:['PO']},
+        {n:'ORS Sachet', d:'1 sachet in 1 L water \u2014 consume in 24h', t:['PO','ORS']},
         {n:'Coslyte (Na/K/Citrate/Dextrose)', d:'1 sachet in 1 L drinking water', t:['PO','ORS']}
       ]},
       { name:'Constipation', drugs:[
-        {n:'Syr. Lactulose (Duphalac) 3.35 g', d:'15&ndash;30 mL HS &times; 3 days', t:['PO','Osmotic']},
-        {n:'Tab. Bisacodyl 5 mg', d:'1 tab HS &times; 3 days', t:['PO','Stimulant']},
+        {n:'Syr. Lactulose (Duphalac) 3.35 g', d:'15\u201330 mL HS \u00D7 3 days', t:['PO','Osmotic']},
+        {n:'Tab. Bisacodyl 5 mg', d:'1 tab HS \u00D7 3 days', t:['PO','Stimulant']},
         {n:'Tab. Docusate Sodium 120 mg', d:'1 tab HS', t:['PO','Stool softener']},
         {n:'Suppository Glycerol 1.15 g', d:'2 sticks PR OD', t:['PR'], tp:'inj'}
       ]},
       { name:'Sore Throat / Adjuncts', drugs:[
         {n:'Chlorhexidine Gargle', d:'20 mL in half glass water, gargle 30 sec BD', t:['Topical']},
-        {n:'Drez Gargle', d:'20 mL gargled 30 sec BD &times; 5 days', t:['Topical']},
-        {n:'Tab. Diosmin + Hesperidin (Haemorrhoids)', d:'1 tab BD &times; 3 months', t:['PO']}
+        {n:'Drez Gargle', d:'20 mL gargled 30 sec BD \u00D7 5 days', t:['Topical']},
+        {n:'Tab. Diosmin + Hesperidin (Haemorrhoids)', d:'1 tab BD \u00D7 3 months', t:['PO']}
       ]}
     ]
   },
   endo: { title:'Endocrine', icon:'&#x1FA7A;', color:'#8b5cf6',
     sections:[
-      { name:'Diabetes &mdash; Biguanide', drugs:[
-        {n:'Tab. Metformin HCL 500 mg', d:'1 tab HS/BD/TDS (AF) &times; 3 months', t:['PO','Biguanide']},
-        {n:'Tab. Metformin HCL 850 mg', d:'1 tab OD/BD &times; 3 months', t:['PO','Biguanide']},
-        {n:'Tab. Metformin SR 500 mg', d:'1 tab BD &times; 1 month', t:['PO','SR']}
+      { name:'Diabetes \u2014 Biguanide', drugs:[
+        {n:'Tab. Metformin HCL 500 mg', d:'1 tab HS/BD/TDS (AF) \u00D7 3 months', t:['PO','Biguanide']},
+        {n:'Tab. Metformin HCL 850 mg', d:'1 tab OD/BD \u00D7 3 months', t:['PO','Biguanide']},
+        {n:'Tab. Metformin SR 500 mg', d:'1 tab BD \u00D7 1 month', t:['PO','SR']}
       ]},
-      { name:'Diabetes &mdash; Sulfonylureas', drugs:[
-        {n:'Tab. Glimepiride 1 mg', d:'1 tab BD &times; 3 months', t:['PO','SU']},
-        {n:'Tab. Glimepiride 2 mg', d:'1 tab OD &times; 1 month', t:['PO','SU']},
-        {n:'Tab. Gliclazide 40&ndash;80 mg', d:'1 tab OD &times; 3 months', t:['PO','SU']}
+      { name:'Diabetes \u2014 Sulfonylureas', drugs:[
+        {n:'Tab. Glimepiride 1 mg', d:'1 tab BD \u00D7 3 months', t:['PO','SU']},
+        {n:'Tab. Glimepiride 2 mg', d:'1 tab OD \u00D7 1 month', t:['PO','SU']},
+        {n:'Tab. Gliclazide 40\u201380 mg', d:'1 tab OD \u00D7 3 months', t:['PO','SU']}
       ]},
-      { name:'Diabetes &mdash; DPP4 Inhibitors', drugs:[
-        {n:'Tab. Sitagliptin 50&ndash;100 mg', d:'100 mg OD &times; 2 months', t:['PO','DPP4-i']},
-        {n:'Tab. Galvus Met (Vildagliptin + Metformin)', d:'1 tab BD (AF) &times; 3 months', t:['PO','Combo'], tp:'combo'}
+      { name:'Diabetes \u2014 DPP4 Inhibitors', drugs:[
+        {n:'Tab. Sitagliptin 50\u2013100 mg', d:'100 mg OD \u00D7 2 months', t:['PO','DPP4-i']},
+        {n:'Tab. Galvus Met (Vildagliptin + Metformin)', d:'1 tab BD (AF) \u00D7 3 months', t:['PO','Combo'], tp:'combo'}
       ]},
       { name:'Insulin', drugs:[
-        {n:'Insulin Actrapid 100 IU/mL', d:'Type II: 0.3&ndash;0.6 IU/kg/day\nType I: 0.5&ndash;1.0 IU/kg/day', t:['SC','Insulin']},
-        {n:'Insulin Glargine 100 IU/mL', d:'20 IU HS SC &times; 3 months', t:['SC','Basal']},
-        {n:'Insulin Human N 100 IU/mL', d:'Type II: Start 0.2 IU/kg/day &middot; 1&ndash;2 doses\nType I: 0.5&ndash;1.0 IU/kg/day divided', t:['SC','NPH']}
+        {n:'Insulin Actrapid 100 IU/mL', d:'Type II: 0.3\u20130.6 IU/kg/day\nType I: 0.5\u20131.0 IU/kg/day', t:['SC','Insulin']},
+        {n:'Insulin Glargine 100 IU/mL', d:'20 IU HS SC \u00D7 3 months', t:['SC','Basal']},
+        {n:'Insulin Human N 100 IU/mL', d:'Type II: Start 0.2 IU/kg/day \u00B7 1\u20132 doses\nType I: 0.5\u20131.0 IU/kg/day divided', t:['SC','NPH']}
       ]},
-      { name:'Thyroid &mdash; Hyperthyroidism', drugs:[
-        {n:'Tab. Carbimazole', d:'Initially 20&ndash;60 mg OD &rarr; taper to 5&ndash;15 mg OD &times; 12&ndash;18 months', t:['PO','Antithyroid']},
-        {n:'Tab. Propylthiouracil 50 mg', d:'2 tab TDS initially &rarr; 1 tab BD/TDS', t:['PO','Antithyroid']},
-        {n:'Tab. Propranolol HCL 10&ndash;40 mg', d:'1 tab TDS/QID (symptom control)', t:['PO','BB']}
+      { name:'Thyroid \u2014 Hyperthyroidism', drugs:[
+        {n:'Tab. Carbimazole', d:'Initially 20\u201360 mg OD \u2192 taper to 5\u201315 mg OD \u00D7 12\u201318 months', t:['PO','Antithyroid']},
+        {n:'Tab. Propylthiouracil 50 mg', d:'2 tab TDS initially \u2192 1 tab BD/TDS', t:['PO','Antithyroid']},
+        {n:'Tab. Propranolol HCL 10\u201340 mg', d:'1 tab TDS/QID (symptom control)', t:['PO','BB']}
       ]},
-      { name:'Thyroid &mdash; Hypothyroidism', drugs:[
-        {n:'Tab. Thyronorm (Levothyroxine)', d:'100&ndash;125 mcg OD', t:['PO','T4']}
+      { name:'Thyroid \u2014 Hypothyroidism', drugs:[
+        {n:'Tab. Thyronorm (Levothyroxine)', d:'100\u2013125 mcg OD', t:['PO','T4']}
       ]},
       { name:'Urinary System', drugs:[
-        {n:'Tab. Augmentin 325/625 mg (UTI)', d:'1 tab BD/TDS &times; 5&ndash;7 days (Cystitis)', t:['PO','UTI']},
-        {n:'Tab. Ciprofloxacin 250 mg (UTI)', d:'BD &times; 5&ndash;7 days (Pyelonephritis)', t:['PO','UTI']},
-        {n:'Tab. Urimax (Tamsulosin) 400 mcg', d:'1 tab HS &times; 3 months (BPH)', t:['PO','Alpha-blocker']},
-        {n:'Tab. Tolterodine Tartrate 2 mg', d:'1 tab HS &times; 3 months (Overactive bladder)', t:['PO','Anticholinergic']},
-        {n:'Tab. Flavoxate HCL 100 mg', d:'100&ndash;200 mg q6&ndash;8h (Bladder relaxant)', t:['PO']}
+        {n:'Tab. Augmentin 325/625 mg (UTI)', d:'1 tab BD/TDS \u00D7 5\u20137 days (Cystitis)', t:['PO','UTI']},
+        {n:'Tab. Ciprofloxacin 250 mg (UTI)', d:'BD \u00D7 5\u20137 days (Pyelonephritis)', t:['PO','UTI']},
+        {n:'Tab. Urimax (Tamsulosin) 400 mcg', d:'1 tab HS \u00D7 3 months (BPH)', t:['PO','Alpha-blocker']},
+        {n:'Tab. Tolterodine Tartrate 2 mg', d:'1 tab HS \u00D7 3 months (Overactive bladder)', t:['PO','Anticholinergic']},
+        {n:'Tab. Flavoxate HCL 100 mg', d:'100\u2013200 mg q6\u20138h (Bladder relaxant)', t:['PO']}
       ]}
     ]
   },
   derm: { title:'Dermatology', icon:'&#x1FA79;', color:'#ec4899',
     sections:[
       { name:'Itchy / Dry Skin', drugs:[
-        {n:'Disuf B Cream (Fusidic Acid 2% + Betamethasone 0.1%)', d:'Apply BD &times; 5 days', t:['Topical','Steroid'], tp:'topical'},
-        {n:'Caladryl Lotion (Calamine + Diphenhydramine + Camphor)', d:'Apply HS &times; 5 days', t:['Topical'], tp:'topical'},
-        {n:'Cream Mometasone Furoate 0.1%', d:'Apply over rashes BD &times; 10 days', t:['Topical','Steroid'], tp:'topical'},
+        {n:'Disuf B Cream (Fusidic Acid 2% + Betamethasone 0.1%)', d:'Apply BD \u00D7 5 days', t:['Topical','Steroid'], tp:'topical'},
+        {n:'Caladryl Lotion (Calamine + Diphenhydramine + Camphor)', d:'Apply HS \u00D7 5 days', t:['Topical'], tp:'topical'},
+        {n:'Cream Mometasone Furoate 0.1%', d:'Apply over rashes BD \u00D7 10 days', t:['Topical','Steroid'], tp:'topical'},
         {n:'Hydrocortisone 1% Cream', d:'Apply BD/TDS', t:['Topical','Mild Steroid'], tp:'topical'},
-        {n:'Cream Clobetasol Propionate', d:'Apply over region &times; 5 days', t:['Topical','Strong Steroid'], tp:'topical'},
-        {n:'Tab. Prednisolone (Wysolone) 10 mg', d:'1 tab BD &times; 5 days &mdash; CAUTION: DM', t:['PO','Steroid']}
+        {n:'Cream Clobetasol Propionate', d:'Apply over region \u00D7 5 days', t:['Topical','Strong Steroid'], tp:'topical'},
+        {n:'Tab. Prednisolone (Wysolone) 10 mg', d:'1 tab BD \u00D7 5 days \u2014 CAUTION: DM', t:['PO','Steroid']}
       ]},
       { name:'Seborrhoeic Dermatitis / Dandruff', drugs:[
-        {n:'Ketoconazole Shampoo 2%', d:'Apply once q3 days &times; 1 month', t:['Topical','Antifungal'], tp:'topical'},
-        {n:'Ketoconazole Cream 2%', d:'Apply BD &times; 4 weeks', t:['Topical','Antifungal'], tp:'topical'},
-        {n:'Clobetasol (Cloderm) Scalp 0.05%', d:'Thin film dry scalp OD &times; 15 min then rinse &mdash; max 4 weeks', t:['Topical','Steroid'], tp:'topical'}
+        {n:'Ketoconazole Shampoo 2%', d:'Apply once q3 days \u00D7 1 month', t:['Topical','Antifungal'], tp:'topical'},
+        {n:'Ketoconazole Cream 2%', d:'Apply BD \u00D7 4 weeks', t:['Topical','Antifungal'], tp:'topical'},
+        {n:'Clobetasol (Cloderm) Scalp 0.05%', d:'Thin film dry scalp OD \u00D7 15 min then rinse \u2014 max 4 weeks', t:['Topical','Steroid'], tp:'topical'}
       ]},
       { name:'Pityriasis / Sunburn', drugs:[
         {n:'Calamine 15% + Zinc Oxide 5%', d:'Apply BD/TDS', t:['Topical'], tp:'topical'}
       ]},
       { name:'Oral Ulcers', drugs:[
-        {n:'Triamcinolone Acetonide (Aristocort) 0.1% Paste', d:'Apply without rubbing BD/TDS after meals &times; 7 days', t:['Oral','Steroid'], tp:'topical'}
+        {n:'Triamcinolone Acetonide (Aristocort) 0.1% Paste', d:'Apply without rubbing BD/TDS after meals \u00D7 7 days', t:['Oral','Steroid'], tp:'topical'}
       ]},
       { name:'Scalp / Hair', drugs:[
-        {n:'Tab. Finasteride 5 mg', d:'1 tab OD &times; 3 months (Male hair loss)', t:['PO']},
-        {n:'Cap. Biotin + Vit E (250 mcg + 50 mg)', d:'Morning &times; 14 days', t:['PO','Supplement']}
+        {n:'Tab. Finasteride 5 mg', d:'1 tab OD \u00D7 3 months (Male hair loss)', t:['PO']},
+        {n:'Cap. Biotin + Vit E (250 mcg + 50 mg)', d:'Morning \u00D7 14 days', t:['PO','Supplement']}
       ]}
     ]
   },
   eyes: { title:'Eyes & ENT', icon:'&#x1F441;️', color:'#06b6d4',
     sections:[
-      { name:'Eye &mdash; Pain & Inflammation', drugs:[
-        {n:'Nepafenac 1 mg/mL', d:'1 drop QID &times; 5 days &rarr; BD &times; 5 days', t:['Eye Drop','NSAID'], tp:'topical'},
-        {n:'Fluorometholone', d:'1 gtt QID &times; 15 days &rarr; BD &times; 15 days', t:['Eye Drop','Steroid'], tp:'topical'},
-        {n:'Naphazoline Eye Drops', d:'1 drop TDS in both eyes &times; 2 weeks &mdash; &#x26A0;&#xFE0F; CAUTION GLAUCOMA', t:['Eye Drop'], tp:'topical'}
+      { name:'Eye \u2014 Pain & Inflammation', drugs:[
+        {n:'Nepafenac 1 mg/mL', d:'1 drop QID \u00D7 5 days \u2192 BD \u00D7 5 days', t:['Eye Drop','NSAID'], tp:'topical'},
+        {n:'Fluorometholone', d:'1 gtt QID \u00D7 15 days \u2192 BD \u00D7 15 days', t:['Eye Drop','Steroid'], tp:'topical'},
+        {n:'Naphazoline Eye Drops', d:'1 drop TDS in both eyes \u00D7 2 weeks \u2014 &#x26A0;&#xFE0F; CAUTION GLAUCOMA', t:['Eye Drop'], tp:'topical'}
       ]},
-      { name:'Eye &mdash; Allergic / Conjunctivitis', drugs:[
-        {n:'Olopatadine 0.1%', d:'1&ndash;2 drops TDS &times; 1 month', t:['Eye Drop','Antihistamine'], tp:'topical'},
-        {n:'Tobramycin + Dexamethasone 0.3%+0.1%', d:'1 drop QID &times; 5d &rarr; BD &times; 5d', t:['Eye Drop','Combo'], tp:'combo'}
+      { name:'Eye \u2014 Allergic / Conjunctivitis', drugs:[
+        {n:'Olopatadine 0.1%', d:'1\u20132 drops TDS \u00D7 1 month', t:['Eye Drop','Antihistamine'], tp:'topical'},
+        {n:'Tobramycin + Dexamethasone 0.3%+0.1%', d:'1 drop QID \u00D7 5d \u2192 BD \u00D7 5d', t:['Eye Drop','Combo'], tp:'combo'}
       ]},
-      { name:'Eye &mdash; Antibacterial', drugs:[
-        {n:'Moxifloxacin 0.5% Eye Drops', d:'HS in both eyes &times; 10 days', t:['Eye Drop','FQ'], tp:'topical'},
-        {n:'Tobramycin Drops 0.3%', d:'2 drops BD &times; 5 days', t:['Eye Drop','AB'], tp:'topical'},
-        {n:'Moxifloxacin Eye Ointment 0.5%', d:'Apply HS &times; 5 days', t:['Eye Oint','FQ'], tp:'topical'}
+      { name:'Eye \u2014 Antibacterial', drugs:[
+        {n:'Moxifloxacin 0.5% Eye Drops', d:'HS in both eyes \u00D7 10 days', t:['Eye Drop','FQ'], tp:'topical'},
+        {n:'Tobramycin Drops 0.3%', d:'2 drops BD \u00D7 5 days', t:['Eye Drop','AB'], tp:'topical'},
+        {n:'Moxifloxacin Eye Ointment 0.5%', d:'Apply HS \u00D7 5 days', t:['Eye Oint','FQ'], tp:'topical'}
       ]},
-      { name:'Eye &mdash; Dry Eyes / Lubricants', drugs:[
-        {n:'Systane Lubricating Eye Drops 15 mL', d:'1&ndash;2 drops as needed', t:['Eye Drop','Lubricant'], tp:'topical'},
-        {n:'Hydroxypropyl Methylcellulose', d:'2 drops per eye QID/TDS &times; 7 days', t:['Eye Drop','Lubricant'], tp:'topical'}
+      { name:'Eye \u2014 Dry Eyes / Lubricants', drugs:[
+        {n:'Systane Lubricating Eye Drops 15 mL', d:'1\u20132 drops as needed', t:['Eye Drop','Lubricant'], tp:'topical'},
+        {n:'Hydroxypropyl Methylcellulose', d:'2 drops per eye QID/TDS \u00D7 7 days', t:['Eye Drop','Lubricant'], tp:'topical'}
       ]},
-      { name:'Eye &mdash; Special', drugs:[
-        {n:"Welders Eye &mdash; Lignocaine 2%", d:'0.25 mL Lignocaine + 0.75 mL NS &rarr; 2 drops stat in both eyes', t:['Eye Drop','Emergency']},
+      { name:'Eye \u2014 Special', drugs:[
+        {n:"Welders Eye \u2014 Lignocaine 2%", d:'0.25 mL Lignocaine + 0.75 mL NS \u2192 2 drops stat in both eyes', t:['Eye Drop','Emergency']},
         {n:'Foreign Body', d:'Eye irrigation with Normal Saline', t:['Procedure']}
       ]},
-      { name:'Ear &mdash; Pain / Infection', drugs:[
+      { name:'Ear \u2014 Pain / Infection', drugs:[
         {n:'Candibiotic Ear Drops', d:'2 drops BD', t:['Ear Drop','Combo'], tp:'topical'},
-        {n:'Waxolve (Paradichlorobenzene + Benzocaine)', d:'2 drops BD &times; 3 days (wax)', t:['Ear Drop','Wax'], tp:'topical'},
-        {n:'Ciprofloxacin 0.3% + Hydrocortisone 1%', d:'4 drops BD &times; 7 days into affected ear', t:['Ear Drop','AB'], tp:'topical'}
+        {n:'Waxolve (Paradichlorobenzene + Benzocaine)', d:'2 drops BD \u00D7 3 days (wax)', t:['Ear Drop','Wax'], tp:'topical'},
+        {n:'Ciprofloxacin 0.3% + Hydrocortisone 1%', d:'4 drops BD \u00D7 7 days into affected ear', t:['Ear Drop','AB'], tp:'topical'}
       ]},
       { name:"Menière's Disease", drugs:[
-        {n:"Tab. Betahistine Dihydrochloride", d:'8&ndash;16 mg BD/TDS', t:['PO','Vestibular']}
+        {n:"Tab. Betahistine Dihydrochloride", d:'8\u201316 mg BD/TDS', t:['PO','Vestibular']}
       ]}
     ]
   },
   psych: { title:'Psychiatry & Neurology', icon:'&#x1F9E0;', color:'#a855f7',
     sections:[
-      { name:'Antidepressants &mdash; SSRIs', drugs:[
-        {n:'Tab. Fluoxetine (Fludac) 20 mg', d:'1 cap HS &times; 3 months', t:['PO','SSRI']},
-        {n:'Tab. Sertraline 50 mg', d:'1 tab OD &mdash; weekly increments by 50 mg if needed', t:['PO','SSRI']},
-        {n:'Tab. Paroxetine 20 mg', d:'1 tab OD &mdash; weekly increments by 10 mg if needed', t:['PO','SSRI']},
+      { name:'Antidepressants \u2014 SSRIs', drugs:[
+        {n:'Tab. Fluoxetine (Fludac) 20 mg', d:'1 cap HS \u00D7 3 months', t:['PO','SSRI']},
+        {n:'Tab. Sertraline 50 mg', d:'1 tab OD \u2014 weekly increments by 50 mg if needed', t:['PO','SSRI']},
+        {n:'Tab. Paroxetine 20 mg', d:'1 tab OD \u2014 weekly increments by 10 mg if needed', t:['PO','SSRI']},
         {n:'Tab. Citalopram 20 mg', d:'1 tab OD', t:['PO','SSRI']}
       ]},
-      { name:'Antidepressants &mdash; TCAs', drugs:[
-        {n:'Tab. Amitriptyline HCL 10&ndash;25 mg', d:'50&ndash;75 mg OD', t:['PO','TCA']},
-        {n:'Tab. Clomipramine HCL 10 mg', d:'1 tab OD &rarr; up to 150 mg OD', t:['PO','TCA']},
+      { name:'Antidepressants \u2014 TCAs', drugs:[
+        {n:'Tab. Amitriptyline HCL 10\u201325 mg', d:'50\u201375 mg OD', t:['PO','TCA']},
+        {n:'Tab. Clomipramine HCL 10 mg', d:'1 tab OD \u2192 up to 150 mg OD', t:['PO','TCA']},
         {n:'Tab. Imipramine 25 mg', d:'1 tab TDS', t:['PO','TCA']}
       ]},
       { name:'Mood Stabilizers', drugs:[
-        {n:'Lithium (Camcolit) 400 mg', d:'OD/BD/TDS &mdash; monitor serum Li q12h twice weekly. Keep <1.5 mEq/L', t:['PO','Mood']},
+        {n:'Lithium (Camcolit) 400 mg', d:'OD/BD/TDS \u2014 monitor serum Li q12h twice weekly. Keep <1.5 mEq/L', t:['PO','Mood']},
         {n:'Tab. Carbamazepine (Tegretol) 200 mg', d:'1 tab BD', t:['PO','Mood']},
-        {n:'Lamotrigine (Lamictal)', d:'25 mg OD &times; 2wk &rarr; 50 mg OD &times; 2wk', t:['PO','Mood']}
+        {n:'Lamotrigine (Lamictal)', d:'25 mg OD \u00D7 2wk \u2192 50 mg OD \u00D7 2wk', t:['PO','Mood']}
       ]},
       { name:'Antipsychotics', drugs:[
         {n:'Tab. Haloperidol 5 mg (Typical)', d:'1 tab BD/TDS', t:['PO','Typical']},
@@ -822,153 +822,153 @@ var cats = {
         {n:'Levetiracetam 500 mg', d:'1 tab BD', t:['PO','AED']}
       ]},
       { name:'Anxiolytic / Hypnotics', drugs:[
-        {n:'Tab. Alprazolam 0.25 mg', d:'HS &times; 1 month', t:['PO','BZD']},
-        {n:'Tab. Zolpidem Tartrate 5&ndash;10 mg', d:'1 tab HS (sleep disorder)', t:['PO','Z-drug']},
-        {n:'Tab. Midazolam 7.5&ndash;15 mg', d:'7.5&ndash;15 mg once at bedtime', t:['PO','BZD']}
+        {n:'Tab. Alprazolam 0.25 mg', d:'HS \u00D7 1 month', t:['PO','BZD']},
+        {n:'Tab. Zolpidem Tartrate 5\u201310 mg', d:'1 tab HS (sleep disorder)', t:['PO','Z-drug']},
+        {n:'Tab. Midazolam 7.5\u201315 mg', d:'7.5\u201315 mg once at bedtime', t:['PO','BZD']}
       ]},
       { name:'Neuropathic Pain', drugs:[
-        {n:'Tab. Neurobion Forte', d:'OD/BD &times; 2 months', t:['PO','B-Vitamins']},
-        {n:'Tab. Pregabalin 75 mg', d:'1 tab BD &times; 5d &rarr; 1 tab QID', t:['PO','Neuropathic']},
-        {n:'Tab. Gabapentin 300 mg', d:'Day 1: OD &middot; Day 2: BD &middot; Day 3: TDS (titrate up)', t:['PO','Neuropathic']},
-        {n:'Tab. Amitriptyline HCL 10 mg', d:'1 tab HS &times; 15 days (AF)', t:['PO','TCA']}
+        {n:'Tab. Neurobion Forte', d:'OD/BD \u00D7 2 months', t:['PO','B-Vitamins']},
+        {n:'Tab. Pregabalin 75 mg', d:'1 tab BD \u00D7 5d \u2192 1 tab QID', t:['PO','Neuropathic']},
+        {n:'Tab. Gabapentin 300 mg', d:'Day 1: OD \u00B7 Day 2: BD \u00B7 Day 3: TDS (titrate up)', t:['PO','Neuropathic']},
+        {n:'Tab. Amitriptyline HCL 10 mg', d:'1 tab HS \u00D7 15 days (AF)', t:['PO','TCA']}
       ]}
     ]
   },
   antibiotics: { title:'Antibiotics', icon:'&#x1F48A;', color:'#22c55e', isTable:true,
     abxData:[
-      {nm:'Cefo-L (Cefixime + Lactobacillus)', d:'PO: 200 mg BD &times; 5d\nIV: 1.2 g QID/TDS', inds:['UTI','URTI/LRTI','Otitis Media','Diarrhoea (Kids)'], cls:'Cephalosporin (Beta-Lactam)'},
-      {nm:'Augmentin (Amoxicillin + Clavulanate)', d:'PO: 625 mg BD/TDS &times; 5&ndash;7d\nIV: 1.2 g QID/TDS', inds:['Skin & Suture','Cellulitis','Otitis Media','UTI','URTI/LRTI'], cls:'Penicillin'},
-      {nm:'Azithromycin', d:'PO: 500 mg OD &times; 5&ndash;7 days', inds:['URTI','Pneumonia','Sinusitis','COPD exacerbation'], cls:'Macrolide'},
-      {nm:'Metronidazole', d:'PO: 200&ndash;400 mg TDS &times; 3&ndash;7d\nIV: 500 mg TDS &times; 3d', inds:['Intra-abdominal','Diabetic wound','Cellulitis','PID','Bacterial vaginosis','Giardiasis'], cls:'Nitroimidazole'},
-      {nm:'Cefuroxime', d:'PO: 250&ndash;500 mg BD\nIV: 500&ndash;750 mg TDS', inds:['URTI','Otitis Media','Skin & Suture','UTI'], cls:'Cephalosporin (2nd gen)'},
-      {nm:'Ciprofloxacin', d:'PO: 250&ndash;500 mg BD &times; 5&ndash;7d\nIV: 400 mg BD', inds:['UTI','Pyelonephritis','AGE','Typhoid','LRTI','Otitis Media/Externa'], cls:'Fluoroquinolone'},
-      {nm:'Ceftriaxone', d:'IV: 1 g BD &times; 3&ndash;4 days', inds:['Typhoid','Septicaemia','Meningitis','LRTI','UTI','PID','Gonorrhoea'], cls:'Cephalosporin (3rd gen)'},
-      {nm:'Levofloxacin', d:'PO/IV: 500&ndash;750 mg OD &times; 7&ndash;14d', inds:['Pneumonia','Complicated skin','UTI/Pyelonephritis','Bacterial prostatitis'], cls:'Quinolone'},
-      {nm:'Cephalexin', d:'PO: 500 mg TDS &times; 5 days', inds:['Skin infections','URTI'], cls:'Cephalosporin (1st gen)'},
+      {nm:'Cefo-L (Cefixime + Lactobacillus)', d:'PO: 200 mg BD \u00D7 5d\nIV: 1.2 g QID/TDS', inds:['UTI','URTI/LRTI','Otitis Media','Diarrhoea (Kids)'], cls:'Cephalosporin (Beta-Lactam)'},
+      {nm:'Augmentin (Amoxicillin + Clavulanate)', d:'PO: 625 mg BD/TDS \u00D7 5\u20137d\nIV: 1.2 g QID/TDS', inds:['Skin & Suture','Cellulitis','Otitis Media','UTI','URTI/LRTI'], cls:'Penicillin'},
+      {nm:'Azithromycin', d:'PO: 500 mg OD \u00D7 5\u20137 days', inds:['URTI','Pneumonia','Sinusitis','COPD exacerbation'], cls:'Macrolide'},
+      {nm:'Metronidazole', d:'PO: 200\u2013400 mg TDS \u00D7 3\u20137d\nIV: 500 mg TDS \u00D7 3d', inds:['Intra-abdominal','Diabetic wound','Cellulitis','PID','Bacterial vaginosis','Giardiasis'], cls:'Nitroimidazole'},
+      {nm:'Cefuroxime', d:'PO: 250\u2013500 mg BD\nIV: 500\u2013750 mg TDS', inds:['URTI','Otitis Media','Skin & Suture','UTI'], cls:'Cephalosporin (2nd gen)'},
+      {nm:'Ciprofloxacin', d:'PO: 250\u2013500 mg BD \u00D7 5\u20137d\nIV: 400 mg BD', inds:['UTI','Pyelonephritis','AGE','Typhoid','LRTI','Otitis Media/Externa'], cls:'Fluoroquinolone'},
+      {nm:'Ceftriaxone', d:'IV: 1 g BD \u00D7 3\u20134 days', inds:['Typhoid','Septicaemia','Meningitis','LRTI','UTI','PID','Gonorrhoea'], cls:'Cephalosporin (3rd gen)'},
+      {nm:'Levofloxacin', d:'PO/IV: 500\u2013750 mg OD \u00D7 7\u201314d', inds:['Pneumonia','Complicated skin','UTI/Pyelonephritis','Bacterial prostatitis'], cls:'Quinolone'},
+      {nm:'Cephalexin', d:'PO: 500 mg TDS \u00D7 5 days', inds:['Skin infections','URTI'], cls:'Cephalosporin (1st gen)'},
       {nm:'Cefotaxime', d:'IV: 1 g BD', inds:['Typhoid','Sepsis','Meningitis'], cls:'Cephalosporin (3rd gen)'},
       {nm:'Meropenem', d:'IV: 1 g TDS', inds:['Severe sepsis','Multi-drug resistant'], cls:'Carbapenem'},
-      {nm:'Nitrofurantoin 100 mg', d:'BD &times; 5 days with meals', inds:['Uncomplicated UTI'], cls:'Nitrofuran'},
-      {nm:'Dicloxacillin 125&ndash;500 mg', d:'PO: QID', inds:['Skin infections (Impetigo/Cellulitis/Boils)','Osteomyelitis','Septic arthritis'], cls:'Beta-Lactam Penicillin'}
+      {nm:'Nitrofurantoin 100 mg', d:'BD \u00D7 5 days with meals', inds:['Uncomplicated UTI'], cls:'Nitrofuran'},
+      {nm:'Dicloxacillin 125\u2013500 mg', d:'PO: QID', inds:['Skin infections (Impetigo/Cellulitis/Boils)','Osteomyelitis','Septic arthritis'], cls:'Beta-Lactam Penicillin'}
     ]
   },
   antifungal: { title:'Antifungal / Antiviral', icon:'&#x1F344;', color:'#f97316',
     sections:[
       { name:'Systemic Antifungals', drugs:[
-        {n:'Tab. Griseofulvin 500 mg', d:'OD or 250 mg BD &times; 2&ndash;8 wk (skin/scalp)\nBD &times; 6 months (fingernail)\nBD &times; >12 months (toenail)', t:['PO','Tinea']},
-        {n:'Tab. Terbinafine 250 mg', d:'OD &times; 6 wk (fingernail) / 12 wk (toenail)', t:['PO','Tinea']},
-        {n:'Tab. Fluconazole 100 mg', d:'Oral candida: 200 mg day 1 &rarr; 100 mg OD &times; 2wk\nVVC (uncomplicated): 150 mg stat', t:['PO','Candida','Azole']}
+        {n:'Tab. Griseofulvin 500 mg', d:'OD or 250 mg BD \u00D7 2\u20138 wk (skin/scalp)\nBD \u00D7 6 months (fingernail)\nBD \u00D7 >12 months (toenail)', t:['PO','Tinea']},
+        {n:'Tab. Terbinafine 250 mg', d:'OD \u00D7 6 wk (fingernail) / 12 wk (toenail)', t:['PO','Tinea']},
+        {n:'Tab. Fluconazole 100 mg', d:'Oral candida: 200 mg day 1 \u2192 100 mg OD \u00D7 2wk\nVVC (uncomplicated): 150 mg stat', t:['PO','Candida','Azole']}
       ]},
       { name:'Topical Antifungals', drugs:[
-        {n:'Clotrimazole 1%', d:'Apply BD/TDS &times; 1 month', t:['Topical','Azole'], tp:'topical'},
-        {n:'Terbinafine Topical', d:'Apply BD &times; 4 weeks max', t:['Topical','Tinea pedis'], tp:'topical'},
-        {n:'Ketoconazole Shampoo 2%', d:'Apply once q3 days &times; 1 month', t:['Topical','Scalp'], tp:'topical'},
-        {n:'Candid Mouth Paint (Clotrimazole 1%)', d:'10&ndash;20 drops QID &times; 3&ndash;5 days', t:['Oral','Candida']},
-        {n:'Nystatin (1 Lac Unit)', d:'5 mL QID &mdash; hold in mouth before swallowing. Continue 2 days after cure', t:['PO','Candida']}
+        {n:'Clotrimazole 1%', d:'Apply BD/TDS \u00D7 1 month', t:['Topical','Azole'], tp:'topical'},
+        {n:'Terbinafine Topical', d:'Apply BD \u00D7 4 weeks max', t:['Topical','Tinea pedis'], tp:'topical'},
+        {n:'Ketoconazole Shampoo 2%', d:'Apply once q3 days \u00D7 1 month', t:['Topical','Scalp'], tp:'topical'},
+        {n:'Candid Mouth Paint (Clotrimazole 1%)', d:'10\u201320 drops QID \u00D7 3\u20135 days', t:['Oral','Candida']},
+        {n:'Nystatin (1 Lac Unit)', d:'5 mL QID \u2014 hold in mouth before swallowing. Continue 2 days after cure', t:['PO','Candida']}
       ]},
       { name:'Anti-Helminthics', drugs:[
-        {n:'Albendazole 400 mg', d:'Stat &mdash; repeat in 2 weeks', t:['PO','Deworming']},
-        {n:'Mebendazole 100 mg', d:'BD &times; 5 days', t:['PO','Deworming']}
+        {n:'Albendazole 400 mg', d:'Stat \u2014 repeat in 2 weeks', t:['PO','Deworming']},
+        {n:'Mebendazole 100 mg', d:'BD \u00D7 5 days', t:['PO','Deworming']}
       ]},
       { name:'Antivirals', drugs:[
-        {n:'Tab. Acyclovir 800 mg &mdash; Shingles/VZV', d:'Shingles: q4h &times; 7&ndash;10 days\nVZV: q4h &times; 5&ndash;7 days', t:['PO','Acyclovir']},
-        {n:'Tab. Acyclovir 200 mg &mdash; Herpes simplex', d:'q4h &times; 5&ndash;10 days', t:['PO','Acyclovir']},
-        {n:'Tab. Tamiflu (Oseltamivir) 75 mg', d:'BD &times; 5 days (Influenza)', t:['PO','Influenza']}
+        {n:'Tab. Acyclovir 800 mg \u2014 Shingles/VZV', d:'Shingles: q4h \u00D7 7\u201310 days\nVZV: q4h \u00D7 5\u20137 days', t:['PO','Acyclovir']},
+        {n:'Tab. Acyclovir 200 mg \u2014 Herpes simplex', d:'q4h \u00D7 5\u201310 days', t:['PO','Acyclovir']},
+        {n:'Tab. Tamiflu (Oseltamivir) 75 mg', d:'BD \u00D7 5 days (Influenza)', t:['PO','Influenza']}
       ]}
     ]
   },
   vitamins: { title:'Vitamins, Bones & Misc', icon:'&#x1F48E;', color:'#eab308',
     sections:[
       { name:'Vitamins', drugs:[
-        {n:'Tab. Ascorbic Acid 1000 mg', d:'Morning &times; 2 weeks', t:['PO','Vit C']},
-        {n:'Cap. Nutrolin B (B-complex + Lactobacillus)', d:'BD &times; 5 days', t:['PO','B-complex']},
-        {n:'Cap. Becosule', d:'OD &times; 3 months', t:['PO','B-complex']}
+        {n:'Tab. Ascorbic Acid 1000 mg', d:'Morning \u00D7 2 weeks', t:['PO','Vit C']},
+        {n:'Cap. Nutrolin B (B-complex + Lactobacillus)', d:'BD \u00D7 5 days', t:['PO','B-complex']},
+        {n:'Cap. Becosule', d:'OD \u00D7 3 months', t:['PO','B-complex']}
       ]},
       { name:'Bones & Joints', drugs:[
-        {n:'Tab. Shelcal (Calcium Carbonate + Vit D3)', d:'OD &times; 3 months', t:['PO','Ca','Vit D']},
-        {n:'Tab. Milical (Calcium Citrate + Vit D3)', d:'Morning &times; 3 months', t:['PO','Ca','Vit D']},
-        {n:'Cap. Lumia 60K', d:'Once a month in morning &times; 15 weeks', t:['PO','Vit D']},
-        {n:'Cholecalciferol Sachet 600,000 IU', d:'1 sachet weekly in milk &times; 8 weeks', t:['PO','Vit D3']}
+        {n:'Tab. Shelcal (Calcium Carbonate + Vit D3)', d:'OD \u00D7 3 months', t:['PO','Ca','Vit D']},
+        {n:'Tab. Milical (Calcium Citrate + Vit D3)', d:'Morning \u00D7 3 months', t:['PO','Ca','Vit D']},
+        {n:'Cap. Lumia 60K', d:'Once a month in morning \u00D7 15 weeks', t:['PO','Vit D']},
+        {n:'Cholecalciferol Sachet 600,000 IU', d:'1 sachet weekly in milk \u00D7 8 weeks', t:['PO','Vit D3']}
       ]},
       { name:'Blood / Iron', drugs:[
-        {n:'Tab. Folic Acid 5 mg', d:'Morning (AF) &times; 1 month', t:['PO','Folate']},
-        {n:'Syr. Dexorange (Iron + Folic Acid + Vit B12)', d:'15 mL OD/BD with food &mdash; NEVER on empty stomach', t:['PO','Iron']}
+        {n:'Tab. Folic Acid 5 mg', d:'Morning (AF) \u00D7 1 month', t:['PO','Folate']},
+        {n:'Syr. Dexorange (Iron + Folic Acid + Vit B12)', d:'15 mL OD/BD with food \u2014 NEVER on empty stomach', t:['PO','Iron']}
       ]},
       { name:'Systemic Steroids', drugs:[
-        {n:'Tab. Prednisolone 10 mg', d:'Allergy/Inflam: 5&ndash;60 mg/day in 2&ndash;4 divided doses\nEg: TDS &times; 5d &rarr; BD &times; 5d &rarr; OD &times; 5d\nAsthma/COPD: 40&ndash;60 mg/day in 1&ndash;2 doses', t:['PO','Steroid','CAUTION DM']},
-        {n:'Tab. Dexamethasone 0.5 mg', d:'0.75&ndash;9 mg OD in 2&ndash;5 divided doses', t:['PO','Steroid']}
+        {n:'Tab. Prednisolone 10 mg', d:'Allergy/Inflam: 5\u201360 mg/day in 2\u20134 divided doses\nEg: TDS \u00D7 5d \u2192 BD \u00D7 5d \u2192 OD \u00D7 5d\nAsthma/COPD: 40\u201360 mg/day in 1\u20132 doses', t:['PO','Steroid','CAUTION DM']},
+        {n:'Tab. Dexamethasone 0.5 mg', d:'0.75\u20139 mg OD in 2\u20135 divided doses', t:['PO','Steroid']}
       ]},
       { name:'IV Fluids', drugs:[
-        {n:"Ringer's Lactate", d:'80&ndash;100 mL/hr', t:['IV'], tp:'inj'},
-        {n:'Normal Saline 500 mL', d:'40&ndash;120 mL/hr', t:['IV'], tp:'inj'},
+        {n:"Ringer's Lactate", d:'80\u2013100 mL/hr', t:['IV'], tp:'inj'},
+        {n:'Normal Saline 500 mL', d:'40\u2013120 mL/hr', t:['IV'], tp:'inj'},
         {n:'Dextrose 5%', d:'120 mL/hr', t:['IV'], tp:'inj'}
       ]}
     ]
   },
-  'paed-opd': { title:'Paediatrics &mdash; OPD', icon:'&#x1F476;', color:'#60a5fa', isPaed:true,
+  'paed-opd': { title:'Paediatrics \u2014 OPD', icon:'&#x1F476;', color:'#60a5fa', isPaed:true,
     sections:[
       { name:'Pain / Fever', drugs:[
-        {n:'Paracetamol', doses:[{a:'PO',v:'15 mg/kg q4&ndash;6h'},{a:'PR',v:'15 mg/kg'},{a:'IM',v:'5 mg/kg'},{a:'&#x26A0;&#xFE0F; CI',v:'Hepatic impairment, Nephropathy'}]},
-        {n:'Ibuprofen', doses:[{a:'PO',v:'5&ndash;10 mg/kg q6&ndash;8h'},{a:'&#x26A0;&#xFE0F; CI',v:'NSAID allergy, PUD, GI bleeding'}]},
-        {n:'Mefenamic Acid', doses:[{a:'PO',v:'5&ndash;10 mg/kg/dose'},{a:'&#x26A0;&#xFE0F; CI',v:'GI inflammation, PUD, Aspirin allergy, Seizures'}]}
+        {n:'Paracetamol', doses:[{a:'PO',v:'15 mg/kg q4\u20136h'},{a:'PR',v:'15 mg/kg'},{a:'IM',v:'5 mg/kg'},{a:'&#x26A0;&#xFE0F; CI',v:'Hepatic impairment, Nephropathy'}]},
+        {n:'Ibuprofen', doses:[{a:'PO',v:'5\u201310 mg/kg q6\u20138h'},{a:'&#x26A0;&#xFE0F; CI',v:'NSAID allergy, PUD, GI bleeding'}]},
+        {n:'Mefenamic Acid', doses:[{a:'PO',v:'5\u201310 mg/kg/dose'},{a:'&#x26A0;&#xFE0F; CI',v:'GI inflammation, PUD, Aspirin allergy, Seizures'}]}
       ]},
       { name:'Antihistamines (Allergic Rhinitis)', drugs:[
-        {n:'Cetirizine Dihydrochloride', doses:[{a:'6mo&ndash;2yr',v:'2.5 mg HS'},{a:'2&ndash;6yr',v:'2.5 mg BD or 5 mg HS'},{a:'>6yr',v:'5&ndash;10 mg HS'}]},
-        {n:'Fexofenadine', doses:[{a:'6mo&ndash;2yr',v:'15 mg BD'},{a:'2&ndash;12yr',v:'30 mg BD'},{a:'>12yr',v:'60 mg BD'}]},
+        {n:'Cetirizine Dihydrochloride', doses:[{a:'6mo\u20132yr',v:'2.5 mg HS'},{a:'2\u20136yr',v:'2.5 mg BD or 5 mg HS'},{a:'>6yr',v:'5\u201310 mg HS'}]},
+        {n:'Fexofenadine', doses:[{a:'6mo\u20132yr',v:'15 mg BD'},{a:'2\u201312yr',v:'30 mg BD'},{a:'>12yr',v:'60 mg BD'}]},
         {n:'Loratadine', doses:[{a:'>2yr (up to 30 kg)',v:'5 mg OD'},{a:'>12yr',v:'10 mg OD'}]},
-        {n:'Chlorpheniramine Maleate', doses:[{a:'1&ndash;6yr',v:'1 mg q4&ndash;6h'},{a:'6&ndash;12yr',v:'2 mg q4&ndash;6h'},{a:'>12yr',v:'4 mg q4&ndash;6h'}]}
+        {n:'Chlorpheniramine Maleate', doses:[{a:'1\u20136yr',v:'1 mg q4\u20136h'},{a:'6\u201312yr',v:'2 mg q4\u20136h'},{a:'>12yr',v:'4 mg q4\u20136h'}]}
       ]},
       { name:'Cough', drugs:[
-        {n:'Bromhexine (Productive Cough)', doses:[{a:'2&ndash;5yr',v:'2 mg TDS'},{a:'6&ndash;12yr',v:'4 mg TDS'},{a:'>12yr',v:'8 mg TDS'}]},
-        {n:'Ambroxol HCL 30 mg/5 mL', doses:[{a:'Up to 2yr',v:'2.5 mL BD'},{a:'2&ndash;5yr',v:'2.5 mL TDS'},{a:'>5yr',v:'5 mL BD/TDS'}]},
-        {n:'Ascoril-D (Dry Cough)', doses:[{a:'2&ndash;6yr',v:'2.5 mL TDS'},{a:'6&ndash;12yr',v:'2.5&ndash;5 mL q4&ndash;6h'},{a:'>12yr',v:'5&ndash;10 mL q4&ndash;6h'}]}
+        {n:'Bromhexine (Productive Cough)', doses:[{a:'2\u20135yr',v:'2 mg TDS'},{a:'6\u201312yr',v:'4 mg TDS'},{a:'>12yr',v:'8 mg TDS'}]},
+        {n:'Ambroxol HCL 30 mg/5 mL', doses:[{a:'Up to 2yr',v:'2.5 mL BD'},{a:'2\u20135yr',v:'2.5 mL TDS'},{a:'>5yr',v:'5 mL BD/TDS'}]},
+        {n:'Ascoril-D (Dry Cough)', doses:[{a:'2\u20136yr',v:'2.5 mL TDS'},{a:'6\u201312yr',v:'2.5\u20135 mL q4\u20136h'},{a:'>12yr',v:'5\u201310 mL q4\u20136h'}]}
       ]},
       { name:'Vomiting', drugs:[
-        {n:'Domperidone (0.2&ndash;0.4 mg/kg/dose q4&ndash;8h)', doses:[{a:'1&ndash;2yr (10&ndash;12 kg)',v:'3.0&ndash;3.5 mL &times; day'},{a:'2&ndash;3yr (12&ndash;14 kg)',v:'3.5&ndash;4.0 mL'},{a:'3&ndash;4yr (14&ndash;18 kg)',v:'4.0&ndash;5.5 mL'},{a:'4&ndash;5yr (18&ndash;20 kg)',v:'5.5&ndash;6.0 mL'}]},
-        {n:'Ondansetron 4 mg/5 mL (0.15 mL/kg TDS)', doses:[{a:'<4yr',v:'2 mg q4h'},{a:'4&ndash;11yr',v:'4 mg q4h'},{a:'>12yr',v:'8 mg q4h'},{a:'IV >3yr',v:'0.15&ndash;0.45 mg/kg/dose'}]}
+        {n:'Domperidone (0.2\u20130.4 mg/kg/dose q4\u20138h)', doses:[{a:'1\u20132yr (10\u201312 kg)',v:'3.0\u20133.5 mL \u00D7 day'},{a:'2\u20133yr (12\u201314 kg)',v:'3.5\u20134.0 mL'},{a:'3\u20134yr (14\u201318 kg)',v:'4.0\u20135.5 mL'},{a:'4\u20135yr (18\u201320 kg)',v:'5.5\u20136.0 mL'}]},
+        {n:'Ondansetron 4 mg/5 mL (0.15 mL/kg TDS)', doses:[{a:'<4yr',v:'2 mg q4h'},{a:'4\u201311yr',v:'4 mg q4h'},{a:'>12yr',v:'8 mg q4h'},{a:'IV >3yr',v:'0.15\u20130.45 mg/kg/dose'}]}
       ]},
       { name:'Acute Diarrhoea', drugs:[
-        {n:'Loperamide 2 mg (>6 years only)', doses:[{a:'6&ndash;12yr',v:'2 mg after 1st loose stool &rarr; 1 mg after each &middot; max 4 tabs/day'},{a:'>12yr',v:'Same as adults'}]},
-        {n:'Zinc Sulphate (Oral)', doses:[{a:'<6mo',v:'10 mg/day &times; 14 days'},{a:'>6mo',v:'20 mg/day &times; 14 days'}]}
+        {n:'Loperamide 2 mg (>6 years only)', doses:[{a:'6\u201312yr',v:'2 mg after 1st loose stool \u2192 1 mg after each \u00B7 max 4 tabs/day'},{a:'>12yr',v:'Same as adults'}]},
+        {n:'Zinc Sulphate (Oral)', doses:[{a:'<6mo',v:'10 mg/day \u00D7 14 days'},{a:'>6mo',v:'20 mg/day \u00D7 14 days'}]}
       ]},
       { name:'Constipation', drugs:[
-        {n:'Glycerol Suppository 1.15 g', doses:[{a:'2&ndash;6yr',v:'1 stick PR in 24h'},{a:'>6yr',v:'2 sticks PR in 24h'}]},
-        {n:'Bisacodyl (Dulcolax) 5 mg', doses:[{a:'4&ndash;10yr',v:'1 tab HS'}]},
-        {n:'Syr. Lactulose 3.35 g/5 mL', doses:[{a:'All ages',v:'1&ndash;3 mL/kg/day in divided doses &middot; Max 60 mL/day'}]}
+        {n:'Glycerol Suppository 1.15 g', doses:[{a:'2\u20136yr',v:'1 stick PR in 24h'},{a:'>6yr',v:'2 sticks PR in 24h'}]},
+        {n:'Bisacodyl (Dulcolax) 5 mg', doses:[{a:'4\u201310yr',v:'1 tab HS'}]},
+        {n:'Syr. Lactulose 3.35 g/5 mL', doses:[{a:'All ages',v:'1\u20133 mL/kg/day in divided doses \u00B7 Max 60 mL/day'}]}
       ]},
       { name:'Nasal Congestion', drugs:[
-        {n:'Nasal Decongestants', doses:[{a:'<2yr',v:'Sodium Chloride Nasal Sol: 2&ndash;6 drops/nostril SOS'},{a:'2&ndash;6yr',v:'Otrivin P 0.05%: 1&ndash;2 drops TDS &times; 4 days'},{a:'>6yr',v:'Oxymetazoline (Nasivion 0.05%): 2&ndash;3 drops q8h'}]}
+        {n:'Nasal Decongestants', doses:[{a:'<2yr',v:'Sodium Chloride Nasal Sol: 2\u20136 drops/nostril SOS'},{a:'2\u20136yr',v:'Otrivin P 0.05%: 1\u20132 drops TDS \u00D7 4 days'},{a:'>6yr',v:'Oxymetazoline (Nasivion 0.05%): 2\u20133 drops q8h'}]}
       ]},
       { name:'Pain / Fever (Parenteral)', drugs:[
-        {n:'PCM Suppository', doses:[{a:'3&ndash;11mo',v:'60&ndash;125 mg'},{a:'1&ndash;4yr',v:'125&ndash;250 mg'},{a:'5&ndash;12yr',v:'250&ndash;500 mg'}]},
-        {n:'PCM IV (2&ndash;12yr)', doses:[{a:'q4h dose',v:'12.5 mg/kg'},{a:'q6h dose',v:'15 mg/kg'}]}
+        {n:'PCM Suppository', doses:[{a:'3\u201311mo',v:'60\u2013125 mg'},{a:'1\u20134yr',v:'125\u2013250 mg'},{a:'5\u201312yr',v:'250\u2013500 mg'}]},
+        {n:'PCM IV (2\u201312yr)', doses:[{a:'q4h dose',v:'12.5 mg/kg'},{a:'q6h dose',v:'15 mg/kg'}]}
       ]},
       { name:'IV Fluid Rate', drugs:[
-        {n:'Iveolyte P 500&ndash;1000 mL', doses:[{a:'Rate',v:'90 mL/hour'}]},
+        {n:'Iveolyte P 500\u20131000 mL', doses:[{a:'Rate',v:'90 mL/hour'}]},
         {n:'4:2:1 Maintenance', doses:[{a:'First 10 kg',v:'4 mL/kg/hr = 40 mL/hr'},{a:'Next 10 kg',v:'2 mL/kg/hr = 20 mL/hr'},{a:'>20 kg',v:'1 mL/kg/hr'}]}
       ]}
     ]
   },
-  'paed-acute': { title:'Paediatrics &mdash; Acute', icon:'&#x1F6A8;', color:'#f87171', isPaed:true,
+  'paed-acute': { title:'Paediatrics \u2014 Acute', icon:'&#x1F6A8;', color:'#f87171', isPaed:true,
     sections:[
-      { name:'Anticonvulsants &mdash; Status Epilepticus', drugs:[
-        {n:'Lorazepam', doses:[{a:'Status IV/IM',v:'0.05&ndash;0.1 mg/kg over 2&ndash;5 min &mdash; may repeat &times; 1 after 10&ndash;15 min'},{a:'Sedation',v:'0.05 mg/kg q4&ndash;8h PO/IV/IM'}]},
-        {n:'Diazepam', doses:[{a:'>1mo IV',v:'0.2&ndash;0.5 mg/kg &mdash; repeat q3&ndash;5min'},{a:'<5yr max',v:'5 mg'},{a:'>5yr max',v:'10 mg'},{a:'PR',v:'0.3&ndash;0.5 mg/kg/dose'}]},
-        {n:'Midazolam', doses:[{a:'Status',v:'0.2 mg/kg IV/IM bolus &rarr; 0.1&ndash;0.2 mg/kg/hour IV infusion'}]}
+      { name:'Anticonvulsants \u2014 Status Epilepticus', drugs:[
+        {n:'Lorazepam', doses:[{a:'Status IV/IM',v:'0.05\u20130.1 mg/kg over 2\u20135 min \u2014 may repeat \u00D7 1 after 10\u201315 min'},{a:'Sedation',v:'0.05 mg/kg q4\u20138h PO/IV/IM'}]},
+        {n:'Diazepam', doses:[{a:'>1mo IV',v:'0.2\u20130.5 mg/kg \u2014 repeat q3\u20135min'},{a:'<5yr max',v:'5 mg'},{a:'>5yr max',v:'10 mg'},{a:'PR',v:'0.3\u20130.5 mg/kg/dose'}]},
+        {n:'Midazolam', doses:[{a:'Status',v:'0.2 mg/kg IV/IM bolus \u2192 0.1\u20130.2 mg/kg/hour IV infusion'}]}
       ]},
       { name:'Allergic Reaction', drugs:[
-        {n:'Hydrocortisone IV/IM', doses:[{a:'<12yr',v:'1&ndash;5 mg/kg/day in divided doses q12&ndash;24h'},{a:'>12yr',v:'100&ndash;500 mg q2h/4h/6h'}]},
-        {n:'Avil (Pheniramine)', doses:[{a:'Neonatal (3 kg+)',v:'1.13&ndash;2.83 mg/kg IM q24h'},{a:'1&ndash;3yr (4&ndash;20 kg)',v:'0.75 mg/kg PO q8h'}]}
+        {n:'Hydrocortisone IV/IM', doses:[{a:'<12yr',v:'1\u20135 mg/kg/day in divided doses q12\u201324h'},{a:'>12yr',v:'100\u2013500 mg q2h/4h/6h'}]},
+        {n:'Avil (Pheniramine)', doses:[{a:'Neonatal (3 kg+)',v:'1.13\u20132.83 mg/kg IM q24h'},{a:'1\u20133yr (4\u201320 kg)',v:'0.75 mg/kg PO q8h'}]}
       ]},
       { name:'Dyspnoea / SOB', drugs:[
-        {n:'Salbutamol Nebulization', doses:[{a:'Neb standard',v:'0.15 mg/kg/dose with 1.5 mL NS q20min &times; 3 doses via 6 L/min airflow'},{a:'Standard neb order',v:'0.5 mL Asthalin + 0.5 mL Ipravent + 1 mL NS'},{a:'Inj SC/IM/IV',v:'4&ndash;6 mcg/kg q6&ndash;8h'},{a:'MDI acute',v:'2&ndash;4 puffs &times; 3 doses at 20-min intervals &rarr; 2 puffs q4&ndash;6h'}]},
-        {n:'Ipratropium Bromide Neb', doses:[{a:'Neb',v:'250 mcg in 2 mL NS q20min &times; 3 doses &rarr; q2&ndash;4h'},{a:'MDI',v:'1&ndash;2 puffs TDS'}]}
+        {n:'Salbutamol Nebulization', doses:[{a:'Neb standard',v:'0.15 mg/kg/dose with 1.5 mL NS q20min \u00D7 3 doses via 6 L/min airflow'},{a:'Standard neb order',v:'0.5 mL Asthalin + 0.5 mL Ipravent + 1 mL NS'},{a:'Inj SC/IM/IV',v:'4\u20136 mcg/kg q6\u20138h'},{a:'MDI acute',v:'2\u20134 puffs \u00D7 3 doses at 20-min intervals \u2192 2 puffs q4\u20136h'}]},
+        {n:'Ipratropium Bromide Neb', doses:[{a:'Neb',v:'250 mcg in 2 mL NS q20min \u00D7 3 doses \u2192 q2\u20134h'},{a:'MDI',v:'1\u20132 puffs TDS'}]}
       ]},
       { name:'Pain / Fever (Parenteral)', drugs:[
-        {n:'PCM Suppository', doses:[{a:'3&ndash;11mo',v:'60&ndash;125 mg'},{a:'1&ndash;4yr',v:'125&ndash;250 mg'},{a:'5&ndash;12yr',v:'250&ndash;500 mg'}]},
-        {n:'PCM IV (2&ndash;12yr)', doses:[{a:'q4h dose',v:'12.5 mg/kg'},{a:'q6h dose',v:'15 mg/kg'}]}
+        {n:'PCM Suppository', doses:[{a:'3\u201311mo',v:'60\u2013125 mg'},{a:'1\u20134yr',v:'125\u2013250 mg'},{a:'5\u201312yr',v:'250\u2013500 mg'}]},
+        {n:'PCM IV (2\u201312yr)', doses:[{a:'q4h dose',v:'12.5 mg/kg'},{a:'q6h dose',v:'15 mg/kg'}]}
       ]},
       { name:'IV Fluid Rate', drugs:[
-        {n:'Iveolyte P 500&ndash;1000 mL', doses:[{a:'Rate',v:'90 mL/hour'}]},
+        {n:'Iveolyte P 500\u20131000 mL', doses:[{a:'Rate',v:'90 mL/hour'}]},
         {n:'4:2:1 Maintenance', doses:[{a:'First 10 kg',v:'4 mL/kg/hr = 40 mL/hr'},{a:'Next 10 kg',v:'2 mL/kg/hr = 20 mL/hr'},{a:'>20 kg',v:'1 mL/kg/hr'}]}
       ]}
     ]
@@ -976,32 +976,32 @@ var cats = {
   gynae: { title:'Gynaecology', icon:'&#x1F338;', color:'#fb7185',
     sections:[
       { name:'Dysmenorrhoea', drugs:[
-        {n:'Tab. Mefenamic Acid 250&ndash;500 mg', d:'1 tab BD/TDS &times; 3&ndash;7 days', t:['PO','NSAID']}
+        {n:'Tab. Mefenamic Acid 250\u2013500 mg', d:'1 tab BD/TDS \u00D7 3\u20137 days', t:['PO','NSAID']}
       ]},
       { name:'Delaying Menstruation', drugs:[
-        {n:'Tab. Norethisterone (Progesterone) 5 mg', d:'1 pill TDS starting 3 days before period &times; max 20 days\n&#x26A0;&#xFE0F; NOT a contraceptive &mdash; menses returns 2&ndash;3 days after stopping', t:['PO','Progestin']}
+        {n:'Tab. Norethisterone (Progesterone) 5 mg', d:'1 pill TDS starting 3 days before period \u00D7 max 20 days\n&#x26A0;&#xFE0F; NOT a contraceptive \u2014 menses returns 2\u20133 days after stopping', t:['PO','Progestin']}
       ]},
       { name:'Oral Contraceptives', drugs:[
-        {n:'Tab. Ovral (Ethinylestradiol + Levonorgestrel)', d:'1 pill OD &times; 21 days &mdash; start on 1st day of period at same time daily', t:['PO','Combined OCP']},
-        {n:'Tab. Cyproterone Acetate + Ethinylestradiol', d:'From 2nd day of period &times; 21 days &times; 3 months', t:['PO','OCP']}
+        {n:'Tab. Ovral (Ethinylestradiol + Levonorgestrel)', d:'1 pill OD \u00D7 21 days \u2014 start on 1st day of period at same time daily', t:['PO','Combined OCP']},
+        {n:'Tab. Cyproterone Acetate + Ethinylestradiol', d:'From 2nd day of period \u00D7 21 days \u00D7 3 months', t:['PO','OCP']}
       ]},
       { name:'Emergency Contraception', drugs:[
-        {n:'Tab. Levonorgestrel 750 mcg', d:'1 pill ASAP within 72h post-coitus &rarr; 2nd pill 12h later', t:['PO','Emergency']}
+        {n:'Tab. Levonorgestrel 750 mcg', d:'1 pill ASAP within 72h post-coitus \u2192 2nd pill 12h later', t:['PO','Emergency']}
       ]},
       { name:'Bacterial Vaginosis', drugs:[
-        {n:'Tab. Metronidazole 400 mg', d:'1 tab BD &times; 5&ndash;7 days', t:['PO']},
-        {n:'Tab. Tinidazole 1 g', d:'2 g single dose OR 2 g &times; 2 days OR 1 g OD &times; 5 days', t:['PO']},
-        {n:'Metronidazole Gel 0.75%', d:'1 applicator intra-vaginally OD/BD &times; 5 days', t:['Vaginal'], tp:'topical'},
-        {n:'Clindamycin Gel 2%', d:'5 g (1 applicator) intra-vaginally HS &times; 3 days', t:['Vaginal'], tp:'topical'}
+        {n:'Tab. Metronidazole 400 mg', d:'1 tab BD \u00D7 5\u20137 days', t:['PO']},
+        {n:'Tab. Tinidazole 1 g', d:'2 g single dose OR 2 g \u00D7 2 days OR 1 g OD \u00D7 5 days', t:['PO']},
+        {n:'Metronidazole Gel 0.75%', d:'1 applicator intra-vaginally OD/BD \u00D7 5 days', t:['Vaginal'], tp:'topical'},
+        {n:'Clindamycin Gel 2%', d:'5 g (1 applicator) intra-vaginally HS \u00D7 3 days', t:['Vaginal'], tp:'topical'}
       ]},
       { name:'Vaginal Candidiasis', drugs:[
-        {n:'Tab. Clotrimazole VT 100 mg', d:'1 tab intra-vaginally HS &times; 3 days (6d for re-infection)', t:['Vaginal','Azole'], tp:'topical'},
+        {n:'Tab. Clotrimazole VT 100 mg', d:'1 tab intra-vaginally HS \u00D7 3 days (6d for re-infection)', t:['Vaginal','Azole'], tp:'topical'},
         {n:'Tab. Fluconazole 150 mg', d:'1 tab stat (uncomplicated)', t:['PO','Azole']},
-        {n:'Clotrimazole 2%', d:'Intra-vaginally OD &times; 3 days', t:['Vaginal','Azole'], tp:'topical'}
+        {n:'Clotrimazole 2%', d:'Intra-vaginally OD \u00D7 3 days', t:['Vaginal','Azole'], tp:'topical'}
       ]}
     ]
   },
-  pregnancy: { title:'Pregnancy &mdash; Safe Drugs', icon:'&#x1F930;', color:'#c084fc',
+  pregnancy: { title:'Pregnancy \u2014 Safe Drugs', icon:'&#x1F930;', color:'#c084fc',
     sections:[
       { name:'Pain', drugs:[
         {n:'Tab. Paracetamol 500 mg', d:'BD/TDS', t:['PO','✅ Safe']}
@@ -1014,19 +1014,19 @@ var cats = {
       ]},
       { name:'GERD / Vomiting / Nausea', drugs:[
         {n:'Tab. Ranitidine 150 mg', d:'1 tab BD', t:['PO','H2RA']},
-        {n:'Tab. Metoclopramide 10&ndash;15 mg', d:'1 tab QID (30 min before meal) &times; 4 wk &mdash; max 12 wk', t:['PO']},
-        {n:'Tab. Doxylamine + Pyridoxine (10+10 mg)', d:'1 tab TDS &times; 3 days (✅ 1st Trimester)', t:['PO']},
+        {n:'Tab. Metoclopramide 10\u201315 mg', d:'1 tab QID (30 min before meal) \u00D7 4 wk \u2014 max 12 wk', t:['PO']},
+        {n:'Tab. Doxylamine + Pyridoxine (10+10 mg)', d:'1 tab TDS \u00D7 3 days (✅ 1st Trimester)', t:['PO']},
         {n:'Tab. Pyridoxine (Vit B6) 25 mg', d:'TDS', t:['PO']},
-        {n:'&#x26A0;&#xFE0F; Ondansetron &mdash; AVOID', d:'Causes Cleft Lip &mdash; use alternatives above', t:['&#x26A0;&#xFE0F; AVOID']}
+        {n:'&#x26A0;&#xFE0F; Ondansetron \u2014 AVOID', d:'Causes Cleft Lip \u2014 use alternatives above', t:['&#x26A0;&#xFE0F; AVOID']}
       ]},
       { name:'Hypertension (Pregnancy)', drugs:[
-        {n:'Tab. Methyldopa (Aldomet) 250 mg', d:'2&ndash;0&ndash;2 &times; 3 months', t:['PO','✅ 1st line']},
+        {n:'Tab. Methyldopa (Aldomet) 250 mg', d:'2\u20130\u20132 \u00D7 3 months', t:['PO','✅ 1st line']},
         {n:'Tab. Depin Retard (Nifedipine) 10 mg', d:'TDS', t:['PO']}
       ]},
       { name:'Antibiotics (Safe in Pregnancy)', drugs:[
-        {n:'Tab. Azithromycin 500 mg', d:'OD &times; 5 days', t:['PO','Macrolide']},
-        {n:'Tab. Cefo-L (Cefixime + Lactobacillus) 200 mg', d:'BD &times; 5 days', t:['PO','Cephalosporin']},
-        {n:'Tab. Augmentin 325/625 mg', d:'1 tab BD/TDS &times; 5 days', t:['PO','Penicillin']}
+        {n:'Tab. Azithromycin 500 mg', d:'OD \u00D7 5 days', t:['PO','Macrolide']},
+        {n:'Tab. Cefo-L (Cefixime + Lactobacillus) 200 mg', d:'BD \u00D7 5 days', t:['PO','Cephalosporin']},
+        {n:'Tab. Augmentin 325/625 mg', d:'1 tab BD/TDS \u00D7 5 days', t:['PO','Penicillin']}
       ]},
       { name:'IV Fluids (Pregnancy)', drugs:[
         {n:"IVF Ringer's Lactate", d:'500 mL at 100 mL/hr (✅ 1st Trimester)', t:['IV'], tp:'inj'},
@@ -1034,7 +1034,7 @@ var cats = {
       ]}
     ]
   },
-  lactation: { title:'Lactation &mdash; Safe Drugs', icon:'&#x1F931;', color:'#86efac',
+  lactation: { title:'Lactation \u2014 Safe Drugs', icon:'&#x1F931;', color:'#86efac',
     sections:[
       { name:'Pain', drugs:[
         {n:'Tab. Paracetamol 500 mg', d:'BD/TDS', t:['PO','✅ Safe']}
@@ -1048,16 +1048,16 @@ var cats = {
         {n:'Tab. Ranitidine 150 mg', d:'1 tab BD', t:['PO','H2RA']}
       ]},
       { name:'Hypertension (Lactation)', drugs:[
-        {n:'Tab. Methyldopa (Aldomet) 250 mg', d:'2&ndash;0&ndash;2 &times; 3 months', t:['PO','✅ Safe']},
+        {n:'Tab. Methyldopa (Aldomet) 250 mg', d:'2\u20130\u20132 \u00D7 3 months', t:['PO','✅ Safe']},
         {n:'Tab. Depin Retard (Nifedipine) 10 mg', d:'1 tab TDS', t:['PO']}
       ]},
       { name:'Antibiotics (Safe in Lactation)', drugs:[
-        {n:'Tab. Azithromycin 500 mg', d:'OD &times; 5 days', t:['PO']},
-        {n:'Tab. Cefo-L 200 mg', d:'BD &times; 5 days', t:['PO']},
-        {n:'Tab. Augmentin 325/625 mg', d:'1 tab BD/TDS &times; 5 days', t:['PO']}
+        {n:'Tab. Azithromycin 500 mg', d:'OD \u00D7 5 days', t:['PO']},
+        {n:'Tab. Cefo-L 200 mg', d:'BD \u00D7 5 days', t:['PO']},
+        {n:'Tab. Augmentin 325/625 mg', d:'1 tab BD/TDS \u00D7 5 days', t:['PO']}
       ]},
       { name:'Cough (Lactation)', drugs:[
-        {n:'Syr. Bromhexine', d:'10&ndash;20 mL TDS/BD', t:['PO','Productive Cough']}
+        {n:'Syr. Bromhexine', d:'10\u201320 mL TDS/BD', t:['PO','Productive Cough']}
       ]}
     ]
   },
@@ -1125,7 +1125,7 @@ function renderABX(cat){
 }
 
 function renderG6PD(){
-  return '<div class="emerg-banner">&#x26A0;&#xFE0F; The following drugs carry risk of haemolysis in G6PD-deficient patients. Always check before prescribing.</div><div class="g6pd-grid"><div class="g6pd-col"><div class="g6pd-ch def">&#x1F534; Definite Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Antibacterials</div><div class="g6pd-drug">Nitrofurantoin, Nitrofurazone</div><div class="g6pd-drug">Ciprofloxacin, Moxifloxacin, Nalidixic acid, Norfloxacin, Ofloxacin</div><div class="g6pd-drug">Chloramphenicol</div><div class="g6pd-drug">Sulfonamides: Co-trimoxazole, Sulfadiazine, Sulfamethoxazole, Sulfasalazine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Primaquine, Pamaquine, Pentaquine, Mepacrine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimycobacterials</div><div class="g6pd-drug">Dapsone, Para-aminosalicylic acid</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antineoplastics</div><div class="g6pd-drug">Doxorubicin, Rasburicase</div></div><div class="g6pd-grp"><div class="g6pd-gn">Other</div><div class="g6pd-drug">Methylene blue, Phenylhydrazine, Phenazopyridine</div></div></div></div><div class="g6pd-col"><div class="g6pd-ch pos">&#x1F7E1; Possible Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Analgesics</div><div class="g6pd-drug">Aspirin, Paracetamol, Phenylbutazone</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihistamines</div><div class="g6pd-drug">Diphenhydramine, Antazoline, Tripelennamine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihypertensives</div><div class="g6pd-drug">Hydralazine, Methyldopa</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Chloroquine, Proguanil, Pyrimethamine, Quinidine, Quinine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Cardiovascular</div><div class="g6pd-drug">Procainamide, Quinidine, Dopamine (L-dopa)</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antidiabetics</div><div class="g6pd-drug">Glibenclamide</div></div><div class="g6pd-grp"><div class="g6pd-gn">Anticonvulsants</div><div class="g6pd-drug">Phenytoin</div></div><div class="g6pd-grp"><div class="g6pd-gn">Food / Environmental</div><div class="g6pd-drug">Fava beans, Naphthalene (mothballs), Berberine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Vitamins</div><div class="g6pd-drug">Ascorbic Acid (Vit C &mdash; rare), Vitamin K substances</div></div></div></div></div><p style="font-size:11px;color:var(--muted);margin-top:8px">Source: MIMS Summary Table &middot; Refer to www.g6pd.org for further information</p>';
+  return '<div class="emerg-banner">&#x26A0;&#xFE0F; The following drugs carry risk of haemolysis in G6PD-deficient patients. Always check before prescribing.</div><div class="g6pd-grid"><div class="g6pd-col"><div class="g6pd-ch def">&#x1F534; Definite Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Antibacterials</div><div class="g6pd-drug">Nitrofurantoin, Nitrofurazone</div><div class="g6pd-drug">Ciprofloxacin, Moxifloxacin, Nalidixic acid, Norfloxacin, Ofloxacin</div><div class="g6pd-drug">Chloramphenicol</div><div class="g6pd-drug">Sulfonamides: Co-trimoxazole, Sulfadiazine, Sulfamethoxazole, Sulfasalazine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Primaquine, Pamaquine, Pentaquine, Mepacrine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimycobacterials</div><div class="g6pd-drug">Dapsone, Para-aminosalicylic acid</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antineoplastics</div><div class="g6pd-drug">Doxorubicin, Rasburicase</div></div><div class="g6pd-grp"><div class="g6pd-gn">Other</div><div class="g6pd-drug">Methylene blue, Phenylhydrazine, Phenazopyridine</div></div></div></div><div class="g6pd-col"><div class="g6pd-ch pos">&#x1F7E1; Possible Risk of Haemolysis</div><div class="g6pd-body"><div class="g6pd-grp"><div class="g6pd-gn">Analgesics</div><div class="g6pd-drug">Aspirin, Paracetamol, Phenylbutazone</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihistamines</div><div class="g6pd-drug">Diphenhydramine, Antazoline, Tripelennamine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antihypertensives</div><div class="g6pd-drug">Hydralazine, Methyldopa</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antimalarials</div><div class="g6pd-drug">Chloroquine, Proguanil, Pyrimethamine, Quinidine, Quinine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Cardiovascular</div><div class="g6pd-drug">Procainamide, Quinidine, Dopamine (L-dopa)</div></div><div class="g6pd-grp"><div class="g6pd-gn">Antidiabetics</div><div class="g6pd-drug">Glibenclamide</div></div><div class="g6pd-grp"><div class="g6pd-gn">Anticonvulsants</div><div class="g6pd-drug">Phenytoin</div></div><div class="g6pd-grp"><div class="g6pd-gn">Food / Environmental</div><div class="g6pd-drug">Fava beans, Naphthalene (mothballs), Berberine</div></div><div class="g6pd-grp"><div class="g6pd-gn">Vitamins</div><div class="g6pd-drug">Ascorbic Acid (Vit C \u2014 rare), Vitamin K substances</div></div></div></div></div><p style="font-size:11px;color:var(--muted);margin-top:8px">Source: MIMS Summary Table \u00B7 Refer to www.g6pd.org for further information</p>';
 }
 
 // ── SHOW CATEGORY ─────────────────────────────────────────────
@@ -1143,7 +1143,7 @@ function showCat(catKey){
   document.getElementById('searchKbd').style.display='';
   var content = document.getElementById('catContent');
   content.style.display='block';
-  var html = '<div class="cat-hdr"><div class="cat-icon" style="background:'+cat.color+'22">'+cat.icon+'</div><div><div class="cat-title">'+cat.title+'</div><div class="cat-sub">ASMH Drug Handbook &middot; Compiled by Dr. Anoof</div></div></div>'+LEGEND;
+  var html = '<div class="cat-hdr"><div class="cat-icon" style="background:'+cat.color+'22">'+cat.icon+'</div><div><div class="cat-title">'+cat.title+'</div><div class="cat-sub">ASMH Drug Handbook \u00B7 Compiled by Dr. Anoof</div></div></div>'+LEGEND;
   if(cat.isG6PD){
     html += renderG6PD();
   } else if(cat.isTable){
