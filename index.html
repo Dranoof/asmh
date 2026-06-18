@@ -197,6 +197,83 @@ aside::-webkit-scrollbar-track { background: transparent; }
 }
 .nav-divider { height: 1px; background: var(--border2); margin: 8px 6px; }
 
+/* ── FILES LIBRARY ─────────────────────────────────────────────────── */
+.files-nav-btn {
+  display: flex; align-items: center; gap: 9px;
+  padding: 8px 10px; border-radius: 9px;
+  cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted);
+  transition: all 0.13s; margin-bottom: 1px;
+  border: none; background: none; width: 100%; text-align: left;
+}
+.files-nav-btn:hover { background: var(--card); color: var(--text); }
+.files-nav-btn.active { background: rgba(59,130,246,0.12); color: var(--accent2); }
+[data-theme="light"] .files-nav-btn:hover { background: var(--bg3); }
+[data-theme="light"] .files-nav-btn.active { background: rgba(37,99,235,0.1); color: var(--accent2); }
+.fn-chevron {
+  margin-left: auto; font-size: 11px; color: var(--muted);
+  transition: transform 0.22s; flex-shrink: 0; display: inline-block;
+}
+.files-nav-btn.open .fn-chevron { transform: rotate(90deg); }
+.files-subnav {
+  overflow: hidden; max-height: 0;
+  transition: max-height 0.28s cubic-bezier(0.4,0,0.2,1);
+  margin-bottom: 2px;
+}
+.files-subnav.open { max-height: 400px; }
+.files-subitem {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 10px 6px 30px; border-radius: 8px;
+  cursor: pointer; font-size: 12px; font-weight: 500; color: var(--muted);
+  transition: all 0.13s; margin-bottom: 1px;
+  border: none; background: none; width: 100%; text-align: left;
+}
+.files-subitem:hover { background: var(--card); color: var(--text); }
+.files-subitem.active { background: rgba(59,130,246,0.1); color: var(--accent2); font-weight: 600; }
+[data-theme="light"] .files-subitem:hover { background: var(--bg3); }
+[data-theme="light"] .files-subitem.active { background: rgba(37,99,235,0.08); color: var(--accent2); }
+.fsi-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; background: var(--border2); transition: background 0.13s; }
+.files-subitem.active .fsi-dot { background: var(--accent); }
+.files-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px; padding-bottom: 16px;
+  border-bottom: 1.5px solid var(--border2);
+}
+.files-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
+}
+.files-title { font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+.files-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.files-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px,1fr)); gap: 12px; margin-bottom: 24px; }
+.file-card {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 15px 16px;
+  display: flex; align-items: flex-start; gap: 13px;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  cursor: pointer; text-decoration: none;
+}
+.file-card:hover { border-color: var(--border2); background: var(--card-h); box-shadow: var(--shadow); }
+.file-card-icon {
+  width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+}
+.file-card-body { flex: 1; min-width: 0; }
+.file-card-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; line-height: 1.35; }
+.file-card-meta { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.file-card-tag {
+  display: inline-block; margin-top: 7px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.05em;
+  padding: 2px 8px; border-radius: 20px; text-transform: uppercase;
+}
+.fct-pdf { background: rgba(244,63,94,0.12); color: var(--rose); }
+.fct-doc { background: rgba(59,130,246,0.12); color: var(--accent2); }
+.fct-link { background: rgba(20,184,166,0.12); color: var(--teal); }
+.fct-note { background: rgba(245,158,11,0.12); color: var(--amber); }
+.files-empty { text-align: center; padding: 70px 20px; color: var(--muted); }
+.files-empty .fe-icon { font-size: 40px; margin-bottom: 14px; }
+.files-empty p { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.files-empty span { font-size: 13px; }
+
 /* ── MAIN CONTENT ────────────────────────────────────────────── */
 main {
   overflow-y: auto; padding: 24px 26px;
@@ -479,6 +556,20 @@ mark { background: rgba(59,130,246,0.25); color: var(--accent2); border-radius: 
     <button class="nav-item" data-cat="pregnancy"><span class="nav-dot" style="background:#c084fc"></span>Pregnancy<span class="nav-count">14</span></button>
     <button class="nav-item" data-cat="lactation"><span class="nav-dot" style="background:#86efac"></span>Lactation<span class="nav-count">12</span></button>
     <button class="nav-item" data-cat="g6pd"><span class="nav-dot" style="background:#fbbf24"></span>G6PD Guide<span class="nav-count">&mdash;</span></button>
+  <div class="nav-divider"></div>
+  <div class="nav-label">Resources</div>
+  <button class="files-nav-btn" id="filesLibBtn">
+    <span style="font-size:15px;flex-shrink:0">&#x1F4C2;</span>
+    Files Library
+    <span class="fn-chevron">&#9658;</span>
+  </button>
+  <div class="files-subnav" id="filesSubnav">
+    <button class="files-subitem" data-files="national-guidelines"><span class="fsi-dot"></span>National Guidelines</button>
+    <button class="files-subitem" data-files="notes"><span class="fsi-dot"></span>Notes</button>
+    <button class="files-subitem" data-files="protocols"><span class="fsi-dot"></span>Protocols</button>
+    <button class="files-subitem" data-files="references"><span class="fsi-dot"></span>References</button>
+    <button class="files-subitem" data-files="forms"><span class="fsi-dot"></span>Forms &amp; Charts</button>
+  </div>
   </aside>
 
   <main id="mainContent">
@@ -498,6 +589,7 @@ mark { background: rgba(59,130,246,0.25); color: var(--accent2); border-radius: 
       </div>
     </div>
     <div id="catContent" style="display:none"></div>
+<div id="filesContent" style="display:none"></div>
   </main>
 </div>
 
@@ -1550,6 +1642,151 @@ document.addEventListener('keydown', function(e){
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();
+
+// ── FILES LIBRARY ───────────────────────────────────────────────────
+var filesLibData = {
+  'national-guidelines': {
+    title: 'National Guidelines',
+    icon: '&#x1F1F2;&#x1F1FB;',
+    color: '#3b82f6',
+    desc: 'Official Ministry of Health &amp; WHO clinical guidelines',
+    files: [
+      { name: 'ASMH Standard Treatment Guidelines 2023', meta: 'Ministry of Health &middot; 2023', tag: 'pdf', icon: '&#x1F4D5;' },
+      { name: 'Maldives Essential Medicines List', meta: 'Ministry of Health &middot; 2022', tag: 'pdf', icon: '&#x1F4D5;' },
+      { name: 'WHO Model Formulary for Children', meta: 'World Health Organization', tag: 'link', icon: '&#x1F310;' },
+      { name: 'ASMH Infection Control Policy', meta: 'Dr. ASMH &middot; Updated 2024', tag: 'pdf', icon: '&#x1F4C4;' },
+      { name: 'National Antibiotic Stewardship Guidelines', meta: 'Ministry of Health &middot; 2023', tag: 'pdf', icon: '&#x1F4D5;' },
+      { name: 'Maldives Immunization Schedule', meta: 'Ministry of Health &middot; 2024', tag: 'link', icon: '&#x1F310;' }
+    ]
+  },
+  'notes': {
+    title: 'Clinical Notes',
+    icon: '&#x1F4DD;',
+    color: '#f59e0b',
+    desc: 'Clinical pearls, quick references and MO notes',
+    files: [
+      { name: 'Approach to Fever in OPD', meta: 'Dr. Anoof &middot; Quick Reference', tag: 'note', icon: '&#x1F4CB;' },
+      { name: 'Common OPD Prescribing Tips', meta: 'ASMH MO Team &middot; 2024', tag: 'note', icon: '&#x1F4CB;' },
+      { name: 'IV Fluid Calculations Cheat Sheet', meta: 'Dr. Anoof &middot; Paeds', tag: 'note', icon: '&#x1F4CB;' },
+      { name: 'Antibiotic Dose Adjustment in Renal Failure', meta: 'Quick Reference Card', tag: 'note', icon: '&#x1F4CB;' },
+      { name: 'Drug-Drug Interactions to Avoid in OPD', meta: 'Safety Notes', tag: 'note', icon: '&#x26A0;&#xFE0F;' },
+      { name: 'Paediatric Weight Estimation Guide', meta: 'Emergency Quick Ref', tag: 'note', icon: '&#x1F4CB;' }
+    ]
+  },
+  'protocols': {
+    title: 'Protocols',
+    icon: '&#x1F4CB;',
+    color: '#8b5cf6',
+    desc: 'Clinical protocols and management algorithms',
+    files: [
+      { name: 'Acute Asthma Management Protocol', meta: 'ASMH Emergency &middot; 2023', tag: 'pdf', icon: '&#x1F4C4;' },
+      { name: 'Diabetic Ketoacidosis Protocol', meta: 'ASMH Internal Medicine', tag: 'pdf', icon: '&#x1F4C4;' },
+      { name: 'Sepsis Bundle Protocol', meta: 'ASMH Critical Care', tag: 'pdf', icon: '&#x1F4C4;' },
+      { name: 'Paediatric Resuscitation Algorithm', meta: 'ASMH Paeds &middot; 2024', tag: 'pdf', icon: '&#x1F4C4;' },
+      { name: 'Status Epilepticus Management', meta: 'ASMH Emergency', tag: 'pdf', icon: '&#x1F4C4;' },
+      { name: 'Hypertensive Emergency Protocol', meta: 'ASMH Cardiology', tag: 'pdf', icon: '&#x1F4C4;' }
+    ]
+  },
+  'references': {
+    title: 'References',
+    icon: '&#x1F4DA;',
+    color: '#14b8a6',
+    desc: 'Textbooks, journals and online reference tools',
+    files: [
+      { name: 'BNF Online', meta: 'British National Formulary', tag: 'link', icon: '&#x1F310;' },
+      { name: 'Micromedex Drug Reference', meta: 'Clinical Decision Support', tag: 'link', icon: '&#x1F310;' },
+      { name: 'UpToDate', meta: 'Evidence-based clinical resource', tag: 'link', icon: '&#x1F310;' },
+      { name: 'PubMed / MEDLINE', meta: 'National Library of Medicine', tag: 'link', icon: '&#x1F310;' },
+      { name: 'WHO Essential Medicines', meta: 'World Health Organization', tag: 'link', icon: '&#x1F310;' },
+      { name: 'ASMH Pharmacy Formulary', meta: 'Internal Reference', tag: 'doc', icon: '&#x1F4C4;' }
+    ]
+  },
+  'forms': {
+    title: 'Forms &amp; Charts',
+    icon: '&#x1F4CA;',
+    color: '#ec4899',
+    desc: 'Clinical forms, growth charts and scoring tools',
+    files: [
+      { name: 'WHO Growth Charts (Boys)', meta: '0–18 years &middot; Weight / Height', tag: 'pdf', icon: '&#x1F4CA;' },
+      { name: 'WHO Growth Charts (Girls)', meta: '0–18 years &middot; Weight / Height', tag: 'pdf', icon: '&#x1F4CA;' },
+      { name: 'PHQ-9 Depression Screening', meta: 'Psychiatry Scoring Tool', tag: 'pdf', icon: '&#x1F4CB;' },
+      { name: 'CURB-65 Pneumonia Severity Score', meta: 'Respiratory Quick Score', tag: 'note', icon: '&#x1F4CB;' },
+      { name: 'Paediatric Broselow Reference', meta: 'Emergency Weight / Dose', tag: 'doc', icon: '&#x1F4CA;' },
+      { name: 'OPD Referral Form', meta: 'ASMH Standard Form', tag: 'doc', icon: '&#x1F4C4;' }
+    ]
+  }
+};
+
+var activeFilesKey = null;
+
+function showFilesSection(key) {
+  var data = filesLibData[key];
+  if (!data) return;
+  activeFilesKey = key;
+
+  // Hide drug content, deactivate drug nav items
+  document.getElementById('welcomeScreen').style.display = 'none';
+  document.getElementById('catContent').style.display = 'none';
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+
+  // Activate sub-item
+  document.querySelectorAll('.files-subitem').forEach(function(b){
+    b.classList.toggle('active', b.dataset.files === key);
+    b.querySelector('.fsi-dot') && (b.querySelector('.fsi-dot').style.background = b.dataset.files === key ? 'var(--accent)' : '');
+  });
+  document.getElementById('filesLibBtn').classList.add('active');
+
+  // Tag helpers
+  var tagCls = { pdf:'fct-pdf', doc:'fct-doc', link:'fct-link', note:'fct-note' };
+  var tagLbl = { pdf:'PDF', doc:'DOC', link:'Link', note:'Note' };
+
+  var cards = data.files.map(function(f){
+    return '<div class="file-card">'
+      +'<div class="file-card-icon" style="background:'+data.color+'20">'+f.icon+'</div>'
+      +'<div class="file-card-body">'
+      +'<div class="file-card-name">'+f.name+'</div>'
+      +'<div class="file-card-meta">'+f.meta+'</div>'
+      +'<span class="file-card-tag '+(tagCls[f.tag]||'fct-doc')+'">'+(tagLbl[f.tag]||'File')+'</span>'
+      +'</div></div>';
+  }).join('');
+
+  var html = '<div class="files-header">'
+    +'<div class="files-icon" style="background:'+data.color+'20">'+data.icon+'</div>'
+    +'<div><div class="files-title">'+data.title+'</div>'
+    +'<div class="files-sub">'+data.desc+'</div></div></div>'
+    +'<div class="files-grid">'+cards+'</div>';
+
+  var el = document.getElementById('filesContent');
+  el.innerHTML = html;
+  el.style.display = 'block';
+
+  // Close mobile sidebar
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+// Toggle expand/collapse of Files Library
+document.getElementById('filesLibBtn').addEventListener('click', function(){
+  var isOpen = document.getElementById('filesSubnav').classList.contains('open');
+  this.classList.toggle('open', !isOpen);
+  document.getElementById('filesSubnav').classList.toggle('open', !isOpen);
+});
+
+// Sub-item clicks
+document.querySelectorAll('.files-subitem').forEach(function(btn){
+  btn.addEventListener('click', function(){ showFilesSection(this.dataset.files); });
+});
+
+// When a drug nav-item is clicked, hide files content
+document.querySelectorAll('.nav-item').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    activeFilesKey = null;
+    document.querySelectorAll('.files-subitem').forEach(function(b){ b.classList.remove('active'); });
+    document.getElementById('filesLibBtn').classList.remove('active');
+    var fc = document.getElementById('filesContent');
+    if (fc) fc.style.display = 'none';
+  });
+});
 </script>
 
 
