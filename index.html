@@ -86,14 +86,14 @@ header {
 
 .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; text-decoration: none; }
 .logo-badge {
-  width: 60px; height: 60px; border-radius: 16px;
+  width: 32px; height: 32px; border-radius: 8px;
   background: var(--logo-gr);
   display: flex; align-items: center; justify-content: center;
-  font-size: 24px; font-weight: 700; color: #fff; letter-spacing: -0.5px;
+  font-size: 13px; font-weight: 700; color: #fff; letter-spacing: -0.5px;
   flex-shrink: 0;
 }
-.logo-text { font-size: 20px; font-weight: 700; color: var(--text); }
-.logo-sub { font-size: 13px; color: var(--muted); letter-spacing: 0.03em; margin-top: 1px; }
+.logo-text { font-size: 14px; font-weight: 700; color: var(--text); }
+.logo-sub { font-size: 10px; color: var(--muted); letter-spacing: 0.03em; margin-top: 1px; }
 
 .search-wrap { flex: 1; max-width: 500px; margin: 0 auto; position: relative; }
 .search-icon {
@@ -1556,71 +1556,71 @@ document.addEventListener('keydown', function(e){
 })();
 </script>
 
-<!-- ===== SITE FOOTER ===== -->
-<footer id="site-footer" style="width:100%;background:#0d1117;border-top:1px solid rgba(255,255,255,0.07);color:#e6edf3;font-family:Inter,sans-serif;margin-top:60px;box-sizing:border-box;">
-  <div style="height:3px;background:linear-gradient(90deg,#3b82f6,#8b5cf6,#3b82f6);width:100%;"></div>
-  <div style="max-width:100%;padding:48px 60px 32px 60px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;box-sizing:border-box;">
-    <!-- Brand -->
-    <div>
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-        <div style="width:44px;height:44px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;">Rx</div>
-        <div>
-          <div style="font-size:16px;font-weight:700;color:#e6edf3;line-height:1.2;">IGMH Drug Portal</div>
-          <div style="font-size:11px;color:#7d8da1;">MO Reference Handbook</div>
+
+<footer style="
+  width: 100%;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  background: #0d1117;
+  font-family: Inter, sans-serif;
+  margin-top: 80px;
+">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 48px 40px 0;">
+    <div style="display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 40px;">
+
+      <!-- Brand -->
+      <div>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <div style="width: 28px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #3b82f6, #6366f1); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;">Rx</div>
+          <span style="font-size: 14px; font-weight: 600; color: #e6edf3;">IGMH Drug Portal</span>
+        </div>
+        <p style="font-size: 12.5px; color: #5c6b7d; line-height: 1.75; margin: 0 0 18px; max-width: 260px;">Clinical drug reference for Medical Officers at Indira Gandhi Memorial Hospital, Maldives.</p>
+        <p style="font-size: 12px; color: #3d4f60; margin: 0;">Compiled by <span style="color: #7d8da1;">Dr. Anoof</span></p>
+      </div>
+
+      <!-- Categories -->
+      <div>
+        <p style="font-size: 10.5px; font-weight: 600; color: #3d4f60; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 16px;">Categories</p>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Pain &amp; Fever</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Cardiovascular</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Antibiotics</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Respiratory</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Paediatrics</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Antifungal / Antiviral</a>
         </div>
       </div>
-      <p style="font-size:13px;color:#7d8da1;line-height:1.7;margin:0 0 20px 0;max-width:320px;">A clinical drug reference tool compiled for Medical Officers at Indira Gandhi Memorial Hospital (IGMH), Maldives. Curated by Dr. Anoof for fast, reliable bedside reference.</p>
-      <div style="display:flex;gap:10px;">
-        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);color:#3b82f6;font-size:11px;padding:4px 10px;border-radius:20px;">&#9679; Live Reference</span>
-        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);color:#8b5cf6;font-size:11px;padding:4px 10px;border-radius:20px;">IGMH &middot; Maldives</span>
+
+      <!-- Special Populations -->
+      <div>
+        <p style="font-size: 10.5px; font-weight: 600; color: #3d4f60; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 16px;">Populations</p>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Gynaecology</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Pregnancy</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Lactation</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">G6PD Guide</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Paeds OPD</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Paeds Acute</a>
+        </div>
       </div>
-    </div>
-    <!-- Drug Categories -->
-    <div>
-      <div style="font-size:12px;font-weight:600;color:#7d8da1;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">Drug Categories</div>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
-        <li><a href="#" onclick="loadCategory('pain-fever');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Pain &amp; Fever</a></li>
-        <li><a href="#" onclick="loadCategory('cardiovascular');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Cardiovascular</a></li>
-        <li><a href="#" onclick="loadCategory('antibiotics');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Antibiotics</a></li>
-        <li><a href="#" onclick="loadCategory('respiratory');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Respiratory</a></li>
-        <li><a href="#" onclick="loadCategory('paediatrics');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Paediatrics</a></li>
-        <li><a href="#" onclick="loadCategory('antifungal-antiviral');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Antifungal / Antiviral</a></li>
-      </ul>
-    </div>
-    <!-- Special Populations -->
-    <div>
-      <div style="font-size:12px;font-weight:600;color:#7d8da1;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">Special Populations</div>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
-        <li><a href="#" onclick="loadCategory('gynaecology');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Gynaecology</a></li>
-        <li><a href="#" onclick="loadCategory('pregnancy');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Pregnancy</a></li>
-        <li><a href="#" onclick="loadCategory('lactation');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Lactation</a></li>
-        <li><a href="#" onclick="loadCategory('g6pd');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">G6PD Guide</a></li>
-        <li><a href="#" onclick="loadCategory('paeds-opd');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Paeds OPD</a></li>
-        <li><a href="#" onclick="loadCategory('paeds-acute');return false;" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Paeds Acute</a></li>
-      </ul>
-    </div>
-    <!-- About -->
-    <div>
-      <div style="font-size:12px;font-weight:600;color:#7d8da1;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;">About</div>
-      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
-        <li><a href="https://dranoof.github.io/myportal/" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Dr. ASMH Portal</a></li>
-        <li><a href="#" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">National Guidelines</a></li>
-        <li><a href="#" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Disclaimer</a></li>
-        <li><a href="#" style="color:#b0bec5;font-size:13px;text-decoration:none;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#b0bec5'">Feedback</a></li>
-      </ul>
-      <div style="margin-top:24px;padding:14px;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.15);border-radius:10px;">
-        <div style="font-size:11px;color:#7d8da1;margin-bottom:4px;">Compiled by</div>
-        <div style="font-size:13px;font-weight:600;color:#e6edf3;">Dr. Anoof</div>
-        <div style="font-size:11px;color:#7d8da1;">Medical Officer &middot; IGMH</div>
+
+      <!-- Resources -->
+      <div>
+        <p style="font-size: 10.5px; font-weight: 600; color: #3d4f60; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 16px;">Resources</p>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="https://dranoof.github.io/myportal/" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Dr. ASMH Portal</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">National Guidelines</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Disclaimer</a>
+          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Feedback</a>
+        </div>
       </div>
     </div>
   </div>
-  <div style="border-top:1px solid rgba(255,255,255,0.06);margin:0 60px;"></div>
-  <div style="padding:20px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-sizing:border-box;">
-    <div style="font-size:12px;color:#7d8da1;">&#169; 2026 IGMH Drug Portal &middot; Dr. ASMH Drug Reference &middot; All rights reserved.</div>
-    <div style="display:flex;align-items:center;gap:20px;">
-      <span style="font-size:12px;color:#7d8da1;">For clinical use by licensed medical professionals only</span>
-      <span style="font-size:11px;font-weight:600;background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Dr. ASMH &middot; dranoof.github.io</span>
+
+  <!-- Bottom bar -->
+  <div style="border-top: 1px solid rgba(255,255,255,0.05); margin: 0 40px;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 18px 0; display: flex; align-items: center; justify-content: space-between;">
+      <span style="font-size: 11.5px; color: #3d4f60;">&copy; 2026 IGMH Drug Portal &mdash; For clinical use by licensed medical professionals only</span>
+      <span style="font-size: 11.5px; color: #3d4f60;">dranoof.github.io</span>
     </div>
   </div>
 </footer>
