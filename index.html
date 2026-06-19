@@ -541,8 +541,7 @@ background: transparent; box-shadow: none;
 display: flex; align-items: center; justify-content: center;
 position: relative; overflow: visible; flex-shrink: 0;
 }
-.ws-logo-img { mix-blend-mode: multiply; }
-[data-theme="dark"] .ws-logo-img { mix-blend-mode: normal; filter: drop-shadow(0 4px 20px rgba(13,148,136,0.25)) brightness(0.95); }
+.ws-logo-img { width: 200px; height: auto; display: block; }
 .ws-logo::before { display: none; }
 .ws-logo-icon { font-size: 38px; position: relative; z-index: 1; }
 .ws-title {
@@ -660,7 +659,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
   <main id="mainContent">    <div class="welcome" id="welcomeScreen">
       <div class="ws-logo-wrap">
         <div class="ws-hospital-badge"><div class="ws-hosp-dot">+</div>Dr. Abdul Samad Memorial Hospital &nbsp;&middot;&nbsp; Maldives</div>
-        <div class="ws-logo"><img src="https://asmh.gov.mv/storage/images/logos/asmh_logo.svg" alt="Dr. Abdul Samad Memorial Hospital" class="ws-logo-img" style="width:180px;height:auto;border-radius:20px;box-shadow:0 8px 32px rgba(13,148,136,0.18),0 2px 8px rgba(0,0,0,0.08);background:#fff;padding:8px;" /></div>
+        <div class="ws-logo"><img src="logo.png" alt="Dr. Abdul Samad Memorial Hospital" class="ws-logo-img"></div>
       </div>
       <div class="ws-title">ASMH <span>MyPortal</span></div>
       <p class="ws-subtitle">Your hospital’s clinical drug reference &amp; resource portal.</p>
