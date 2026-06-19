@@ -159,7 +159,7 @@ box-shadow: 0 1px 0 var(--border), 0 2px 8px rgba(0,0,0,0.04);
 .chip.active { color: var(--accent2); border-color: var(--accent); background: rgba(59,130,246,0.1); }
 
 /* Ã¢ÂÂÃ¢ÂÂ LAYOUT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.layout { display: grid; grid-template-columns: 228px 1fr; height: calc(100vh - 60px); overflow: hidden; }
+.layout { display: block; height: calc(100vh - 60px); overflow: hidden; }
 
 /* Ã¢ÂÂÃ¢ÂÂ SIDEBAR Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 aside {
@@ -589,14 +589,58 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
 .ws-title { font-size: 28px; }
 .ws-logo { width: 140px; }
 .ws-cat-grid { grid-template-columns: repeat(2, 1fr); }
-}</style>
+}
+/* ── CATEGORY DROPDOWN ── */
+.cat-dropdown { position: relative; }
+.cat-drop-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text); border-radius: 8px;
+  padding: 6px 12px; font-size: 13px; font-weight: 500;
+  font-family: 'Figtree', 'Inter', sans-serif;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.cat-drop-btn:hover { background: var(--card); border-color: var(--accent); color: var(--accent); }
+.cat-drop-arrow { transition: transform 0.2s; }
+.cat-dropdown.open .cat-drop-arrow { transform: rotate(180deg); }
+.cat-drop-menu {
+  position: absolute; top: calc(100% + 8px); right: 0;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  min-width: 220px; max-height: 70vh; overflow-y: auto;
+  z-index: 1000; padding: 6px;
+  display: none; flex-direction: column; gap: 1px;
+  scrollbar-width: thin;
+}
+.cat-dropdown.open .cat-drop-menu { display: flex; }
+.cat-drop-section {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--muted); padding: 10px 10px 4px;
+  text-transform: uppercase;
+}
+.cat-drop-item {
+  display: flex; align-items: center; gap: 8px;
+  background: none; border: none; color: var(--text);
+  padding: 7px 10px; border-radius: 8px; font-size: 13px;
+  font-family: 'Figtree', 'Inter', sans-serif;
+  cursor: pointer; text-align: left; width: 100%;
+  transition: background 0.12s;
+}
+.cat-drop-item:hover { background: var(--bg3); }
+.cat-drop-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.cat-drop-count {
+  margin-left: auto; font-size: 11px; color: var(--muted);
+  background: var(--bg3); border-radius: 10px; padding: 1px 6px;
+}
+</style>
 </head>
 <body>
 
 <header>
-  <button class="menu-btn" id="menuBtn" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  
   <a class="logo" href="#" onclick="showWelcome()">
     <img src="https://asmh.gov.mv/storage/images/logos/asmh_logo2.svg" class="logo-img" alt="Logo" />
     <div>
@@ -610,51 +654,44 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
     <button class="search-clear" id="searchClear" aria-label="Clear">&#x2715;</button>
   </div>
   <div class="hdr-right">
+    <div class="cat-dropdown" id="catDropdown">
+      <button class="cat-drop-btn" id="catDropBtn" aria-label="Browse categories" title="Browse categories">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span>Browse</span>
+        <svg class="cat-drop-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="cat-drop-menu" id="catDropMenu">
+        <div class="cat-drop-section">ADULT OPD</div>
+        <button class="cat-drop-item" data-cat="pain"><span class="cat-drop-dot" style="background:#f43f5e"></span>Pain &amp; Fever<span class="cat-drop-count">12</span></button>
+        <button class="cat-drop-item" data-cat="respiratory"><span class="cat-drop-dot" style="background:#3b82f6"></span>Respiratory<span class="cat-drop-count">20</span></button>
+        <button class="cat-drop-item" data-cat="cardio"><span class="cat-drop-dot" style="background:#f97316"></span>Cardiovascular<span class="cat-drop-count">16</span></button>
+        <button class="cat-drop-item" data-cat="gastro"><span class="cat-drop-dot" style="background:#22c55e"></span>Gastro<span class="cat-drop-count">18</span></button>
+        <button class="cat-drop-item" data-cat="endo"><span class="cat-drop-dot" style="background:#a855f7"></span>Endocrine<span class="cat-drop-count">14</span></button>
+        <button class="cat-drop-item" data-cat="derm"><span class="cat-drop-dot" style="background:#ec4899"></span>Dermatology<span class="cat-drop-count">14</span></button>
+        <button class="cat-drop-item" data-cat="ent"><span class="cat-drop-dot" style="background:#14b8a6"></span>Eyes &amp; ENT<span class="cat-drop-count">12</span></button>
+        <button class="cat-drop-item" data-cat="psych"><span class="cat-drop-dot" style="background:#8b5cf6"></span>Psychiatry<span class="cat-drop-count">16</span></button>
+        <button class="cat-drop-item" data-cat="abx"><span class="cat-drop-dot" style="background:#10b981"></span>Antibiotics<span class="cat-drop-count">13</span></button>
+        <button class="cat-drop-item" data-cat="antifungal"><span class="cat-drop-dot" style="background:#f59e0b"></span>Antifungal/Antiviral<span class="cat-drop-count">8</span></button>
+        <button class="cat-drop-item" data-cat="vitamins"><span class="cat-drop-dot" style="background:#eab308"></span>Vitamins &amp; Misc<span class="cat-drop-count">10</span></button>
+        <div class="cat-drop-section">PAEDIATRICS</div>
+        <button class="cat-drop-item" data-cat="paeds"><span class="cat-drop-dot" style="background:#3b82f6"></span>Paeds OPD<span class="cat-drop-count">20</span></button>
+        <button class="cat-drop-item" data-cat="paeds-acute"><span class="cat-drop-dot" style="background:#ef4444"></span>Paeds Acute<span class="cat-drop-count">8</span></button>
+        <div class="cat-drop-section">SPECIAL POPULATIONS</div>
+        <button class="cat-drop-item" data-cat="gynae"><span class="cat-drop-dot" style="background:#ec4899"></span>Gynaecology<span class="cat-drop-count">8</span></button>
+        <button class="cat-drop-item" data-cat="pregnancy"><span class="cat-drop-dot" style="background:#a855f7"></span>Pregnancy<span class="cat-drop-count">14</span></button>
+        <button class="cat-drop-item" data-cat="lactation"><span class="cat-drop-dot" style="background:#14b8a6"></span>Lactation<span class="cat-drop-count">12</span></button>
+        <button class="cat-drop-item" data-cat="g6pd"><span class="cat-drop-dot" style="background:#eab308"></span>G6PD Guide</button>
+        <div class="cat-drop-section">RESOURCES</div>
+        <button class="cat-drop-item" data-cat="files"><span class="cat-drop-dot" style="background:#6366f1"></span>Files Library</button>
+      </div>
+    </div>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle dark/light mode">&#x263D;</button>
   </div>
 </header>
 
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <div class="layout">
-  <aside id="sidebar">
-    <div class="nav-label">Adult OPD</div>
-    <button class="nav-item" data-cat="pain"><span class="nav-dot" style="background:#f43f5e"></span>Pain &amp; Fever<span class="nav-count">12</span></button>
-    <button class="nav-item" data-cat="respiratory"><span class="nav-dot" style="background:#3b82f6"></span>Respiratory<span class="nav-count">20</span></button>
-    <button class="nav-item" data-cat="cardiovascular"><span class="nav-dot" style="background:#f59e0b"></span>Cardiovascular<span class="nav-count">16</span></button>
-    <button class="nav-item" data-cat="gi"><span class="nav-dot" style="background:#14b8a6"></span>Gastro<span class="nav-count">18</span></button>
-    <button class="nav-item" data-cat="endo"><span class="nav-dot" style="background:#8b5cf6"></span>Endocrine<span class="nav-count">14</span></button>
-    <button class="nav-item" data-cat="derm"><span class="nav-dot" style="background:#ec4899"></span>Dermatology<span class="nav-count">14</span></button>
-    <button class="nav-item" data-cat="eyes"><span class="nav-dot" style="background:#06b6d4"></span>Eyes &amp; ENT<span class="nav-count">12</span></button>
-    <button class="nav-item" data-cat="psych"><span class="nav-dot" style="background:#a855f7"></span>Psychiatry<span class="nav-count">16</span></button>
-    <button class="nav-item" data-cat="antibiotics"><span class="nav-dot" style="background:#22c55e"></span>Antibiotics<span class="nav-count">13</span></button>
-    <button class="nav-item" data-cat="antifungal"><span class="nav-dot" style="background:#f97316"></span>Antifungal / Antiviral<span class="nav-count">8</span></button>
-    <button class="nav-item" data-cat="vitamins"><span class="nav-dot" style="background:#eab308"></span>Vitamins &amp; Misc<span class="nav-count">10</span></button>
-    <div class="nav-divider"></div>
-    <div class="nav-label">Paediatrics</div>
-    <button class="nav-item" data-cat="paed-opd"><span class="nav-dot" style="background:#60a5fa"></span>Paeds OPD<span class="nav-count">20</span></button>
-    <button class="nav-item" data-cat="paed-acute"><span class="nav-dot" style="background:#f87171"></span>Paeds Acute<span class="nav-count">8</span></button>
-    <div class="nav-divider"></div>
-    <div class="nav-label">Special Populations</div>
-    <button class="nav-item" data-cat="gynae"><span class="nav-dot" style="background:#fb7185"></span>Gynaecology<span class="nav-count">8</span></button>
-    <button class="nav-item" data-cat="pregnancy"><span class="nav-dot" style="background:#c084fc"></span>Pregnancy<span class="nav-count">14</span></button>
-    <button class="nav-item" data-cat="lactation"><span class="nav-dot" style="background:#86efac"></span>Lactation<span class="nav-count">12</span></button>
-    <button class="nav-item" data-cat="g6pd"><span class="nav-dot" style="background:#fbbf24"></span>G6PD Guide<span class="nav-count">&mdash;</span></button>
-  <div class="nav-divider"></div>
-  <div class="nav-label">Resources</div>
-  <button class="files-nav-btn" id="filesLibBtn">
-    <span style="font-size:15px;flex-shrink:0">&#x1F4C2;</span>
-    Files Library
-    <span class="fn-chevron">&#9658;</span>
-  </button>
-  <div class="files-subnav" id="filesSubnav">
-    <button class="files-subitem" data-files="national-guidelines"><span class="fsi-dot"></span>National Guidelines</button>
-    <button class="files-subitem" data-files="notes"><span class="fsi-dot"></span>Notes</button>
-    <button class="files-subitem" data-files="protocols"><span class="fsi-dot"></span>Protocols</button>
-    <button class="files-subitem" data-files="references"><span class="fsi-dot"></span>References</button>
-    <button class="files-subitem" data-files="forms"><span class="fsi-dot"></span>Forms &amp; Charts</button>
-  </div>
-  </aside>
+  
 
   <main id="mainContent">    <div class="welcome" id="welcomeScreen">
       <div class="ws-logo-wrap">
@@ -671,20 +708,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
         <div class="ws-stat"><span class="ws-stat-n">OPD</span><span class="ws-stat-l">Optimised</span></div>
       </div>
       <div class="ws-search-hint" onclick="document.getElementById('searchInput').focus()">&#x1F50D; Search any drug, class or condition &nbsp;<kbd>/</kbd></div>
-      <div class="ws-categories">
-        <div class="ws-cat-label">Quick Access</div>
-        <div class="ws-cat-grid">
-          <div class="ws-cat-card" onclick="showCat('pain')"><span class="ws-cat-card-dot" style="background:#f43f5e"></span>Pain &amp; Fever</div>
-          <div class="ws-cat-card" onclick="showCat('antibiotics')"><span class="ws-cat-card-dot" style="background:#22c55e"></span>Antibiotics</div>
-          <div class="ws-cat-card" onclick="showCat('cardiovascular')"><span class="ws-cat-card-dot" style="background:#ef4444"></span>Cardiovascular</div>
-          <div class="ws-cat-card" onclick="showCat('respiratory')"><span class="ws-cat-card-dot" style="background:#06b6d4"></span>Respiratory</div>
-          <div class="ws-cat-card" onclick="showCat('gi')"><span class="ws-cat-card-dot" style="background:#f59e0b"></span>Gastro</div>
-          <div class="ws-cat-card" onclick="showCat('paed-opd')"><span class="ws-cat-card-dot" style="background:#8b5cf6"></span>Paediatrics</div>
-          <div class="ws-cat-card" onclick="showCat('endo')"><span class="ws-cat-card-dot" style="background:#14b8a6"></span>Diabetes</div>
-          <div class="ws-cat-card" onclick="showCat('g6pd')"><span class="ws-cat-card-dot" style="background:#f59e0b"></span>G6PD Guide</div>
-        </div>
-      </div>
-
+      
     </div>
     <div id="catContent" style="display:none"></div>
 <div id="filesContent" style="display:none"></div>
@@ -1614,6 +1638,34 @@ document.querySelectorAll('.nav-item').forEach(function(btn){
   });
 });
 
+
+
+// ── Category Dropdown ──
+(function() {
+  const dropdown = document.getElementById('catDropdown');
+  const btn = document.getElementById('catDropBtn');
+  const menu = document.getElementById('catDropMenu');
+  if (!btn || !menu) return;
+
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+  });
+
+  // Close on outside click
+  document.addEventListener('click', function(e) {
+    if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
+  });
+
+  // Close on item click and trigger category
+  menu.querySelectorAll('.cat-drop-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      const cat = item.getAttribute('data-cat');
+      dropdown.classList.remove('open');
+      if (cat) showCat(cat);
+    });
+  });
+})();
 </script>
 
 
