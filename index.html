@@ -591,47 +591,56 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
 .ws-cat-grid { grid-template-columns: repeat(2, 1fr); }
 }
 /* ── CATEGORY DROPDOWN ── */
-.cat-dropdown { position: relative; }
-.cat-drop-btn {
-  display: flex; align-items: center; gap: 6px;
-  background: var(--bg3); border: 1px solid var(--border);
-  color: var(--text); border-radius: 8px;
-  padding: 6px 12px; font-size: 13px; font-weight: 500;
+/* HORIZONTAL NAV BAR */
+.hnav {
+  background: var(--hdr-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border2);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 44px;
+  position: sticky;
+  top: 64px;
+  z-index: 190;
+  box-shadow: 0 1px 0 var(--border);
+}
+.hnav-item { position: relative; }
+.hnav-btn {
+  display: flex; align-items: center; gap: 5px;
+  background: none; border: none;
+  color: var(--text2); padding: 6px 14px;
+  font-size: 13px; font-weight: 500;
   font-family: 'Figtree', 'Inter', sans-serif;
-  cursor: pointer; transition: background 0.15s, border-color 0.15s;
-  white-space: nowrap;
+  cursor: pointer; border-radius: 8px;
+  transition: background 0.13s, color 0.13s;
+  white-space: nowrap; height: 34px;
 }
-.cat-drop-btn:hover { background: var(--card); border-color: var(--accent); color: var(--accent); }
-.cat-drop-arrow { transition: transform 0.2s; }
-.cat-dropdown.open .cat-drop-arrow { transform: rotate(180deg); }
-.cat-drop-menu {
-  position: absolute; top: calc(100% + 8px); right: 0;
-  background: var(--card); border: 1px solid var(--border);
+.hnav-btn:hover, .hnav-item.open .hnav-btn { background: var(--bg3); color: var(--accent); }
+.hnav-arrow { transition: transform 0.18s; }
+.hnav-item.open .hnav-arrow { transform: rotate(180deg); }
+.hnav-drop {
+  position: absolute; top: calc(100% + 6px); left: 0;
+  background: var(--card); border: 1px solid var(--border2);
   border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  min-width: 220px; max-height: 70vh; overflow-y: auto;
-  z-index: 1000; padding: 6px;
+  min-width: 220px; padding: 6px;
+  z-index: 500;
   display: none; flex-direction: column; gap: 1px;
-  scrollbar-width: thin;
 }
-.cat-dropdown.open .cat-drop-menu { display: flex; }
-.cat-drop-section {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
-  color: var(--muted); padding: 10px 10px 4px;
-  text-transform: uppercase;
-}
-.cat-drop-item {
-  display: flex; align-items: center; gap: 8px;
+.hnav-item.open .hnav-drop { display: flex; }
+.hnav-drop-item {
+  display: flex; align-items: center; gap: 9px;
   background: none; border: none; color: var(--text);
-  padding: 7px 10px; border-radius: 8px; font-size: 13px;
+  padding: 8px 12px; border-radius: 8px; font-size: 13px;
   font-family: 'Figtree', 'Inter', sans-serif;
   cursor: pointer; text-align: left; width: 100%;
   transition: background 0.12s;
 }
-.cat-drop-item:hover { background: var(--bg3); }
-.cat-drop-dot {
-  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-}
-.cat-drop-count {
+.hnav-drop-item:hover { background: var(--bg3); color: var(--accent); }
+.hnav-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.hnav-count {
   margin-left: auto; font-size: 11px; color: var(--muted);
   background: var(--bg3); border-radius: 10px; padding: 1px 6px;
 }
@@ -654,40 +663,49 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
     <button class="search-clear" id="searchClear" aria-label="Clear">&#x2715;</button>
   </div>
   <div class="hdr-right">
-    <div class="cat-dropdown" id="catDropdown">
-      <button class="cat-drop-btn" id="catDropBtn" aria-label="Browse categories" title="Browse categories" onclick="event.stopPropagation();document.getElementById('catDropdown').classList.toggle('open')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        <span>Browse</span>
-        <svg class="cat-drop-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="cat-drop-menu" id="catDropMenu" onclick="var c=event.target.closest('.cat-drop-item');if(c){document.getElementById('catDropdown').classList.remove('open');var cat=c.getAttribute('data-cat');if(cat)showCat(cat);}">
-        <div class="cat-drop-section">ADULT OPD</div>
-        <button class="cat-drop-item" data-cat="pain"><span class="cat-drop-dot" style="background:#f43f5e"></span>Pain &amp; Fever<span class="cat-drop-count">12</span></button>
-        <button class="cat-drop-item" data-cat="respiratory"><span class="cat-drop-dot" style="background:#3b82f6"></span>Respiratory<span class="cat-drop-count">20</span></button>
-        <button class="cat-drop-item" data-cat="cardiovascular"><span class="cat-drop-dot" style="background:#f97316"></span>Cardiovascular<span class="cat-drop-count">16</span></button>
-        <button class="cat-drop-item" data-cat="gi"><span class="cat-drop-dot" style="background:#22c55e"></span>Gastro<span class="cat-drop-count">18</span></button>
-        <button class="cat-drop-item" data-cat="endo"><span class="cat-drop-dot" style="background:#a855f7"></span>Endocrine<span class="cat-drop-count">14</span></button>
-        <button class="cat-drop-item" data-cat="derm"><span class="cat-drop-dot" style="background:#ec4899"></span>Dermatology<span class="cat-drop-count">14</span></button>
-        <button class="cat-drop-item" data-cat="eyes"><span class="cat-drop-dot" style="background:#14b8a6"></span>Eyes &amp; ENT<span class="cat-drop-count">12</span></button>
-        <button class="cat-drop-item" data-cat="psych"><span class="cat-drop-dot" style="background:#8b5cf6"></span>Psychiatry<span class="cat-drop-count">16</span></button>
-        <button class="cat-drop-item" data-cat="antibiotics"><span class="cat-drop-dot" style="background:#10b981"></span>Antibiotics<span class="cat-drop-count">13</span></button>
-        <button class="cat-drop-item" data-cat="antifungal"><span class="cat-drop-dot" style="background:#f59e0b"></span>Antifungal/Antiviral<span class="cat-drop-count">8</span></button>
-        <button class="cat-drop-item" data-cat="vitamins"><span class="cat-drop-dot" style="background:#eab308"></span>Vitamins &amp; Misc<span class="cat-drop-count">10</span></button>
-        <div class="cat-drop-section">PAEDIATRICS</div>
-        <button class="cat-drop-item" data-cat="paed-opd"><span class="cat-drop-dot" style="background:#3b82f6"></span>Paeds OPD<span class="cat-drop-count">20</span></button>
-        <button class="cat-drop-item" data-cat="paed-acute"><span class="cat-drop-dot" style="background:#ef4444"></span>Paeds Acute<span class="cat-drop-count">8</span></button>
-        <div class="cat-drop-section">SPECIAL POPULATIONS</div>
-        <button class="cat-drop-item" data-cat="gynae"><span class="cat-drop-dot" style="background:#ec4899"></span>Gynaecology<span class="cat-drop-count">8</span></button>
-        <button class="cat-drop-item" data-cat="pregnancy"><span class="cat-drop-dot" style="background:#a855f7"></span>Pregnancy<span class="cat-drop-count">14</span></button>
-        <button class="cat-drop-item" data-cat="lactation"><span class="cat-drop-dot" style="background:#14b8a6"></span>Lactation<span class="cat-drop-count">12</span></button>
-        <button class="cat-drop-item" data-cat="g6pd"><span class="cat-drop-dot" style="background:#eab308"></span>G6PD Guide</button>
-        <div class="cat-drop-section">RESOURCES</div>
-        <button class="cat-drop-item" onclick="document.getElementById('catDropdown').classList.remove('open');showFilesSection()"><span class="cat-drop-dot" style="background:#6366f1"></span>Files Library</button>
-      </div>
-    </div>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle dark/light mode">&#x263D;</button>
   </div>
 </header>
+<nav class="hnav" id="hnav">
+  <div class="hnav-item" id="hnavItem0">
+    <button class="hnav-btn" onclick="hnavToggle(0)">Adult OPD<svg class="hnav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <div class="hnav-drop">
+      <button class="hnav-drop-item" onclick="hnavGo('pain')"><span class="hnav-dot" style="background:#f43f5e"></span>Pain &amp; Fever<span class="hnav-count">12</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('respiratory')"><span class="hnav-dot" style="background:#3b82f6"></span>Respiratory<span class="hnav-count">20</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('cardiovascular')"><span class="hnav-dot" style="background:#f97316"></span>Cardiovascular<span class="hnav-count">16</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('gi')"><span class="hnav-dot" style="background:#22c55e"></span>Gastroenterology<span class="hnav-count">18</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('endo')"><span class="hnav-dot" style="background:#a855f7"></span>Endocrine<span class="hnav-count">14</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('derm')"><span class="hnav-dot" style="background:#ec4899"></span>Dermatology<span class="hnav-count">14</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('eyes')"><span class="hnav-dot" style="background:#14b8a6"></span>Eyes &amp; ENT<span class="hnav-count">12</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('psych')"><span class="hnav-dot" style="background:#8b5cf6"></span>Psychiatry<span class="hnav-count">16</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('antibiotics')"><span class="hnav-dot" style="background:#10b981"></span>Antibiotics<span class="hnav-count">13</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('antifungal')"><span class="hnav-dot" style="background:#f59e0b"></span>Antifungal &amp; Antiviral<span class="hnav-count">8</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('vitamins')"><span class="hnav-dot" style="background:#eab308"></span>Vitamins &amp; Misc<span class="hnav-count">10</span></button>
+    </div>
+  </div>
+  <div class="hnav-item" id="hnavItem1">
+    <button class="hnav-btn" onclick="hnavToggle(1)">Paediatrics<svg class="hnav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <div class="hnav-drop">
+      <button class="hnav-drop-item" onclick="hnavGo('paed-opd')"><span class="hnav-dot" style="background:#3b82f6"></span>Paeds OPD<span class="hnav-count">20</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('paed-acute')"><span class="hnav-dot" style="background:#ef4444"></span>Paeds Acute<span class="hnav-count">8</span></button>
+    </div>
+  </div>
+  <div class="hnav-item" id="hnavItem2">
+    <button class="hnav-btn" onclick="hnavToggle(2)">Special Populations<svg class="hnav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <div class="hnav-drop">
+      <button class="hnav-drop-item" onclick="hnavGo('gynae')"><span class="hnav-dot" style="background:#ec4899"></span>Gynaecology<span class="hnav-count">8</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('pregnancy')"><span class="hnav-dot" style="background:#a855f7"></span>Pregnancy<span class="hnav-count">14</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('lactation')"><span class="hnav-dot" style="background:#14b8a6"></span>Lactation<span class="hnav-count">12</span></button>
+      <button class="hnav-drop-item" onclick="hnavGo('g6pd')"><span class="hnav-dot" style="background:#eab308"></span>G6PD Guide</button>
+    </div>
+  </div>
+  <div class="hnav-item" id="hnavItem3">
+    <button class="hnav-btn" onclick="hnavToggle(3)">Resources<svg class="hnav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <div class="hnav-drop">
+      <button class="hnav-drop-item" onclick="hnavGo('files')"><span class="hnav-dot" style="background:#6366f1"></span>Files Library</button>
+    </div>
+  </div>
+</nav>
 
 
 <div class="layout">
@@ -1397,8 +1415,8 @@ function showCat(catKey){
       themeBtn.addEventListener('click', function(){ applyTheme(!isDark); });
 
 // -- MOBILE SIDEBAR --------------------------------------------
-var sidebar = document.getElementById('sidebar');
-var overlay = document.getElementById('sidebarOverlay');
+var sidebar = null;
+var overlay = null;
 // -- SHOW LANDING PAGE ------------------------------------------
       function showLanding(){
         document.getElementById('welcomeScreen').style.display='';
@@ -1408,10 +1426,9 @@ var overlay = document.getElementById('sidebarOverlay');
               closeSidebar();
       }
   
-      var menuBtn = document.getElementById('menuBtn');
 function closeSidebar(){
-  sidebar.classList.remove('open');
-  overlay.classList.remove('open');
+  if (sidebar) { sidebar.classList.remove('open'); }
+  if (overlay) { overlay.classList.remove('open'); }
 }
 document.querySelectorAll('.qpill').forEach(function(p){
   p.addEventListener('click', function(){ showCat(this.getAttribute('data-cat')); });
@@ -1576,7 +1593,6 @@ function showFilesSection(key) {
     b.classList.toggle('active', b.dataset.files === key);
     b.querySelector('.fsi-dot') && (b.querySelector('.fsi-dot').style.background = b.dataset.files === key ? 'var(--accent)' : '');
   });
-  document.getElementById('filesLibBtn').classList.add('active');
 
   // Tag helpers
   var tagCls = { pdf:'fct-pdf', doc:'fct-doc', link:'fct-link', note:'fct-note' };
@@ -1602,19 +1618,9 @@ function showFilesSection(key) {
   el.innerHTML = html;
   el.style.display = 'block';
 
-  // Close mobile sidebar
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
 }
 
-// Toggle expand/collapse of Files Library
-document.getElementById('filesLibBtn').addEventListener('click', function(){
-  var isOpen = document.getElementById('filesSubnav').classList.contains('open');
-  this.classList.toggle('open', !isOpen);
-  document.getElementById('filesSubnav').classList.toggle('open', !isOpen);
-});
-
-// Sub-item clicks
+// Sub-item clicks (sidebar nav removed, handled by hnav now)
 document.querySelectorAll('.files-subitem').forEach(function(btn){
   btn.addEventListener('click', function(){ showFilesSection(this.dataset.files); });
 });
@@ -1624,7 +1630,6 @@ document.querySelectorAll('.nav-item').forEach(function(btn){
   btn.addEventListener('click', function(){
     activeFilesKey = null;
     document.querySelectorAll('.files-subitem').forEach(function(b){ b.classList.remove('active'); });
-    document.getElementById('filesLibBtn').classList.remove('active');
     var fc = document.getElementById('filesContent');
     if (fc) fc.style.display = 'none';
   });
@@ -1632,10 +1637,33 @@ document.querySelectorAll('.nav-item').forEach(function(btn){
 
 
 
-// ── Category Dropdown: close on outside click ──
+// ── Horizontal Nav: toggle and close on outside click ──
+function hnavToggle(idx) {
+  var items = document.querySelectorAll('.hnav-item');
+  items.forEach(function(item, i) {
+    if (i === idx) {
+      item.classList.toggle('open');
+    } else {
+      item.classList.remove('open');
+    }
+  });
+}
+function hnavGo(cat) {
+  document.querySelectorAll('.hnav-item').forEach(function(item) {
+    item.classList.remove('open');
+  });
+  if (cat === 'files') {
+    showFilesSection();
+  } else {
+    showCat(cat);
+  }
+}
 document.addEventListener('click', function(e) {
-  var dd = document.getElementById('catDropdown');
-  if (dd && !dd.contains(e.target)) dd.classList.remove('open');
+  if (!e.target.closest('.hnav-item')) {
+    document.querySelectorAll('.hnav-item').forEach(function(item) {
+      item.classList.remove('open');
+    });
+  }
 });
 </script>
 
