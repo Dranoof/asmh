@@ -661,7 +661,39 @@ transition: all 0.15s; font-family: 'Figtree', sans-serif;
 display: inline-flex; align-items: center; padding: 1px 8px; border-radius: 5px;
 background: var(--bg2); border: 1.5px solid var(--border2); font-size: 11px;
 font-family: inherit; color: var(--muted);
+}/* -- Handover Quick Access -- */
+.ws-handover { display: flex; gap: 14px; justify-content: center; margin: 20px 0 8px; flex-wrap: wrap; }
+.ws-ho-card {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--card); border: 1.5px solid var(--border2);
+  border-radius: 14px; padding: 14px 20px;
+  cursor: pointer; text-decoration: none; color: var(--text);
+  transition: box-shadow .18s, transform .15s, border-color .18s;
+  font-family: 'Figtree', sans-serif; min-width: 180px;
 }
+.ws-ho-card:hover { box-shadow: 0 6px 24px rgba(79,70,229,.13); transform: translateY(-2px); border-color: var(--accent); }
+.ws-ho-card.er { border-left: 4px solid #ef4444; }
+.ws-ho-card.dept { border-left: 4px solid #0d9488; }
+.ws-ho-icon { font-size: 26px; line-height: 1; }
+.ws-ho-info { display: flex; flex-direction: column; }
+.ws-ho-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.ws-ho-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.ws-ho-section-label { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; text-align: center; }
+
+/* -- Header Handover Buttons -- */
+.hov-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 5px 11px; border-radius: 8px; border: 1.5px solid var(--border2);
+  background: var(--card); color: var(--text);
+  font-size: 12px; font-weight: 600; font-family: 'Figtree', sans-serif;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: border-color .15s, background .15s;
+}
+.hov-btn:hover { border-color: var(--accent); background: var(--card-h); }
+.hov-btn.er { border-left: 3px solid #ef4444; }
+.hov-btn.dept { border-left: 3px solid #0d9488; }
+
+
 .ws-categories { width: 100%; max-width: 540px; }
 .ws-cat-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; font-family: 'Figtree', sans-serif; }
 .ws-cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 8px; }
@@ -751,7 +783,9 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
     <button class="search-clear" id="searchClear" aria-label="Clear">&#x2715;</button>
   </div>
   <div class="hdr-right">
-    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle dark/light mode">&#x263D;</button>
+    <a class="hov-btn er" href="https://dranoof.github.io/myportal/" target="_blank" title="ER Handover">🚨 ER Handover</a>
+    <a class="hov-btn dept" href="https://dranoof.github.io/myportal/" target="_blank" title="Dept Handover">🏥 Dept Handover</a>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Switch to dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
   </div>
 </header>
 <nav class="hnav" id="hnav">
@@ -815,7 +849,25 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
       </div>
       <div class="ws-search-hint" onclick="document.getElementById('searchInput').focus()">&#x1F50D; Search any drug, class or condition &nbsp;<kbd>/</kbd></div>
       
+    
+    <div class="ws-handover">
+      <div class="ws-ho-section-label" style="width:100%">Patient Handover</div>
+      <a class="ws-ho-card er" href="https://dranoof.github.io/myportal/" target="_blank">
+        <span class="ws-ho-icon">🚨</span>
+        <span class="ws-ho-info">
+          <span class="ws-ho-title">ER Handover</span>
+          <span class="ws-ho-sub">Active ER patients</span>
+        </span>
+      </a>
+      <a class="ws-ho-card dept" href="https://dranoof.github.io/myportal/" target="_blank">
+        <span class="ws-ho-icon">🏥</span>
+        <span class="ws-ho-info">
+          <span class="ws-ho-title">Dept Handover</span>
+          <span class="ws-ho-sub">Department inpatients</span>
+        </span>
+      </a>
     </div>
+</div>
     <div id="catContent" style="display:none"></div>
 <div id="filesContent" style="display:none"></div>
   </main>
