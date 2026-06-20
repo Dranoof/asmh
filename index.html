@@ -1425,38 +1425,37 @@ var LEGEND = '<div class="legend"><div class="li"><span class="lk">OD</span><spa
 function getDrugId(name){ return 'drug_' + name.replace(/[^a-zA-Z0-9]/g,'_'); }
 function isDrugUnavailable(name){ return localStorage.getItem(getDrugId(name)+'_unavail') === '1'; }
 function getDrugCode(name){ return localStorage.getItem(getDrugId(name)+'_code') || ''; }
-function toggleUnavail(name){
+function toggleUnavailById(btn){
+  var card = btn.closest('.dc');
+  if (!card) return;
+  var name = card.getAttribute('data-nm');
   var id = getDrugId(name);
   var isUnavail = localStorage.getItem(id+'_unavail') === '1';
   localStorage.setItem(id+'_unavail', isUnavail ? '0' : '1');
-  var card = document.getElementById('dc_'+id);
-  if (card) {
-    card.classList.toggle('unavailable', !isUnavail);
-    var btn = card.querySelector('.dc-btn-unavail');
-    if (btn) btn.textContent = isUnavail ? 'Mark Unavailable' : 'Available';
-  }
+  card.classList.toggle('unavailable', !isUnavail);
+  btn.textContent = isUnavail ? 'Mark Unavailable' : 'Available';
 }
-function editCode(name){
+function editCodeById(btn){
+  var card = btn.closest('.dc');
+  if (!card) return;
+  var name = card.getAttribute('data-nm');
   var id = getDrugId(name);
   var cur = localStorage.getItem(id+'_code') || '';
-  var val = prompt('Enter drug code for:\n' + name + '\n\n(leave blank to remove)', cur);
+  var val = prompt('Drug code for: ' + name + '\n(leave blank to remove)', cur);
   if (val === null) return;
   val = val.trim().toUpperCase();
   if (val) { localStorage.setItem(id+'_code', val); }
   else { localStorage.removeItem(id+'_code'); }
-  var card = document.getElementById('dc_'+id);
-  if (card) {
-    var codeEl = card.querySelector('.dc-code');
-    if (val && !codeEl) {
-      var dn = card.querySelector('.dn');
-      var newCode = document.createElement('span');
-      newCode.className = 'dc-code'; newCode.textContent = val;
-      dn.before(newCode);
-    } else if (val && codeEl) {
-      codeEl.textContent = val;
-    } else if (!val && codeEl) {
-      codeEl.remove();
-    }
+  var codeEl = card.querySelector('.dc-code');
+  if (val && !codeEl) {
+    var dn = card.querySelector('.dn');
+    var newCode = document.createElement('span');
+    newCode.className = 'dc-code'; newCode.textContent = val;
+    dn.before(newCode);
+  } else if (val && codeEl) {
+    codeEl.textContent = val;
+  } else if (!val && codeEl) {
+    codeEl.remove();
   }
 }
 function renderCard(drug){
@@ -1471,8 +1470,7 @@ function renderCard(drug){
   var codeHtml = code ? '<span class="dc-code">'+code+'</span>' : '';
   var unavailClass = unavail ? ' unavailable' : '';
   var unavailLabel = unavail ? 'Available' : 'Mark Unavailable';
-  var escapedNm = nm.replace(/'/g, "\'");
-  return '<div class="dc'+typeC+unavailClass+'" id="dc_'+id+'">'+rb+codeHtml+'<div class="dn">'+nm+'</div><div class="dd">'+dose+'</div>'+(tags?'<div class="dtags">'+tags+'</div>':'')+'<div class="dc-actions"><button class="dc-btn dc-btn-unavail" onclick="toggleUnavail(''+escapedNm+'')">'+unavailLabel+'</button><button class="dc-btn dc-btn-code" onclick="editCode(''+escapedNm+'')">Code</button></div></div>';
+  return '<div class="dc'+typeC+unavailClass+'" id="dc_'+id+'" data-nm="'+nm.replace(/"/g,'&quot;')+'">'+rb+codeHtml+'<div class="dn">'+nm+'</div><div class="dd">'+dose+'</div>'+(tags?'<div class="dtags">'+tags+'</div>':'')+'<div class="dc-actions"><button class="dc-btn dc-btn-unavail" onclick="toggleUnavailById(this)">'+unavailLabel+'</button><button class="dc-btn dc-btn-code" onclick="editCodeById(this)">Code</button></div></div>';
 }
 function renderPaedCard(drug){
   var rows = drug.doses.map(function(d){return '<div class="age-row"><span class="age-label">'+d.a+'</span><span class="age-dose">'+d.v+'</span></div>';}).join('');
