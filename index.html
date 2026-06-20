@@ -159,7 +159,7 @@ box-shadow: 0 1px 0 var(--border), 0 2px 8px rgba(0,0,0,0.04);
 .chip.active { color: var(--accent2); border-color: var(--accent); background: rgba(59,130,246,0.1); }
 
 /* Ã¢ÂÂÃ¢ÂÂ LAYOUT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.layout { display: block; height: calc(100vh - 60px); overflow: hidden; }
+.layout { display: block; }
 
 /* Ã¢ÂÂÃ¢ÂÂ SIDEBAR Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 aside {
@@ -374,6 +374,94 @@ filter: blur(80px); pointer-events: none; z-index: 0;
 .dc.inj { border-left: 3px solid var(--inj-col); }
 .dc.topical { border-left: 3px solid var(--top-col); }
 .dc.combo { border-left: 3px solid var(--cmb-col); }
+
+/* Drug card extras */
+.dc.unavailable { opacity: 0.45; }
+.dc.unavailable .dn { text-decoration: line-through; }
+.dc-code {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+  color: var(--teal); background: rgba(13,148,136,0.1);
+  border-radius: 5px; padding: 2px 7px; display: inline-block;
+  margin-bottom: 4px; font-family: 'JetBrains Mono', monospace;
+}
+.dc-actions {
+  display: flex; gap: 4px; margin-top: 8px; justify-content: flex-end;
+}
+.dc-btn {
+  border: none; border-radius: 6px; font-size: 11px; font-weight: 500;
+  padding: 4px 9px; cursor: pointer; font-family: 'Figtree', sans-serif;
+  transition: background 0.12s, color 0.12s;
+}
+.dc-btn-unavail {
+  background: var(--bg3); color: var(--muted);
+}
+.dc-btn-unavail:hover { background: var(--rose); color: #fff; }
+.dc.unavailable .dc-btn-unavail {
+  background: rgba(225,29,72,0.15); color: var(--rose);
+}
+.dc.unavailable .dc-btn-unavail:hover { background: var(--green); color: #fff; }
+.dc-btn-code {
+  background: var(--bg3); color: var(--muted);
+}
+.dc-btn-code:hover { background: rgba(13,148,136,0.15); color: var(--teal); }
+
+/* Add Drug button */
+.add-drug-fab {
+  position: fixed; bottom: 24px; right: 24px; z-index: 400;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  border: none; font-size: 26px; cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  display: none; align-items: center; justify-content: center;
+  transition: background 0.15s, transform 0.15s;
+}
+.add-drug-fab:hover { background: var(--accent2); transform: scale(1.08); }
+.add-drug-fab.visible { display: flex; }
+
+/* Add Drug Modal */
+.adm-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+  z-index: 900; display: none; align-items: center; justify-content: center;
+}
+.adm-overlay.open { display: flex; }
+.adm-box {
+  background: var(--card); border-radius: 16px;
+  padding: 28px 28px 24px; width: 480px; max-width: 95vw;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+.adm-title {
+  font-size: 17px; font-weight: 700; color: var(--text);
+  margin-bottom: 18px;
+}
+.adm-field { margin-bottom: 14px; }
+.adm-label {
+  display: block; font-size: 12px; font-weight: 600;
+  color: var(--muted); margin-bottom: 5px; letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.adm-input {
+  width: 100%; background: var(--bg3); border: 1.5px solid var(--border2);
+  border-radius: 8px; padding: 8px 12px; font-size: 13.5px;
+  color: var(--text); font-family: 'Figtree', sans-serif;
+  outline: none; transition: border-color 0.15s;
+}
+.adm-input:focus { border-color: var(--accent); }
+.adm-row { display: flex; gap: 10px; }
+.adm-row .adm-field { flex: 1; }
+.adm-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
+.adm-btn-cancel {
+  background: var(--bg3); border: none; border-radius: 8px;
+  padding: 9px 18px; font-size: 13px; font-weight: 500;
+  color: var(--muted); cursor: pointer; font-family: 'Figtree', sans-serif;
+}
+.adm-btn-cancel:hover { color: var(--text); }
+.adm-btn-save {
+  background: var(--accent); border: none; border-radius: 8px;
+  padding: 9px 18px; font-size: 13px; font-weight: 600;
+  color: #fff; cursor: pointer; font-family: 'Figtree', sans-serif;
+  transition: background 0.15s;
+}
+.adm-btn-save:hover { background: var(--accent2); }
 
 .route-badge {
   position: absolute; top: 10px; right: 12px;
@@ -988,7 +1076,7 @@ var cats = {
       ]}
     ]
   },
-  eyes: { title:'Eyes & ENT', icon:'\uD83D\uDC41Ã¯Â¸Â', color:'#06b6d4',
+  eyes: { title:'Eyes & ENT', icon:'\uD83D\uDC41', color:'#06b6d4',
     sections:[
       { name:'Eye \u2014 Pain & Inflammation', drugs:[
         {n:'Nepafenac 1 mg/mL', d:'1 drop QID \u00D7 5 days \u2192 BD \u00D7 5 days', t:['Eye Drop','NSAID'], tp:'topical'},
@@ -1334,14 +1422,58 @@ function tc(tag){
 // -- RENDERERS -------------------------------------------------
 var LEGEND = '<div class="legend"><div class="li"><span class="lk">OD</span><span class="lv">Once daily</span></div><div class="li"><span class="lk">BD</span><span class="lv">Twice daily</span></div><div class="li"><span class="lk">TDS</span><span class="lv">Three times</span></div><div class="li"><span class="lk">QID</span><span class="lv">Four times</span></div><div class="li"><span class="lk">HS</span><span class="lv">At bedtime</span></div><div class="li"><span class="lk">AF / BF</span><span class="lv">After / Before food</span></div><div class="li"><span class="lk">SOS</span><span class="lv">When required</span></div><div class="li"><span class="lk">LA</span><span class="lv">Local application</span></div></div>';
 
+function getDrugId(name){ return 'drug_' + name.replace(/[^a-zA-Z0-9]/g,'_'); }
+function isDrugUnavailable(name){ return localStorage.getItem(getDrugId(name)+'_unavail') === '1'; }
+function getDrugCode(name){ return localStorage.getItem(getDrugId(name)+'_code') || ''; }
+function toggleUnavail(name){
+  var id = getDrugId(name);
+  var isUnavail = localStorage.getItem(id+'_unavail') === '1';
+  localStorage.setItem(id+'_unavail', isUnavail ? '0' : '1');
+  var card = document.getElementById('dc_'+id);
+  if (card) {
+    card.classList.toggle('unavailable', !isUnavail);
+    var btn = card.querySelector('.dc-btn-unavail');
+    if (btn) btn.textContent = isUnavail ? 'Mark Unavailable' : 'Available';
+  }
+}
+function editCode(name){
+  var id = getDrugId(name);
+  var cur = localStorage.getItem(id+'_code') || '';
+  var val = prompt('Enter drug code for:\n' + name + '\n\n(leave blank to remove)', cur);
+  if (val === null) return;
+  val = val.trim().toUpperCase();
+  if (val) { localStorage.setItem(id+'_code', val); }
+  else { localStorage.removeItem(id+'_code'); }
+  var card = document.getElementById('dc_'+id);
+  if (card) {
+    var codeEl = card.querySelector('.dc-code');
+    if (val && !codeEl) {
+      var dn = card.querySelector('.dn');
+      var newCode = document.createElement('span');
+      newCode.className = 'dc-code'; newCode.textContent = val;
+      dn.before(newCode);
+    } else if (val && codeEl) {
+      codeEl.textContent = val;
+    } else if (!val && codeEl) {
+      codeEl.remove();
+    }
+  }
+}
 function renderCard(drug){
   var typeC = drug.tp==='inj'?' inj':drug.tp==='topical'?' topical':drug.tp==='combo'?' combo':'';
   var rb = drug.tp==='inj'?'<span class="route-badge rb-inj">Inj</span>':drug.tp==='topical'?'<span class="route-badge rb-topical">Topical</span>':drug.tp==='combo'?'<span class="route-badge rb-combo">Combo</span>':'';
   var tags = (drug.t||[]).map(function(t){return '<span class="pill '+tc(t)+'">'+t+'</span>';}).join('');
   var dose = (drug.d||'').replace(/\n/g,'<br>');
-  return '<div class="dc'+typeC+'">'+rb+'<div class="dn">'+(drug.n||drug.nm||'')+'</div><div class="dd">'+dose+'</div>'+(tags?'<div class="dtags">'+tags+'</div>':'')+'</div>';
+  var nm = (drug.n||drug.nm||'');
+  var id = getDrugId(nm);
+  var unavail = isDrugUnavailable(nm);
+  var code = drug.code || getDrugCode(nm);
+  var codeHtml = code ? '<span class="dc-code">'+code+'</span>' : '';
+  var unavailClass = unavail ? ' unavailable' : '';
+  var unavailLabel = unavail ? 'Available' : 'Mark Unavailable';
+  var escapedNm = nm.replace(/'/g, "\'");
+  return '<div class="dc'+typeC+unavailClass+'" id="dc_'+id+'">'+rb+codeHtml+'<div class="dn">'+nm+'</div><div class="dd">'+dose+'</div>'+(tags?'<div class="dtags">'+tags+'</div>':'')+'<div class="dc-actions"><button class="dc-btn dc-btn-unavail" onclick="toggleUnavail(''+escapedNm+'')">'+unavailLabel+'</button><button class="dc-btn dc-btn-code" onclick="editCode(''+escapedNm+'')">Code</button></div></div>';
 }
-
 function renderPaedCard(drug){
   var rows = drug.doses.map(function(d){return '<div class="age-row"><span class="age-label">'+d.a+'</span><span class="age-dose">'+d.v+'</span></div>';}).join('');
   return '<div class="paed-card"><div class="paed-drug">'+drug.n+'</div>'+rows+'</div>';
@@ -1393,9 +1525,18 @@ function showCat(catKey){
       html += '</div>';
     });
   }
+  // Load custom drugs from localStorage
+  var customDrugs = JSON.parse(localStorage.getItem('cust_'+catKey) || '[]');
+  if (customDrugs.length > 0) {
+    html += '<div class="sec-head">Custom Drugs</div><div class="drug-grid">';
+    customDrugs.forEach(function(d){ html += renderCard(d); });
+    html += '</div>';
+  }
   content.innerHTML = html;
+  _currentCatKey = catKey;
   document.getElementById('mainContent').scrollTop = 0;
-  // close mobile sidebar
+  var _fab = document.getElementById('addDrugFab');
+  if (_fab) _fab.classList.add('visible');
   closeSidebar();
 }
 
@@ -1423,6 +1564,9 @@ var overlay = null;
               document.getElementById('catContent').style.display='none';
               document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
               document.getElementById('mainContent').scrollTop=0;
+              _currentCatKey = null;
+              var _fab2 = document.getElementById('addDrugFab');
+              if (_fab2) _fab2.classList.remove('visible');
               closeSidebar();
       }
   
@@ -1665,6 +1809,40 @@ document.addEventListener('click', function(e) {
     });
   }
 });
+
+// ── Add Drug feature ──
+var _currentCatKey = null;
+function openAddDrug(){
+  document.getElementById('addDrugOverlay').classList.add('open');
+  document.getElementById('admName').focus();
+}
+function closeAddDrug(){
+  document.getElementById('addDrugOverlay').classList.remove('open');
+  ['admName','admDose','admCode','admSection','admTags'].forEach(function(id){
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('admType').selectedIndex = 0;
+}
+function saveAddDrug(){
+  var name = document.getElementById('admName').value.trim();
+  var dose = document.getElementById('admDose').value.trim();
+  var code = document.getElementById('admCode').value.trim().toUpperCase();
+  var tagsRaw = document.getElementById('admTags').value.trim();
+  var tp = document.getElementById('admType').value || undefined;
+  if (!name) { alert('Drug name is required'); return; }
+  if (!dose) { alert('Dosage is required'); return; }
+  var tags = tagsRaw ? tagsRaw.split(',').map(function(t){ return t.trim(); }).filter(Boolean) : [];
+  var drug = { n: name, d: dose, t: tags };
+  if (tp) drug.tp = tp;
+  if (code) drug.code = code;
+  var storageKey = 'cust_' + (_currentCatKey || 'misc');
+  var existing = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  existing.push(drug);
+  localStorage.setItem(storageKey, JSON.stringify(existing));
+  if (code) localStorage.setItem(getDrugId(name)+'_code', code);
+  if (_currentCatKey) showCat(_currentCatKey);
+  closeAddDrug();
+}
 </script>
 
 
@@ -1736,5 +1914,51 @@ document.addEventListener('click', function(e) {
     </div>
   </div>
 </footer>
+
+<!-- Add Drug FAB -->
+<button class="add-drug-fab" id="addDrugFab" title="Add drug to this category" onclick="openAddDrug()">+</button>
+
+<!-- Add Drug Modal -->
+<div class="adm-overlay" id="addDrugOverlay" onclick="if(event.target===this)closeAddDrug()">
+  <div class="adm-box">
+    <div class="adm-title">Add Drug</div>
+    <div class="adm-field">
+      <label class="adm-label">Drug Name *</label>
+      <input class="adm-input" id="admName" placeholder="e.g. Tab. Amoxicillin 500 mg" />
+    </div>
+    <div class="adm-field">
+      <label class="adm-label">Dosage *</label>
+      <input class="adm-input" id="admDose" placeholder="e.g. TDS × 5 days" />
+    </div>
+    <div class="adm-row">
+      <div class="adm-field">
+        <label class="adm-label">Drug Code</label>
+        <input class="adm-input" id="admCode" placeholder="e.g. AMX500" />
+      </div>
+      <div class="adm-field">
+        <label class="adm-label">Section</label>
+        <input class="adm-input" id="admSection" placeholder="e.g. Oral Antibiotics" />
+      </div>
+    </div>
+    <div class="adm-field">
+      <label class="adm-label">Tags (comma-separated)</label>
+      <input class="adm-input" id="admTags" placeholder="e.g. PO, Antibiotic" />
+    </div>
+    <div class="adm-field">
+      <label class="adm-label">Type</label>
+      <select class="adm-input" id="admType">
+        <option value="">Standard</option>
+        <option value="inj">Injection (INJ)</option>
+        <option value="topical">Topical</option>
+        <option value="combo">Combination</option>
+      </select>
+    </div>
+    <div class="adm-actions">
+      <button class="adm-btn-cancel" onclick="closeAddDrug()">Cancel</button>
+      <button class="adm-btn-save" onclick="saveAddDrug()">Add Drug</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
