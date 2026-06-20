@@ -1641,11 +1641,11 @@ document.querySelectorAll('.nav-item').forEach(function(btn){
 
 
 // ── Category Dropdown ──
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   const dropdown = document.getElementById('catDropdown');
   const btn = document.getElementById('catDropBtn');
   const menu = document.getElementById('catDropMenu');
-  if (!btn || !menu) return;
+  if (!btn || !menu || !dropdown) return;
 
   btn.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -1665,7 +1665,7 @@ document.querySelectorAll('.nav-item').forEach(function(btn){
       if (cat) showCat(cat);
     });
   });
-})();
+});
 </script>
 
 
