@@ -655,12 +655,12 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
   </div>
   <div class="hdr-right">
     <div class="cat-dropdown" id="catDropdown">
-      <button class="cat-drop-btn" id="catDropBtn" aria-label="Browse categories" title="Browse categories">
+      <button class="cat-drop-btn" id="catDropBtn" aria-label="Browse categories" title="Browse categories" onclick="event.stopPropagation();document.getElementById('catDropdown').classList.toggle('open')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         <span>Browse</span>
         <svg class="cat-drop-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
-      <div class="cat-drop-menu" id="catDropMenu">
+      <div class="cat-drop-menu" id="catDropMenu" onclick="var c=event.target.closest('.cat-drop-item');if(c){document.getElementById('catDropdown').classList.remove('open');var cat=c.getAttribute('data-cat');if(cat)showCat(cat);}">
         <div class="cat-drop-section">ADULT OPD</div>
         <button class="cat-drop-item" data-cat="pain"><span class="cat-drop-dot" style="background:#f43f5e"></span>Pain &amp; Fever<span class="cat-drop-count">12</span></button>
         <button class="cat-drop-item" data-cat="respiratory"><span class="cat-drop-dot" style="background:#3b82f6"></span>Respiratory<span class="cat-drop-count">20</span></button>
@@ -1640,31 +1640,10 @@ document.querySelectorAll('.nav-item').forEach(function(btn){
 
 
 
-// ── Category Dropdown ──
-document.addEventListener('DOMContentLoaded', function() {
-  const dropdown = document.getElementById('catDropdown');
-  const btn = document.getElementById('catDropBtn');
-  const menu = document.getElementById('catDropMenu');
-  if (!btn || !menu || !dropdown) return;
-
-  btn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    dropdown.classList.toggle('open');
-  });
-
-  // Close on outside click
-  document.addEventListener('click', function(e) {
-    if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
-  });
-
-  // Close on item click and trigger category
-  menu.querySelectorAll('.cat-drop-item').forEach(function(item) {
-    item.addEventListener('click', function() {
-      const cat = item.getAttribute('data-cat');
-      dropdown.classList.remove('open');
-      if (cat) showCat(cat);
-    });
-  });
+// ── Category Dropdown: close on outside click ──
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('catDropdown');
+  if (dd && !dd.contains(e.target)) dd.classList.remove('open');
 });
 </script>
 
