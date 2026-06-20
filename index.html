@@ -764,6 +764,26 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
   margin-left: auto; font-size: 11px; color: var(--muted);
   background: var(--bg3); border-radius: 10px; padding: 1px 6px;
 }
+
+/* ===== Quick Links Page ===== */
+#qlContent { display: none; padding: 32px 24px 60px; max-width: 860px; margin: 0 auto; }
+.ql-page-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 6px; font-family: 'Figtree', sans-serif; }
+.ql-page-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+.ql-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.ql-card {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--card); border: 1.5px solid var(--border2);
+  border-radius: 14px; padding: 16px 20px;
+  text-decoration: none; color: var(--text);
+  transition: box-shadow .18s, transform .15s, border-color .18s;
+  font-family: 'Figtree', sans-serif;
+}
+.ql-card:hover { box-shadow: 0 6px 24px rgba(79,70,229,.13); transform: translateY(-2px); border-color: var(--accent); }
+.ql-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.ql-info { display: flex; flex-direction: column; }
+.ql-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.ql-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.hov-btn.ql { border-left: 3px solid #6366f1; }
 </style>
 </head>
 <body>
@@ -785,6 +805,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
   <div class="hdr-right">
     <a class="hov-btn er" href="https://docs.google.com/spreadsheets/d/1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE/edit#gid=0" target="_blank" title="ER Handover">🚨 ER Handover</a>
     <a class="hov-btn dept" href="https://docs.google.com/spreadsheets/d/1hqZ6IBS_hkCu_1fFgkTlmgG04whLpZYf1FueUX8ijO4/edit" target="_blank" title="Dept Handover">🏥 Dept Handover</a>
+    <button class="hov-btn ql" onclick="showQuickLinks()" title="Quick Links">🔗 Quick Links</button>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Switch to dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
   </div>
 </header>
@@ -851,7 +872,38 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
       
     
 </div>
-    <div id="catContent" style="display:none"></div>
+    <div 
+  <div id="qlContent" style="display:none;">
+    <div class="ql-page-title">🔗 Quick Links</div>
+    <p class="ql-page-sub">Frequently used clinical portals and references</p>
+    <div class="ql-grid">
+      <a class="ql-card" href="https://vinavi.gov.mv" target="_blank">
+        <div class="ql-icon" style="background:#e0f2fe;">🏛️</div>
+        <div class="ql-info"><span class="ql-name">Vinavi Portal</span><span class="ql-desc">National Health Information System</span></div>
+      </a>
+      <a class="ql-card" href="https://asmh.gov.mv" target="_blank">
+        <div class="ql-icon" style="background:#ccfbf1;">🏥</div>
+        <div class="ql-info"><span class="ql-name">ASMH Website</span><span class="ql-desc">Dr. Abdul Samad Memorial Hospital</span></div>
+      </a>
+      <a class="ql-card" href="https://health.gov.mv" target="_blank">
+        <div class="ql-icon" style="background:#dcfce7;">🩺</div>
+        <div class="ql-info"><span class="ql-name">Ministry of Health</span><span class="ql-desc">Maldives Ministry of Health</span></div>
+      </a>
+      <a class="ql-card" href="https://www.medscape.com" target="_blank">
+        <div class="ql-icon" style="background:#ede9fe;">💊</div>
+        <div class="ql-info"><span class="ql-name">Medscape</span><span class="ql-desc">Drug reference &amp; clinical resources</span></div>
+      </a>
+      <a class="ql-card" href="https://www.paediatrics.com.au/clinical-resources/paed-dose" target="_blank">
+        <div class="ql-icon" style="background:#fef9c3;">👶</div>
+        <div class="ql-info"><span class="ql-name">PaedDose</span><span class="ql-desc">Paediatric drug dosing calculator</span></div>
+      </a>
+      <a class="ql-card" href="https://www.medcalc.com" target="_blank">
+        <div class="ql-icon" style="background:#fee2e2;">🔢</div>
+        <div class="ql-info"><span class="ql-name">MedCalc</span><span class="ql-desc">Medical calculators &amp; scores</span></div>
+      </a>
+    </div>
+  </div>
+id="catContent" style="display:none"></div>
 <div id="filesContent" style="display:none"></div>
   </main>
 </div>
@@ -1594,7 +1646,8 @@ var overlay = null;
 // -- SHOW LANDING PAGE ------------------------------------------
       function showLanding(){
         document.getElementById('welcomeScreen').style.display='';
-              document.getElementById('catContent').style.display='none';
+              document.getElementById('catContent').style.display='none'
+        document.getElementById('qlContent').style.display = 'none';;
               document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
               document.getElementById('mainContent').scrollTop=0;
               _currentCatKey = null;
@@ -1875,6 +1928,17 @@ function saveAddDrug(){
   if (code) localStorage.setItem(getDrugId(name)+'_code', code);
   if (_currentCatKey) showCat(_currentCatKey);
   closeAddDrug();
+}
+
+function showQuickLinks() {
+  document.getElementById('welcomeScreen').style.display = 'none';
+  document.getElementById('catContent').style.display = 'none';
+  document.getElementById('filesContent').style.display = 'none';
+  document.getElementById('searchResults').style.display = 'none';
+  var ql = document.getElementById('qlContent');
+  ql.style.display = 'block';
+  document.getElementById('addDrugFab').classList.remove('visible');
+  window._currentCatKey = null;
 }
 </script>
 
