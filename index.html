@@ -1445,8 +1445,10 @@ var clearBtn = document.getElementById('searchClear');
 var srLabel = document.getElementById('srLabel');
 
 function toggleClear(show){
-  clearBtn.classList.toggle('visible', show);
-  searchKbd.style.display = show ? 'none' : '';
+  var cb = clearBtn || document.getElementById('searchClear');
+  if (cb) cb.classList.toggle('visible', show);
+  var kb = searchKbd || document.getElementById('searchKbd');
+  if (kb) kb.style.display = show ? 'none' : '';
 }
 
 function hl(text, q){
