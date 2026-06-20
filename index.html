@@ -664,25 +664,25 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
         <div class="cat-drop-section">ADULT OPD</div>
         <button class="cat-drop-item" data-cat="pain"><span class="cat-drop-dot" style="background:#f43f5e"></span>Pain &amp; Fever<span class="cat-drop-count">12</span></button>
         <button class="cat-drop-item" data-cat="respiratory"><span class="cat-drop-dot" style="background:#3b82f6"></span>Respiratory<span class="cat-drop-count">20</span></button>
-        <button class="cat-drop-item" data-cat="cardio"><span class="cat-drop-dot" style="background:#f97316"></span>Cardiovascular<span class="cat-drop-count">16</span></button>
-        <button class="cat-drop-item" data-cat="gastro"><span class="cat-drop-dot" style="background:#22c55e"></span>Gastro<span class="cat-drop-count">18</span></button>
+        <button class="cat-drop-item" data-cat="cardiovascular"><span class="cat-drop-dot" style="background:#f97316"></span>Cardiovascular<span class="cat-drop-count">16</span></button>
+        <button class="cat-drop-item" data-cat="gi"><span class="cat-drop-dot" style="background:#22c55e"></span>Gastro<span class="cat-drop-count">18</span></button>
         <button class="cat-drop-item" data-cat="endo"><span class="cat-drop-dot" style="background:#a855f7"></span>Endocrine<span class="cat-drop-count">14</span></button>
         <button class="cat-drop-item" data-cat="derm"><span class="cat-drop-dot" style="background:#ec4899"></span>Dermatology<span class="cat-drop-count">14</span></button>
-        <button class="cat-drop-item" data-cat="ent"><span class="cat-drop-dot" style="background:#14b8a6"></span>Eyes &amp; ENT<span class="cat-drop-count">12</span></button>
+        <button class="cat-drop-item" data-cat="eyes"><span class="cat-drop-dot" style="background:#14b8a6"></span>Eyes &amp; ENT<span class="cat-drop-count">12</span></button>
         <button class="cat-drop-item" data-cat="psych"><span class="cat-drop-dot" style="background:#8b5cf6"></span>Psychiatry<span class="cat-drop-count">16</span></button>
-        <button class="cat-drop-item" data-cat="abx"><span class="cat-drop-dot" style="background:#10b981"></span>Antibiotics<span class="cat-drop-count">13</span></button>
+        <button class="cat-drop-item" data-cat="antibiotics"><span class="cat-drop-dot" style="background:#10b981"></span>Antibiotics<span class="cat-drop-count">13</span></button>
         <button class="cat-drop-item" data-cat="antifungal"><span class="cat-drop-dot" style="background:#f59e0b"></span>Antifungal/Antiviral<span class="cat-drop-count">8</span></button>
         <button class="cat-drop-item" data-cat="vitamins"><span class="cat-drop-dot" style="background:#eab308"></span>Vitamins &amp; Misc<span class="cat-drop-count">10</span></button>
         <div class="cat-drop-section">PAEDIATRICS</div>
-        <button class="cat-drop-item" data-cat="paeds"><span class="cat-drop-dot" style="background:#3b82f6"></span>Paeds OPD<span class="cat-drop-count">20</span></button>
-        <button class="cat-drop-item" data-cat="paeds-acute"><span class="cat-drop-dot" style="background:#ef4444"></span>Paeds Acute<span class="cat-drop-count">8</span></button>
+        <button class="cat-drop-item" data-cat="paed-opd"><span class="cat-drop-dot" style="background:#3b82f6"></span>Paeds OPD<span class="cat-drop-count">20</span></button>
+        <button class="cat-drop-item" data-cat="paed-acute"><span class="cat-drop-dot" style="background:#ef4444"></span>Paeds Acute<span class="cat-drop-count">8</span></button>
         <div class="cat-drop-section">SPECIAL POPULATIONS</div>
         <button class="cat-drop-item" data-cat="gynae"><span class="cat-drop-dot" style="background:#ec4899"></span>Gynaecology<span class="cat-drop-count">8</span></button>
         <button class="cat-drop-item" data-cat="pregnancy"><span class="cat-drop-dot" style="background:#a855f7"></span>Pregnancy<span class="cat-drop-count">14</span></button>
         <button class="cat-drop-item" data-cat="lactation"><span class="cat-drop-dot" style="background:#14b8a6"></span>Lactation<span class="cat-drop-count">12</span></button>
         <button class="cat-drop-item" data-cat="g6pd"><span class="cat-drop-dot" style="background:#eab308"></span>G6PD Guide</button>
         <div class="cat-drop-section">RESOURCES</div>
-        <button class="cat-drop-item" data-cat="files"><span class="cat-drop-dot" style="background:#6366f1"></span>Files Library</button>
+        <button class="cat-drop-item" onclick="document.getElementById('catDropdown').classList.remove('open');showFilesSection()"><span class="cat-drop-dot" style="background:#6366f1"></span>Files Library</button>
       </div>
     </div>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle dark/light mode">&#x263D;</button>
