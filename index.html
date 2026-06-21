@@ -2652,6 +2652,43 @@ document.addEventListener('DOMContentLoaded', function() {
   if (bg) bg.addEventListener('click', function(e){ if(e.target===bg) snCloseModal(); });
 });
 
+
+
+// === PANEL ISOLATION PATCH ===
+(function() {
+  var PANEL_IDS = ['welcomeScreen','catContent','qlContent','erDashContent','stickyContent','filesContent','searchResults'];
+  
+  function hideAll() {
+    PANEL_IDS.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    var fab = document.getElementById('addDrugFab');
+    if (fab) fab.style.display = 'none';
+    var main = document.getElementById('mainContent');
+    if (main) main.scrollTop = 0;
+  }
+
+  var _origQL = showQuickLinks;
+  showQuickLinks = window.showQuickLinks = function() { hideAll(); _origQL(); };
+
+  var _origER = showERDashboard;
+  showERDashboard = window.showERDashboard = function() { hideAll(); _origER(); };
+
+  var _origSN = showStickyNotes;
+  showStickyNotes = window.showStickyNotes = function() { hideAll(); _origSN(); };
+
+  var _origCat = showCat;
+  showCat = window.showCat = function(cat) { hideAll(); _origCat(cat); };
+
+  var _origFiles = showFilesSection;
+  showFilesSection = window.showFilesSection = function(key) { hideAll(); _origFiles(key); };
+
+  var _origLanding = showLanding;
+  showLanding = window.showLanding = function() { hideAll(); _origLanding(); };
+
+})();
+
 </script>
 
 
