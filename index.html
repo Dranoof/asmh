@@ -2736,6 +2736,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     var fab = document.getElementById('addDrugFab');
     if (fab) fab.style.display = 'none';
+    var footer = document.querySelector('footer');
+    if (footer) footer.style.display = 'none';
     var main = document.getElementById('mainContent');
     if (main) main.scrollTop = 0;
   }
@@ -2756,7 +2758,7 @@ document.addEventListener('DOMContentLoaded', function() {
   showFilesSection = window.showFilesSection = function(key) { hideAll(); _origFiles(key); };
 
   var _origLanding = showLanding;
-  showLanding = window.showLanding = function() { hideAll(); _origLanding(); };
+  showLanding = window.showLanding = function() { hideAll(); _origLanding(); var footer = document.querySelector('footer'); if (footer) footer.style.display = ''; };
 
 })();
 
