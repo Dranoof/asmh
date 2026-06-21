@@ -290,6 +290,7 @@ main {
   margin: -24px -26px;
   height: calc(100% + 48px);
 }
+#disclaimerContent { height: 100%; overflow-y: auto; }
 main::-webkit-scrollbar { width: 4px; }
 main::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
 main::-webkit-scrollbar-track { background: transparent; }
@@ -1240,6 +1241,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
   <div id="catContent" style="display:none"></div>
   <div id="filesContent" style="display:none"></div>
   <div id="stickyContent"></div>
+  <div id="disclaimerContent"></div>
   </main>
 </div>
 
@@ -2723,11 +2725,43 @@ document.addEventListener('DOMContentLoaded', function() {
   if (bg) bg.addEventListener('click', function(e){ if(e.target===bg) snCloseModal(); });
 });
 
+// ===== DISCLAIMER PAGE =====
+function showDisclaimer() {
+  var panel = document.getElementById('disclaimerContent');
+  if (!panel) return;
+  panel.innerHTML = `
+    <div style="max-width:780px;margin:0 auto;padding:32px 20px 60px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;">
+        <span style="font-size:2rem;">⚠️</span>
+        <h1 style="font-size:1.6rem;font-weight:700;color:var(--text);margin:0;">Disclaimer</h1>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 30px;line-height:1.8;color:var(--text2);font-size:0.97rem;">
+        <p style="margin:0 0 16px;">ASMH MyPortal is an independently created clinical support and resource portal compiled by Dr. Anoof for internal reference and workflow support.</p>
+        <p style="margin:0 0 16px;">The information provided on this website is intended for general guidance, quick reference, and educational purposes only. It is not a substitute for professional clinical judgement, institutional protocols, national guidelines, specialist advice, or direct patient assessment.</p>
+        <p style="margin:0 0 16px;">While efforts are made to keep the content accurate and updated, ASMH MyPortal does not guarantee that all information is complete, current, or free from errors. Users must verify doses, guidelines, contraindications, allergies, drug interactions, and management decisions from approved references before applying them in clinical practice.</p>
+        <p style="margin:0 0 16px;">Any clinical decision made using information from this portal remains the responsibility of the treating healthcare professional.</p>
+        <p style="margin:0 0 16px;">This website is not an official website of Dr. Abdul Samad Memorial Hospital unless formally approved by the institution. External links are provided for convenience, and ASMH MyPortal is not responsible for the content, accuracy, or availability of third-party websites.</p>
+        <p style="margin:0 0 16px;">No patient-identifiable information should be entered, stored, or shared through this portal unless the system is officially approved and compliant with relevant privacy and data protection standards.</p>
+        <p style="margin:0;">By using this website, you acknowledge that the content is for supportive reference only and must be used with appropriate clinical judgement and institutional guidance.</p>
+      </div>
+      <div style="margin-top:20px;text-align:center;">
+        <button onclick="showLanding()" style="background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:0.95rem;font-weight:600;cursor:pointer;">← Back to Home</button>
+      </div>
+    </div>
+  `;
+  panel.style.display = 'flex';
+  panel.style.flexDirection = 'column';
+  panel.style.overflowY = 'auto';
+  document.getElementById('mainContent').scrollTop = 0;
+}
+
+
+
 
 
 // === PANEL ISOLATION PATCH ===
 (function() {
-  var PANEL_IDS = ['welcomeScreen','catContent','qlContent','erDashContent','stickyContent','filesContent','searchResults'];
+  var PANEL_IDS = ['welcomeScreen','catContent','qlContent','erDashContent','stickyContent','filesContent','disclaimerContent','searchResults'];
   
   function hideAll() {
     PANEL_IDS.forEach(function(id) {
@@ -2759,6 +2793,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var _origLanding = showLanding;
   showLanding = window.showLanding = function() { hideAll(); _origLanding(); var footer = document.querySelector('footer'); if (footer) footer.style.display = ''; };
+
+
+  var _origDisc = showDisclaimer;
+  showDisclaimer = window.showDisclaimer = function() { hideAll(); _origDisc(); };
 
 })();
 
