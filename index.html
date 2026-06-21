@@ -1144,27 +1144,6 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
         <div class="ql-info"><span class="ql-name">MedCalc</span><span class="ql-desc">Medical calculators &amp; scores</span></div>
       </a>
     </div></div>
-  <div id="erDashContent" style="display:none; flex-direction:column; height:calc(100vh - 120px);">
-    <div class="erd-header">
-      <div class="erd-title">🚨 ER Handover Dashboard</div>
-      <div class="erd-tabs">
-        <button class="erd-tab active" id="erdTabActive" onclick="erdSwitchTab('active')">Active Patients</button>
-        <button class="erd-tab" id="erdTabMonthly" onclick="erdSwitchTab('monthly')">Monthly</button>
-      </div>
-      <div class="erd-actions">
-        <select class="erd-month-select" id="erdMonthSel" onchange="erdChangeMonth()" style="display:none;">
-          <option value="2134374724">June 2026</option>
-          <option value="1037766816">May 2026</option>
-          <option value="698732185">April 2026</option>
-        </select>
-        <a class="erd-open-btn" id="erdOpenLink" href="https://docs.google.com/spreadsheets/d/1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE/edit#gid=503901300" target="_blank">↗ Open in Sheets</a>
-      </div>
-    </div>
-    <div class="erd-frame-wrap">
-      <iframe class="erd-frame" id="erdFrame"
-        src="https://docs.google.com/spreadsheets/d/1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE/htmlview?gid=503901300&rm=minimal"
-        frameborder="0" allowfullscreen></iframe>
-    </div>
   <footer style="
   width: 100%;
   border-top: 1px solid rgba(255,255,255,0.07);
@@ -1233,6 +1212,28 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
     </div>
   </div>
 </footer>
+  <div id="erDashContent" style="display:none; flex-direction:column; height:calc(100vh - 120px);">
+    <div class="erd-header">
+      <div class="erd-title">🚨 ER Handover Dashboard</div>
+      <div class="erd-tabs">
+        <button class="erd-tab active" id="erdTabActive" onclick="erdSwitchTab('active')">Active Patients</button>
+        <button class="erd-tab" id="erdTabMonthly" onclick="erdSwitchTab('monthly')">Monthly</button>
+      </div>
+      <div class="erd-actions">
+        <select class="erd-month-select" id="erdMonthSel" onchange="erdChangeMonth()" style="display:none;">
+          <option value="2134374724">June 2026</option>
+          <option value="1037766816">May 2026</option>
+          <option value="698732185">April 2026</option>
+        </select>
+        <a class="erd-open-btn" id="erdOpenLink" href="https://docs.google.com/spreadsheets/d/1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE/edit#gid=503901300" target="_blank">↗ Open in Sheets</a>
+      </div>
+    </div>
+    <div class="erd-frame-wrap">
+      <iframe class="erd-frame" id="erdFrame"
+        src="https://docs.google.com/spreadsheets/d/1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE/htmlview?gid=503901300&rm=minimal"
+        frameborder="0" allowfullscreen></iframe>
+    </div>
+  
   </div>
   <div id="catContent" style="display:none"></div>
   <div id="filesContent" style="display:none"></div>
@@ -2760,74 +2761,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
-<footer style="
-  width: 100%;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  background: #0d1117;
-  font-family: Inter, sans-serif;
-  margin-top: 80px;
-">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 48px 40px 0;">
-    <div style="display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 40px;">
 
-      <!-- Brand -->
-      <div>
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
-          <img src="https://asmh.gov.mv/storage/images/logos/asmh_logo.svg" alt="ASMH" class="footer-logo-img" style="width:48px;height:auto;flex-shrink:0;">
-          <span style="font-size: 14px; font-weight: 600; color: #e6edf3;">ASMH MyPortal</span>
-        </div>
-        <p style="font-size: 12.5px; color: #5c6b7d; line-height: 1.75; margin: 0 0 18px; max-width: 260px;">One Portal. One Team. Better Care.</p>
-        <p style="font-size: 12.5px; color: #5c6b7d; line-height: 1.75; margin: 0 0 14px; max-width: 260px;">Access patient handovers, clinical resources, hospital announcements, and essential tools designed to support safe and efficient healthcare delivery.</p>
-        <p style="font-size: 12px; color: #3d4f60; margin: 0;">Compiled by <span style="color: #7d8da1;">Dr. Anoof</span></p>
-      </div>
-
-      <!-- Categories -->
-      <div>
-        <p style="font-size: 10.5px; font-weight: 600; color: #3d4f60; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 16px;">Categories</p>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Pain &amp; Fever</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Cardiovascular</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Antibiotics</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Respiratory</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Paediatrics</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Antifungal / Antiviral</a>
-        </div>
-      </div>
-
-      <!-- Special Populations -->
-      <div>
-        <p style="font-size: 10.5px; font-weight: 600; color: #3d4f60; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 16px;">Populations</p>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Gynaecology</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Pregnancy</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Lactation</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">G6PD Guide</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Paeds OPD</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Paeds Acute</a>
-        </div>
-      </div>
-
-      <!-- Resources -->
-      <div>
-        <p style="font-size: 10.5px; font-weight: 600; color: #3d4f60; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 16px;">Resources</p>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <a href="https://dranoof.github.io/myportal/" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Dr. ASMH Portal</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">National Guidelines</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Disclaimer</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Feedback</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom bar -->
-  <div style="border-top: 1px solid rgba(255,255,255,0.05); margin: 0 40px;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 18px 0; display: flex; align-items: center; justify-content: space-between;">
-      <span style="font-size: 11.5px; color: #3d4f60;">Crafted with &#x2764;&#xFE0F; by dranoof &nbsp;&bull;&nbsp; All rights reserved</span>
-      <span style="font-size: 11.5px; color: #3d4f60;">dranoof.github.io</span>
-    </div>
-  </div>
-</footer>
 
 <!-- Add Drug FAB -->
 <button class="add-drug-fab" id="addDrugFab" title="Add drug to this category" onclick="openAddDrug()">+</button>
