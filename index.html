@@ -2455,14 +2455,14 @@ function deptFetchAndRender() {
         dataRows.forEach(function(row, i) {
           var bg = i % 2 === 0 ? 'var(--bg2)' : 'var(--card)';
           html += '<tr style="background:' + bg + ';border-bottom:1px solid var(--border);">';
-          html += '<td style="padding:7px 10px;color:var(--text2);font-size:12px;">' + getCell(row,0) + '</td>';
-          html += '<td style="padding:7px 10px;color:var(--text);font-weight:600;">' + getCell(row,1) + '</td>';
-          html += '<td style="padding:7px 10px;"><strong style="color:var(--text);">' + getCell(row,4) + '</strong><br><small style="color:var(--muted);">' + getCell(row,5) + '</small></td>';
-          html += '<td style="padding:7px 10px;color:var(--text2);">' + getCell(row,6) + '</td>';
+          html += '<td style="padding:7px 10px;color:var(--text2);font-size:12px;">' + getCell(row,1) + '</td>';
+          html += '<td style="padding:7px 10px;color:var(--text);font-weight:600;">' + getCell(row,2) + '</td>';
+          html += '<td style="padding:7px 10px;"><strong style="color:var(--text);">' + getCell(row,5) + '</strong><br><small style="color:var(--muted);">' + getCell(row,6) + '</small></td>';
           html += '<td style="padding:7px 10px;color:var(--text2);">' + getCell(row,7) + '</td>';
-          html += '<td style="padding:7px 10px;">' + deptStatusBadge(getCell(row,3)) + '</td>';
+          html += '<td style="padding:7px 10px;color:var(--text2);">' + getCell(row,8) + '</td>';
+          html += '<td style="padding:7px 10px;">' + deptStatusBadge(getCell(row,4)) + '</td>';
           html += '</tr>';
-        });
+        }));
         html += '</tbody></table></div>';
       }
       html += '</div>';
