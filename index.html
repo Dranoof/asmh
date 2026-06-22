@@ -290,6 +290,7 @@ main {
   margin: -24px -26px;
   height: calc(100% + 48px);
 }
+#deptContent { overflow-y: auto; }
 #disclaimerContent { height: 100%; overflow-y: auto; }
 main::-webkit-scrollbar { width: 4px; }
 main::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
@@ -808,8 +809,8 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
 .erd-open-btn { display:flex; align-items:center; gap:5px; padding:6px 12px; border-radius:8px; border:1.5px solid var(--border2); background:var(--card); color:var(--text); font-size:12px; font-weight:600; cursor:pointer; text-decoration:none; font-family:'Figtree',sans-serif; transition:border-color .15s; }
 .erd-open-btn:hover { border-color:var(--accent); }
 .erd-month-select { padding:6px 10px; border-radius:8px; border:1.5px solid var(--border2); background:var(--card); color:var(--text); font-size:12px; font-weight:600; font-family:'Figtree',sans-serif; cursor:pointer; }
-.erd-frame-wrap { flex:1; padding:12px 24px 16px; }
-.erd-frame { width:100%; height:100%; border:1.5px solid var(--border2); border-radius:12px; background:var(--card); }
+.erd-frame-wrap { flex:1; padding:12px 24px 16px; overflow-y:auto; }
+.erd-table-wrap { width:100%; }
 
 /* ===== STICKY NOTES ===== */
 #stickyContent {
@@ -1046,7 +1047,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
   </div>
   <div class="hdr-right">
     <button class="hov-btn er" onclick="showERDashboard()" title="ER Handover">🚨 ER Handover</button>
-    <a class="hov-btn dept" href="https://docs.google.com/spreadsheets/d/1hqZ6IBS_hkCu_1fFgkTlmgG04whLpZYf1FueUX8ijO4/edit" target="_blank" title="Dept Handover">🏥 Dept Handover</a>
+    <button class="hov-btn dept" onclick="showDeptHandover()" title="Dept Handover">🏥 Dept Handover</button>
     <button class="hov-btn ql" onclick="showQuickLinks()" title="Quick Links">🔗 Quick Links</button>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Switch to dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
   </div>
@@ -1232,14 +1233,13 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
       </div>
     </div>
     <div class="erd-frame-wrap">
-      <iframe class="erd-frame" id="erdFrame"
-        src="https://docs.google.com/spreadsheets/d/1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE/htmlview?gid=503901300&rm=minimal"
-        frameborder="0" allowfullscreen></iframe>
+      <div id="erdTableWrap"><div style="text-align:center;padding:40px;color:var(--muted)">⏳ Loading...</div></div>
     </div>
   
   </div>
   <div id="catContent" style="display:none"></div>
   <div id="filesContent" style="display:none"></div>
+  <div id="deptContent" style="display:none"></div>
   <div id="stickyContent"></div>
   <div id="disclaimerContent"></div>
   </main>
@@ -2282,11 +2282,7 @@ function showQuickLinks() {
 
 var _erdCurrentTab = 'active';
 function showERDashboard() {
-  document.getElementById('welcomeScreen').style.display = 'none';
-  document.getElementById('catContent').style.display = 'none';
-  document.getElementById('filesContent').style.display = 'none';
-  document.getElementById('searchResults').style.display = 'none';
-  document.getElementById('qlContent').style.display = 'none';
+  ['welcomeScreen','catContent','filesContent','searchResults','qlContent','stickyContent','disclaimerContent','deptContent'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
   var el = document.getElementById('erDashContent');
   el.style.display = 'flex';
   document.getElementById('addDrugFab').classList.remove('visible');
@@ -2294,26 +2290,189 @@ function showERDashboard() {
   erdSwitchTab('active');
 }
 function erdSwitchTab(tab) {
-  _erdCurrentTab = tab;
+  window._erdCurrentTab = tab;
   var SID = '1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE';
-  var frame = document.getElementById('erdFrame');
   var monthSel = document.getElementById('erdMonthSel');
   var openLink = document.getElementById('erdOpenLink');
-  document.getElementById('erdTabActive').classList.toggle('active', tab === 'active');
-  document.getElementById('erdTabMonthly').classList.toggle('active', tab === 'monthly');
+  document.getElementById('erdTabActive').classList.toggle('active', tab==='active');
+  document.getElementById('erdTabMonthly').classList.toggle('active', tab==='monthly');
   if (tab === 'active') {
-    frame.src = 'https://docs.google.com/spreadsheets/d/' + SID + '/htmlview?gid=503901300&rm=minimal';
-    openLink.href = 'https://docs.google.com/spreadsheets/d/' + SID + '/edit#gid=503901300';
+    openLink.href = 'https://docs.google.com/spreadsheets/d/'+SID+'/edit#gid=503901300';
     monthSel.style.display = 'none';
+    erdFetchAndRender(SID, 'HANDOVER', null);
   } else {
     monthSel.style.display = '';
     var gid = monthSel.value;
-    frame.src = 'https://docs.google.com/spreadsheets/d/' + SID + '/htmlview?gid=' + gid + '&rm=minimal';
-    openLink.href = 'https://docs.google.com/spreadsheets/d/' + SID + '/edit#gid=' + gid;
+    openLink.href = 'https://docs.google.com/spreadsheets/d/'+SID+'/edit#gid='+gid;
+    erdFetchAndRender(SID, null, gid);
   }
 }
 function erdChangeMonth() {
-  if (_erdCurrentTab === 'monthly') erdSwitchTab('monthly');
+  if (window._erdCurrentTab === 'monthly') erdSwitchTab('monthly');
+}
+
+// ===== SHEET DATA FETCH & RENDER =====
+var _GVZ_BASE = 'https://docs.google.com/spreadsheets/d/';
+
+function gvizUrl(sheetId, sheetName, gid) {
+  var base = _GVZ_BASE + sheetId + '/gviz/tq?';
+  if (gid) base += 'gid=' + gid + '&';
+  if (sheetName) base += 'sheet=' + encodeURIComponent(sheetName) + '&';
+  return base;
+}
+
+function fetchSheet(sheetId, sheetName, gid) {
+  return new Promise(function(resolve, reject) {
+    var cb = 'cb_' + Date.now() + '_' + Math.floor(Math.random()*9999);
+    var script = document.createElement('script');
+    var timer = setTimeout(function() { delete window[cb]; script.remove(); reject(new Error('Timeout')); }, 12000);
+    window[cb] = function(data) {
+      clearTimeout(timer);
+      delete window[cb];
+      script.remove();
+      resolve(data);
+    };
+    script.onerror = function() { clearTimeout(timer); delete window[cb]; script.remove(); reject(new Error('Load failed')); };
+    script.src = gvizUrl(sheetId, sheetName, gid) + 'tqx=out:json;responseHandler:' + cb;
+    document.head.appendChild(script);
+  });
+}
+
+function erdStatusBadge(status) {
+  if (!status) return '';
+  var s = status.trim();
+  var color = s.toLowerCase().indexOf('admit') >= 0 ? '#10b981' :
+              s.toLowerCase().indexOf('discharg') >= 0 ? '#6366f1' :
+              s.toLowerCase().indexOf('labs') >= 0 ? '#f59e0b' :
+              s.toLowerCase().indexOf('refer') >= 0 ? '#3b82f6' :
+              s.toLowerCase().indexOf('dor') >= 0 ? '#ef4444' :
+              '#7a8799';
+  return '<span style="background:' + color + ';color:#fff;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;">' + s + '</span>';
+}
+
+function deptStatusBadge(status) {
+  if (!status) return '';
+  var s = status.trim();
+  var color = s.toLowerCase().indexOf('admit') >= 0 ? '#10b981' :
+              s.toLowerCase().indexOf('discharg') >= 0 ? '#6366f1' :
+              s.toLowerCase().indexOf('plan') >= 0 ? '#f59e0b' :
+              '#7a8799';
+  return '<span style="background:' + color + ';color:#fff;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;">' + s + '</span>';
+}
+
+function getCell(row, idx) {
+  if (!row || !row.c || !row.c[idx] || row.c[idx].v === null || row.c[idx].v === undefined) return '';
+  var v = row.c[idx].v;
+  var f = row.c[idx].f;
+  if (f) return f;
+  if (typeof v === 'string') return v;
+  if (typeof v === 'number') return String(v);
+  return '';
+}
+
+function erdFetchAndRender(sheetId, sheetName, gid) {
+  var wrap = document.getElementById('erdTableWrap');
+  if (!wrap) return;
+  wrap.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">⏳ Loading data...</div>';
+  fetchSheet(sheetId, sheetName, gid).then(function(data) {
+    var rows = (data && data.table && data.table.rows) ? data.table.rows : [];
+    var dataRows = rows.slice(2).filter(function(r) {
+      return r && r.c && (getCell(r,4) || getCell(r,3));
+    });
+    if (dataRows.length === 0) {
+      wrap.innerHTML = '<p style="text-align:center;padding:40px;color:var(--muted);">No patient data found.</p>';
+      return;
+    }
+    var html = '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
+    html += '<thead><tr style="background:var(--bg3);">';
+    ['#','Arrival','ID Card No','Patient Name','Age/Gender','Working Diagnosis','Attending Doctor','Status','Referral'].forEach(function(h) {
+      html += '<th style="padding:8px 10px;text-align:left;border-bottom:1.5px solid var(--border2);color:var(--text2);font-weight:700;">' + h + '</th>';
+    });
+    html += '</tr></thead><tbody>';
+    dataRows.forEach(function(r, i) {
+      var bg = i % 2 === 0 ? 'var(--bg2)' : 'var(--card)';
+      html += '<tr style="background:' + bg + ';border-bottom:1px solid var(--border);">';
+      html += '<td style="padding:7px 10px;color:var(--muted);font-weight:600;">' + getCell(r,1) + '</td>';
+      html += '<td style="padding:7px 10px;color:var(--text2);font-size:12px;">' + getCell(r,2) + '</td>';
+      html += '<td style="padding:7px 10px;color:var(--muted);font-size:12px;">' + getCell(r,3) + '</td>';
+      html += '<td style="padding:7px 10px;color:var(--text);font-weight:600;">' + getCell(r,4) + '</td>';
+      html += '<td style="padding:7px 10px;color:var(--text2);">' + getCell(r,5) + '</td>';
+      html += '<td style="padding:7px 10px;color:var(--text2);">' + getCell(r,6) + '</td>';
+      html += '<td style="padding:7px 10px;color:var(--text2);">' + getCell(r,7) + '</td>';
+      html += '<td style="padding:7px 10px;">' + erdStatusBadge(getCell(r,8)) + '</td>';
+      html += '<td style="padding:7px 10px;color:var(--text2);font-size:12px;">' + getCell(r,9) + '</td>';
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+  }).catch(function(e) {
+    wrap.innerHTML = '<p style="text-align:center;padding:40px;color:var(--rose);">⚠️ Failed to load data. Please check connection.</p>';
+  });
+}
+
+function showDeptHandover() {
+  ['welcomeScreen','catContent','filesContent','searchResults','qlContent','stickyContent','disclaimerContent','erDashContent'].forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='none'; });
+  var el = document.getElementById('deptContent');
+  el.style.display = 'block';
+  document.getElementById('addDrugFab').classList.remove('visible');
+  window._currentCatKey = null;
+  deptFetchAndRender();
+}
+
+function deptFetchAndRender() {
+  var el = document.getElementById('deptContent');
+  if (!el) return;
+  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">⏳ Loading department data...</div>';
+  var DSID = '1hqZ6IBS_hkCu_1fFgkTlmgG04whLpZYf1FueUX8ijO4';
+  var depts = [
+    { sheet: 'MEDICINE', label: 'Medicine' },
+    { sheet: 'SURGERY / OBG / ORTHO', label: 'Surgery / OBG / Ortho' },
+    { sheet: 'NICU / HDU / ICU', label: 'NICU / HDU / ICU' },
+    { sheet: 'PEDIATRICS DEPARTMENT', label: 'Paediatrics' }
+  ];
+  var promises = depts.map(function(d) {
+    return fetchSheet(DSID, d.sheet, null).then(function(data) { return { label: d.label, data: data }; });
+  });
+  Promise.all(promises).then(function(results) {
+    var html = '<div style="padding:24px;">';
+    html += '<h2 style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:24px;">🏥 Department Handover – Inpatients</h2>';
+    results.forEach(function(r) {
+      var rows = (r.data && r.data.table && r.data.table.rows) ? r.data.table.rows : [];
+      var dataRows = rows.slice(4).filter(function(row) {
+        return row && row.c && (getCell(row,4) || getCell(row,5));
+      });
+      html += '<div style="margin-bottom:32px;">';
+      html += '<h3 style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px;">' + r.label + ' (' + dataRows.length + ' patients)</h3>';
+      if (dataRows.length === 0) {
+        html += '<p style="color:var(--muted);font-style:italic;padding:10px 0;">No patients currently.</p>';
+      } else {
+        html += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:13px;">';
+        html += '<thead><tr style="background:var(--bg3);">';
+        ['Adm. Date','Bed','Name','Age/Sex','Diagnosis','Status'].forEach(function(h) {
+          html += '<th style="padding:8px 10px;text-align:left;border-bottom:1.5px solid var(--border2);color:var(--text2);font-weight:700;">' + h + '</th>';
+        });
+        html += '</tr></thead><tbody>';
+        dataRows.forEach(function(row, i) {
+          var bg = i % 2 === 0 ? 'var(--bg2)' : 'var(--card)';
+          html += '<tr style="background:' + bg + ';border-bottom:1px solid var(--border);">';
+          html += '<td style="padding:7px 10px;color:var(--text2);font-size:12px;">' + getCell(row,0) + '</td>';
+          html += '<td style="padding:7px 10px;color:var(--text);font-weight:600;">' + getCell(row,1) + '</td>';
+          html += '<td style="padding:7px 10px;"><strong style="color:var(--text);">' + getCell(row,4) + '</strong><br><small style="color:var(--muted);">' + getCell(row,5) + '</small></td>';
+          html += '<td style="padding:7px 10px;color:var(--text2);">' + getCell(row,6) + '</td>';
+          html += '<td style="padding:7px 10px;color:var(--text2);">' + getCell(row,7) + '</td>';
+          html += '<td style="padding:7px 10px;">' + deptStatusBadge(getCell(row,3)) + '</td>';
+          html += '</tr>';
+        });
+        html += '</tbody></table></div>';
+      }
+      html += '</div>';
+    });
+    html += '<div style="margin-top:16px;text-align:center;"><a href="https://docs.google.com/spreadsheets/d/' + DSID + '/edit" target="_blank" style="color:var(--accent);font-size:13px;text-decoration:none;">📄 Open full Dept Handover Sheet</a></div>';
+    html += '</div>';
+    el.innerHTML = html;
+  }).catch(function(e) {
+    el.innerHTML = '<p style="text-align:center;padding:40px;color:var(--rose);">⚠️ Failed to load department data.</p>';
+  });
 }
 
 
