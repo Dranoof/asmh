@@ -2920,7 +2920,7 @@ function showDisclaimer() {
 
 // === PANEL ISOLATION PATCH ===
 (function() {
-  var PANEL_IDS = ['welcomeScreen','catContent','qlContent','erDashContent','stickyContent','filesContent','disclaimerContent','searchResults'];
+  var PANEL_IDS = ['welcomeScreen','catContent','qlContent','erDashContent','stickyContent','filesContent','disclaimerContent','searchResults','deptContent'];
   
   function hideAll() {
     PANEL_IDS.forEach(function(id) {
@@ -2940,6 +2940,8 @@ function showDisclaimer() {
 
   var _origER = showERDashboard;
   showERDashboard = window.showERDashboard = function() { hideAll(); _origER(); };
+  var _origDept = showDeptHandover;
+  showDeptHandover = window.showDeptHandover = function() { hideAll(); _origDept(); };
 
   var _origSN = showStickyNotes;
   showStickyNotes = window.showStickyNotes = function() { hideAll(); _origSN(); };
