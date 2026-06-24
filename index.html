@@ -3881,7 +3881,7 @@ function showDisclaimer() {
     var ix=dd.active.findIndex(function(p){return p.id===dhDischargingId});if(ix===-1)return;
     var pt=dd.active[ix];
     pt.dischargeDate=new Date().toISOString();
-    pt.dischargeNotes=document.getElementById('dhDischargeNotes').value.trim();pt.dept=dhActiveDept;);
+    pt.dischargeNotes=document.getElementById('dhDischargeNotes').value.trim();pt.dept=dhActiveDept;
     dd.discharged.push(pt);dd.active.splice(ix,1);
     dhSetDept(dhActiveDept,dd);
     dhCloseDischargeModal(null);dhRender();
