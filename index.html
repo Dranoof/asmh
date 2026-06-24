@@ -3944,7 +3944,7 @@ function showDisclaimer() {
     var orig=window.showDeptHandover;
     if(typeof orig==='function'){
       var prev=orig;
-      window.showDeptHandover=function(){window.dhInit();}
+      window.showDeptHandover=function(){var i,e,ids=['welcomeScreen','catContent','qlContent','erDashContent','stickyContent','filesContent','disclaimerContent'],f=document.getElementById('addDrugFab'),ft=document.querySelector('footer');for(i=0;i<ids.length;i++){e=document.getElementById(ids[i]);if(e)e.style.display='none';}if(f)f.style.display='none';if(ft)ft.style.display='none';var d=document.getElementById('deptContent');if(d)d.style.display='block';window.dhInit();}
     }
   });
 })();
