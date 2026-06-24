@@ -3808,7 +3808,7 @@ function showDisclaimer() {
     dhEditingId=null;
     document.getElementById('dhModalTitle').textContent='Add Patient';
     document.getElementById('dhBtnSave').textContent='Add Patient';
-    ['dhPtName','dhPtMrn','dhPtBed','dhPtDoctor','dhPtDiag','dhPtNotes','dhPtAge','dhPtEnteredBy'].forEach(function(id){documentach(function(id){document.getElementById(id).value=''});
+    ['dhPtName','dhPtMrn','dhPtBed','dhPtDoctor','dhPtDiag','dhPtNotes','dhPtAge','dhPtEnteredBy'].forEach(function(id){document.getElementById(id).value='';});
     document.getElementById('dhPtDate').value=new Date().toISOString().slice(0,16);    document.getElementById('dhPtStatus').value='stable';document.getElementById('dhPtAge').value='';var _prof=JSON.parse(localStorage.getItem('asmh_profile_custom')||'{}');document.getElementById('dhPtEnteredBy').value=_prof.displayName||'';
     document.getElementById('dhModalBg').classList.add('open');
     setTimeout(function(){document.getElementById('dhPtName').focus()},80);
