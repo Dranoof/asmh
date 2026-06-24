@@ -3944,7 +3944,7 @@ function showDisclaimer() {
     var orig=window.showDeptHandover;
     if(typeof orig==='function'){
       var prev=orig;
-      window.showDeptHandover=function(){prev();setTimeout(window.dhInit,50)};
+      window.showDeptHandover=function(){window.dhInit();}
     }
   });
 })();
