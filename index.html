@@ -3807,9 +3807,9 @@ function showDisclaimer() {
       '<div class="dh-card-diag">'+esc(pt.diagnosis)+'</div>'+
       (pt.notes?'<div><div class="dh-notes-label">Handover Notes</div><div class="dh-card-notes">'+esc(pt.notes)+'</div></div>':'')+
       '<div class="dh-card-actions">'+
-      '<button class="dh-card-btn dh-card-btn-edit" onclick="dhEditPatient(''+pt.id+'')">&#x270F;&#xFE0F; Edit</button>'+
-      '<button class="dh-card-btn dh-card-btn-discharge" onclick="dhOpenDischarge(''+pt.id+'')">&#x2705; Discharge</button>'+
-      '<button class="dh-card-btn dh-card-btn-delete" onclick="dhDeletePatient(''+pt.id+'')">&#x1F5D1;&#xFE0F;</button>'+
+      '<button class="dh-card-btn dh-card-btn-edit" onclick="dhEditPatient(\''+pt.id+'\')">&#x270F;&#xFE0F; Edit</button>'+
+      '<button class="dh-card-btn dh-card-btn-discharge" onclick="dhOpenDischarge(\''+pt.id+'\')">&#x2705; Discharge</button>'+
+      '<button class="dh-card-btn dh-card-btn-delete" onclick="dhDeletePatient(\''+pt.id+'\')">&#x1F5D1;&#xFE0F;</button>'+
       '</div>';
     return el;
   }
@@ -3826,7 +3826,7 @@ function showDisclaimer() {
       (pt.doctor?' &middot; '+esc(pt.doctor):'')+'</div>'+
       (pt.dischargeNotes?'<div class="dh-dc-notes-text">&ldquo;'+esc(pt.dischargeNotes)+'&rdquo;</div>':'')+
       '</div><div class="dh-dc-date"><span class="dh-dc-date-label">Discharged</span>'+dcD+'</div>'+
-      '<button class="dh-dc-readmit-btn" onclick="dhReadmit(''+pt.id+'')">Re-admit</button>';
+      '<button class="dh-dc-readmit-btn" onclick="dhReadmit(\''+pt.id+'\')">Re-admit</button>';
     return el;
   }
 
