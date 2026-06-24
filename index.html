@@ -3850,7 +3850,6 @@ function showDisclaimer() {
       age:document.getElementById('dhPtAge').value.trim(),
       enteredBy:document.getElementById('dhPtEnteredBy').value.trim()
     };
-    };
     var dd=dhGetDept(dhActiveDept);
     if(dhEditingId){
       var ix=dd.active.findIndex(function(p){return p.id===dhEditingId});
