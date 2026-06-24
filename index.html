@@ -1929,7 +1929,7 @@ function showCat(catKey){
   document.getElementById('searchKbd').style.display='';
   var content = document.getElementById('catContent');
   content.style.display='block';
-  var html = '<div class="cat-hdr"><div class="cat-icon" style="background:'+cat.color+'22">'+cat.icon+'</div><div><div class="cat-title">'+cat.title+'</div><div class="cat-sub">ASMH Drug Handbook \u00B7 Compiled by Dr. Anoof</div></div></div>'+LEGEND;
+  var html = '<div class="cat-hdr"><div class="cat-icon" style="background:'+cat.color+'22">'+cat.icon+'</div><div><div class="cat-title">'+cat.title+'</div></div></div>'+LEGEND;
   if(cat.isG6PD){
     html += renderG6PD();
   } else if(cat.isTable){
