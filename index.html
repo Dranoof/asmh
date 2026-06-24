@@ -1027,6 +1027,597 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
   color: var(--text2);
   border: 1px solid var(--border) !important;
 }
+
+
+/* ═══════════════════════════════════════════════════════════
+   DEPARTMENT INPATIENT HANDOVER SYSTEM - CSS
+═══════════════════════════════════════════════════════════ */
+
+/* Layout */
+#deptContent { display: none; flex-direction: column; height: calc(100vh - 108px); overflow: hidden; }
+#deptContent[style*="flex"] { display: flex !important; }
+
+.dh-wrap {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* Sidebar */
+.dh-sidebar {
+  width: 210px;
+  min-width: 210px;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.dh-sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.dh-sidebar-icon { font-size: 16px; }
+.dh-sidebar-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.dh-dept-list {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  gap: 1px;
+}
+.dh-dept-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  text-align: left;
+  border-radius: 0;
+  transition: background 0.12s, color 0.12s;
+  width: 100%;
+  position: relative;
+}
+.dh-dept-btn:hover { background: var(--bg3); color: var(--text); }
+.dh-dept-btn.active {
+  background: rgba(99,102,241,0.12);
+  color: var(--accent);
+  font-weight: 600;
+}
+.dh-dept-btn.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 4px; bottom: 4px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+}
+.dh-dept-emoji { font-size: 15px; line-height: 1; flex-shrink: 0; }
+.dh-dept-label { flex: 1; }
+.dh-dept-count {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--bg3);
+  color: var(--muted);
+  min-width: 18px;
+  text-align: center;
+}
+.dh-dept-btn.active .dh-dept-count {
+  background: rgba(99,102,241,0.2);
+  color: var(--accent);
+}
+
+/* Main */
+.dh-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* Top Bar */
+.dh-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  flex-shrink: 0;
+  gap: 16px;
+}
+.dh-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+  min-width: 0;
+}
+.dh-dept-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 120px;
+}
+.dh-view-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg2);
+  border-radius: 10px;
+  padding: 3px;
+  border: 1px solid var(--border);
+}
+.dh-view-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.dh-view-tab.active {
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+.dh-tab-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dh-dot-green { background: #22c55e; }
+.dh-dot-gray { background: var(--muted); }
+.dh-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 9px;
+  background: rgba(34,197,94,0.15);
+  color: #22c55e;
+}
+.dh-badge-gray {
+  background: var(--bg3);
+  color: var(--muted);
+}
+.dh-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.dh-add-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.dh-add-btn:active { transform: translateY(0); }
+.dh-add-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* View containers */
+.dh-view {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+}
+
+/* Empty state */
+.dh-empty {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+.dh-empty.show { display: flex; }
+.dh-empty-icon { font-size: 36px; margin-bottom: 14px; }
+.dh-empty-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.dh-empty-sub { font-size: 13px; color: var(--muted); max-width: 300px; line-height: 1.5; }
+
+/* No dept selected */
+.dh-no-dept {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 40px;
+}
+.dh-no-dept.show { display: flex; }
+.dh-no-dept-icon { font-size: 48px; margin-bottom: 18px; opacity: 0.5; }
+.dh-no-dept-title { font-size: 18px; font-weight: 700; color: var(--text2); margin-bottom: 8px; }
+.dh-no-dept-sub { font-size: 13.5px; color: var(--muted); max-width: 320px; line-height: 1.6; }
+
+/* Patient Grid */
+.dh-patient-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+/* Patient Card */
+.dh-patient-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.dh-patient-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  border-color: var(--border2);
+}
+.dh-patient-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.dh-card-stable::before { background: #22c55e; }
+.dh-card-guarded::before { background: #f59e0b; }
+.dh-card-critical::before { background: #ef4444; }
+.dh-card-improving::before { background: #3b82f6; }
+
+.dh-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.dh-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+.dh-card-mrn {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.dh-status-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.dh-status-stable { background: rgba(34,197,94,0.12); color: #22c55e; }
+.dh-status-guarded { background: rgba(245,158,11,0.12); color: #f59e0b; }
+.dh-status-critical { background: rgba(239,68,68,0.12); color: #ef4444; }
+.dh-status-improving { background: rgba(59,130,246,0.12); color: #3b82f6; }
+
+.dh-card-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+}
+.dh-card-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.dh-meta-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.dh-meta-val {
+  font-size: 12.5px;
+  color: var(--text2);
+  font-weight: 500;
+}
+
+.dh-card-diag {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  padding: 8px 10px;
+  background: var(--bg3);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+}
+
+.dh-card-notes {
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+.dh-notes-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.dh-card-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 2px;
+}
+.dh-card-btn {
+  flex: 1;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.12s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.dh-card-btn:hover { background: var(--bg3); color: var(--text); }
+.dh-card-btn-edit:hover { border-color: var(--accent); color: var(--accent); }
+.dh-card-btn-discharge:hover { border-color: #22c55e; color: #22c55e; background: rgba(34,197,94,0.06); }
+.dh-card-btn-delete:hover { border-color: #ef4444; color: #ef4444; background: rgba(239,68,68,0.06); }
+
+/* Discharged list */
+.dh-discharged-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dh-discharged-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.dh-dc-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(34,197,94,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.dh-dc-info { flex: 1; min-width: 0; }
+.dh-dc-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.dh-dc-details {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.dh-dc-diag {
+  font-size: 12.5px;
+  color: var(--text2);
+  font-weight: 500;
+  margin-top: 1px;
+}
+.dh-dc-notes-text {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+  font-style: italic;
+}
+.dh-dc-date {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  text-align: right;
+}
+.dh-dc-date-label { font-weight: 600; color: #22c55e; display: block; }
+.dh-dc-readmit-btn {
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.12s;
+}
+.dh-dc-readmit-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(99,102,241,0.08); }
+
+/* Modal */
+.dh-modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9000;
+  backdrop-filter: blur(2px);
+}
+.dh-modal-bg.open { display: flex; }
+.dh-modal {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 18px;
+  width: 560px;
+  max-width: calc(100vw - 32px);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  animation: dhModalIn 0.18s ease;
+}
+.dh-modal-sm { width: 420px; }
+@keyframes dhModalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.dh-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.dh-modal-title { font-size: 16px; font-weight: 700; color: var(--text); }
+.dh-modal-close {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg3);
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.12s;
+}
+.dh-modal-close:hover { background: var(--border2); color: var(--text); }
+.dh-modal-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.dh-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.dh-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.dh-form-group { display: flex; flex-direction: column; gap: 5px; }
+.dh-label { font-size: 12px; font-weight: 600; color: var(--text2); }
+.dh-required { color: #ef4444; }
+.dh-input {
+  padding: 9px 12px;
+  background: var(--bg3);
+  border: 1.5px solid var(--border2);
+  border-radius: 9px;
+  color: var(--text);
+  font-size: 13.5px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.dh-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+.dh-input option { background: var(--card); }
+.dh-textarea { resize: vertical; min-height: 80px; }
+
+.dh-btn-cancel {
+  padding: 9px 20px;
+  border: 1.5px solid var(--border2);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.dh-btn-cancel:hover { background: var(--bg3); }
+.dh-btn-save {
+  padding: 9px 22px;
+  border: none;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.12s;
+}
+.dh-btn-save:hover { opacity: 0.88; }
+.dh-btn-discharge {
+  padding: 9px 22px;
+  border: none;
+  border-radius: 9px;
+  background: #22c55e;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.12s;
+}
+.dh-btn-discharge:hover { opacity: 0.88; }
+.dh-discharge-q { font-size: 14px; color: var(--text); line-height: 1.5; }
+
+/* Days since admission badge */
+.dh-days-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: rgba(245,158,11,0.12);
+  color: #f59e0b;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .dh-sidebar { width: 54px; min-width: 54px; }
+  .dh-sidebar-header { padding: 14px 10px 10px; justify-content: center; }
+  .dh-sidebar-title { display: none; }
+  .dh-dept-btn { padding: 12px; justify-content: center; }
+  .dh-dept-label, .dh-dept-count { display: none; }
+  .dh-dept-emoji { font-size: 18px; }
+  .dh-dept-btn.active::before { top: auto; left: 4px; right: 4px; bottom: 0; height: 3px; width: auto; }
+  .dh-topbar { padding: 12px 16px; flex-wrap: wrap; }
+  .dh-topbar-left { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .dh-patient-grid { grid-template-columns: 1fr; }
+  .dh-form-row { grid-template-columns: 1fr; }
+  .dh-discharged-item { flex-wrap: wrap; }
+}
 </style>
 </head>
 <body>
@@ -1239,7 +1830,160 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
   </div>
   <div id="catContent" style="display:none"></div>
   <div id="filesContent" style="display:none"></div>
-  <div id="deptContent" style="display:none"></div>
+  <div id="deptContent" style="display:none">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     DEPARTMENT INPATIENT HANDOVER SYSTEM
+═══════════════════════════════════════════════════════════════ -->
+
+<div class="dh-wrap">
+
+  <!-- Sidebar: Department List -->
+  <aside class="dh-sidebar">
+    <div class="dh-sidebar-header">
+      <span class="dh-sidebar-icon">🏥</span>
+      <span class="dh-sidebar-title">Departments</span>
+    </div>
+    <nav class="dh-dept-list" id="dhDeptList">
+      <!-- Generated by JS -->
+    </nav>
+  </aside>
+
+  <!-- Main Panel -->
+  <div class="dh-main">
+
+    <!-- Top Bar -->
+    <div class="dh-topbar">
+      <div class="dh-topbar-left">
+        <h2 class="dh-dept-name" id="dhActiveDeptName">Select Department</h2>
+        <div class="dh-view-tabs">
+          <button class="dh-view-tab active" id="dhTabActive" onclick="dhSwitchView('active')">
+            <span class="dh-tab-dot dh-dot-green"></span>Active Patients
+            <span class="dh-badge" id="dhBadgeActive">0</span>
+          </button>
+          <button class="dh-view-tab" id="dhTabDischarged" onclick="dhSwitchView('discharged')">
+            <span class="dh-tab-dot dh-dot-gray"></span>Discharged
+            <span class="dh-badge dh-badge-gray" id="dhBadgeDischarged">0</span>
+          </button>
+        </div>
+      </div>
+      <button class="dh-add-btn" id="dhAddBtn" onclick="dhOpenAddModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Patient
+      </button>
+    </div>
+
+    <!-- Active Patients View -->
+    <div class="dh-view" id="dhViewActive">
+      <div class="dh-empty" id="dhEmptyActive">
+        <div class="dh-empty-icon">🛏️</div>
+        <div class="dh-empty-title">No Active Patients</div>
+        <div class="dh-empty-sub">Click "Add Patient" to admit a patient to this department.</div>
+      </div>
+      <div class="dh-patient-grid" id="dhPatientGrid"></div>
+    </div>
+
+    <!-- Discharged Patients View -->
+    <div class="dh-view" id="dhViewDischarged" style="display:none">
+      <div class="dh-empty" id="dhEmptyDischarged">
+        <div class="dh-empty-icon">✅</div>
+        <div class="dh-empty-title">No Discharged Patients</div>
+        <div class="dh-empty-sub">Discharged patients will appear here.</div>
+      </div>
+      <div class="dh-discharged-list" id="dhDischargedList"></div>
+    </div>
+
+    <!-- No Dept Selected -->
+    <div class="dh-no-dept" id="dhNoDept">
+      <div class="dh-no-dept-icon">🏥</div>
+      <div class="dh-no-dept-title">Select a Department</div>
+      <div class="dh-no-dept-sub">Choose a department from the sidebar to view and manage inpatient handovers.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Add / Edit Patient Modal ── -->
+<div class="dh-modal-bg" id="dhModalBg" onclick="dhCloseModal(event)">
+  <div class="dh-modal">
+    <div class="dh-modal-header">
+      <h3 class="dh-modal-title" id="dhModalTitle">Add Patient</h3>
+      <button class="dh-modal-close" onclick="dhCloseModal(null)">✕</button>
+    </div>
+    <div class="dh-modal-body">
+      <div class="dh-form-row">
+        <div class="dh-form-group">
+          <label class="dh-label">Patient Name <span class="dh-required">*</span></label>
+          <input class="dh-input" id="dhPtName" placeholder="Full name" autocomplete="off"/>
+        </div>
+        <div class="dh-form-group">
+          <label class="dh-label">MRN / ID</label>
+          <input class="dh-input" id="dhPtMrn" placeholder="e.g. MRN-123456" autocomplete="off"/>
+        </div>
+      </div>
+      <div class="dh-form-row">
+        <div class="dh-form-group">
+          <label class="dh-label">Bed / Room</label>
+          <input class="dh-input" id="dhPtBed" placeholder="e.g. Bed 4A" autocomplete="off"/>
+        </div>
+        <div class="dh-form-group">
+          <label class="dh-label">Attending Doctor</label>
+          <input class="dh-input" id="dhPtDoctor" placeholder="Dr. Name" autocomplete="off"/>
+        </div>
+      </div>
+      <div class="dh-form-group">
+        <label class="dh-label">Primary Diagnosis <span class="dh-required">*</span></label>
+        <input class="dh-input" id="dhPtDiag" placeholder="e.g. Community-acquired pneumonia" autocomplete="off"/>
+      </div>
+      <div class="dh-form-row">
+        <div class="dh-form-group">
+          <label class="dh-label">Admission Date</label>
+          <input class="dh-input" id="dhPtDate" type="date"/>
+        </div>
+        <div class="dh-form-group">
+          <label class="dh-label">Status / Acuity</label>
+          <select class="dh-input" id="dhPtStatus">
+            <option value="stable">🟢 Stable</option>
+            <option value="guarded">🟡 Guarded</option>
+            <option value="critical">🔴 Critical</option>
+            <option value="improving">🔵 Improving</option>
+          </select>
+        </div>
+      </div>
+      <div class="dh-form-group">
+        <label class="dh-label">Handover Notes</label>
+        <textarea class="dh-input dh-textarea" id="dhPtNotes" placeholder="Key clinical notes, pending investigations, plans..." rows="4"></textarea>
+      </div>
+    </div>
+    <div class="dh-modal-footer">
+      <button class="dh-btn-cancel" onclick="dhCloseModal(null)">Cancel</button>
+      <button class="dh-btn-save" id="dhBtnSave" onclick="dhSavePatient()">Add Patient</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Discharge Confirm Modal ── -->
+<div class="dh-modal-bg" id="dhDischargeModalBg" onclick="dhCloseDischargeModal(event)">
+  <div class="dh-modal dh-modal-sm">
+    <div class="dh-modal-header">
+      <h3 class="dh-modal-title">Discharge Patient</h3>
+      <button class="dh-modal-close" onclick="dhCloseDischargeModal(null)">✕</button>
+    </div>
+    <div class="dh-modal-body">
+      <p class="dh-discharge-q">Are you sure you want to discharge <strong id="dhDischargeName"></strong>?</p>
+      <div class="dh-form-group" style="margin-top:14px">
+        <label class="dh-label">Discharge Summary / Notes</label>
+        <textarea class="dh-input dh-textarea" id="dhDischargeNotes" placeholder="Discharge diagnosis, follow-up instructions..." rows="3"></textarea>
+      </div>
+    </div>
+    <div class="dh-modal-footer">
+      <button class="dh-btn-cancel" onclick="dhCloseDischargeModal(null)">Cancel</button>
+      <button class="dh-btn-discharge" onclick="dhConfirmDischarge()">Discharge</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end deptContent -->
   <div id="stickyContent"></div>
   <div id="disclaimerContent"></div>
   </main>
@@ -2959,6 +3703,250 @@ function showDisclaimer() {
   var _origDisc = showDisclaimer;
   showDisclaimer = window.showDisclaimer = function() { hideAll(); _origDisc(); };
 
+})();
+
+
+// ═══════════════════════════════════════════════════════════════
+// DEPARTMENT INPATIENT HANDOVER SYSTEM
+// ═══════════════════════════════════════════════════════════════
+(function() {
+  var DEPARTMENTS = [
+    { id: 'medical',    label: 'Medical',       emoji: '🪀' },
+    { id: 'surgical',   label: 'Surgical',      emoji: '🔪' },
+    { id: 'paeds',      label: 'Paediatrics',   emoji: '👶' },
+    { id: 'obs',        label: 'Obs & Gynae',   emoji: '🤱' },
+    { id: 'icu',        label: 'ICU / HDU',     emoji: '🪴' },
+    { id: 'ortho',      label: 'Orthopaedics',  emoji: '🦴' },
+    { id: 'ophtha',     label: 'Ophthalmology', emoji: '👁' },
+    { id: 'ent',        label: 'ENT',           emoji: '👂' },
+    { id: 'derma',      label: 'Dermatology',   emoji: '🩺' },
+    { id: 'psych',      label: 'Psychiatry',    emoji: '🧠' }
+  ];
+  var dhActiveDept=null, dhActiveView='active', dhEditingId=null, dhDischargingId=null;
+  var STORAGE_KEY='asmh_dh_v2';
+
+  function dhLoad(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch(e){return{}}}
+  function dhSave(d){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(d))}catch(e){}}
+  function dhGetDept(id){var d=dhLoad();if(!d[id])d[id]={active:[],discharged:[]};return d[id]}
+  function dhSetDept(id,dd){var d=dhLoad();d[id]=dd;dhSave(d)}
+  function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+  window.dhInit=function(){
+    var list=document.getElementById('dhDeptList');
+    if(!list||list.dataset.built)return;
+    list.dataset.built='1';
+    DEPARTMENTS.forEach(function(d){
+      var b=document.createElement('button');
+      b.className='dh-dept-btn';b.dataset.deptId=d.id;
+      b.innerHTML='<span class="dh-dept-emoji">'+d.emoji+'</span><span class="dh-dept-label">'+d.label+'</span><span class="dh-dept-count" id="dhCount_'+d.id+'">0</span>';
+      b.addEventListener('click',function(){dhSelectDept(d.id,d.label)});
+      list.appendChild(b);
+    });
+    dhRefreshCounts();
+    document.getElementById('dhNoDept').classList.add('show');
+    document.getElementById('dhViewActive').style.display='none';
+    document.getElementById('dhViewDischarged').style.display='none';
+    document.getElementById('dhAddBtn').disabled=true;
+  };
+
+  window.dhSelectDept=function(id,label){
+    dhActiveDept=id;dhActiveView='active';
+    document.querySelectorAll('.dh-dept-btn').forEach(function(b){b.classList.toggle('active',b.dataset.deptId===id)});
+    document.getElementById('dhActiveDeptName').textContent=label||id;
+    document.getElementById('dhAddBtn').disabled=false;
+    document.getElementById('dhNoDept').classList.remove('show');
+    dhSwitchView('active');
+  };
+
+  window.dhSwitchView=function(v){
+    dhActiveView=v;var a=(v==='active');
+    document.getElementById('dhTabActive').classList.toggle('active',a);
+    document.getElementById('dhTabDischarged').classList.toggle('active',!a);
+    document.getElementById('dhViewActive').style.display=a?'':'none';
+    document.getElementById('dhViewDischarged').style.display=a?'none':'';
+    if(dhActiveDept)dhRender();
+  };
+
+  function dhRender(){
+    if(!dhActiveDept)return;
+    var dd=dhGetDept(dhActiveDept);
+    var grid=document.getElementById('dhPatientGrid');
+    var emA=document.getElementById('dhEmptyActive');
+    grid.innerHTML='';
+    if(dd.active.length===0){emA.classList.add('show')}else{
+      emA.classList.remove('show');
+      dd.active.forEach(function(pt){grid.appendChild(dhCard(pt))});
+    }
+    var dcList=document.getElementById('dhDischargedList');
+    var emD=document.getElementById('dhEmptyDischarged');
+    dcList.innerHTML='';
+    if(dd.discharged.length===0){emD.classList.add('show')}else{
+      emD.classList.remove('show');
+      dd.discharged.slice().reverse().forEach(function(pt){dcList.appendChild(dhDcItem(pt))});
+    }
+    document.getElementById('dhBadgeActive').textContent=dd.active.length;
+    document.getElementById('dhBadgeDischarged').textContent=dd.discharged.length;
+    dhRefreshCounts();
+  }
+
+  function dhCard(pt){
+    var el=document.createElement('div');
+    el.className='dh-patient-card dh-card-'+(pt.status||'stable');
+    var days=pt.admDate?Math.floor((Date.now()-new Date(pt.admDate).getTime())/86400000):null;
+    var db=days!==null?'<span class="dh-days-badge">Day '+days+'</span>':'';
+    var sL={stable:'&#x1F7E2; Stable',guarded:'&#x1F7E1; Guarded',critical:'&#x1F534; Critical',improving:'&#x1F535; Improving'};
+    el.innerHTML=
+      '<div class="dh-card-top"><div><div class="dh-card-name">'+esc(pt.name)+'</div>'+
+      (pt.mrn?'<div class="dh-card-mrn">'+esc(pt.mrn)+'</div>':'')+
+      '</div><span class="dh-status-pill dh-status-'+(pt.status||'stable')+'">'+(sL[pt.status]||sL.stable)+'</span></div>'+
+      '<div class="dh-card-meta">'+
+      '<div class="dh-card-meta-item"><span class="dh-meta-label">Bed</span><span class="dh-meta-val">'+esc(pt.bed||'—')+'</span></div>'+
+      '<div class="dh-card-meta-item"><span class="dh-meta-label">Doctor</span><span class="dh-meta-val">'+esc(pt.doctor||'—')+'</span></div>'+
+      '<div class="dh-card-meta-item"><span class="dh-meta-label">Admitted</span><span class="dh-meta-val">'+(pt.admDate||'—')+' '+db+'</span></div>'+
+      '</div>'+
+      '<div class="dh-card-diag">'+esc(pt.diagnosis)+'</div>'+
+      (pt.notes?'<div><div class="dh-notes-label">Handover Notes</div><div class="dh-card-notes">'+esc(pt.notes)+'</div></div>':'')+
+      '<div class="dh-card-actions">'+
+      '<button class="dh-card-btn dh-card-btn-edit" onclick="dhEditPatient(''+pt.id+'')">&#x270F;&#xFE0F; Edit</button>'+
+      '<button class="dh-card-btn dh-card-btn-discharge" onclick="dhOpenDischarge(''+pt.id+'')">&#x2705; Discharge</button>'+
+      '<button class="dh-card-btn dh-card-btn-delete" onclick="dhDeletePatient(''+pt.id+'')">&#x1F5D1;&#xFE0F;</button>'+
+      '</div>';
+    return el;
+  }
+
+  function dhDcItem(pt){
+    var el=document.createElement('div');el.className='dh-discharged-item';
+    var dcD=pt.dischargeDate?new Date(pt.dischargeDate).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):'Unknown';
+    el.innerHTML=
+      '<div class="dh-dc-icon">&#x2705;</div>'+
+      '<div class="dh-dc-info">'+
+      '<div class="dh-dc-name">'+esc(pt.name)+(pt.mrn?'<span style="font-weight:400;color:var(--muted);margin-left:8px;font-size:11px;font-family:monospace">'+esc(pt.mrn)+'</span>':'')+
+      '</div><div class="dh-dc-diag">'+esc(pt.diagnosis)+'</div>'+
+      '<div class="dh-dc-details">'+(pt.bed?esc(pt.bed):'')+
+      (pt.doctor?' &middot; '+esc(pt.doctor):'')+'</div>'+
+      (pt.dischargeNotes?'<div class="dh-dc-notes-text">&ldquo;'+esc(pt.dischargeNotes)+'&rdquo;</div>':'')+
+      '</div><div class="dh-dc-date"><span class="dh-dc-date-label">Discharged</span>'+dcD+'</div>'+
+      '<button class="dh-dc-readmit-btn" onclick="dhReadmit(''+pt.id+'')">Re-admit</button>';
+    return el;
+  }
+
+  function dhRefreshCounts(){
+    var d=dhLoad();
+    DEPARTMENTS.forEach(function(dep){
+      var el=document.getElementById('dhCount_'+dep.id);
+      if(el){var n=(d[dep.id]&&d[dep.id].active)?d[dep.id].active.length:0;el.textContent=n||''}
+    });
+  }
+
+  window.dhOpenAddModal=function(){
+    dhEditingId=null;
+    document.getElementById('dhModalTitle').textContent='Add Patient';
+    document.getElementById('dhBtnSave').textContent='Add Patient';
+    ['dhPtName','dhPtMrn','dhPtBed','dhPtDoctor','dhPtDiag','dhPtNotes'].forEach(function(id){document.getElementById(id).value=''});
+    document.getElementById('dhPtDate').value=new Date().toISOString().slice(0,10);
+    document.getElementById('dhPtStatus').value='stable';
+    document.getElementById('dhModalBg').classList.add('open');
+    setTimeout(function(){document.getElementById('dhPtName').focus()},80);
+  };
+
+  window.dhEditPatient=function(id){
+    var dd=dhGetDept(dhActiveDept);
+    var pt=dd.active.find(function(p){return p.id===id});if(!pt)return;
+    dhEditingId=id;
+    document.getElementById('dhModalTitle').textContent='Edit Patient';
+    document.getElementById('dhBtnSave').textContent='Save Changes';
+    document.getElementById('dhPtName').value=pt.name||'';
+    document.getElementById('dhPtMrn').value=pt.mrn||'';
+    document.getElementById('dhPtBed').value=pt.bed||'';
+    document.getElementById('dhPtDoctor').value=pt.doctor||'';
+    document.getElementById('dhPtDiag').value=pt.diagnosis||'';
+    document.getElementById('dhPtDate').value=pt.admDate||'';
+    document.getElementById('dhPtStatus').value=pt.status||'stable';
+    document.getElementById('dhPtNotes').value=pt.notes||'';
+    document.getElementById('dhModalBg').classList.add('open');
+    setTimeout(function(){document.getElementById('dhPtName').focus()},80);
+  };
+
+  window.dhSavePatient=function(){
+    var name=document.getElementById('dhPtName').value.trim();
+    var diag=document.getElementById('dhPtDiag').value.trim();
+    var ni=document.getElementById('dhPtName'),di=document.getElementById('dhPtDiag');
+    ni.style.borderColor='';di.style.borderColor='';
+    if(!name){ni.style.borderColor='#ef4444';ni.focus();return}
+    if(!diag){di.style.borderColor='#ef4444';di.focus();return}
+    var pt={
+      id:dhEditingId||('pt_'+Date.now()+'_'+Math.random().toString(36).slice(2,6)),
+      name:name,mrn:document.getElementById('dhPtMrn').value.trim(),
+      bed:document.getElementById('dhPtBed').value.trim(),
+      doctor:document.getElementById('dhPtDoctor').value.trim(),
+      diagnosis:diag,admDate:document.getElementById('dhPtDate').value,
+      status:document.getElementById('dhPtStatus').value,
+      notes:document.getElementById('dhPtNotes').value.trim()
+    };
+    var dd=dhGetDept(dhActiveDept);
+    if(dhEditingId){
+      var ix=dd.active.findIndex(function(p){return p.id===dhEditingId});
+      if(ix!==-1){pt.createdAt=dd.active[ix].createdAt;dd.active[ix]=pt}
+    }else{pt.createdAt=Date.now();dd.active.push(pt)}
+    dhSetDept(dhActiveDept,dd);
+    dhCloseModal(null);dhSwitchView('active');dhRender();
+  };
+
+  window.dhDeletePatient=function(id){
+    if(!confirm('Remove this patient from the active list?'))return;
+    var dd=dhGetDept(dhActiveDept);
+    dd.active=dd.active.filter(function(p){return p.id!==id});
+    dhSetDept(dhActiveDept,dd);dhRender();
+  };
+
+  window.dhOpenDischarge=function(id){
+    var dd=dhGetDept(dhActiveDept);
+    var pt=dd.active.find(function(p){return p.id===id});if(!pt)return;
+    dhDischargingId=id;
+    document.getElementById('dhDischargeName').textContent=pt.name;
+    document.getElementById('dhDischargeNotes').value='';
+    document.getElementById('dhDischargeModalBg').classList.add('open');
+    setTimeout(function(){document.getElementById('dhDischargeNotes').focus()},80);
+  };
+
+  window.dhConfirmDischarge=function(){
+    var dd=dhGetDept(dhActiveDept);
+    var ix=dd.active.findIndex(function(p){return p.id===dhDischargingId});if(ix===-1)return;
+    var pt=dd.active[ix];
+    pt.dischargeDate=new Date().toISOString();
+    pt.dischargeNotes=document.getElementById('dhDischargeNotes').value.trim();
+    dd.discharged.push(pt);dd.active.splice(ix,1);
+    dhSetDept(dhActiveDept,dd);
+    dhCloseDischargeModal(null);dhRender();
+  };
+
+  window.dhReadmit=function(id){
+    if(!confirm('Re-admit this patient to the active list?'))return;
+    var dd=dhGetDept(dhActiveDept);
+    var ix=dd.discharged.findIndex(function(p){return p.id===id});if(ix===-1)return;
+    var pt=dd.discharged[ix];
+    delete pt.dischargeDate;delete pt.dischargeNotes;
+    dd.active.push(pt);dd.discharged.splice(ix,1);
+    dhSetDept(dhActiveDept,dd);dhSwitchView('active');dhRender();
+  };
+
+  window.dhCloseModal=function(e){
+    if(e&&e.target!==document.getElementById('dhModalBg'))return;
+    document.getElementById('dhModalBg').classList.remove('open');
+  };
+  window.dhCloseDischargeModal=function(e){
+    if(e&&e.target!==document.getElementById('dhDischargeModalBg'))return;
+    document.getElementById('dhDischargeModalBg').classList.remove('open');
+  };
+
+  // Patch showDeptHandover to init on open
+  document.addEventListener('DOMContentLoaded',function(){
+    var orig=window.showDeptHandover;
+    if(typeof orig==='function'){
+      var prev=orig;
+      window.showDeptHandover=function(){prev();setTimeout(window.dhInit,50)};
+    }
+  });
 })();
 
 </script>
