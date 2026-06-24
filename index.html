@@ -3710,18 +3710,18 @@ function showDisclaimer() {
 // DEPARTMENT INPATIENT HANDOVER SYSTEM
 // ═══════════════════════════════════════════════════════════════
 (function() {
-  var DEPARTMENTS = [
-    { id: 'medical',    label: 'Medical',       emoji: '🪀' },
-    { id: 'surgical',   label: 'Surgical',      emoji: '🔪' },
-    { id: 'paeds',      label: 'Paediatrics',   emoji: '👶' },
-    { id: 'obs',        label: 'Obs & Gynae',   emoji: '🤱' },
-    { id: 'icu',        label: 'ICU / HDU',     emoji: '🪴' },
-    { id: 'ortho',      label: 'Orthopaedics',  emoji: '🦴' },
-    { id: 'ophtha',     label: 'Ophthalmology', emoji: '👁' },
-    { id: 'ent',        label: 'ENT',           emoji: '👂' },
-    { id: 'derma',      label: 'Dermatology',   emoji: '🩺' },
-    { id: 'psych',      label: 'Psychiatry',    emoji: '🧠' }
-  ];
+  var DEPARTMENTS=[
+    {id:'medical',label:'Medical',emoji:'&#x1FA80;'},
+    {id:'surgical',label:'Surgical',emoji:'&#x1F52A;'},
+    {id:'paeds',label:'Paediatrics',emoji:'&#x1F476;'},
+    {id:'obs',label:'Obs &amp; Gynae',emoji:'&#x1F931;'},
+    {id:'icu',label:'ICU / HDU',emoji:'&#x2764;'},
+    {id:'ortho',label:'Orthopaedics',emoji:'&#x1F9B4;'},
+    {id:'ophtha',label:'Ophthalmology',emoji:'&#x1F441;'},
+    {id:'ent',label:'ENT',emoji:'&#x1F442;'},
+    {id:'derma',label:'Dermatology',emoji:'&#x1FA7A;'},
+    {id:'psych',label:'Psychiatry',emoji:'&#x1F9E0;'}
+  ]
   var dhActiveDept=null, dhActiveView='active', dhEditingId=null, dhDischargingId=null;
   var STORAGE_KEY='asmh_dh_v2';
 
