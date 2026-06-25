@@ -1422,6 +1422,86 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
   border-bottom: 1px solid var(--border);
   margin-bottom: 10px;
 }
+.dh-modal-bg {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.dh-modal-bg.open { display: flex; }
+.dh-modal {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.dh-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.dh-modal-title { font-size: 18px; font-weight: 700; color: var(--text); }
+.dh-modal-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.dh-modal-close:hover { background: var(--bg3); }
+.dh-modal-body { display: flex; flex-direction: column; gap: 14px; }
+.dh-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.dh-form-group { display: flex; flex-direction: column; gap: 6px; }
+.dh-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.dh-required { color: var(--rose); }
+.dh-input {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text);
+  font-family: inherit;
+  transition: border 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.dh-input:focus { outline: none; border-color: var(--accent); }
+.dh-textarea { resize: vertical; min-height: 80px; }
+.dh-modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.dh-btn-cancel {
+  background: var(--bg3);
+  color: var(--text2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.dh-btn-save {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.dh-btn-save:hover { background: var(--accent2); }
+
 .dh-dc-card {
   background: var(--card);
   border: 1px solid var(--border);
