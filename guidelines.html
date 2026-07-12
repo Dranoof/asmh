@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Guidelines - ASMH MyPortal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f6f8fa; color: #24292e; }
+        .header { background: linear-gradient(135deg, #0d5e5e 0%, #1a8080 100%); color: white; padding: 50px 20px; text-align: center; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; opacity: 0.95; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .back-btn { display: inline-block; margin-bottom: 30px; padding: 10px 20px; background: white; border: 1px solid #d0d7de; border-radius: 6px; color: #0969da; text-decoration: none; font-weight: 500; }
+        .back-btn:hover { background: #f6f8fa; }
+        .featured-title { font-size: 1.5em; margin-bottom: 10px; color: #24292e; }
+        .featured-subtitle { color: #57606a; margin-bottom: 30px; }
+        .featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 50px; }
+        .doc-card { background: white; border: 1px solid #d0d7de; border-radius: 8px; padding: 24px; transition: box-shadow 0.2s, transform 0.2s; }
+        .doc-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.15); transform: translateY(-2px); }
+        .doc-icon { font-size: 2.5em; margin-bottom: 12px; }
+        .doc-title { font-size: 1.1em; font-weight: 600; margin-bottom: 8px; color: #0d5e5e; }
+        .doc-desc { color: #57606a; font-size: 0.95em; }
+        .all-docs-section { margin-top: 50px; }
+        .section-title { font-size: 1.5em; margin-bottom: 20px; color: #24292e; display: flex; align-items: center; }
+        .section-title svg { margin-right: 10px; }
+        .controls { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
+        .search-box { flex: 1; min-width: 250px; }
+        .search-box input { width: 100%; padding: 10px 12px; border: 1px solid #d0d7de; border-radius: 6px; font-size: 14px; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        thead { background: #f6f8fa; border-bottom: 2px solid #d0d7de; }
+        th { padding: 12px; text-align: left; font-weight: 600; font-size: 0.9em; color: #24292e; }
+        td { padding: 12px; border-bottom: 1px solid #eaeef2; font-size: 0.9em; }
+        tr:hover { background: #f6f8fa; }
+        .doc-name { color: #0d5e5e; font-weight: 600; }
+        .dl-btn { color: #0969da; text-decoration: none; margin-left: 8px; font-weight: 500; }
+        .dl-btn:hover { text-decoration: underline; }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8em; }
+            .featured-grid { grid-template-columns: 1fr; }
+            .controls { flex-direction: column; }
+            .search-box { min-width: 100%; }
+            table { font-size: 0.85em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 Medical Guidelines & Documents</h1>
+        <p>Access comprehensive health guidelines from the Ministry of Health - Maldives</p>
+    </div>
+    
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to ASMH MyPortal</a>
+        
+        <div class="featured-title">⭐ Featured Documents</div>
+        <div class="featured-subtitle">Quick access to the most important guidelines</div>
+        
+        <div class="featured-grid" id="featuredDocs"></div>
+        
+        <div class="all-docs-section">
+            <div class="section-title">📚 All Guidelines</div>
+            
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search guidelines by title or keyword...">
+                </div>
+            </div>
+            
+            <table id="docsTable">
+                <thead>
+                    <tr>
+                        <th>Document Title</th>
+                        <th style="width: 300px;">Description</th>
+                        <th style="width: 80px;">Version</th>
+                        <th style="width: 100px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        const docs = [
+            { title: 'National Standard Treatment Guideline for Acid Peptic Disease', desc: 'Guidelines for treating acid peptic disease', version: '1', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/c80bc697-f92c-4d7f-954b-6534f22af381', featured: true },
+            { title: 'National Standard Treatment Guideline for Acute Anxiety', desc: 'Clinical guidelines for acute anxiety disorders', version: '1', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/d597cfe5-57e4-4403-895d-9f1dceaa71f8', featured: true },
+            { title: 'National Standard Treatment Guideline for Acute Pancreatitis', desc: 'Acute pancreatitis management guidelines', version: '1', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/950251b4-2ec4-4387-b9f1-8da548bdeb9c', featured: true },
+            { title: 'National Standard Treatment Guideline for Acute Psychosis', desc: 'Management of acute psychosis', version: '1', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/26eb5b5e-c141-4328-b64a-d54de2ba9ec2', featured: false },
+            { title: 'National Standard Treatment Guideline for Acute Kidney Injury', desc: 'AKI diagnosis and treatment', version: '1', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/ae8e3f0d-ab57-4b64-858c-23c7ea7ac3c7', featured: false },
+            { title: 'The National Guideline on Infection Prevention and Control', desc: 'Standard precautions and IPC procedures', version: '2', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/08bb500c-56b0-4df8-9c05-024609ced2b9', featured: true },
+            { title: 'National Standard Treatment Guideline for Arrhythmia', desc: 'Cardiac arrhythmia management', version: '1', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/1ceaa496-9586-48a5-8cad-6783ad4f6a09', featured: false },
+            { title: 'National Standard Treatment Guideline for Chronic Liver Disease', desc: 'Chronic liver disease management', version: '1', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/70c1a35d-bd4f-4f3d-80a2-e3f6ea82d5c6', featured: false },
+            { title: 'National Standard Treatment Guideline for Chronic Pancreatitis', desc: 'Management of chronic pancreatitis', version: '1', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/9eb262df-acb8-4d87-b366-5cff6b7c83f3', featured: false },
+            { title: 'National Standard Treatment Guideline for Chronic Kidney Disease', desc: 'Comprehensive CKD management', version: '1', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/eab48ff9-64b4-4b18-b361-13a8fcee8c07', featured: false }
+        ];
+        
+        function renderFeatured() {
+            const featured = docs.filter(d => d.featured);
+            const html = featured.map(d => `
+                <div class="doc-card">
+                    <div class="doc-icon">📄</div>
+                    <div class="doc-title">${d.title}</div>
+                    <div class="doc-desc">${d.desc}</div>
+                </div>
+            `).join('');
+            document.getElementById('featuredDocs').innerHTML = html;
+        }
+        
+        function renderTable(filtered = docs) {
+            const html = filtered.map(d => `
+                <tr>
+                    <td class="doc-name">${d.title}</td>
+                    <td>${d.desc}</td>
+                    <td>${d.version}</td>
+                    <td><a href="${d.url}" target="_blank" class="dl-btn">📥 Get</a></td>
+                </tr>
+            `).join('');
+            document.getElementById('tableBody').innerHTML = html || '<tr><td colspan="4" style="text-align:center;color:#57606a;">No documents found</td></tr>';
+        }
+        
+        function search() {
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = docs.filter(d => d.title.toLowerCase().includes(term) || d.desc.toLowerCase().includes(term));
+            renderTable(filtered);
+        }
+        
+        document.getElementById('searchInput').addEventListener('input', search);
+        renderFeatured();
+        renderTable();
+    </script>
+</body>
+</html>
