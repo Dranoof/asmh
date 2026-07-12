@@ -779,6 +779,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
 
 /* ===== Quick Links Page ===== */
 #qlContent { display: none; padding: 32px 24px 60px; max-width: 860px; margin: 0 auto; }
+#toolsContent { display: none; padding: 32px 24px 60px; max-width: 860px; margin: 0 auto; }
 .ql-page-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 6px; font-family: 'Figtree', sans-serif; }
 .ql-page-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
 .ql-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
@@ -1706,6 +1707,10 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
       <button class="hnav-drop-item" onclick="showStickyNotes()"><span class="hnav-dot" style="background:#f59e0b"></span>Sticky Notes</button>
     </div>
   </div>
+
+  <div class="hnav-item" id="hnavItem4">
+    <button class="hnav-btn" onclick="showToolsSection()">Tools</button>
+  </div>
 </nav>
 
 
@@ -1832,6 +1837,17 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
       </a>
 <a class="ql-card" href="https://maaharaa.health.gov.mv/" target="_blank"><div class="ql-icon" style="background:#dbeafe;"><img src="https://www.google.com/s2/favicons?domain=maaharaa.health.gov.mv&sz=64" width="28" height="28"></div>div><div class="ql-info"><span class="ql-name">Maaharaa</span>span><span class="ql-desc">Health Complaint Management System</span>span></div>div></a>a>
   
+    <div id="toolsContent" style="display:none;">
+    <div class="ql-page-title">🛠️ Tools</div>
+    <p class="ql-page-sub">Clinical calculators and utility tools</p>
+    <div class="ql-grid">
+      <a class="ql-card" href="https://jaundice-calculator.dranaan.com/" target="_blank">
+        <div class="ql-icon" style="background:#fef3c7;"><img src="https://www.google.com/s2/favicons?domain=jaundice-calculator.dranaan.com&sz=64" width="28" height="28" style="border-radius:4px;" alt="Jaundice Calculator"></div>
+        <div class="ql-info"><span class="ql-name">Jaundice Calculator</span><span class="ql-desc">Neonatal bilirubin treatment threshold calculator</span></div>
+      </a>
+    </div>
+  </div>
+
   <div id="erDashContent" style="display:none; flex-direction:column; height:calc(100vh - 120px);">
     <div class="erd-header">
       <div class="erd-title">🚨 ER Handover Dashboard</div>
@@ -3059,6 +3075,13 @@ function showQuickLinks() {
   window._currentCatKey = null;
 }
 
+function showToolsSection() {
+  document.getElementById('toolsContent').style.display = 'block';
+  var fab = document.getElementById('addDrugFab');
+  if (fab) fab.classList.remove('visible');
+  window._currentCatKey = null;
+}
+
 var _erdCurrentTab = 'active';
 function showERDashboard() {
   ['welcomeScreen','catContent','filesContent','searchResults','qlContent','stickyContent','disclaimerContent','deptContent'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
@@ -3699,7 +3722,7 @@ function showDisclaimer() {
 
 // === PANEL ISOLATION PATCH ===
 (function() {
-  var PANEL_IDS = ['welcomeScreen','catContent','qlContent','erDashContent','stickyContent','filesContent','disclaimerContent','searchResults','deptContent'];
+  var PANEL_IDS = ['welcomeScreen','catContent','qlContent','erDashContent','stickyContent','filesContent','disclaimerContent','searchResults','deptContent','toolsContent'];
   
   function hideAll() {
     PANEL_IDS.forEach(function(id) {
@@ -3737,6 +3760,9 @@ function showDisclaimer() {
 
   var _origDisc = showDisclaimer;
   showDisclaimer = window.showDisclaimer = function() { hideAll(); _origDisc(); };
+
+  var _origTools = showToolsSection;
+  showToolsSection = window.showToolsSection = function() { hideAll(); _origTools(); };
 
 })();
 
