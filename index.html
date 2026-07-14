@@ -415,7 +415,7 @@ filter: blur(80px); pointer-events: none; z-index: 0;
 .dc-btn-code {
   background: var(--bg3); color: var(--muted);
 }
-.dc-btn-code:hover { background: rgba(13,148,136,0.15); color: var(--teal); }
+.dc-btn-code:hover { background: rgba(13,148,136,0.15); color: var(--teal); } .dc-btn-delete { background: var(--bg3); color: var(--muted); } .dc-btn-delete:hover { background: var(--rose); color: #fff; }
 
 /* Add Drug button */
 .add-drug-fab {
@@ -2649,7 +2649,7 @@ var LEGEND = '<div class="legend"><div class="li"><span class="lk">OD</span><spa
 
 function getDrugId(name){ return 'drug_' + name.replace(/[^a-zA-Z0-9]/g,'_'); }
 function isDrugUnavailable(name){ return localStorage.getItem(getDrugId(name)+'_unavail') === '1'; }
-function getDrugCode(name){ return localStorage.getItem(getDrugId(name)+'_code') || ''; }
+function getDrugCode(name){ return localStorage.getItem(getDrugId(name)+'_code') || ''; } function isDrugDeleted(name){ return localStorage.getItem(getDrugId(name)+'_deleted')==='1'; } function deleteDrugById(btn){ var card=btn.closest('.dc'); if(!card) return; var name=card.getAttribute('data-nm'); if(!confirm('Delete "'+name+'"? This will hide it on this device/browser.')) return; var id=getDrugId(name); localStorage.setItem(id+'_deleted','1'); Object.keys(localStorage).forEach(function(k){ if(k.indexOf('cust_')===0){ try{ var arr=JSON.parse(localStorage.getItem(k)||'[]'); var filtered=arr.filter(function(dd){ return (dd.n||dd.nm)!==name; }); if(filtered.length!==arr.length) localStorage.setItem(k, JSON.stringify(filtered)); }catch(e){} } }); card.remove(); }
 function toggleUnavailById(btn){
   var card = btn.closest('.dc');
   if (!card) return;
@@ -2695,7 +2695,7 @@ function renderCard(drug){
   var codeHtml = code ? '<span class="dc-code">'+code+'</span>' : '';
   var unavailClass = unavail ? ' unavailable' : '';
   var unavailLabel = unavail ? 'Available' : 'Mark Unavailable';
-  return '<div class="dc'+typeC+unavailClass+'" id="dc_'+id+'" data-nm="'+nm.replace(/"/g,'&quot;')+'">'+rb+codeHtml+'<div class="dn">'+nm+'</div><div class="dd">'+dose+'</div>'+(tags?'<div class="dtags">'+tags+'</div>':'')+'<div class="dc-actions"><button class="dc-btn dc-btn-unavail" onclick="toggleUnavailById(this)">'+unavailLabel+'</button><button class="dc-btn dc-btn-code" onclick="editCodeById(this)">Code</button></div></div>';
+  return '<div class="dc'+typeC+unavailClass+'" id="dc_'+id+'" data-nm="'+nm.replace(/"/g,'&quot;')+'">'+rb+codeHtml+'<div class="dn">'+nm+'</div><div class="dd">'+dose+'</div>'+(tags?'<div class="dtags">'+tags+'</div>':'')+'<div class="dc-actions"><button class="dc-btn dc-btn-unavail" onclick="toggleUnavailById(this)">'+unavailLabel+'</button><button class="dc-btn dc-btn-code" onclick="editCodeById(this)">Code</button><button class="dc-btn dc-btn-delete" onclick="deleteDrugById(this)">Delete</button></div></div>';
 }
 function renderPaedCard(drug){
   var rows = drug.doses.map(function(d){return '<div class="age-row"><span class="age-label">'+d.a+'</span><span class="age-dose">'+d.v+'</span></div>';}).join('');
@@ -2744,7 +2744,7 @@ function showCat(catKey){
   } else {
     cat.sections.forEach(function(s){
       html += '<div class="sec-head">'+s.name+'</div><div class="drug-grid">';
-      s.drugs.forEach(function(drug){ html += renderCard(drug); });
+      s.drugs.forEach(function(drug){ if(!isDrugDeleted(drug.n||drug.nm)) html += renderCard(drug); });
       html += '</div>';
     });
   }
@@ -2752,14 +2752,14 @@ function showCat(catKey){
   var customDrugs = JSON.parse(localStorage.getItem('cust_'+catKey) || '[]');
   if (customDrugs.length > 0) {
     html += '<div class="sec-head">Custom Drugs</div><div class="drug-grid">';
-    customDrugs.forEach(function(d){ html += renderCard(d); });
+    customDrugs.forEach(function(d){ if(!isDrugDeleted(d.n||d.nm)) html += renderCard(d); });
     html += '</div>';
   }
   content.innerHTML = html;
   _currentCatKey = catKey;
   document.getElementById('mainContent').scrollTop = 0;
   var _fab = document.getElementById('addDrugFab');
-  if (_fab) _fab.classList.add('visible');
+  if (_fab) { _fab.classList.add('visible'); _fab.style.display = ''; }
   closeSidebar();
 }
 
