@@ -10,55 +10,55 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 /* ═════════ DARK THEME ═════════ */[data-theme="dark"] {
---bg: #0d0f14;
---bg2: #13161f;
---bg3: #1a1e2a;
---card: #161a24;
---card-h: #1e2333;
---border: rgba(255,255,255,0.07);
---border2: rgba(255,255,255,0.12);
---text: #e8edf5;
---text2: #c4cdd9;
---muted: #7a8799;
---accent: #6366f1;
---accent2: #818cf8;
---teal: #2dd4bf;
+--bg: #16141a;
+--bg2: #1c1a20;
+--bg3: #242129;
+--card: #1c1a20;
+--card-h: #28252d;
+--border: rgba(242,241,239,0.08);
+--border2: rgba(242,241,239,0.14);
+--text: #f2f1ef;
+--text2: #cfcdc8;
+--muted: #8f8d93;
+--accent: #c9beac;
+--accent2: #a89a82;
+--teal: #9c8f78;
 --amber: #fbbf24;
 --rose: #fb7185;
 --green: #4ade80;
---hdr-bg: rgba(13,15,20,0.95);
---aside-bg: #0d0f14;
+--hdr-bg: rgba(22,20,26,0.95);
+--aside-bg: #16141a;
 --shadow: 0 1px 3px rgba(0,0,0,0.4);
 --inj-col: #7f1d1d;
 --top-col: #1e3a5f;
 --cmb-col: #3b1f5e;
---logo-gr: linear-gradient(135deg,#6366f1,#2dd4bf);
+--logo-gr: linear-gradient(135deg,#9c8f78,#c9beac);
 }
 /* Ã¢ÂÂÃ¢ÂÂ LIGHT THEME Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 [data-theme="light"] {
---bg: #f7f8fc;
+--bg: #f2f1ef;
 --bg2: #ffffff;
---bg3: #eef0f7;
+--bg3: #eae8e3;
 --card: #ffffff;
---card-h: #f0f2fa;
---border: rgba(0,0,0,0.07);
---border2: rgba(0,0,0,0.12);
---text: #0f1729;
---text2: #2d3a50;
---muted: #6b7a90;
---accent: #4f46e5;
---accent2: #6366f1;
---teal: #0d9488;
+--card-h: #f0eee9;
+--border: rgba(22,20,26,0.08);
+--border2: rgba(22,20,26,0.14);
+--text: #16141a;
+--text2: #3a383e;
+--muted: #78767c;
+--accent: #3a332a;
+--accent2: #5c5240;
+--teal: #6b6355;
 --amber: #d97706;
 --rose: #e11d48;
 --green: #16a34a;
 --hdr-bg: rgba(255,255,255,0.97);
---aside-bg: #eef0f7;
---shadow: 0 1px 4px rgba(0,0,0,0.08);
+--aside-bg: #eae8e3;
+--shadow: 0 1px 4px rgba(22,20,26,0.08);
 --inj-col: #dc2626;
 --top-col: #0891b2;
 --cmb-col: #7c3aed;
---logo-gr: linear-gradient(135deg,#4f46e5,#0d9488);
+--logo-gr: linear-gradient(135deg,#3a332a,#6b6355);
 }
 html, body {
   height: 100%;
@@ -1721,6 +1721,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
 
         <div class="ws-logo"><img src="https://asmh.gov.mv/storage/images/logos/asmh_logo.svg" alt="Dr. Abdul Samad Memorial Hospital" class="ws-logo-img"></div>
       </div>
+<div class="ws-hospital-badge"><span class="ws-hosp-dot">A</span>OPD Clinical Portal</div>
       <div class="ws-title">One Portal. One Team.<br><span>Better Care.</span></div>
       <p class="ws-subtitle">Access patient handovers, clinical resources, hospital announcements, and essential tools designed to support safe and efficient healthcare delivery.</p>
       <div class="ws-stats">
@@ -1731,6 +1732,23 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
         <div class="ws-stat"><span class="ws-stat-n">OPD</span><span class="ws-stat-l">Optimised</span></div>
       </div>
       <div class="ws-search-hint" onclick="document.getElementById('searchInput').focus()">&#x1F50D; Search any drug, class or condition &nbsp;<kbd>/</kbd></div>
+<div class="ws-ho-section-label">Quick Access</div>
+<div class="ws-handover">
+<div class="ws-ho-card er" onclick="showERDashboard()"><span class="ws-ho-icon">🚨</span><div class="ws-ho-info"><span class="ws-ho-title">ER Handover</span><span class="ws-ho-sub">Active patient handover board</span></div></div>
+<div class="ws-ho-card dept" onclick="showDeptHandover()"><span class="ws-ho-icon">🏥</span><div class="ws-ho-info"><span class="ws-ho-title">Dept Handover</span><span class="ws-ho-sub">Department-wise patient list</span></div></div>
+<div class="ws-ho-card" onclick="showQuickLinks()" style="border-left:4px solid var(--accent);"><span class="ws-ho-icon">🔗</span><div class="ws-ho-info"><span class="ws-ho-title">Quick Links</span><span class="ws-ho-sub">Portals &amp; clinical references</span></div></div>
+</div>
+<div class="ws-categories">
+<div class="ws-cat-label">Explore by Category</div>
+<div class="ws-cat-grid">
+<div class="ws-cat-card" onclick="hnavGo('pain')"><span class="ws-cat-card-dot" style="background:#f43f5e"></span>Pain &amp; Fever</div>
+<div class="ws-cat-card" onclick="hnavGo('cardiovascular')"><span class="ws-cat-card-dot" style="background:#f97316"></span>Cardiovascular</div>
+<div class="ws-cat-card" onclick="hnavGo('antibiotics')"><span class="ws-cat-card-dot" style="background:#10b981"></span>Antibiotics</div>
+<div class="ws-cat-card" onclick="hnavGo('respiratory')"><span class="ws-cat-card-dot" style="background:#3b82f6"></span>Respiratory</div>
+<div class="ws-cat-card" onclick="hnavGo('paed-opd')"><span class="ws-cat-card-dot" style="background:#3b82f6"></span>Paediatrics</div>
+<div class="ws-cat-card" onclick="hnavGo('antifungal')"><span class="ws-cat-card-dot" style="background:#f59e0b"></span>Antifungal &amp; Antiviral</div>
+</div>
+</div>
       
     
 
