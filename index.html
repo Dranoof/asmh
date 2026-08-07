@@ -1968,8 +1968,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
       </div>
       <div class="dh-form-row">
         <div class="dh-form-group">
-          <label class="dh-label">Bed / Room</label>
-          <input class="dh-input" id="dhPtBed" placeholder="e.g. Bed 4A" autocomplete="off"/>
+          <label class="dh-label">Ward</label><select class="dh-input" id="dhPtWard" onchange="dhWardChanged()"><option value="">Select ward...</option><option value="PW">PW</option><option value="SW">SW</option><option value="PVT">PVT</option></select>
         </div>
         <div class="dh-form-group">
           <label class="dh-label">Consultant</label>
@@ -1986,13 +1985,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
           <input class="dh-input" id="dhPtDate" type="datetime-local"/>
         </div>
         <div class="dh-form-group">
-          <label class="dh-label">Status / Acuity</label>
-          <select class="dh-input" id="dhPtStatus">
-            <option value="stable">🟢 Stable</option>
-            <option value="guarded">🟡 Guarded</option>
-            <option value="critical">🔴 Critical</option>
-            <option value="improving">🔵 Improving</option>
-          </select>
+          <label class="dh-label">Bed Number</label><select class="dh-input" id="dhPtBedNum" disabled><option value="">Select ward first...</option></select>
         </div>
       </div>
             <div class="dh-form-row">
@@ -2006,8 +1999,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
         </div>
       </div>
 <div class="dh-form-group">
-        <label class="dh-label">Handover Notes</label>
-        <textarea class="dh-input dh-textarea" id="dhPtNotes" placeholder="Key clinical notes, pending investigations, plans..." rows="4"></textarea>
+        <label class="dh-label">Handover (SOAP)</label></div><div class="dh-form-group"><label class="dh-label">Subjective</label><textarea class="dh-input dh-textarea" id="dhSoapS" placeholder="Patient-reported symptoms, complaints, history..." rows="2"></textarea></div><div class="dh-form-group"><label class="dh-label">Objective</label><textarea class="dh-input dh-textarea" id="dhSoapO" placeholder="Vitals, exam findings, investigation results..." rows="2"></textarea></div><div class="dh-form-group"><label class="dh-label">Assessment</label><textarea class="dh-input dh-textarea" id="dhSoapA" placeholder="Clinical impression, working diagnosis..." rows="2"></textarea></div><div class="dh-form-group"><label class="dh-label">Plan</label><textarea class="dh-input dh-textarea" id="dhSoapP" placeholder="Management plan, pending investigations, follow-up..." rows="2"></textarea>
       </div>
     </div>
     <div class="dh-modal-footer">
@@ -3746,7 +3738,7 @@ function showDisclaimer() {
     {id:'derma',label:'Dermatology',emoji:'&#x1FA7A;'},
     {id:'psych',label:'Psychiatry',emoji:'&#x1F9E0;'}
   ]
-  var dhActiveDept=null, dhActiveView='active', dhEditingId=null, dhDischargingId=null;
+  var WARD_BEDS={PW:10,SW:8,PVT:7};window.dhWardChanged=function(preselect){var ward=document.getElementById('dhPtWard').value;var sel=document.getElementById('dhPtBedNum');sel.innerHTML='';if(!ward){sel.disabled=true;var opt=document.createElement('option');opt.value='';opt.textContent='Select ward first...';sel.appendChild(opt);return;}sel.disabled=false;var ph=document.createElement('option');ph.value='';ph.textContent='Select bed...';sel.appendChild(ph);var count=WARD_BEDS[ward]||0;for(var i=1;i<=count;i++){var o=document.createElement('option');o.value=String(i);o.textContent=ward+' '+i;sel.appendChild(o);}if(preselect)sel.value=preselect;};var dhActiveDept=null, dhActiveView='active', dhEditingId=null, dhDischargingId=null;
   var STORAGE_KEY='asmh_dh_v2';
 
   function dhLoad(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch(e){return{}}}
@@ -3821,21 +3813,20 @@ function showDisclaimer() {
 
   function dhCard(pt){
     var el=document.createElement('div');
-    el.className='dh-patient-card dh-card-'+(pt.status||'stable');
+    el.className='dh-patient-card';
     var days=pt.admDate?Math.floor((Date.now()-new Date(pt.admDate).getTime())/86400000):null;
     var db=days!==null?'<span class="dh-days-badge">Day '+days+'</span>':'';
-    var sL={stable:'&#x1F7E2; Stable',guarded:'&#x1F7E1; Guarded',critical:'&#x1F534; Critical',improving:'&#x1F535; Improving'};
     el.innerHTML=
       '<div class="dh-card-top"><div><div class="dh-card-name">'+esc(pt.name)+'</div>'+
       (pt.mrn?'<div class="dh-card-mrn">'+esc(pt.mrn)+'</div>':'')+
-      '</div><span class="dh-status-pill dh-status-'+(pt.status||'stable')+'">'+(sL[pt.status]||sL.stable)+'</span></div>'+
+      '</div></div>'+
       '<div class="dh-card-meta">'+
       '<div class="dh-card-meta-item"><span class="dh-meta-label">Bed</span><span class="dh-meta-val">'+esc(pt.bed||'--')+'</span></div>'+
       '<div class="dh-card-meta-item"><span class="dh-meta-label">Doctor</span><span class="dh-meta-val">'+esc(pt.doctor||'--')+'</span></div>'+
       '<div class="dh-card-meta-item"><span class="dh-meta-label">Admitted</span><span class="dh-meta-val">'+(pt.admDate||'--')+' '+db+'</span></div>'+
       '</div>'+
       '<div class="dh-card-diag">'+esc(pt.diagnosis)+'</div>'+
-      (pt.notes?'<div><div class="dh-notes-label">Handover Notes</div><div class="dh-card-notes">'+esc(pt.notes)+'</div></div>':'')+
+      (pt.soapS||pt.soapO||pt.soapA||pt.soapP?'<div><div class="dh-notes-label">Handover (SOAP)</div><div class="dh-card-notes">'+(pt.soapS?'<div><strong>S:</strong> '+esc(pt.soapS)+'</div>':'')+(pt.soapO?'<div><strong>O:</strong> '+esc(pt.soapO)+'</div>':'')+(pt.soapA?'<div><strong>A:</strong> '+esc(pt.soapA)+'</div>':'')+(pt.soapP?'<div><strong>P:</strong> '+esc(pt.soapP)+'</div>':'')+'</div></div>':'')+
       '<div class="dh-card-actions">'+
       '<button class="dh-card-btn dh-card-btn-edit" onclick="dhEditPatient(\''+pt.id+'\')">&#x270F;&#xFE0F; Edit</button>'+
       '<button class="dh-card-btn dh-card-btn-discharge" onclick="dhOpenDischarge(\''+pt.id+'\')">&#x2705; Discharge</button>'+
@@ -3848,7 +3839,6 @@ function showDisclaimer() {
     var el=document.createElement('div');el.className='dh-dc-card';
     var dcD=pt.dischargeDate?new Date(pt.dischargeDate).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):'--';
     var admD=pt.admDate?new Date(pt.admDate).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):(pt.admDate||'--');
-    var stMap={stable:'Stable',guarded:'Guarded',critical:'Critical',improving:'Improving'};
     el.innerHTML=
       '<div class="dh-dc-row"><span class="dh-dc-lbl">Admission Date &amp; Time</span><span class="dh-dc-val">'+admD+'</span></div>'+
       '<div class="dh-dc-row"><span class="dh-dc-lbl">Discharge Date &amp; Time</span><span class="dh-dc-val dh-dc-val-discharge">'+dcD+'</span></div>'+
@@ -3857,7 +3847,6 @@ function showDisclaimer() {
       '<div class="dh-dc-row"><span class="dh-dc-lbl">Age / Sex</span><span class="dh-dc-val">'+esc(pt.age||'--')+'</span></div>'+
       '<div class="dh-dc-row"><span class="dh-dc-lbl">Bed</span><span class="dh-dc-val">'+esc(pt.bed||'--')+'</span></div>'+
       '<div class="dh-dc-row"><span class="dh-dc-lbl">Department</span><span class="dh-dc-val">'+esc(pt.dept||deptLabel||'--')+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Status</span><span class="dh-dc-val">'+esc(stMap[pt.status]||pt.status||'--')+'</span></div>'+
       '<div class="dh-dc-row"><span class="dh-dc-lbl">Diagnosis</span><span class="dh-dc-val dh-dc-val-diag">'+esc(pt.diagnosis)+'</span></div>'+
       '<div class="dh-dc-row"><span class="dh-dc-lbl">Consultant</span><span class="dh-dc-val">'+esc(pt.doctor||'--')+'</span></div>'+
       '<div class="dh-dc-row"><span class="dh-dc-lbl">Entered By</span><span class="dh-dc-val">'+esc(pt.enteredBy||'--')+'</span></div>'+
@@ -3878,8 +3867,8 @@ function showDisclaimer() {
     dhEditingId=null;
     document.getElementById('dhModalTitle').textContent='Add Patient';
     document.getElementById('dhBtnSave').textContent='Add Patient';
-    ['dhPtName','dhPtMrn','dhPtBed','dhPtDoctor','dhPtDiag','dhPtNotes','dhPtAge','dhPtEnteredBy'].forEach(function(id){document.getElementById(id).value='';});
-    document.getElementById('dhPtDate').value=new Date().toISOString().slice(0,16);    document.getElementById('dhPtStatus').value='stable';document.getElementById('dhPtAge').value='';var _prof=JSON.parse(localStorage.getItem('asmh_profile_custom')||'{}');document.getElementById('dhPtEnteredBy').value=_prof.displayName||'';
+    ['dhPtName','dhPtMrn','dhPtDoctor','dhPtDiag','dhSoapS','dhSoapO','dhSoapA','dhSoapP','dhPtAge','dhPtEnteredBy'].forEach(function(id){document.getElementById(id).value='';});
+    document.getElementById('dhPtDate').value=new Date().toISOString().slice(0,16);    document.getElementById('dhPtWard').value='';dhWardChanged();document.getElementById('dhPtAge').value='';var _prof=JSON.parse(localStorage.getItem('asmh_profile_custom')||'{}');document.getElementById('dhPtEnteredBy').value=_prof.displayName||'';
     document.getElementById('dhModalBg').classList.add('open');
     setTimeout(function(){document.getElementById('dhPtName').focus()},80);
   };
@@ -3892,12 +3881,10 @@ function showDisclaimer() {
     document.getElementById('dhBtnSave').textContent='Save Changes';
     document.getElementById('dhPtName').value=pt.name||'';
     document.getElementById('dhPtMrn').value=pt.mrn||'';
-    document.getElementById('dhPtBed').value=pt.bed||'';
+    var bedParts=(pt.bed||'').split(' ');document.getElementById('dhPtWard').value=bedParts[0]||'';dhWardChanged(bedParts[1]||'');
     document.getElementById('dhPtDoctor').value=pt.doctor||'';
     document.getElementById('dhPtDiag').value=pt.diagnosis||'';
-    document.getElementById('dhPtDate').value=pt.admDate||'';
-    document.getElementById('dhPtStatus').value=pt.status||'stable';
-    document.getElementById('dhPtNotes').value=pt.notes||'';document.getElementById('dhPtAge').value=pt.age||'';document.getElementById('dhPtEnteredBy').value=pt.enteredBy||'';
+    document.getElementById('dhPtDate').value=pt.admDate||'';document.getElementById('dhSoapS').value=pt.soapS||'';document.getElementById('dhSoapO').value=pt.soapO||'';document.getElementById('dhSoapA').value=pt.soapA||'';document.getElementById('dhSoapP').value=pt.soapP||'';document.getElementById('dhPtAge').value=pt.age||'';document.getElementById('dhPtEnteredBy').value=pt.enteredBy||'';
     document.getElementById('dhModalBg').classList.add('open');
     setTimeout(function(){document.getElementById('dhPtName').focus()},80);
   };
@@ -3912,11 +3899,10 @@ function showDisclaimer() {
     var pt={
       id:dhEditingId||('pt_'+Date.now()+'_'+Math.random().toString(36).slice(2,6)),
       name:name,mrn:document.getElementById('dhPtMrn').value.trim(),
-      bed:document.getElementById('dhPtBed').value.trim(),
+      bed:(function(){var w=document.getElementById('dhPtWard').value,b=document.getElementById('dhPtBedNum').value;return w&&b?(w+' '+b):'';})(),
       doctor:document.getElementById('dhPtDoctor').value.trim(),
       diagnosis:diag,admDate:document.getElementById('dhPtDate').value,
-      status:document.getElementById('dhPtStatus').value,
-      notes:document.getElementById('dhPtNotes').value.trim(),
+      soapS:document.getElementById('dhSoapS').value.trim(),soapO:document.getElementById('dhSoapO').value.trim(),soapA:document.getElementById('dhSoapA').value.trim(),soapP:document.getElementById('dhSoapP').value.trim(),
       age:document.getElementById('dhPtAge').value.trim(),
       enteredBy:document.getElementById('dhPtEnteredBy').value.trim()
     };
