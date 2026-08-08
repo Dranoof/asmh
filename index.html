@@ -1865,7 +1865,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
           <option value="1037766816">May 2026</option>
           <option value="698732185">April 2026</option>
         </select>
-        <a class="erd-open-btn" id="erdOpenLink" href="https://docs.google.com/spreadsheets/d/1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE/edit#gid=503901300" target="_blank">↗ Open in Sheets</a>
+        
       </div>
     </div>
     <div class="erd-frame-wrap">
@@ -3050,17 +3050,17 @@ function erdSwitchTab(tab) {
   window._erdCurrentTab = tab;
   var SID = '1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE';
   var monthSel = document.getElementById('erdMonthSel');
-  var openLink = document.getElementById('erdOpenLink');
+  
   document.getElementById('erdTabActive').classList.toggle('active', tab==='active');
   document.getElementById('erdTabMonthly').classList.toggle('active', tab==='monthly');
   if (tab === 'active') {
-    openLink.href = 'https://docs.google.com/spreadsheets/d/'+SID+'/edit#gid=503901300';
+    
     monthSel.style.display = 'none';
     erdFetchAndRender(SID, 'HANDOVER', null);
   } else {
     monthSel.style.display = '';
     var gid = monthSel.value;
-    openLink.href = 'https://docs.google.com/spreadsheets/d/'+SID+'/edit#gid='+gid;
+    
     erdFetchAndRender(SID, null, gid);
   }
 }
