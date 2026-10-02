@@ -4991,7 +4991,7 @@ function showDisclaimer() {
 // Apps Script web app (ER_API). Without ER_API it is read-only.
 // ===============================================================
 (function(){
-  var ER_API='';   // ← Apps Script web-app URL (…/exec)
+  var ER_API='https://script.google.com/macros/s/AKfycbyXX-BL2aiVRCWVj38URhi3E6lb4FgVw15k5Uv9CumZCad0N7et1Ck0Ca9ENzEFYi314Q/exec';   // Apps Script web app
   var SID='1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE';
   var SHEET_URL='https://docs.google.com/spreadsheets/d/'+SID+'/edit';
   var state={beds:[],options:{doctor:[],status:[],referral:[]},tab:'board',editRow:null,loading:false,month:null,q:''};
@@ -5008,7 +5008,7 @@ function showDisclaimer() {
   function localInput(d){d=new Date(d);d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)}
   function since(d){if(!d)return'';var m=Math.max(0,Math.round((Date.now()-d)/60000));return m<60?m+' min':Math.floor(m/60)+' h '+(m%60)+' m'}
   function occupied(b){return !!(b.name||b.id)}
-  function statusCls(s){s=(s||'').toLowerCase();if(/demis|death|dead/.test(s))return'st-dead';if(/admi/.test(s))return'st-admit';if(/dischar/.test(s))return'st-dc';if(/refer|transfer/.test(s))return'st-ref';if(/lab|pending|await|obs/.test(s))return'st-wait';if(/dor|lama|abscond/.test(s))return'st-dor';return s?'st-other':''}
+  function statusCls(s){s=(s||'').toLowerCase();if(/demis|death|dead/.test(s))return'st-dead';if(/admi/.test(s))return'st-admit';if(/dischar/.test(s))return'st-dc';if(/refer|transfer/.test(s))return'st-ref';if(/planned dc/.test(s))return'st-dc';if(/lab|pending|await|obs|imaging/.test(s))return'st-wait';if(/dor|lama|abscond|resus/.test(s))return'st-dor';return s?'st-other':''}
   function getPin(){var p='';try{p=localStorage.getItem('asmh_er_pin')||''}catch(e){}if(!p){p=prompt('Enter the ER staff PIN to save changes:')||'';if(p){try{localStorage.setItem('asmh_er_pin',p)}catch(e){}}}return p}
 
   /* ---------- data ---------- */
@@ -5101,7 +5101,7 @@ function showDisclaimer() {
   /* ---------- edit modal ---------- */
   function sel(id,opts,val){
     var has=opts.indexOf(val)!==-1;
-    return '<select class="er-in" id="'+id+'"><option value="">—</option>'+opts.map(function(o){return '<option'+(o===val?' selected':'')+'>'+esc(o)+'</option>'}).join('')+(val&&!has?'<option selected>'+esc(val)+'</option>':'')+'</select>';
+    return '<select class="er-in" id="'+id+'"><option value="">—</option>'+opts.map(function(o){return '<option value="'+esc(o)+'"'+(o===val?' selected':'')+'>'+esc(o)+'</option>'}).join('')+(val&&!has?'<option value="'+esc(val)+'" selected>'+esc(val)+'</option>':'')+'</select>';
   }
   function inp(id,val,ph){return '<input class="er-in" id="'+id+'" value="'+esc(val)+'" placeholder="'+esc(ph||'')+'" autocomplete="off">'}
   function dlist(id,opts){return '<datalist id="'+id+'">'+opts.map(function(o){return '<option value="'+esc(o)+'">'}).join('')+'</datalist>'}
@@ -5131,10 +5131,11 @@ function showDisclaimer() {
     setTimeout(function(){var f=$(o?'erRem':'erName');if(f)f.focus()},60);
   };
   window.erClose=function(){$('erModalBg').classList.remove('open');state.editRow=null};
+  function canon(v,list){var t=String(v||'').trim();if(!t)return'';var m=(list||[]).filter(function(o){return String(o).trim().toLowerCase()===t.toLowerCase()})[0];return m!==undefined?m:t}
   function fields(){
     var a=$('erArr').value;
     return {arrival:a?sheetDT(new Date(a)):'',id:$('erId').value.trim(),name:$('erName').value.trim(),age:$('erAge').value.trim(),dx:$('erDx').value.trim(),
-      doctor:$('erDoc').value.trim(),status:$('erSt').value.trim(),referral:$('erRef').value.trim(),remarks:$('erRem').value.trim()};
+      doctor:canon($('erDoc').value,state.options.doctor),status:canon($('erSt').value,state.options.status),referral:canon($('erRef').value,state.options.referral),remarks:$('erRem').value.trim()};
   }
   window.erSave=function(){
     var f=fields();if(!f.name&&!f.id){$('erName').focus();toast('Enter the patient name or ID');return}
