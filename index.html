@@ -1676,6 +1676,7 @@ main#mainContent:has(> #welcomeScreen:not([style*="none"])){padding:0}
 <style id="dh-v3">
 /* ── Dept Handover v3 ── */
 #deptContent[style*="block"]{display:flex !important}
+.dh-sidebar{width:248px;min-width:248px}
 main#mainContent:has(> #deptContent[style*="block"]){padding:0}
 .dh-sidebar{display:flex;flex-direction:column}
 .dh-dept-list{flex:1}
@@ -1841,7 +1842,7 @@ main#mainContent:has(> #deptContent[style*="block"]){padding:0}
 .lp-card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .lp-card-hdr h3{font-size:13px;font-weight:700;color:var(--text);margin:0}
 .lp-link{background:none;border:none;color:var(--accent);font:inherit;font-size:12px;font-weight:600;cursor:pointer;padding:2px 4px}
-.lp-bar-row{display:grid;grid-template-columns:120px minmax(0,1fr) auto;align-items:center;gap:10px;padding:5px 0;font-size:12.5px}
+.lp-bar-row{display:grid;grid-template-columns:170px minmax(0,1fr) auto;align-items:center;gap:10px;padding:5px 0;font-size:12.5px}
 .lp-bar-lbl{color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lp-bar-track{height:10px;border-radius:4px;background:var(--bg3);overflow:hidden}
 .lp-bar{display:block;height:100%;background:#0a8fa0;border-radius:0 4px 4px 0}
@@ -4101,17 +4102,23 @@ function showDisclaimer() {
 // DEPARTMENT INPATIENT HANDOVER SYSTEM
 // ===============================================================
 (function() {
+  // Official ASMH departments (labels shown without the "Department of" prefix)
   var DEPARTMENTS=[
-    {id:'medical',label:'Medical',emoji:'&#x1FA80;'},
-    {id:'surgical',label:'Surgical',emoji:'&#x1F52A;'},
+    {id:'emerg',label:'Emergency Medicine',emoji:'&#x1F691;'},
+    {id:'medical',label:'Internal Medicine',emoji:'&#x1FA7A;'},
+    {id:'surgical',label:'General Surgery',emoji:'&#x1F52A;'},
+    {id:'obs',label:'Obstetrics &amp; Gynaecology',emoji:'&#x1F931;'},
     {id:'paeds',label:'Paediatrics',emoji:'&#x1F476;'},
-    {id:'obs',label:'Obs &amp; Gynae',emoji:'&#x1F931;'},
-    {id:'icu',label:'ICU / HDU',emoji:'&#x2764;'},
-    {id:'ortho',label:'Orthopaedics',emoji:'&#x1F9B4;'},
-    {id:'ophtha',label:'Ophthalmology',emoji:'&#x1F441;'},
-    {id:'ent',label:'ENT',emoji:'&#x1F442;'},
-    {id:'derma',label:'Dermatology',emoji:'&#x1FA7A;'},
-    {id:'psych',label:'Psychiatry',emoji:'&#x1F9E0;'}
+    {id:'ortho',label:'Orthopaedics &amp; Trauma Surgery',emoji:'&#x1F9B4;'},
+    {id:'ent',label:'Otorhinolaryngology (ENT)',emoji:'&#x1F442;'},
+    {id:'ophtha',label:'Ophthalmology',emoji:'&#x1F441;&#xFE0F;'},
+    {id:'derma',label:'Dermatology',emoji:'&#x1FA79;'},
+    {id:'psych',label:'Mental Health',emoji:'&#x1F9E0;'},
+    {id:'dental',label:'Dental &amp; Oral Health',emoji:'&#x1F9B7;'},
+    {id:'anaes',label:'Anaesthesiology',emoji:'&#x1F489;'},
+    {id:'gp',label:'General Practice',emoji:'&#x1F468;&#x200D;&#x2695;&#xFE0F;'},
+    {id:'radio',label:'Radiology &amp; Medical Imaging',emoji:'&#x1FA7B;'},
+    {id:'icu',label:'ICU / HDU (old records)',emoji:'&#x2764;',legacy:true}
   ];
   var STATUSES=[
     {id:'critical',label:'Critical'},
@@ -4189,7 +4196,7 @@ function showDisclaimer() {
     if(!list)return;
     if(!list.dataset.built){
       list.dataset.built='1';
-      var opts=DEPARTMENTS.map(function(d){return '<option value="'+d.id+'">'+d.label+'</option>'}).join('');
+      var opts=DEPARTMENTS.filter(function(d){return !d.legacy}).map(function(d){return '<option value="'+d.id+'">'+d.label+'</option>'}).join('');
       $('dhPtDept').innerHTML=opts;$('dhTransferDept').innerHTML=opts;
       $('dhPtStatusPick').innerHTML=STATUSES.map(function(s){return '<button type="button" class="dh-spick dh-spick-'+s.id+'" data-s="'+s.id+'" onclick="dhPickStatus(\''+s.id+'\')">'+s.label+'</button>'}).join('');
       var all=document.createElement('button');
@@ -4198,6 +4205,7 @@ function showDisclaimer() {
       all.addEventListener('click',function(){dhSelectDept('all')});
       list.appendChild(all);
       DEPARTMENTS.forEach(function(d){
+        if(d.legacy){var _x=dhLoad()[d.id];if(!_x||!((_x.active||[]).length+(_x.discharged||[]).length))return}
         var b=document.createElement('button');
         b.className='dh-dept-btn';b.dataset.deptId=d.id;
         b.innerHTML='<span class="dh-dept-emoji">'+d.emoji+'</span><span class="dh-dept-label">'+d.label+'</span><span class="dh-dept-count" id="dhCount_'+d.id+'"></span>';
@@ -4376,7 +4384,7 @@ function showDisclaimer() {
     dhEditingId=null;dhEditingDept=null;
     $('dhModalTitle').textContent='Add Patient';$('dhBtnSave').textContent='Add Patient';
     ['dhPtName','dhPtMrn','dhPtDoctor','dhPtDiag','dhSoapS','dhSoapO','dhSoapA','dhSoapP','dhPtAge','dhPtEnteredBy'].forEach(function(id){$(id).value='';});
-    $('dhPtDept').value=dhActiveDept==='all'?DEPARTMENTS[0].id:dhActiveDept;
+    $('dhPtDept').value=(dhActiveDept==='all'||dhActiveDept==='icu')?'medical':dhActiveDept;
     $('dhPtDate').value=localNow();
     $('dhPtWard').value='';dhWardChanged();
     var prof={};try{prof=JSON.parse(localStorage.getItem('asmh_profile_custom')||'{}')}catch(e){}
@@ -4480,7 +4488,7 @@ function showDisclaimer() {
     dhTransferId=id;dhTransferFrom=dept;
     $('dhTransferName').textContent=pt.name;
     Array.prototype.forEach.call($('dhTransferDept').options,function(o){o.disabled=(o.value===dept)});
-    var first=DEPARTMENTS.filter(function(d){return d.id!==dept})[0];$('dhTransferDept').value=first.id;
+    var first=DEPARTMENTS.filter(function(d){return d.id!==dept&&!d.legacy})[0];$('dhTransferDept').value=first.id;
     $('dhTransferModalBg').classList.add('open');
   };
   window.dhConfirmTransfer=function(){
@@ -4708,6 +4716,8 @@ function showDisclaimer() {
     ]
   };
   var DEPT_ICON={'Anaesthesia':'💉','Dental':'🦷','Dermatology':'🩹','ENT':'👂','Obs & Gynae':'🤱','Ophthalmology':'👁️','Orthopaedics':'🦴','Paediatrics':'👶','Medicine':'🩺','Psychiatry':'🧠','Radiology':'🩻','Surgery':'🔪'};
+  var DEPT_NAME={'Medicine':'Internal Medicine','Surgery':'General Surgery','Obs & Gynae':'Obstetrics & Gynaecology','Paediatrics':'Paediatrics','Orthopaedics':'Orthopaedics & Trauma Surgery','ENT':'Otorhinolaryngology (ENT)','Ophthalmology':'Ophthalmology','Dermatology':'Dermatology','Psychiatry':'Mental Health','Dental':'Dental & Oral Health','Anaesthesia':'Anaesthesiology','Radiology':'Radiology & Medical Imaging'};
+  var DEPT_ORDER=['Medicine','Surgery','Obs & Gynae','Paediatrics','Orthopaedics','ENT','Ophthalmology','Dermatology','Psychiatry','Dental','Anaesthesia','Radiology'];
   var filter='all', q='';
 
   function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -4718,7 +4728,7 @@ function showDisclaimer() {
       (img?'<img src="'+IMG+img+'.png" alt="" loading="lazy" onerror="this.remove()">':'')+'</div>'+
       '<div class="tm-info"><div class="tm-name">Dr. '+esc(name)+'</div><div class="tm-role">'+esc(role)+'</div></div></div>';
   }
-  function match(d){if(!q)return true;return (d[0]+' '+d[1]+' '+d[2]).toLowerCase().indexOf(q)!==-1}
+  function match(d){if(!q)return true;return (d[0]+' '+d[1]+' '+d[2]+' '+(DEPT_NAME[d[2]]||'')).toLowerCase().indexOf(q)!==-1}
 
   function render(){
     var body=document.getElementById('tmBody');if(!body)return;
@@ -4731,9 +4741,9 @@ function showDisclaimer() {
       html+='<h2 class="tm-sec">Consultants &amp; Specialists <b>'+sp.length+'</b></h2>';
       var groups={},order=[];
       sp.forEach(function(d){if(!groups[d[2]]){groups[d[2]]=[];order.push(d[2])}groups[d[2]].push(d)});
-      order.sort();
+      order.sort(function(a,b){return DEPT_ORDER.indexOf(a)-DEPT_ORDER.indexOf(b)});
       html+='<div class="tm-depts">'+order.map(function(g){
-        return '<div class="tm-dept"><div class="tm-dept-hdr"><span>'+(DEPT_ICON[g]||'🏥')+'</span>'+esc(g)+'<b>'+groups[g].length+'</b></div><div class="tm-dept-list">'+groups[g].map(card).join('')+'</div></div>';
+        return '<div class="tm-dept"><div class="tm-dept-hdr"><span>'+(DEPT_ICON[g]||'🏥')+'</span>'+esc(DEPT_NAME[g]||g)+'<b>'+groups[g].length+'</b></div><div class="tm-dept-list">'+groups[g].map(card).join('')+'</div></div>';
       }).join('')+'</div>';
     }
     if(filter!=='sp'&&mo.length){
@@ -4785,7 +4795,7 @@ function showDisclaimer() {
 // ===============================================================
 (function(){
   var SID='1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE';
-  var DEPTS=[['medical','Medical'],['surgical','Surgical'],['paeds','Paediatrics'],['obs','Obs & Gynae'],['icu','ICU / HDU'],['ortho','Orthopaedics'],['ophtha','Ophthalmology'],['ent','ENT'],['derma','Dermatology'],['psych','Psychiatry']];
+  var DEPTS=[['emerg','Emergency Medicine'],['medical','Internal Medicine'],['surgical','General Surgery'],['obs','Obstetrics & Gynaecology'],['paeds','Paediatrics'],['ortho','Orthopaedics & Trauma'],['ent','Otorhinolaryngology'],['ophtha','Ophthalmology'],['derma','Dermatology'],['psych','Mental Health'],['dental','Dental & Oral Health'],['anaes','Anaesthesiology'],['gp','General Practice'],['radio','Radiology & Imaging'],['icu','ICU / HDU (old)']];
   function $(id){return document.getElementById(id)}
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function cell(r,i){if(i<0||!r||!r.c||!r.c[i]||r.c[i].v==null)return'';var c=r.c[i];return String(c.f!=null?c.f:c.v).trim()}
