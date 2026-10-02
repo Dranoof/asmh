@@ -1824,6 +1824,48 @@ main#mainContent:has(> #deptContent[style*="block"]){padding:0}
 .tm-src a{color:var(--accent)}
 @media (max-width:600px){#teamContent{padding:14px 12px 32px}.tm-search{width:100%}.tm-depts,.tm-grid{grid-template-columns:1fr}}
 </style>
+<style id="landing-stats-css">
+.lp-dash{width:100%;max-width:1240px;margin:44px auto 0;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;text-align:left;align-items:start}
+.lp-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
+.lp-head h2{font-size:15px;font-weight:700;color:var(--text);margin:0;letter-spacing:.01em}
+.lp-updated{font-size:11.5px;color:var(--muted)}
+.lp-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.lp-tile{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;cursor:pointer;font:inherit;color:inherit;transition:border-color .15s,transform .1s}
+.lp-tile:hover{border-color:var(--accent);transform:translateY(-1px)}
+.lp-tile-lbl{font-size:12px;font-weight:600;color:var(--text2)}
+.lp-tile-num{font-size:30px;font-weight:800;line-height:1.1;color:var(--text);font-variant-numeric:tabular-nums}
+.lp-tile-sub{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.lp-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.lp-crit{background:#ef4444}.lp-guard{background:#f59e0b}
+.lp-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px}
+.lp-card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.lp-card-hdr h3{font-size:13px;font-weight:700;color:var(--text);margin:0}
+.lp-link{background:none;border:none;color:var(--accent);font:inherit;font-size:12px;font-weight:600;cursor:pointer;padding:2px 4px}
+.lp-bar-row{display:grid;grid-template-columns:120px minmax(0,1fr) auto;align-items:center;gap:10px;padding:5px 0;font-size:12.5px}
+.lp-bar-lbl{color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp-bar-track{height:10px;border-radius:4px;background:var(--bg3);overflow:hidden}
+.lp-bar{display:block;height:100%;background:#0a8fa0;border-radius:0 4px 4px 0}
+.lp-bar-val{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lp-bar-val em{font-style:normal;font-weight:600;font-size:11px;color:#ef4444;margin-left:4px}
+.lp-empty{font-size:12.5px;color:var(--muted);padding:6px 0}
+.lp-empty a{color:var(--accent)}
+.lp-note{font-size:11px;color:var(--muted);margin:10px 2px 0;max-width:none !important;line-height:1.5}
+.lp-ann{display:flex;flex-direction:column;max-height:420px}
+#lpAnnList{overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.lp-ann-item{border:1px solid var(--border);border-left:3px solid var(--border2);border-radius:10px;padding:10px 12px;background:var(--bg2)}
+.lp-ann-urgent{border-left-color:#ef4444}.lp-ann-important{border-left-color:#f59e0b}
+.lp-ann-top{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.lp-ann-pri{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:1px 7px;border-radius:99px}
+.lp-ann-urgent .lp-ann-pri{background:rgba(239,68,68,.12);color:#dc2626}
+.lp-ann-important .lp-ann-pri{background:rgba(245,158,11,.14);color:#b45309}
+.lp-ann-date{font-size:11px;color:var(--muted);margin-left:auto}
+.lp-ann-title{font-size:13px;font-weight:700;color:var(--text)}
+.lp-ann-msg{font-size:12.5px;color:var(--text2);margin-top:3px;line-height:1.5;white-space:pre-wrap}
+.lp-ann-by{font-size:11px;color:var(--muted);margin-top:4px}
+.lp-ann-empty{font-size:12.5px;color:var(--muted);padding:18px 4px;text-align:center}
+@media (max-width:980px){.lp-dash{grid-template-columns:1fr}.lp-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.lp-ann{max-height:none}}
+@media (max-width:420px){.lp-tile-num{font-size:24px}.lp-bar-row{grid-template-columns:96px minmax(0,1fr) auto}}
+</style>
 </head>
 <body>
 
@@ -1911,6 +1953,42 @@ main#mainContent:has(> #deptContent[style*="block"]){padding:0}
       <div class="ws-title">One Portal. One Team.<br><span>Better Care.</span></div>
       <p class="ws-subtitle">Access patient handovers, clinical resources, hospital announcements, and essential tools designed to support safe and efficient healthcare delivery.</p>
       <div class="ws-search-hint" onclick="document.getElementById('searchInput').focus()">&#x1F50D; Search any drug, class or condition &nbsp;<kbd>/</kbd></div>
+      <section class="lp-dash" id="lpDash">
+        <div class="lp-main">
+          <div class="lp-head"><h2>Today at ASMH</h2><span class="lp-updated" id="lpUpdated"></span></div>
+          <div class="lp-tiles">
+            <button class="lp-tile" onclick="showERDashboard()" title="Open ER Handover">
+              <span class="lp-tile-lbl">🚨 In ER now</span>
+              <span class="lp-tile-num" id="lpErNow">–</span>
+              <span class="lp-tile-sub" id="lpErSub">Live from ER handover sheet</span>
+            </button>
+            <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
+              <span class="lp-tile-lbl">🛏️ Inpatients</span>
+              <span class="lp-tile-num" id="lpInNow">0</span>
+              <span class="lp-tile-sub" id="lpInSub">No patients admitted</span>
+            </button>
+            <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
+              <span class="lp-tile-lbl">⚠️ Need attention</span>
+              <span class="lp-tile-num" id="lpAttn">0</span>
+              <span class="lp-tile-sub" id="lpAttnSub"><i class="lp-dot lp-crit"></i>0 critical · <i class="lp-dot lp-guard"></i>0 guarded</span>
+            </button>
+            <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
+              <span class="lp-tile-lbl">➕ Admitted · 24 h</span>
+              <span class="lp-tile-num" id="lpAdm24">0</span>
+              <span class="lp-tile-sub" id="lpDc7">0 discharged in last 7 days</span>
+            </button>
+          </div>
+          <div class="lp-card">
+            <div class="lp-card-hdr"><h3>Inpatients by department</h3><button class="lp-link" onclick="showDeptHandover()">Open handover →</button></div>
+            <div id="lpDeptBars"></div>
+          </div>
+          <p class="lp-note">Inpatient figures come from Dept Handover on this device. ER figures are shared and live.</p>
+        </div>
+        <div class="lp-card lp-ann">
+          <div class="lp-card-hdr"><h3>📢 Announcements</h3><button class="lp-link" onclick="lpLoadAnnouncements(true)" title="Refresh">↻</button></div>
+          <div id="lpAnnList"><div class="lp-ann-empty">Loading…</div></div>
+        </div>
+      </section>
       
     
 
@@ -4630,6 +4708,117 @@ function showDisclaimer() {
       var si=document.getElementById('searchInput');if(si)si.addEventListener('input',function(){if(this.value.trim())hideTeam()});
     },0);
   });
+})();
+</script>
+<script id="landing-stats">
+// ===============================================================
+// LANDING PAGE: patient statistics + announcements
+// Announcements are read from the "ANNOUNCEMENTS" tab of the shared
+// ER handover Google Sheet (columns: Date | Title | Message | Priority | Expires | Posted By)
+// ===============================================================
+(function(){
+  var SID='1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE';
+  var DEPTS=[['medical','Medical'],['surgical','Surgical'],['paeds','Paediatrics'],['obs','Obs & Gynae'],['icu','ICU / HDU'],['ortho','Orthopaedics'],['ophtha','Ophthalmology'],['ent','ENT'],['derma','Dermatology'],['psych','Psychiatry']];
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function cell(r,i){if(i<0||!r||!r.c||!r.c[i]||r.c[i].v==null)return'';var c=r.c[i];return String(c.f!=null?c.f:c.v).trim()}
+  function headerIdx(rows,needle){for(var i=0;i<Math.min(rows.length,6);i++){var c=(rows[i].c||[]);for(var j=0;j<c.length;j++){if(c[j]&&String(c[j].v||'').toLowerCase().trim()===needle)return i}}return -1}
+  function colMap(row){var m={};(row.c||[]).forEach(function(c,j){if(c&&c.v!=null)m[String(c.v).toLowerCase().trim()]=j});return m}
+  function col(m,names){for(var i=0;i<names.length;i++)if(m.hasOwnProperty(names[i]))return m[names[i]];return -1}
+  function parseDate(s){if(!s)return null;s=String(s).trim();var m=s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/);if(m){var y=+m[3];if(y<100)y+=2000;return new Date(y,+m[2]-1,+m[1])}var g=s.match(/^Date\((\d+),(\d+),(\d+)/);if(g)return new Date(+g[1],+g[2],+g[3]);var d=new Date(s);return isNaN(d)?null:d}
+
+  /* ---------- inpatient stats (Dept Handover, this device) ---------- */
+  function lpInpatients(){
+    var d={};try{d=JSON.parse(localStorage.getItem('asmh_dh_v2')||'{}')}catch(e){}
+    var now=Date.now(),total=0,crit=0,guard=0,adm24=0,dc7=0,rows=[];
+    DEPTS.forEach(function(dp){
+      var x=d[dp[0]]||{},act=x.active||[],dis=x.discharged||[];
+      total+=act.length;
+      act.forEach(function(p){
+        if(p.status==='critical')crit++;else if(p.status==='guarded')guard++;
+        var t=p.admDate?new Date(p.admDate).getTime():(p.createdAt||0);if(t&&now-t<=864e5)adm24++;
+      });
+      dis.forEach(function(p){var t=p.dischargeDate?new Date(p.dischargeDate).getTime():0;if(t&&now-t<=7*864e5)dc7++});
+      if(act.length)rows.push([dp[1],act.length,act.filter(function(p){return p.status==='critical'}).length]);
+    });
+    $('lpInNow').textContent=total;
+    $('lpInSub').textContent=total?('across '+rows.length+' department'+(rows.length>1?'s':'')):'No patients admitted';
+    $('lpAttn').textContent=crit+guard;
+    $('lpAttnSub').innerHTML='<i class="lp-dot lp-crit"></i>'+crit+' critical · <i class="lp-dot lp-guard"></i>'+guard+' guarded';
+    $('lpAdm24').textContent=adm24;
+    $('lpDc7').textContent=dc7+' discharged in last 7 days';
+    var box=$('lpDeptBars');
+    if(!rows.length){box.innerHTML='<div class="lp-empty">No inpatients recorded yet. Add patients in <a href="#" onclick="showDeptHandover();return false">Dept Handover</a>.</div>';return}
+    rows.sort(function(a,b){return b[1]-a[1]});
+    var max=rows[0][1];
+    box.innerHTML=rows.map(function(r){
+      var pct=Math.max(4,Math.round(r[1]/max*100));
+      return '<div class="lp-bar-row" title="'+esc(r[0])+': '+r[1]+' inpatient'+(r[1]>1?'s':'')+(r[2]?' ('+r[2]+' critical)':'')+'">'+
+        '<span class="lp-bar-lbl">'+esc(r[0])+'</span><span class="lp-bar-track"><span class="lp-bar" style="width:'+pct+'%"></span></span>'+
+        '<span class="lp-bar-val">'+r[1]+(r[2]?' <em>'+r[2]+' crit</em>':'')+'</span></div>';
+    }).join('');
+  }
+
+  /* ---------- ER stats (shared Google Sheet) ---------- */
+  function lpEr(){
+    if(typeof fetchSheet!=='function')return;
+    fetchSheet(SID,'HANDOVER',null).then(function(data){
+      var rows=(data&&data.table&&data.table.rows)||[];
+      var h=headerIdx(rows,'patient name');if(h<0){$('lpErNow').textContent='–';return}
+      var m=colMap(rows[h]),iName=col(m,['patient name']),iId=col(m,['id card no']),iSt=col(m,['status']);
+      var pts=rows.slice(h+1).filter(function(r){return cell(r,iName)||cell(r,iId)});
+      var admit=pts.filter(function(r){return /admi/i.test(cell(r,iSt))}).length;
+      $('lpErNow').textContent=pts.length;
+      $('lpErSub').textContent=pts.length?(admit+' for admission'):'ER board is clear';
+    }).catch(function(){$('lpErNow').textContent='–';$('lpErSub').textContent='Could not reach ER sheet'});
+  }
+
+  /* ---------- announcements (shared Google Sheet) ---------- */
+  var annLoaded=0;
+  window.lpLoadAnnouncements=function(force){
+    if(!force&&Date.now()-annLoaded<5*60e3)return;
+    var box=$('lpAnnList');if(!box||typeof fetchSheet!=='function')return;
+    if(force)box.innerHTML='<div class="lp-ann-empty">Loading…</div>';
+    fetchSheet(SID,'ANNOUNCEMENTS',null).then(function(data){
+      annLoaded=Date.now();
+      var rows=(data&&data.table&&data.table.rows)||[],cols=(data&&data.table&&data.table.cols)||[];
+      // header may be parsed as column labels or as the first row
+      var m={},start=0;
+      cols.forEach(function(c,j){if(c.label)m[String(c.label).toLowerCase().trim()]=j});
+      if(col(m,['title'])<0){var h=headerIdx(rows,'title');if(h<0){box.innerHTML='<div class="lp-ann-empty">No announcements right now.</div>';return}m=colMap(rows[h]);start=h+1}
+      var iD=col(m,['date']),iT=col(m,['title']),iM=col(m,['message','details']),iP=col(m,['priority']),iE=col(m,['expires','expiry','until']),iB=col(m,['posted by','by','from']);
+      var today=new Date();today.setHours(0,0,0,0);
+      var items=rows.slice(start).map(function(r){return {date:cell(r,iD),title:cell(r,iT),msg:cell(r,iM),pri:cell(r,iP).toLowerCase(),exp:cell(r,iE),by:cell(r,iB),raw:r}})
+        .filter(function(a){if(!a.title&&!a.msg)return false;var e=parseDate(a.exp);return !e||e>=today});
+      items.sort(function(a,b){var pa=/urgent/.test(a.pri)?0:/important|high/.test(a.pri)?1:2,pb=/urgent/.test(b.pri)?0:/important|high/.test(b.pri)?1:2;if(pa!==pb)return pa-pb;return (parseDate(b.date)||0)-(parseDate(a.date)||0)});
+      if(!items.length){box.innerHTML='<div class="lp-ann-empty">No announcements right now.</div>';return}
+      box.innerHTML=items.slice(0,8).map(function(a){
+        var cls=/urgent/.test(a.pri)?'urgent':/important|high/.test(a.pri)?'important':'normal';
+        var d=parseDate(a.date);
+        return '<div class="lp-ann-item lp-ann-'+cls+'">'+
+          '<div class="lp-ann-top">'+(cls!=='normal'?'<span class="lp-ann-pri">'+(cls==='urgent'?'Urgent':'Important')+'</span>':'')+
+          '<span class="lp-ann-date">'+(d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):esc(a.date))+'</span></div>'+
+          '<div class="lp-ann-title">'+esc(a.title)+'</div>'+(a.msg?'<div class="lp-ann-msg">'+esc(a.msg)+'</div>':'')+
+          (a.by?'<div class="lp-ann-by">— '+esc(a.by)+'</div>':'')+'</div>';
+      }).join('');
+    }).catch(function(){box.innerHTML='<div class="lp-ann-empty">Could not load announcements.</div>'});
+  };
+
+  function lpRefresh(){
+    if(!$('lpDash'))return;
+    lpInpatients();lpEr();lpLoadAnnouncements(false);
+    $('lpUpdated').textContent='Updated '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  }
+  window.lpRefresh=lpRefresh;
+
+  document.addEventListener('DOMContentLoaded',function(){
+    setTimeout(function(){
+      var f=window.showLanding;
+      if(typeof f==='function'&&!f._lpWrapped){var w=function(){var r=f.apply(this,arguments);lpRefresh();return r};w._lpWrapped=true;window.showLanding=w}
+      lpRefresh();
+    },50);
+  });
+  window.addEventListener('storage',function(e){if(e.key==='asmh_dh_v2')lpInpatients()});
 })();
 </script>
 </body>
