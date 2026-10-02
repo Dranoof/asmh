@@ -1643,6 +1643,19 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
   .dh-discharged-item { flex-wrap: wrap; }
 }
 </style>
+<style id="fillfix">
+/* Full-screen layout: trim gutters, edge-to-edge footer, full-width pages */
+main#mainContent{padding:16px 20px}
+main#mainContent:has(> #welcomeScreen:not([style*="none"])){padding:0}
+.welcome{min-height:100%;padding:40px 24px 0;overflow:visible;justify-content:flex-start}
+.welcome > :first-child{margin-top:auto}
+.welcome > footer{width:calc(100% + 48px) !important;margin:48px -24px 0 !important;align-self:stretch}
+.welcome > footer > div:first-child{max-width:none !important;padding:40px 32px 0 !important}
+.welcome > footer > div:last-child{margin:0 32px !important}
+.welcome > footer > div:last-child > div{max-width:none !important}
+#qlContent,#toolsContent{max-width:none !important;padding:20px 20px 40px !important}
+@media (max-width:500px){main#mainContent{padding:12px}}
+</style>
 </head>
 <body>
 
