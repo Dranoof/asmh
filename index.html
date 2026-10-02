@@ -1920,6 +1920,92 @@ main#mainContent:has(> #deptContent[style*="block"]){padding:0}
   .lp-qa-ic{width:32px;height:32px;font-size:16px}
 }
 </style>
+<style id="er-board-css">
+#erDashContent{height:calc(100vh - 108px) !important;overflow:hidden;margin:0 !important}
+main#mainContent:has(> #erDashContent[style*="flex"]){padding:0}
+.er-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid var(--border);background:var(--bg)}
+.er-title{font-size:17px;font-weight:800;color:var(--text);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.er-sub{font-size:12px;font-weight:600;color:var(--muted)}
+.er-tabs{display:flex;gap:3px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:3px}
+.er-tabs button{border:none;background:none;color:var(--muted);font:inherit;font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:7px;cursor:pointer}
+.er-tabs button.on{background:var(--bg);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.er-acts{display:flex;gap:8px;margin-left:auto}
+.er-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--border2);background:var(--card);color:var(--text2);border-radius:10px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:none}
+.er-btn:hover{border-color:var(--accent);color:var(--accent)}
+.er-body{flex:1;overflow-y:auto;padding:16px 20px 40px}
+.er-banner{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.35);color:var(--text2);border-radius:10px;padding:9px 12px;font-size:12.5px;margin-bottom:12px}
+.er-stats{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.er-stat{font-size:13px;color:var(--text2);margin-right:6px}
+.er-stat b{font-size:20px;color:var(--text);font-weight:800}
+.er-chip{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:99px;background:var(--bg3);color:var(--text2)}
+.er-chip b{margin-left:3px}
+.er-legend{display:flex;gap:12px;margin-left:auto;font-size:11.5px;color:var(--muted);flex-wrap:wrap}
+.er-legend span{display:inline-flex;align-items:center;gap:5px}
+.er-legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+i.z1,.er-card.z1::before{background:#dc2626}i.z2,.er-card.z2::before{background:#ea580c}i.z3,.er-card.z3::before{background:#d4a017}.er-card.z0::before{background:var(--border2)}
+.er-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.er-card{position:relative;display:flex;flex-direction:column;align-items:stretch;gap:6px;text-align:left;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px 12px 18px;font:inherit;color:inherit;cursor:pointer;overflow:hidden;min-height:150px;transition:border-color .15s,box-shadow .15s}
+.er-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px}
+.er-card:hover{border-color:var(--border2);box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.er-card-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.er-bed{font-size:13px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:var(--text)}
+.er-zone{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:99px}
+.z1 .er-zone{background:rgba(220,38,38,.12);color:#dc2626}.z2 .er-zone{background:rgba(234,88,12,.12);color:#ea580c}.z3 .er-zone{background:rgba(212,160,23,.16);color:#a16207}
+.er-card.vacant{background:var(--bg2);border-style:dashed}
+.er-vacant{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted);font-size:13px;font-weight:600}
+.er-vacant span{font-size:12px;color:var(--accent);opacity:0;transition:opacity .15s}
+.er-card.vacant:hover .er-vacant span{opacity:1}
+.er-pt{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-top:2px}
+.er-name{font-size:15px;font-weight:700;color:var(--text)}
+.er-meta{font-size:12px;color:var(--muted);margin-top:-4px}
+.er-dx{font-size:13px;font-weight:600;color:var(--text)}
+.er-dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:2px 0 0;font-size:12px}
+.er-dl dt{color:var(--muted)}
+.er-dl dd{margin:0;color:var(--text2);word-break:break-word}
+.er-dl em{font-style:normal;color:var(--muted)}
+.er-st{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:99px;white-space:nowrap;background:var(--bg3);color:var(--text2)}
+.st-admit{background:rgba(16,185,129,.14);color:#059669}.st-dc{background:rgba(99,102,241,.14);color:#4f46e5}.st-ref{background:rgba(59,130,246,.14);color:#2563eb}
+.st-wait{background:rgba(245,158,11,.16);color:#b45309}.st-dor{background:rgba(239,68,68,.12);color:#dc2626}.st-dead{background:#1f2937;color:#fff}
+.er-upd{font-size:11.5px;color:var(--muted);margin-top:14px}
+.er-empty{padding:60px 20px;text-align:center;color:var(--muted)}
+.er-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:16px}
+.er-modal-bg.open{display:flex}
+.er-modal{background:var(--card);border-radius:16px;width:100%;max-width:660px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.er-m-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;color:#fff;background:#6b7280}
+.er-m-hd.z1{background:#dc2626}.er-m-hd.z2{background:#ea580c}.er-m-hd.z3{background:#c99412}
+.er-m-bed{font-size:17px;font-weight:800}.er-m-zone{font-size:11.5px;opacity:.9;font-weight:600}
+.er-x{background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:14px}
+.er-m-body{padding:16px 18px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.er-m-body label{display:flex;flex-direction:column;gap:5px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.er-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.er-row3{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:12px}
+.er-in{font:inherit;font-size:13.5px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--text);background:var(--bg2);border:1px solid var(--border2);border-radius:9px;padding:9px 11px;outline:none;width:100%;box-sizing:border-box}
+.er-in:focus{border-color:var(--accent)}
+textarea.er-in{resize:vertical}
+.er-m-ft{display:flex;align-items:center;gap:8px;padding:12px 18px;border-top:1px solid var(--border)}
+.er-sp{flex:1}
+.er-b{font:inherit;font-size:13px;font-weight:600;padding:9px 16px;border-radius:10px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);cursor:pointer}
+.er-b-save{background:var(--accent);border-color:var(--accent);color:#fff}
+.er-b-save:disabled{opacity:.6}
+.er-b-dc{border-color:#4f46e5;color:#4f46e5;background:rgba(99,102,241,.08)}
+.er-rec-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.er-month{width:auto;min-width:170px}
+.er-search{flex:1 1 260px;max-width:420px}
+.er-search input{width:100%;box-sizing:border-box;font:inherit;font-size:13px;padding:9px 12px;border-radius:10px;border:1px solid var(--border2);background:var(--card);color:var(--text);outline:none}
+.er-rec-count{font-size:12px;color:var(--muted)}
+.er-tbl-wrap{overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--card);max-height:calc(100vh - 260px)}
+.er-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.er-tbl th{position:sticky;top:0;background:var(--bg2);text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:9px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
+.er-tbl td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.er-tbl td.b{font-weight:700;color:var(--text)}
+.er-tbl tbody tr:hover td{background:var(--bg2)}
+.er-toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:all .2s;z-index:2000}
+.er-toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:700px){
+  .er-top{padding:12px}.er-body{padding:12px 12px 32px}.er-acts{margin-left:0}.er-btn span{display:none}
+  .er-legend{margin-left:0}.er-grid{grid-template-columns:1fr}
+  .er-row2,.er-row3{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 
@@ -4896,6 +4982,232 @@ function showDisclaimer() {
     },50);
   });
   window.addEventListener('storage',function(e){if(e.key==='asmh_dh_v2')lpInpatients()});
+})();
+</script>
+<script id="er-board">
+// ===============================================================
+// ER HANDOVER BOARD — bed-based, colour-coded by zone, editable.
+// Reads/writes the shared "ER Handover" Google Sheet through an
+// Apps Script web app (ER_API). Without ER_API it is read-only.
+// ===============================================================
+(function(){
+  var ER_API='';   // ← Apps Script web-app URL (…/exec)
+  var SID='1QIrXpL3iukUIyy2fVTHVya9Fp_DegpLYAxsvGJ0GnOE';
+  var SHEET_URL='https://docs.google.com/spreadsheets/d/'+SID+'/edit';
+  var state={beds:[],options:{doctor:[],status:[],referral:[]},tab:'board',editRow:null,loading:false,month:null,q:''};
+  var timer=null;
+
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function toast(m){var t=$('erToast');if(!t)return;t.textContent=m;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('show')},2400)}
+  function zone(bed){var b=(bed||'').toLowerCase();if(/resus|\(r1\)/.test(b))return 1;if(/rec(ie|ei)v|\(r2\)/.test(b))return 2;if(/trauma|\(r3\)/.test(b))return 3;return 0}
+  var ZONE={1:{name:'Priority 1 · R1',cls:'z1'},2:{name:'Priority 2 · R2',cls:'z2'},3:{name:'Priority 3 · R3',cls:'z3'},0:{name:'',cls:'z0'}};
+  function parseDT(s){if(!s)return null;s=String(s).trim();var m=s.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{1,2}):(\d{2})/);if(m)return new Date(+m[1],+m[2]-1,+m[3],+m[4],+m[5]);m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2}))?/);if(m)return new Date(+m[3],+m[1]-1,+m[2],+(m[4]||0),+(m[5]||0));var g=s.match(/^Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+))?/);if(g)return new Date(+g[1],+g[2],+g[3],+(g[4]||0),+(g[5]||0));var d=new Date(s);return isNaN(d)?null:d}
+  function fmtDT(d){return d?d.toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):''}
+  function sheetDT(d){return (d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear()+' '+d.getHours()+':'+String(d.getMinutes()).padStart(2,'0')+':00'}
+  function localInput(d){d=new Date(d);d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)}
+  function since(d){if(!d)return'';var m=Math.max(0,Math.round((Date.now()-d)/60000));return m<60?m+' min':Math.floor(m/60)+' h '+(m%60)+' m'}
+  function occupied(b){return !!(b.name||b.id)}
+  function statusCls(s){s=(s||'').toLowerCase();if(/demis|death|dead/.test(s))return'st-dead';if(/admi/.test(s))return'st-admit';if(/dischar/.test(s))return'st-dc';if(/refer|transfer/.test(s))return'st-ref';if(/lab|pending|await|obs/.test(s))return'st-wait';if(/dor|lama|abscond/.test(s))return'st-dor';return s?'st-other':''}
+  function getPin(){var p='';try{p=localStorage.getItem('asmh_er_pin')||''}catch(e){}if(!p){p=prompt('Enter the ER staff PIN to save changes:')||'';if(p){try{localStorage.setItem('asmh_er_pin',p)}catch(e){}}}return p}
+
+  /* ---------- data ---------- */
+  function loadBoard(silent){
+    if(!silent){state.loading=true;render()}
+    var done=function(){state.loading=false;render()};
+    if(ER_API){
+      fetch(ER_API+'?action=board&t='+Date.now()).then(function(r){return r.json()}).then(function(j){
+        if(!j.ok)throw new Error(j.error);state.beds=j.beds;state.options=j.options||state.options;state.updated=new Date();done();
+      }).catch(function(){loadViaGviz(done)});
+    }else loadViaGviz(done);
+  }
+  function loadViaGviz(done){
+    if(typeof fetchSheet!=='function'){done();return}
+    fetchSheet(SID,'HANDOVER',null).then(function(data){
+      var rows=(data&&data.table&&data.table.rows)||[],beds=[],hdr=-1;
+      for(var i=0;i<Math.min(rows.length,8);i++){if((rows[i].c||[]).some(function(c){return c&&/bed no/i.test(String(c.v||''))})){hdr=i;break}}
+      var cell=function(r,i){var c=r.c&&r.c[i];if(!c||c.v==null)return'';return String(c.f!=null?c.f:c.v).trim()};
+      rows.slice(hdr+1).forEach(function(r,k){var bed=cell(r,1);if(!bed)return;
+        beds.push({row:5+k,bed:bed,arrival:cell(r,3),id:cell(r,4),name:cell(r,5),age:cell(r,6),dx:cell(r,7),doctor:cell(r,8),status:cell(r,9),referral:cell(r,10),remarks:cell(r,11),discharge:cell(r,12)})});
+      state.beds=beds;state.updated=new Date();done();
+    }).catch(function(){done();toast('Could not load ER sheet')});
+  }
+  function post(body,okMsg){
+    if(!ER_API){toast('Editing not set up yet');return Promise.reject()}
+    var pin=getPin();if(!pin)return Promise.reject();
+    body.pin=pin;
+    return fetch(ER_API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})
+      .then(function(r){return r.json()}).then(function(j){
+        if(!j.ok){if(/PIN/i.test(j.error||'')){try{localStorage.removeItem('asmh_er_pin')}catch(e){}}throw new Error(j.error||'Save failed')}
+        state.beds=j.beds;state.options=j.options||state.options;state.updated=new Date();render();toast(okMsg);return j;
+      }).catch(function(e){toast((e&&e.message)||'Save failed');throw e});
+  }
+
+  /* ---------- render ---------- */
+  function build(){
+    var el=$('erDashContent');if(!el||el.dataset.v2)return;el.dataset.v2='1';
+    el.innerHTML=
+      '<div class="er-top">'+
+        '<div class="er-title">🚨 ER Handover <span class="er-sub">Department of Emergency Medicine &amp; Trauma</span></div>'+
+        '<div class="er-tabs"><button id="erTabBoard" onclick="erdSwitchTab(\'active\')">Bed board</button><button id="erTabRec" onclick="erdSwitchTab(\'monthly\')">Records</button></div>'+
+        '<div class="er-acts">'+
+          '<button class="er-btn" onclick="erCopy()" title="Copy handover text">📋 <span>Copy</span></button>'+
+          '<button class="er-btn" onclick="erPrint()" title="Print handover sheet">🖨 <span>Print</span></button>'+
+          '<button class="er-btn" onclick="erRefresh()" title="Refresh">↻</button>'+
+          '<a class="er-btn" href="'+SHEET_URL+'" target="_blank" rel="noopener" title="Open Google Sheet">📄 <span>Sheet</span></a>'+
+        '</div>'+
+      '</div>'+
+      '<div class="er-body" id="erBody"></div>'+
+      '<div class="er-modal-bg" id="erModalBg" onclick="if(event.target===this)erClose()"><div class="er-modal" id="erModal"></div></div>'+
+      '<div class="er-toast" id="erToast"></div>';
+  }
+
+  function render(){
+    build();
+    $('erTabBoard').classList.toggle('on',state.tab==='board');
+    $('erTabRec').classList.toggle('on',state.tab==='records');
+    if(state.tab==='board')renderBoard();else renderRecords();
+  }
+
+  function renderBoard(){
+    var body=$('erBody'),beds=state.beds;
+    if(!beds.length){body.innerHTML='<div class="er-empty">'+(state.loading?'⏳ Loading ER board…':'No beds found in the HANDOVER sheet.')+'</div>';return}
+    var occ=beds.filter(occupied),counts={};
+    occ.forEach(function(b){var s=b.status||'No status';counts[s]=(counts[s]||0)+1});
+    var stats='<div class="er-stats"><div class="er-stat"><b>'+occ.length+'</b>/'+beds.length+' beds occupied</div>'+
+      Object.keys(counts).map(function(k){return '<span class="er-chip '+statusCls(k)+'">'+esc(k)+' <b>'+counts[k]+'</b></span>'}).join('')+
+      '<div class="er-legend"><span><i class="z1"></i>P1 · RESUS / R1</span><span><i class="z2"></i>P2 · Receiving / R2</span><span><i class="z3"></i>P3 · Trauma / R3</span></div></div>';
+    var banner=ER_API?'':'<div class="er-banner">👁 View only — editing from the portal isn\'t switched on yet. Use the 📄 Sheet button to edit.</div>';
+    var upd=state.updated?'<div class="er-upd">Updated '+state.updated.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+' · refreshes every minute</div>':'';
+    body.innerHTML=banner+stats+'<div class="er-grid">'+beds.map(card).join('')+'</div>'+upd;
+  }
+
+  function card(b){
+    var z=ZONE[zone(b.bed)],o=occupied(b),arr=parseDT(b.arrival);
+    var head='<div class="er-card-hd"><span class="er-bed">'+esc(b.bed)+'</span>'+(z.name?'<span class="er-zone">'+z.name+'</span>':'')+'</div>';
+    if(!o)return '<button class="er-card '+z.cls+' vacant" onclick="erEdit('+b.row+')">'+head+'<div class="er-vacant">Vacant<span>＋ Add patient</span></div></button>';
+    return '<button class="er-card '+z.cls+'" onclick="erEdit('+b.row+')">'+head+
+      '<div class="er-pt"><div class="er-name">'+esc(b.name||'—')+'</div>'+(b.status?'<span class="er-st '+statusCls(b.status)+'">'+esc(b.status)+'</span>':'')+'</div>'+
+      '<div class="er-meta">'+esc([b.age,b.id].filter(Boolean).join(' · '))+'</div>'+
+      (b.dx?'<div class="er-dx">'+esc(b.dx)+'</div>':'')+
+      '<dl class="er-dl">'+
+        (arr?'<dt>Arrived</dt><dd>'+fmtDT(arr)+' <em>('+since(arr)+')</em></dd>':(b.arrival?'<dt>Arrived</dt><dd>'+esc(b.arrival)+'</dd>':''))+
+        (b.doctor?'<dt>Doctor</dt><dd>'+esc(b.doctor)+'</dd>':'')+
+        (b.referral?'<dt>Referral</dt><dd>'+esc(b.referral)+'</dd>':'')+
+        (b.remarks?'<dt>Remarks</dt><dd>'+esc(b.remarks)+'</dd>':'')+
+      '</dl></button>';
+  }
+
+  /* ---------- edit modal ---------- */
+  function sel(id,opts,val){
+    var has=opts.indexOf(val)!==-1;
+    return '<select class="er-in" id="'+id+'"><option value="">—</option>'+opts.map(function(o){return '<option'+(o===val?' selected':'')+'>'+esc(o)+'</option>'}).join('')+(val&&!has?'<option selected>'+esc(val)+'</option>':'')+'</select>';
+  }
+  function inp(id,val,ph){return '<input class="er-in" id="'+id+'" value="'+esc(val)+'" placeholder="'+esc(ph||'')+'" autocomplete="off">'}
+  function dlist(id,opts){return '<datalist id="'+id+'">'+opts.map(function(o){return '<option value="'+esc(o)+'">'}).join('')+'</datalist>'}
+
+  window.erEdit=function(row){
+    var b=state.beds.filter(function(x){return x.row===row})[0];if(!b)return;
+    state.editRow=row;var o=occupied(b),z=ZONE[zone(b.bed)],arr=parseDT(b.arrival)||new Date(),ro=!ER_API;
+    var opt=state.options;
+    $('erModal').innerHTML=
+      '<div class="er-m-hd '+z.cls+'"><div><div class="er-m-bed">'+esc(b.bed)+'</div><div class="er-m-zone">'+(z.name||'')+'</div></div><button class="er-x" onclick="erClose()">✕</button></div>'+
+      '<div class="er-m-body">'+
+        (ro?'<div class="er-banner">👁 View only — editing isn\'t switched on yet.</div>':'')+
+        '<div class="er-row2"><label>Arrival date &amp; time<input class="er-in" id="erArr" type="datetime-local" value="'+localInput(arr)+'"></label><label>ID Card No'+inp('erId',b.id,'e.g. A123456')+'</label></div>'+
+        '<div class="er-row2"><label>Patient name *'+inp('erName',b.name,'Full name')+'</label><label>Age / Gender'+inp('erAge',b.age,'e.g. 34 y / M')+'</label></div>'+
+        '<label>Working diagnosis'+inp('erDx',b.dx,'e.g. Acute gastroenteritis')+'</label>'+
+        '<div class="er-row3"><label>Attending doctor<input class="er-in" id="erDoc" list="erDocList" value="'+esc(b.doctor)+'" placeholder="Dr. …" autocomplete="off">'+dlist('erDocList',opt.doctor||[])+'</label>'+
+        '<label>Status'+(opt.status&&opt.status.length?sel('erSt',opt.status,b.status):inp('erSt',b.status,'e.g. Labs pending'))+'</label>'+
+        '<label>Referral'+(opt.referral&&opt.referral.length?sel('erRef',opt.referral,b.referral):inp('erRef',b.referral,'e.g. Surgery'))+'</label></div>'+
+        '<label>Remarks / handover notes<textarea class="er-in" id="erRem" rows="3" placeholder="Plan, pending results, things for next shift…">'+esc(b.remarks)+'</textarea></label>'+
+      '</div>'+
+      '<div class="er-m-ft">'+
+        (o&&!ro?'<button class="er-b er-b-dc" onclick="erDischarge()" title="Log this patient to the monthly record and free the bed">⇥ Move out &amp; log</button>':'')+
+        '<span class="er-sp"></span><button class="er-b" onclick="erClose()">Cancel</button>'+
+        (ro?'':'<button class="er-b er-b-save" id="erSaveBtn" onclick="erSave()">'+(o?'Save changes':'Add patient')+'</button>')+
+      '</div>';
+    $('erModalBg').classList.add('open');
+    setTimeout(function(){var f=$(o?'erRem':'erName');if(f)f.focus()},60);
+  };
+  window.erClose=function(){$('erModalBg').classList.remove('open');state.editRow=null};
+  function fields(){
+    var a=$('erArr').value;
+    return {arrival:a?sheetDT(new Date(a)):'',id:$('erId').value.trim(),name:$('erName').value.trim(),age:$('erAge').value.trim(),dx:$('erDx').value.trim(),
+      doctor:$('erDoc').value.trim(),status:$('erSt').value.trim(),referral:$('erRef').value.trim(),remarks:$('erRem').value.trim()};
+  }
+  window.erSave=function(){
+    var f=fields();if(!f.name&&!f.id){$('erName').focus();toast('Enter the patient name or ID');return}
+    var btn=$('erSaveBtn');btn.disabled=true;btn.textContent='Saving…';
+    post({action:'save',row:state.editRow,fields:f},'Saved to ER sheet').then(erClose,function(){btn.disabled=false;btn.textContent='Retry save'});
+  };
+  window.erDischarge=function(){
+    var f=fields();
+    if(!f.status){toast('Choose the final status first (e.g. Admission, Discharged, Referred)');$('erSt').focus();return}
+    if(!confirm('Move '+(f.name||'this patient')+' out of the bed?\n\nTheir record will be logged to the '+new Date().toLocaleString('en-GB',{month:'long',year:'numeric'})+' sheet and the bed will be cleared.'))return;
+    f.discharge=sheetDT(new Date());
+    post({action:'discharge',row:state.editRow,fields:f},'Logged to monthly record · bed cleared').then(erClose,function(){});
+  };
+  document.addEventListener('keydown',function(e){var m=$('erModalBg');if(!m||!m.classList.contains('open'))return;if(e.key==='Escape')erClose();if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)&&$('erSaveBtn'))erSave()});
+
+  /* ---------- records (monthly tabs) ---------- */
+  function monthNames(){var a=[],d=new Date();d.setDate(1);for(var i=0;i<12;i++){a.push(d.toLocaleString('en-GB',{month:'long',year:'numeric'}));d.setMonth(d.getMonth()-1)}return a}
+  function renderRecords(){
+    var body=$('erBody');if(!state.month)state.month=monthNames()[0];
+    body.innerHTML='<div class="er-rec-bar"><select class="er-in er-month" id="erMonth" onchange="erSetMonth(this.value)">'+monthNames().map(function(m){return '<option'+(m===state.month?' selected':'')+'>'+m+'</option>'}).join('')+'</select>'+
+      '<div class="er-search"><input id="erRecQ" placeholder="Search name, ID, diagnosis, doctor…" value="'+esc(state.q)+'" oninput="erRecFilter(this.value)"></div><span class="er-rec-count" id="erRecCount"></span></div><div id="erRecWrap"><div class="er-empty">⏳ Loading records…</div></div>';
+    if(typeof fetchSheet!=='function')return;
+    var month=state.month;
+    fetchSheet(SID,month,null).then(function(data){
+      if(month!==state.month)return;
+      var rows=(data&&data.table&&data.table.rows)||[];
+      var isHandover=rows.slice(0,8).some(function(r){return (r.c||[]).some(function(c){return c&&/bed no/i.test(String(c.v||''))})});
+      if(isHandover){$('erRecWrap').innerHTML='<div class="er-empty">No record sheet for '+esc(month)+'.</div>';$('erRecCount').textContent='';return}
+      var cell=function(r,i){var c=r.c&&r.c[i];if(!c||c.v==null)return'';return String(c.f!=null?c.f:c.v).trim()};
+      state.recRows=rows.filter(function(r){return cell(r,4)||cell(r,3)}).map(function(r){return [1,2,3,4,5,6,7,8,9,10,11,12].map(function(i){return cell(r,i)})}).filter(function(r){return !/patient name/i.test(r[3])});
+      drawRecords();
+    }).catch(function(){$('erRecWrap').innerHTML='<div class="er-empty">Could not load records.</div>'});
+  }
+  function drawRecords(){
+    var q=state.q.toLowerCase(),rows=(state.recRows||[]).filter(function(r){return !q||r.join(' ').toLowerCase().indexOf(q)!==-1});
+    $('erRecCount').textContent=rows.length+' record'+(rows.length===1?'':'s');
+    if(!rows.length){$('erRecWrap').innerHTML='<div class="er-empty">No matching records.</div>';return}
+    $('erRecWrap').innerHTML='<div class="er-tbl-wrap"><table class="er-tbl"><thead><tr><th>#</th><th>Arrival</th><th>ID Card No</th><th>Patient</th><th>Age</th><th>Sex</th><th>Diagnosis</th><th>Doctor</th><th>Status</th><th>Referral</th><th>Remarks</th><th>Discharge</th></tr></thead><tbody>'+
+      rows.slice().reverse().map(function(r){return '<tr>'+r.map(function(v,i){return i===8?'<td>'+(v?'<span class="er-st '+statusCls(v)+'">'+esc(v)+'</span>':'')+'</td>':'<td'+(i===3?' class="b"':'')+'>'+esc(v)+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>';
+  }
+  window.erSetMonth=function(m){state.month=m;renderRecords()};
+  window.erRecFilter=function(v){state.q=v;drawRecords()};
+
+  /* ---------- copy / print ---------- */
+  function occBeds(){return state.beds.filter(occupied)}
+  window.erCopy=function(){
+    var b=occBeds();if(!b.length){toast('No patients on the board');return}
+    var t=['*ER Handover — '+new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})+'*',''];
+    b.forEach(function(x){var a=parseDT(x.arrival);
+      t.push('*'+x.bed+'* — '+(x.name||'')+(x.age?' ('+x.age+')':'')+(x.id?' · '+x.id:''));
+      if(x.dx)t.push('Dx: '+x.dx);
+      t.push([x.status&&('Status: '+x.status),x.doctor&&('Dr: '+x.doctor.replace(/^Dr\.?\s*/i,'')),a&&('In ER '+since(a))].filter(Boolean).join(' · '));
+      if(x.referral)t.push('Referral: '+x.referral);if(x.remarks)t.push('Remarks: '+x.remarks);t.push('')});
+    var txt=t.join('\n').trim();
+    (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){toast('Handover copied — paste into chat')},function(){prompt('Copy the handover:',txt)});
+  };
+  window.erPrint=function(){
+    var rows=state.beds.map(function(x){var a=parseDT(x.arrival),z=zone(x.bed);
+      return '<tr class="z'+z+'"><td class="bed">'+esc(x.bed)+'</td><td>'+(a?fmtDT(a):esc(x.arrival))+'</td><td>'+esc(x.id)+'</td><td><b>'+esc(x.name)+'</b></td><td>'+esc(x.age)+'</td><td>'+esc(x.dx)+'</td><td>'+esc(x.doctor)+'</td><td>'+esc(x.status)+'</td><td>'+esc(x.referral)+'</td><td>'+esc(x.remarks)+'</td></tr>'}).join('');
+    var w=window.open('','_blank');if(!w){toast('Allow pop-ups to print');return}
+    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>ER Handover</title><style>body{font:11.5px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;margin:16px}h1{font-size:17px;margin:0 0 2px}p{margin:0 0 10px;color:#555}table{width:100%;border-collapse:collapse}th,td{border:1px solid #999;padding:5px 6px;text-align:left;vertical-align:top}th{background:#f4d7dc}td.bed{font-weight:700;white-space:nowrap}tr.z1 td.bed{background:#f8c9c9}tr.z2 td.bed{background:#fcdcc0}tr.z3 td.bed{background:#fdf0c2}</style></head><body><h1>Department of Emergency Medicine &amp; Trauma — Handover</h1><p>'+new Date().toLocaleString('en-GB')+'</p><table><thead><tr><th>Bed</th><th>Arrival</th><th>ID</th><th>Patient</th><th>Age/Sex</th><th>Diagnosis</th><th>Doctor</th><th>Status</th><th>Referral</th><th>Remarks</th></tr></thead><tbody>'+rows+'</tbody></table><script>onload=function(){print()}<\/script></body></html>');
+    w.document.close();
+  };
+
+  /* ---------- hooks into existing navigation ---------- */
+  window.erRefresh=function(){if(state.tab==='board')loadBoard(false);else renderRecords()};
+  window.erdSwitchTab=function(tab){
+    build();state.tab=(tab==='monthly')?'records':'board';render();
+    if(state.tab==='board')loadBoard(state.beds.length>0);
+    clearInterval(timer);
+    timer=setInterval(function(){var el=$('erDashContent');if(!el||el.style.display==='none'){clearInterval(timer);return}if(state.tab==='board'&&!$('erModalBg').classList.contains('open'))loadBoard(true)},60000);
+  };
+  window.erdChangeMonth=function(){};
 })();
 </script>
 </body>
