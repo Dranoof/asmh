@@ -1866,6 +1866,59 @@ main#mainContent:has(> #deptContent[style*="block"]){padding:0}
 @media (max-width:980px){.lp-dash{grid-template-columns:1fr}.lp-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.lp-ann{max-height:none}}
 @media (max-width:420px){.lp-tile-num{font-size:24px}.lp-bar-row{grid-template-columns:96px minmax(0,1fr) auto}}
 </style>
+<style id="landing-layout-v2">
+/* ── Landing layout v2 ── */
+.welcome{align-items:stretch !important;justify-content:flex-start !important;text-align:left !important;padding:24px 32px 0 !important}
+.welcome::before{left:-80px !important;top:-160px !important}
+.welcome::after{left:30% !important;top:-120px !important}
+.welcome > footer{width:calc(100% + 64px) !important;margin:40px -32px 0 !important}
+.welcome > :first-child{margin-top:0 !important}
+.lp-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px 32px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.lp-hero-l .ws-logo-wrap{align-items:flex-start;margin-bottom:18px;gap:0}
+.lp-hero-l .ws-brand-row{justify-content:flex-start;gap:22px}
+.lp-hero-l .ws-logo{width:auto}
+.lp-hero-l .ws-logo-img{width:96px}
+.lp-hero-l .ws-brand-sep{height:72px}
+.lp-hero-l .cp-hero{font-size:36px}
+.lp-hero-l .ws-title{font-size:32px;text-align:left;margin-bottom:8px}
+.lp-hero-l .ws-title br{display:none}
+.lp-hero-l .ws-title span{margin-left:.25em}
+.lp-hero-l .ws-subtitle{max-width:520px;margin:0 0 18px;text-align:left}
+.lp-hero-l .ws-search-hint{margin-bottom:0;background:var(--bg2)}
+.lp-qa-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.lp-qa{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.lp-qa-btn{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font:inherit;cursor:pointer;transition:border-color .15s,transform .1s,background .15s}
+.lp-qa-btn:hover{border-color:var(--accent);background:var(--card);transform:translateY(-1px)}
+.lp-qa-ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.lp-qa-btn b{display:block;font-size:13.5px;font-weight:700}
+.lp-qa-btn small{display:block;font-size:11.5px;color:var(--muted);margin-top:1px}
+.lp-dash{display:block !important;max-width:none !important;margin:28px 0 0 !important}
+.lp-head{margin-bottom:12px}
+.lp-head h2{font-size:16px}
+.lp-tiles{margin-bottom:16px}
+.lp-tile{padding:16px 18px}
+.lp-row{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px;align-items:stretch}
+.lp-row .lp-card{display:flex;flex-direction:column;min-height:180px}
+.lp-row #lpDeptBars{flex:1}
+.lp-row .lp-note{margin:12px 0 0;padding-top:10px;border-top:1px solid var(--border);font-size:11px !important}
+.lp-ann{max-height:340px}
+@media (max-width:1100px){.lp-hero{grid-template-columns:1fr;gap:24px}}
+@media (max-width:980px){.lp-row{grid-template-columns:1fr}}
+@media (max-width:600px){
+  .welcome{padding:14px 12px 0 !important}
+  .welcome > footer{width:calc(100% + 24px) !important;margin:32px -12px 0 !important}
+  .lp-hero{padding:20px 16px;border-radius:16px}
+  .lp-hero-l .ws-brand-row{gap:14px;flex-wrap:nowrap}
+  .lp-hero-l .ws-logo-img{width:64px}
+  .lp-hero-l .ws-brand-sep{height:52px}
+  .lp-hero-l .cp-hero{font-size:26px}
+  .lp-hero-l .ws-title{font-size:24px}
+  .lp-qa{grid-template-columns:1fr 1fr}
+  .lp-qa-btn{padding:10px;gap:8px}
+  .lp-qa-btn small{display:none}
+  .lp-qa-ic{width:32px;height:32px;font-size:16px}
+}
+</style>
 </head>
 <body>
 
@@ -1942,6 +1995,7 @@ main#mainContent:has(> #deptContent[style*="block"]){padding:0}
   
 
   <main id="mainContent">    <div class="welcome" id="welcomeScreen">
+      <div class="lp-hero"><div class="lp-hero-l">
       <div class="ws-logo-wrap">
 
         <div class="ws-brand-row">
@@ -1953,40 +2007,53 @@ main#mainContent:has(> #deptContent[style*="block"]){padding:0}
       <div class="ws-title">One Portal. One Team.<br><span>Better Care.</span></div>
       <p class="ws-subtitle">Access patient handovers, clinical resources, hospital announcements, and essential tools designed to support safe and efficient healthcare delivery.</p>
       <div class="ws-search-hint" onclick="document.getElementById('searchInput').focus()">&#x1F50D; Search any drug, class or condition &nbsp;<kbd>/</kbd></div>
+      </div>
+      <div class="lp-hero-r">
+        <div class="lp-qa-title">Quick access</div>
+        <div class="lp-qa">
+          <button class="lp-qa-btn" onclick="showERDashboard()"><span class="lp-qa-ic" style="background:rgba(239,68,68,.12)">🚨</span><span><b>ER Handover</b><small>Live ER board</small></span></button>
+          <button class="lp-qa-btn" onclick="showDeptHandover()"><span class="lp-qa-ic" style="background:rgba(13,148,136,.12)">🏥</span><span><b>Dept Handover</b><small>Inpatients by department</small></span></button>
+          <button class="lp-qa-btn" onclick="showQuickLinks()"><span class="lp-qa-ic" style="background:rgba(99,102,241,.12)">🔗</span><span><b>Quick Links</b><small>Portals &amp; references</small></span></button>
+          <button class="lp-qa-btn" onclick="showStickyNotes()"><span class="lp-qa-ic" style="background:rgba(245,158,11,.14)">📝</span><span><b>Sticky Notes</b><small>Templates &amp; notes</small></span></button>
+          <button class="lp-qa-btn" onclick="showToolsSection()"><span class="lp-qa-ic" style="background:rgba(59,130,246,.12)">🛠️</span><span><b>Tools</b><small>Clinical calculators</small></span></button>
+          <button class="lp-qa-btn" onclick="showOurTeam()"><span class="lp-qa-ic" style="background:rgba(5,85,122,.12)">👩‍⚕️</span><span><b>Our Team</b><small>Doctors directory</small></span></button>
+        </div>
+      </div>
+      </div>
       <section class="lp-dash" id="lpDash">
-        <div class="lp-main">
-          <div class="lp-head"><h2>Today at ASMH</h2><span class="lp-updated" id="lpUpdated"></span></div>
-          <div class="lp-tiles">
-            <button class="lp-tile" onclick="showERDashboard()" title="Open ER Handover">
-              <span class="lp-tile-lbl">🚨 In ER now</span>
-              <span class="lp-tile-num" id="lpErNow">–</span>
-              <span class="lp-tile-sub" id="lpErSub">Live from ER handover sheet</span>
-            </button>
-            <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
-              <span class="lp-tile-lbl">🛏️ Inpatients</span>
-              <span class="lp-tile-num" id="lpInNow">0</span>
-              <span class="lp-tile-sub" id="lpInSub">No patients admitted</span>
-            </button>
-            <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
-              <span class="lp-tile-lbl">⚠️ Need attention</span>
-              <span class="lp-tile-num" id="lpAttn">0</span>
-              <span class="lp-tile-sub" id="lpAttnSub"><i class="lp-dot lp-crit"></i>0 critical · <i class="lp-dot lp-guard"></i>0 guarded</span>
-            </button>
-            <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
-              <span class="lp-tile-lbl">➕ Admitted · 24 h</span>
-              <span class="lp-tile-num" id="lpAdm24">0</span>
-              <span class="lp-tile-sub" id="lpDc7">0 discharged in last 7 days</span>
-            </button>
-          </div>
+        <div class="lp-head"><h2>Today at ASMH</h2><span class="lp-updated" id="lpUpdated"></span></div>
+        <div class="lp-tiles">
+          <button class="lp-tile" onclick="showERDashboard()" title="Open ER Handover">
+            <span class="lp-tile-lbl">🚨 In ER now</span>
+            <span class="lp-tile-num" id="lpErNow">–</span>
+            <span class="lp-tile-sub" id="lpErSub">Live from ER handover sheet</span>
+          </button>
+          <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
+            <span class="lp-tile-lbl">🛏️ Inpatients</span>
+            <span class="lp-tile-num" id="lpInNow">0</span>
+            <span class="lp-tile-sub" id="lpInSub">No patients admitted</span>
+          </button>
+          <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
+            <span class="lp-tile-lbl">⚠️ Need attention</span>
+            <span class="lp-tile-num" id="lpAttn">0</span>
+            <span class="lp-tile-sub" id="lpAttnSub"><i class="lp-dot lp-crit"></i>0 critical · <i class="lp-dot lp-guard"></i>0 guarded</span>
+          </button>
+          <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
+            <span class="lp-tile-lbl">➕ Admitted · 24 h</span>
+            <span class="lp-tile-num" id="lpAdm24">0</span>
+            <span class="lp-tile-sub" id="lpDc7">0 discharged in last 7 days</span>
+          </button>
+        </div>
+        <div class="lp-row">
           <div class="lp-card">
             <div class="lp-card-hdr"><h3>Inpatients by department</h3><button class="lp-link" onclick="showDeptHandover()">Open handover →</button></div>
             <div id="lpDeptBars"></div>
+            <p class="lp-note">Inpatient figures come from Dept Handover on this device. ER figures are shared and live.</p>
           </div>
-          <p class="lp-note">Inpatient figures come from Dept Handover on this device. ER figures are shared and live.</p>
-        </div>
-        <div class="lp-card lp-ann">
-          <div class="lp-card-hdr"><h3>📢 Announcements</h3><button class="lp-link" onclick="lpLoadAnnouncements(true)" title="Refresh">↻</button></div>
-          <div id="lpAnnList"><div class="lp-ann-empty">Loading…</div></div>
+          <div class="lp-card lp-ann">
+            <div class="lp-card-hdr"><h3>📢 Announcements</h3><button class="lp-link" onclick="lpLoadAnnouncements(true)" title="Refresh">↻</button></div>
+            <div id="lpAnnList"><div class="lp-ann-empty">Loading…</div></div>
+          </div>
         </div>
       </section>
       
