@@ -1673,6 +1673,123 @@ main#mainContent:has(> #welcomeScreen:not([style*="none"])){padding:0}
 @media (max-width:600px){.cp-hero{font-size:42px}.ws-brand-sep{height:84px}.ws-brand-row{gap:18px}.cp-hdr{font-size:16px}}
 @media (max-width:420px){.cp-hdr,.logo-sep{display:none !important}}
 </style>
+<style id="dh-v3">
+/* ── Dept Handover v3 ── */
+#deptContent[style*="block"]{display:flex !important}
+main#mainContent:has(> #deptContent[style*="block"]){padding:0}
+.dh-sidebar{display:flex;flex-direction:column}
+.dh-dept-list{flex:1}
+.dh-dept-all{font-weight:700}
+.dh-dept-all + .dh-dept-btn{margin-top:6px}
+.dh-side-foot{padding:12px 14px 16px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:4px}
+.dh-side-note{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:4px}
+.dh-side-link{background:none;border:none;text-align:left;padding:5px 0;font:inherit;font-size:12.5px;color:var(--text2);cursor:pointer}
+.dh-side-link:hover{color:var(--accent)}
+.dh-topbar{flex-wrap:wrap;padding:14px 20px}
+.dh-top-actions{display:flex;gap:8px;align-items:center}
+.dh-tool-btn{display:flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--border2);background:var(--card);color:var(--text2);border-radius:10px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
+.dh-tool-btn:hover{border-color:var(--accent);color:var(--accent)}
+.dh-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 20px;border-bottom:1px solid var(--border);background:var(--bg)}
+.dh-search{display:flex;align-items:center;gap:8px;flex:1 1 240px;max-width:360px;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:0 10px;color:var(--muted)}
+.dh-search input{flex:1;border:none;background:transparent;color:var(--text);font:inherit;font-size:13px;padding:8px 0;outline:none;min-width:0}
+.dh-search:focus-within{border-color:var(--accent)}
+.dh-chips{display:flex;gap:6px;flex-wrap:wrap}
+.dh-chip{display:flex;align-items:center;gap:6px;padding:6px 11px;border-radius:99px;border:1px solid var(--border2);background:var(--card);color:var(--text2);font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+.dh-chip b{font-weight:700;color:var(--muted)}
+.dh-chip i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dh-chip.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.dh-chip.on b{color:inherit;opacity:.75}
+.dh-chip-critical i{background:#ef4444}.dh-chip-guarded i{background:#f59e0b}.dh-chip-improving i{background:#3b82f6}.dh-chip-stable i{background:#22c55e}
+.dh-toolbar-right{display:flex;gap:8px;margin-left:auto;align-items:center}
+.dh-sort{padding:7px 10px;border-radius:10px;border:1px solid var(--border2);background:var(--card);color:var(--text);font:inherit;font-size:12.5px;cursor:pointer}
+.dh-seg{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:3px}
+.dh-seg button{border:none;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px;cursor:pointer}
+.dh-seg button.on{background:var(--bg);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.dh-view{padding:16px 20px 40px}
+.dh-group-hdr{display:flex;align-items:center;gap:10px;margin:18px 0 10px;font-size:13px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.04em}
+.dh-group-hdr:first-child{margin-top:0}
+.dh-group-hdr b{font-size:11px;padding:2px 8px;border-radius:99px;background:var(--bg3);color:var(--muted)}
+.dh-group-open{margin-left:auto;background:none;border:none;color:var(--accent);font:inherit;font-size:12px;font-weight:600;cursor:pointer;text-transform:none;letter-spacing:0}
+.dh-patient-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.dh-patient-card{padding:14px 16px 12px;gap:9px}
+.dh-patient-card::before{width:4px}
+.dh-card-top{display:flex;align-items:flex-start;gap:10px}
+.dh-bed-badge{flex-shrink:0;min-width:52px;text-align:center;padding:7px 8px;border-radius:10px;background:var(--bg3);color:var(--text);font-weight:800;font-size:13px;line-height:1.1}
+.dh-bed-badge.empty{font-size:10px;font-weight:600;color:var(--muted)}
+.dh-card-id{flex:1;min-width:0}
+.dh-card-name{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dh-card-mrn{font-size:12px;color:var(--muted);margin-top:2px}
+.dh-status-pill{border:none;cursor:pointer;font:inherit;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:4px 9px;border-radius:99px;white-space:nowrap}
+.dh-status-pill:hover{filter:brightness(1.1);box-shadow:0 0 0 2px currentColor inset}
+.dh-card-diag{font-size:13.5px;font-weight:600;color:var(--text);padding:0;background:none;border:none}
+.dh-card-soap{font-size:12.5px;color:var(--text2);line-height:1.5;max-height:4.6em;overflow:hidden;position:relative}
+.dh-patient-card.expanded .dh-card-soap{max-height:none}
+.dh-soap-row{display:flex;gap:8px}
+.dh-soap-row b{color:var(--accent);flex-shrink:0;width:12px}
+.dh-soap-row span{white-space:pre-wrap;word-break:break-word}
+.dh-more{align-self:flex-start;background:none;border:none;padding:0;color:var(--accent);font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+.dh-card-nosoap{font-size:12px;color:var(--muted);font-style:italic}
+.dh-card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--border);padding-top:9px;margin-top:2px}
+.dh-card-meta2{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);min-width:0;overflow:hidden;white-space:nowrap}
+.dh-card-acts{display:flex;gap:4px;flex-shrink:0}
+.dh-icon-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;font-size:13px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.dh-icon-btn:hover{border-color:var(--accent);background:var(--bg3)}
+.dh-icon-dc:hover{border-color:#22c55e}.dh-icon-del:hover{border-color:#ef4444}
+.dh-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;background:var(--card)}
+.dh-table{width:100%;border-collapse:collapse;font-size:13px}
+.dh-table th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;padding:10px 12px;border-bottom:1px solid var(--border);background:var(--bg2)}
+.dh-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text)}
+.dh-table tr:last-child td{border-bottom:none}
+.dh-table tbody tr:hover td{background:var(--bg2)}
+.dh-table .nowrap{white-space:nowrap}
+.dh-t-name{font-weight:700}
+.dh-t-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.dh-t-remarks{max-width:260px;color:var(--text2)}
+.dh-t-acts .dh-icon-btn{width:28px;height:28px}
+.dh-row-critical td:first-child{box-shadow:inset 4px 0 #ef4444}.dh-row-guarded td:first-child{box-shadow:inset 4px 0 #f59e0b}
+.dh-row-improving td:first-child{box-shadow:inset 4px 0 #3b82f6}.dh-row-stable td:first-child{box-shadow:inset 4px 0 #22c55e}
+.dh-mini-btn{border:1px solid var(--border2);background:var(--bg2);color:var(--text2);border-radius:8px;padding:5px 10px;font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+.dh-mini-btn:hover{border-color:var(--accent);color:var(--accent)}
+.dh-discharged-list .dh-table-wrap{margin-bottom:8px}
+.dh-inline2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dh-status-pick{display:flex;gap:6px;flex-wrap:wrap}
+.dh-spick{flex:1;min-width:70px;padding:8px 6px;border-radius:9px;border:1.5px solid var(--border2);background:var(--bg2);color:var(--text2);font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+.dh-spick.on.dh-spick-critical{border-color:#ef4444;background:rgba(239,68,68,.12);color:#ef4444}
+.dh-spick.on.dh-spick-guarded{border-color:#f59e0b;background:rgba(245,158,11,.12);color:#d97706}
+.dh-spick.on.dh-spick-improving{border-color:#3b82f6;background:rgba(59,130,246,.12);color:#3b82f6}
+.dh-spick.on.dh-spick-stable{border-color:#22c55e;background:rgba(34,197,94,.12);color:#16a34a}
+.dh-soap-hdr{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);border-top:1px solid var(--border);padding-top:14px;margin-top:2px}
+.dh-modal{max-width:640px}
+.dh-modal-footer{align-items:center}
+.dh-kbd-hint{margin-right:auto;font-size:11.5px;color:var(--muted)}
+.dh-toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:all .2s;z-index:2000}
+.dh-toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:760px){
+  .dh-wrap{flex-direction:column}
+  .dh-sidebar{position:static !important;transform:none !important;height:auto !important;max-height:none !important;box-shadow:none !important;z-index:auto !important;width:100% !important;min-width:0 !important;border-right:none;border-bottom:1px solid var(--border);overflow:visible;flex-shrink:0}
+  .dh-dept-label,.dh-dept-count{display:inline !important}
+  .dh-dept-emoji{font-size:14px !important}
+  .dh-sidebar-header,.dh-side-note{display:none}
+  .dh-dept-list{display:flex;flex-direction:row;overflow-x:auto;gap:6px;padding:8px 12px}
+  .dh-dept-btn{flex-shrink:0;width:auto !important;white-space:nowrap;border-radius:99px;border:1px solid var(--border2);padding:6px 12px !important;justify-content:flex-start !important;gap:6px}
+  .dh-dept-btn.active{border-color:var(--accent)}
+  .dh-dept-btn.active::before{display:none}
+  .dh-dept-all + .dh-dept-btn{margin-top:0}
+  .dh-side-foot{flex-direction:row;gap:14px;padding:4px 14px 8px;border-top:none}
+  .dh-topbar{padding:12px}
+  .dh-topbar-left{flex-direction:row !important;flex-wrap:wrap;align-items:center !important;gap:10px;flex-basis:100%}
+  .dh-top-actions{width:100%}
+  .dh-top-actions .dh-add-btn{margin-left:auto}
+  .dh-tool-btn span{display:none}
+  .dh-toolbar{padding:8px 12px}
+  .dh-search{max-width:none;flex-basis:100%}
+  .dh-toolbar-right{margin-left:0}
+  .dh-view{padding:12px}
+  .dh-patient-grid{grid-template-columns:1fr}
+  .dh-form-row{grid-template-columns:1fr}
+  .dh-kbd-hint{display:none}
+}
+</style>
 </head>
 <body>
 
@@ -1915,21 +2032,23 @@ main#mainContent:has(> #welcomeScreen:not([style*="none"])){padding:0}
       <span class="dh-sidebar-icon">🏥</span>
       <span class="dh-sidebar-title">Departments</span>
     </div>
-    <nav class="dh-dept-list" id="dhDeptList">
-      <!-- Generated by JS -->
-    </nav>
+    <nav class="dh-dept-list" id="dhDeptList"></nav>
+    <div class="dh-side-foot">
+      <div class="dh-side-note">Saved on this device only</div>
+      <button class="dh-side-link" onclick="dhExport()">⬇ Export backup</button>
+      <button class="dh-side-link" onclick="document.getElementById('dhImportFile').click()">⬆ Import backup</button>
+      <input type="file" id="dhImportFile" accept=".json,application/json" hidden onchange="dhImport(this)">
+    </div>
   </aside>
 
   <!-- Main Panel -->
   <div class="dh-main">
-
-    <!-- Top Bar -->
     <div class="dh-topbar">
       <div class="dh-topbar-left">
-        <h2 class="dh-dept-name" id="dhActiveDeptName">Select Department</h2>
+        <h2 class="dh-dept-name" id="dhActiveDeptName">All Departments</h2>
         <div class="dh-view-tabs">
           <button class="dh-view-tab active" id="dhTabActive" onclick="dhSwitchView('active')">
-            <span class="dh-tab-dot dh-dot-green"></span>Active Patients
+            <span class="dh-tab-dot dh-dot-green"></span>Inpatients
             <span class="dh-badge" id="dhBadgeActive">0</span>
           </button>
           <button class="dh-view-tab" id="dhTabDischarged" onclick="dhSwitchView('discharged')">
@@ -1938,23 +2057,45 @@ main#mainContent:has(> #welcomeScreen:not([style*="none"])){padding:0}
           </button>
         </div>
       </div>
-      <button class="dh-add-btn" id="dhAddBtn" onclick="dhOpenAddModal()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Add Patient
-      </button>
+      <div class="dh-top-actions">
+        <button class="dh-tool-btn" onclick="dhCopy()" title="Copy handover as text (for WhatsApp / Viber)">📋 <span>Copy</span></button>
+        <button class="dh-tool-btn" onclick="dhPrint()" title="Print handover sheet">🖨 <span>Print</span></button>
+        <button class="dh-add-btn" id="dhAddBtn" onclick="dhOpenAddModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Patient
+        </button>
+      </div>
     </div>
 
-    <!-- Active Patients View -->
+    <div class="dh-toolbar">
+      <div class="dh-search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="dhSearch" placeholder="Search name, ID, bed, diagnosis…" autocomplete="off" oninput="dhSetQuery(this.value)">
+      </div>
+      <div class="dh-chips" id="dhStatusChips"></div>
+      <div class="dh-toolbar-right">
+        <select id="dhSort" class="dh-sort" onchange="dhSetSort(this.value)" title="Sort patients">
+          <option value="bed">Sort: Bed</option>
+          <option value="status">Sort: Status</option>
+          <option value="days">Sort: Days admitted</option>
+          <option value="name">Sort: Name</option>
+        </select>
+        <div class="dh-seg" title="Layout">
+          <button id="dhLayoutCards" onclick="dhSetLayout('cards')">▦ Cards</button>
+          <button id="dhLayoutList" onclick="dhSetLayout('list')">☰ List</button>
+        </div>
+      </div>
+    </div>
+
     <div class="dh-view" id="dhViewActive">
       <div class="dh-empty" id="dhEmptyActive">
         <div class="dh-empty-icon">🛏️</div>
-        <div class="dh-empty-title">No Active Patients</div>
-        <div class="dh-empty-sub">Click "Add Patient" to admit a patient to this department.</div>
+        <div class="dh-empty-title" id="dhEmptyActiveTitle">No Inpatients</div>
+        <div class="dh-empty-sub" id="dhEmptyActiveSub">Click "Add Patient" to admit a patient.</div>
       </div>
-      <div class="dh-patient-grid" id="dhPatientGrid"></div>
+      <div id="dhActiveBody"></div>
     </div>
 
-    <!-- Discharged Patients View -->
     <div class="dh-view" id="dhViewDischarged" style="display:none">
       <div class="dh-empty" id="dhEmptyDischarged">
         <div class="dh-empty-icon">✅</div>
@@ -1963,14 +2104,6 @@ main#mainContent:has(> #welcomeScreen:not([style*="none"])){padding:0}
       </div>
       <div class="dh-discharged-list" id="dhDischargedList"></div>
     </div>
-
-    <!-- No Dept Selected -->
-    <div class="dh-no-dept" id="dhNoDept">
-      <div class="dh-no-dept-icon">🏥</div>
-      <div class="dh-no-dept-title">Select a Department</div>
-      <div class="dh-no-dept-sub">Choose a department from the sidebar to view and manage inpatient handovers.</div>
-    </div>
-
   </div>
 </div>
 
@@ -1984,21 +2117,35 @@ main#mainContent:has(> #welcomeScreen:not([style*="none"])){padding:0}
     <div class="dh-modal-body">
       <div class="dh-form-row">
         <div class="dh-form-group">
-          <label class="dh-label">Patient Name <span class="dh-required">*</span></label>
-          <input class="dh-input" id="dhPtName" placeholder="Full name" autocomplete="off"/>
+          <label class="dh-label">Department <span class="dh-required">*</span></label>
+          <select class="dh-input" id="dhPtDept"></select>
         </div>
         <div class="dh-form-group">
-          <label class="dh-label">MRN / ID</label>
-          <input class="dh-input" id="dhPtMrn" placeholder="e.g. MRN-123456" autocomplete="off"/>
+          <label class="dh-label">Status</label>
+          <div class="dh-status-pick" id="dhPtStatusPick"></div>
         </div>
       </div>
       <div class="dh-form-row">
         <div class="dh-form-group">
-          <label class="dh-label">Ward</label><select class="dh-input" id="dhPtWard" onchange="dhWardChanged()"><option value="">Select ward...</option><option value="PW">PW</option><option value="SW">SW</option><option value="PVT">PVT</option></select>
+          <label class="dh-label">Patient Name <span class="dh-required">*</span></label>
+          <input class="dh-input" id="dhPtName" placeholder="Full name" autocomplete="off"/>
         </div>
         <div class="dh-form-group">
-          <label class="dh-label">Consultant</label>
-          <input class="dh-input" id="dhPtDoctor" placeholder="Dr. Name" autocomplete="off"/>
+          <label class="dh-label">ID Card / MRN</label>
+          <input class="dh-input" id="dhPtMrn" placeholder="e.g. A123456" autocomplete="off"/>
+        </div>
+      </div>
+      <div class="dh-form-row">
+        <div class="dh-form-group">
+          <label class="dh-label">Age / Sex</label>
+          <input class="dh-input" id="dhPtAge" placeholder="e.g. 35Y/M" autocomplete="off"/>
+        </div>
+        <div class="dh-form-group">
+          <label class="dh-label">Ward / Bed</label>
+          <div class="dh-inline2">
+            <select class="dh-input" id="dhPtWard" onchange="dhWardChanged()"><option value="">Ward…</option><option value="PW">PW</option><option value="SW">SW</option><option value="PVT">PVT</option></select>
+            <select class="dh-input" id="dhPtBedNum" disabled><option value="">Bed…</option></select>
+          </div>
         </div>
       </div>
       <div class="dh-form-group">
@@ -2011,24 +2158,23 @@ main#mainContent:has(> #welcomeScreen:not([style*="none"])){padding:0}
           <input class="dh-input" id="dhPtDate" type="datetime-local"/>
         </div>
         <div class="dh-form-group">
-          <label class="dh-label">Bed Number</label><select class="dh-input" id="dhPtBedNum" disabled><option value="">Select ward first...</option></select>
+          <label class="dh-label">Consultant</label>
+          <input class="dh-input" id="dhPtDoctor" placeholder="Dr. Name" autocomplete="off" list="dhDoctorList"/>
+          <datalist id="dhDoctorList"></datalist>
         </div>
       </div>
-            <div class="dh-form-row">
-        <div class="dh-form-group">
-          <label class="dh-label">Age / Sex</label>
-          <input class="dh-input" id="dhPtAge" placeholder="e.g. 35Y/M" autocomplete="off"/>
-        </div>
-        <div class="dh-form-group">
-          <label class="dh-label">Entered By</label>
-          <input class="dh-input" id="dhPtEnteredBy" placeholder="Dr. Name" autocomplete="off"/>
-        </div>
+      <div class="dh-form-group">
+        <label class="dh-label">Entered By</label>
+        <input class="dh-input" id="dhPtEnteredBy" placeholder="Dr. Name" autocomplete="off"/>
       </div>
-<div class="dh-form-group">
-        <label class="dh-label">Handover (SOAP)</label></div><div class="dh-form-group"><label class="dh-label">Subjective</label><textarea class="dh-input dh-textarea" id="dhSoapS" placeholder="Patient-reported symptoms, complaints, history..." rows="2"></textarea></div><div class="dh-form-group"><label class="dh-label">Objective</label><textarea class="dh-input dh-textarea" id="dhSoapO" placeholder="Vitals, exam findings, investigation results..." rows="2"></textarea></div><div class="dh-form-group"><label class="dh-label">Assessment</label><textarea class="dh-input dh-textarea" id="dhSoapA" placeholder="Clinical impression, working diagnosis..." rows="2"></textarea></div><div class="dh-form-group"><label class="dh-label">Plan</label><textarea class="dh-input dh-textarea" id="dhSoapP" placeholder="Management plan, pending investigations, follow-up..." rows="2"></textarea>
-      </div>
+      <div class="dh-soap-hdr">Handover (SOAP)</div>
+      <div class="dh-form-group"><label class="dh-label">S — Subjective</label><textarea class="dh-input dh-textarea" id="dhSoapS" placeholder="Symptoms, complaints, overnight events…" rows="2"></textarea></div>
+      <div class="dh-form-group"><label class="dh-label">O — Objective</label><textarea class="dh-input dh-textarea" id="dhSoapO" placeholder="Vitals, exam, investigation results…" rows="2"></textarea></div>
+      <div class="dh-form-group"><label class="dh-label">A — Assessment</label><textarea class="dh-input dh-textarea" id="dhSoapA" placeholder="Clinical impression…" rows="2"></textarea></div>
+      <div class="dh-form-group"><label class="dh-label">P — Plan / To-do</label><textarea class="dh-input dh-textarea" id="dhSoapP" placeholder="Plan, pending investigations, jobs for next shift…" rows="2"></textarea></div>
     </div>
     <div class="dh-modal-footer">
+      <span class="dh-kbd-hint">Ctrl + Enter to save · Esc to close</span>
       <button class="dh-btn-cancel" onclick="dhCloseModal(null)">Cancel</button>
       <button class="dh-btn-save" id="dhBtnSave" onclick="dhSavePatient()">Add Patient</button>
     </div>
@@ -2043,10 +2189,10 @@ main#mainContent:has(> #welcomeScreen:not([style*="none"])){padding:0}
       <button class="dh-modal-close" onclick="dhCloseDischargeModal(null)">✕</button>
     </div>
     <div class="dh-modal-body">
-      <p class="dh-discharge-q">Are you sure you want to discharge <strong id="dhDischargeName"></strong>?</p>
+      <p class="dh-discharge-q">Discharge <strong id="dhDischargeName"></strong>?</p>
       <div class="dh-form-group" style="margin-top:14px">
         <label class="dh-label">Discharge Summary / Notes</label>
-        <textarea class="dh-input dh-textarea" id="dhDischargeNotes" placeholder="Discharge diagnosis, follow-up instructions..." rows="3"></textarea>
+        <textarea class="dh-input dh-textarea" id="dhDischargeNotes" placeholder="Discharge diagnosis, follow-up instructions…" rows="3"></textarea>
       </div>
     </div>
     <div class="dh-modal-footer">
@@ -2055,6 +2201,26 @@ main#mainContent:has(> #welcomeScreen:not([style*="none"])){padding:0}
     </div>
   </div>
 </div>
+
+<!-- ── Transfer Modal ── -->
+<div class="dh-modal-bg" id="dhTransferModalBg" onclick="dhCloseTransfer(event)">
+  <div class="dh-modal dh-modal-sm">
+    <div class="dh-modal-header">
+      <h3 class="dh-modal-title">Transfer Patient</h3>
+      <button class="dh-modal-close" onclick="dhCloseTransfer(null)">✕</button>
+    </div>
+    <div class="dh-modal-body">
+      <p class="dh-discharge-q">Move <strong id="dhTransferName"></strong> to:</p>
+      <select class="dh-input" id="dhTransferDept"></select>
+    </div>
+    <div class="dh-modal-footer">
+      <button class="dh-btn-cancel" onclick="dhCloseTransfer(null)">Cancel</button>
+      <button class="dh-btn-save" onclick="dhConfirmTransfer()">Transfer</button>
+    </div>
+  </div>
+</div>
+
+<div class="dh-toast" id="dhToast"></div>
 
 </div><!-- end deptContent -->
   <div id="stickyContent"></div>
@@ -3763,236 +3929,483 @@ function showDisclaimer() {
     {id:'ent',label:'ENT',emoji:'&#x1F442;'},
     {id:'derma',label:'Dermatology',emoji:'&#x1FA7A;'},
     {id:'psych',label:'Psychiatry',emoji:'&#x1F9E0;'}
-  ]
-  var WARD_BEDS={PW:10,SW:8,PVT:7};window.dhWardChanged=function(preselect){var ward=document.getElementById('dhPtWard').value;var sel=document.getElementById('dhPtBedNum');sel.innerHTML='';if(!ward){sel.disabled=true;var opt=document.createElement('option');opt.value='';opt.textContent='Select ward first...';sel.appendChild(opt);return;}sel.disabled=false;var ph=document.createElement('option');ph.value='';ph.textContent='Select bed...';sel.appendChild(ph);var count=WARD_BEDS[ward]||0;for(var i=1;i<=count;i++){var o=document.createElement('option');o.value=String(i);o.textContent=ward+' '+i;sel.appendChild(o);}if(preselect)sel.value=preselect;};var dhActiveDept=null, dhActiveView='active', dhEditingId=null, dhDischargingId=null;
-  var STORAGE_KEY='asmh_dh_v2';
+  ];
+  var STATUSES=[
+    {id:'critical',label:'Critical'},
+    {id:'guarded',label:'Guarded'},
+    {id:'improving',label:'Improving'},
+    {id:'stable',label:'Stable'}
+  ];
+  var STATUS_RANK={critical:0,guarded:1,improving:2,stable:3};
+  var WARD_ORDER={PW:0,SW:1,PVT:2};
+  var WARD_BEDS={PW:10,SW:8,PVT:7};
+  var STORAGE_KEY='asmh_dh_v2', UI_KEY='asmh_dh_ui';
+
+  var ui=(function(){try{return JSON.parse(localStorage.getItem(UI_KEY)||'{}')}catch(e){return{}}})();
+  var dhActiveDept=ui.dept||'all', dhActiveView='active', dhEditingId=null, dhEditingDept=null,
+      dhDischargingId=null, dhDischargingDept=null, dhTransferId=null, dhTransferFrom=null,
+      dhQuery='', dhStatusFilter='all', dhSort=ui.sort||'bed', dhLayout=ui.layout||'cards', dhFormStatus='stable';
+  function saveUi(){try{localStorage.setItem(UI_KEY,JSON.stringify({dept:dhActiveDept,sort:dhSort,layout:dhLayout}))}catch(e){}}
 
   function dhLoad(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch(e){return{}}}
-  function dhSave(d){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(d))}catch(e){}}
-  function dhGetDept(id){var d=dhLoad();if(!d[id])d[id]={active:[],discharged:[]};return d[id]}
+  function dhSave(d){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(d))}catch(e){toast('Could not save — storage full?')}}
+  function dhGetDept(id){var d=dhLoad();if(!d[id])d[id]={active:[],discharged:[]};if(!d[id].active)d[id].active=[];if(!d[id].discharged)d[id].discharged=[];return d[id]}
   function dhSetDept(id,dd){var d=dhLoad();d[id]=dd;dhSave(d)}
-  function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function deptById(id){for(var i=0;i<DEPARTMENTS.length;i++)if(DEPARTMENTS[i].id===id)return DEPARTMENTS[i];return {id:id,label:id,emoji:''}}
+  function deptLabelText(id){var t=document.createElement('textarea');t.innerHTML=deptById(id).label;return t.value}
+  function esc(s){if(s===undefined||s===null)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+  function $(id){return document.getElementById(id)}
+  function statusOf(p){return STATUS_RANK.hasOwnProperty(p.status)?p.status:'stable'}
+  function statusLabel(s){for(var i=0;i<STATUSES.length;i++)if(STATUSES[i].id===s)return STATUSES[i].label;return 'Stable'}
+  function daysIn(p){if(!p.admDate)return null;var t=new Date(p.admDate).getTime();if(isNaN(t))return null;return Math.max(0,Math.floor((Date.now()-t)/86400000))}
+  function fmtDate(v,withTime){if(!v)return'--';var d=new Date(v);if(isNaN(d))return esc(v);var o={day:'2-digit',month:'short',year:'numeric'};if(withTime){o.hour='2-digit';o.minute='2-digit'}return d.toLocaleString('en-GB',o)}
+  function bedKey(p){var b=(p.bed||'').split(' ');var w=WARD_ORDER.hasOwnProperty(b[0])?WARD_ORDER[b[0]]:9;return w*1000+(parseInt(b[1],10)||999)}
+  function toast(msg){var t=$('dhToast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('show')},2200)}
 
-  window.dhInit=function(){
-    var list=document.getElementById('dhDeptList');
-    if(!list||list.dataset.built)return;
-    list.dataset.built='1';
-    DEPARTMENTS.forEach(function(d){
-      var b=document.createElement('button');
-      b.className='dh-dept-btn';b.dataset.deptId=d.id;
-      b.innerHTML='<span class="dh-dept-emoji">'+d.emoji+'</span><span class="dh-dept-label">'+d.label+'</span><span class="dh-dept-count" id="dhCount_'+d.id+'">0</span>';
-      b.addEventListener('click',function(){dhSelectDept(d.id,d.label)});
-      list.appendChild(b);
+  /* ---------- data helpers ---------- */
+  function collect(kind){
+    var d=dhLoad(),out=[];
+    var ids=dhActiveDept==='all'?DEPARTMENTS.map(function(x){return x.id}):[dhActiveDept];
+    ids.forEach(function(id){var dd=d[id];if(dd&&dd[kind])dd[kind].forEach(function(p){out.push({p:p,dept:id})})});
+    return out;
+  }
+  function matches(it){
+    if(!dhQuery)return true;
+    var p=it.p,q=dhQuery.toLowerCase();
+    return [p.name,p.mrn,p.bed,p.diagnosis,p.doctor,p.age,p.enteredBy,deptLabelText(it.dept)].join(' ').toLowerCase().indexOf(q)!==-1;
+  }
+  function sortItems(arr){
+    arr.sort(function(a,b){
+      var p=a.p,q=b.p;
+      if(dhSort==='status'){var s=STATUS_RANK[statusOf(p)]-STATUS_RANK[statusOf(q)];if(s)return s;return bedKey(p)-bedKey(q)}
+      if(dhSort==='days'){return (daysIn(q)||0)-(daysIn(p)||0)}
+      if(dhSort==='name'){return (p.name||'').localeCompare(q.name||'')}
+      return bedKey(p)-bedKey(q);
     });
-    dhRefreshCounts();
-    document.getElementById('dhNoDept').classList.add('show');
-    document.getElementById('dhViewActive').style.display='none';
-    document.getElementById('dhViewDischarged').style.display='none';
-    document.getElementById('dhAddBtn').disabled=true;
+    return arr;
+  }
+  function visibleActive(){
+    var all=collect('active').filter(matches);
+    var counts={all:all.length};STATUSES.forEach(function(s){counts[s.id]=0});
+    all.forEach(function(it){counts[statusOf(it.p)]++});
+    var list=dhStatusFilter==='all'?all:all.filter(function(it){return statusOf(it.p)===dhStatusFilter});
+    return {list:sortItems(list),counts:counts};
+  }
+
+  /* ---------- init ---------- */
+  window.dhWardChanged=function(preselect){
+    var ward=$('dhPtWard').value,sel=$('dhPtBedNum');sel.innerHTML='';
+    if(!ward){sel.disabled=true;sel.innerHTML='<option value="">Bed…</option>';return}
+    sel.disabled=false;sel.innerHTML='<option value="">Bed…</option>';
+    for(var i=1;i<=(WARD_BEDS[ward]||0);i++){var o=document.createElement('option');o.value=String(i);o.textContent=ward+' '+i;sel.appendChild(o)}
+    if(preselect)sel.value=preselect;
   };
 
-  window.dhSelectDept=function(id,label){
-    dhActiveDept=id;dhActiveView='active';
+  window.dhInit=function(){
+    var list=$('dhDeptList');
+    if(!list)return;
+    if(!list.dataset.built){
+      list.dataset.built='1';
+      var opts=DEPARTMENTS.map(function(d){return '<option value="'+d.id+'">'+d.label+'</option>'}).join('');
+      $('dhPtDept').innerHTML=opts;$('dhTransferDept').innerHTML=opts;
+      $('dhPtStatusPick').innerHTML=STATUSES.map(function(s){return '<button type="button" class="dh-spick dh-spick-'+s.id+'" data-s="'+s.id+'" onclick="dhPickStatus(\''+s.id+'\')">'+s.label+'</button>'}).join('');
+      var all=document.createElement('button');
+      all.className='dh-dept-btn dh-dept-all';all.dataset.deptId='all';
+      all.innerHTML='<span class="dh-dept-emoji">&#x1F4CB;</span><span class="dh-dept-label">All Departments</span><span class="dh-dept-count" id="dhCount_all">0</span>';
+      all.addEventListener('click',function(){dhSelectDept('all')});
+      list.appendChild(all);
+      DEPARTMENTS.forEach(function(d){
+        var b=document.createElement('button');
+        b.className='dh-dept-btn';b.dataset.deptId=d.id;
+        b.innerHTML='<span class="dh-dept-emoji">'+d.emoji+'</span><span class="dh-dept-label">'+d.label+'</span><span class="dh-dept-count" id="dhCount_'+d.id+'"></span>';
+        b.addEventListener('click',function(){dhSelectDept(d.id)});
+        list.appendChild(b);
+      });
+      $('dhSort').value=dhSort;
+    }
+    dhSelectDept(dhActiveDept,true);
+  };
+
+  window.dhSelectDept=function(id,keepView){
+    if(id!=='all'&&!DEPARTMENTS.some(function(d){return d.id===id}))id='all';
+    dhActiveDept=id;saveUi();
+    if(!keepView)dhActiveView='active';
     document.querySelectorAll('.dh-dept-btn').forEach(function(b){b.classList.toggle('active',b.dataset.deptId===id)});
-    document.getElementById('dhActiveDeptName').textContent=label||id;
-    document.getElementById('dhAddBtn').disabled=false;
-    document.getElementById('dhNoDept').classList.remove('show');
-    dhSwitchView('active');
+    $('dhActiveDeptName').innerHTML=id==='all'?'All Departments':deptById(id).label;
+    dhSwitchView(dhActiveView);
   };
 
   window.dhSwitchView=function(v){
     dhActiveView=v;var a=(v==='active');
-    document.getElementById('dhTabActive').classList.toggle('active',a);
-    document.getElementById('dhTabDischarged').classList.toggle('active',!a);
-    document.getElementById('dhViewActive').style.display=a?'':'none';
-    document.getElementById('dhViewDischarged').style.display=a?'none':'';
-    if(dhActiveDept)dhRender();
+    $('dhTabActive').classList.toggle('active',a);
+    $('dhTabDischarged').classList.toggle('active',!a);
+    $('dhViewActive').style.display=a?'':'none';
+    $('dhViewDischarged').style.display=a?'none':'';
+    $('dhStatusChips').style.display=a?'':'none';
+    $('dhSort').style.display=a?'':'none';
+    document.querySelector('.dh-seg').style.display=a?'':'none';
+    dhRender();
   };
+  window.dhSetQuery=function(v){dhQuery=v.trim();dhRender()};
+  window.dhSetSort=function(v){dhSort=v;saveUi();dhRender()};
+  window.dhSetStatusFilter=function(v){dhStatusFilter=v;dhRender()};
+  window.dhSetLayout=function(v){dhLayout=v;saveUi();dhRender()};
+  window.dhToggleSoap=function(btn){var c=btn.closest('.dh-patient-card');c.classList.toggle('expanded');btn.textContent=c.classList.contains('expanded')?'Show less':'Show more'};
 
+  /* ---------- render ---------- */
   function dhRender(){
-    if(!dhActiveDept)return;
-    var dd=dhGetDept(dhActiveDept);
-    var grid=document.getElementById('dhPatientGrid');
-    var emA=document.getElementById('dhEmptyActive');
-    grid.innerHTML='';
-    if(dd.active.length===0){emA.classList.add('show')}else{
+    var v=visibleActive();
+    // chips
+    $('dhStatusChips').innerHTML='<button class="dh-chip'+(dhStatusFilter==='all'?' on':'')+'" onclick="dhSetStatusFilter(\'all\')">All <b>'+v.counts.all+'</b></button>'+
+      STATUSES.map(function(s){return '<button class="dh-chip dh-chip-'+s.id+(dhStatusFilter===s.id?' on':'')+'" onclick="dhSetStatusFilter(\''+s.id+'\')"><i></i>'+s.label+' <b>'+v.counts[s.id]+'</b></button>'}).join('');
+    $('dhLayoutCards').classList.toggle('on',dhLayout==='cards');
+    $('dhLayoutList').classList.toggle('on',dhLayout==='list');
+
+    var body=$('dhActiveBody'),emA=$('dhEmptyActive');
+    body.innerHTML='';
+    if(!v.list.length){
+      emA.classList.add('show');
+      var none=collect('active').length===0;
+      $('dhEmptyActiveTitle').textContent=none?'No Inpatients':'No matches';
+      $('dhEmptyActiveSub').textContent=none?'Click "Add Patient" to admit a patient.':'Try a different search or status filter.';
+    }else{
       emA.classList.remove('show');
-      dd.active.forEach(function(pt){grid.appendChild(dhCard(pt))});
-    }
-    var dcList=document.getElementById('dhDischargedList');
-    var emD=document.getElementById('dhEmptyDischarged');
-    dcList.innerHTML='';
-    if(dd.discharged.length===0){emD.classList.add('show')}else{
-      emD.classList.remove('show');
-      var sorted=dd.discharged.slice().sort(function(a,b){return new Date(b.dischargeDate||0)-new Date(a.dischargeDate||0);});
-      var lastMonth='';
-      sorted.forEach(function(pt){
-        var mLabel=pt.dischargeDate?new Date(pt.dischargeDate).toLocaleString('en-GB',{month:'long',year:'numeric'}):'Unknown';
-        if(mLabel!==lastMonth){var hdr=document.createElement('div');hdr.className='dh-month-hdr';hdr.textContent=mLabel;dcList.appendChild(hdr);lastMonth=mLabel;}
-        dcList.appendChild(dhDcItem(pt,dhActiveDept));
+      var groups=[];
+      if(dhActiveDept==='all'){
+        DEPARTMENTS.forEach(function(d){var g=v.list.filter(function(it){return it.dept===d.id});if(g.length)groups.push({dept:d,items:g})});
+      }else groups.push({dept:null,items:v.list});
+      groups.forEach(function(g){
+        if(g.dept){var h=document.createElement('div');h.className='dh-group-hdr';h.innerHTML='<span>'+g.dept.emoji+' '+g.dept.label+'</span><b>'+g.items.length+'</b><button class="dh-group-open" onclick="dhSelectDept(\''+g.dept.id+'\')">Open →</button>';body.appendChild(h)}
+        if(dhLayout==='list')body.appendChild(dhTable(g.items));
+        else{var grid=document.createElement('div');grid.className='dh-patient-grid';g.items.forEach(function(it){grid.appendChild(dhCard(it))});body.appendChild(grid)}
       });
     }
-    document.getElementById('dhBadgeActive').textContent=dd.active.length;
-    document.getElementById('dhBadgeDischarged').textContent=dd.discharged.length;
+
+    // discharged
+    var dc=collect('discharged').filter(matches).sort(function(a,b){return new Date(b.p.dischargeDate||0)-new Date(a.p.dischargeDate||0)});
+    var dcList=$('dhDischargedList'),emD=$('dhEmptyDischarged');
+    dcList.innerHTML='';
+    if(!dc.length)emD.classList.add('show');
+    else{
+      emD.classList.remove('show');
+      var lastMonth='',tbody=null;
+      dc.forEach(function(it){
+        var m=it.p.dischargeDate?new Date(it.p.dischargeDate).toLocaleString('en-GB',{month:'long',year:'numeric'}):'Unknown';
+        if(m!==lastMonth){
+          var hdr=document.createElement('div');hdr.className='dh-month-hdr';hdr.textContent=m;dcList.appendChild(hdr);lastMonth=m;
+          var wrap=document.createElement('div');wrap.className='dh-table-wrap';
+          wrap.innerHTML='<table class="dh-table"><thead><tr><th>Discharged</th><th>Patient</th><th>Bed</th>'+(dhActiveDept==='all'?'<th>Dept</th>':'')+'<th>Diagnosis</th><th>Admitted</th><th>Consultant</th><th>Remarks</th><th></th></tr></thead><tbody></tbody></table>';
+          dcList.appendChild(wrap);tbody=wrap.querySelector('tbody');
+        }
+        var p=it.p,tr=document.createElement('tr');
+        tr.innerHTML='<td class="nowrap">'+fmtDate(p.dischargeDate,true)+'</td>'+
+          '<td><div class="dh-t-name">'+esc(p.name)+'</div><div class="dh-t-sub">'+esc([p.mrn,p.age].filter(Boolean).join(' · '))+'</div></td>'+
+          '<td class="nowrap">'+esc(p.bed||'--')+'</td>'+
+          (dhActiveDept==='all'?'<td class="nowrap">'+deptById(it.dept).label+'</td>':'')+
+          '<td>'+esc(p.diagnosis)+'</td>'+
+          '<td class="nowrap">'+fmtDate(p.admDate,false)+'</td>'+
+          '<td>'+esc(p.doctor||'--')+'</td>'+
+          '<td class="dh-t-remarks">'+esc(p.dischargeNotes||'--')+'</td>'+
+          '<td class="nowrap"><button class="dh-mini-btn" onclick="dhReadmit(\''+p.id+'\',\''+it.dept+'\')">↩ Re-admit</button></td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    $('dhBadgeActive').textContent=collect('active').length;
+    $('dhBadgeDischarged').textContent=collect('discharged').length;
     dhRefreshCounts();
   }
+  window.dhRender=dhRender;
 
-  function dhCard(pt){
-    var el=document.createElement('div');
-    el.className='dh-patient-card';
-    var days=pt.admDate?Math.floor((Date.now()-new Date(pt.admDate).getTime())/86400000):null;
-    var db=days!==null?'<span class="dh-days-badge">Day '+days+'</span>':'';
+  function statusPill(it){
+    var s=statusOf(it.p);
+    return '<button class="dh-status-pill dh-status-'+s+'" title="Click to change status" onclick="dhCycleStatus(\''+it.p.id+'\',\''+it.dept+'\')">'+statusLabel(s)+'</button>';
+  }
+  function actions(it){
+    var a='\''+it.p.id+'\',\''+it.dept+'\'';
+    return '<button class="dh-icon-btn" title="Edit" onclick="dhEditPatient('+a+')">✏️</button>'+
+      '<button class="dh-icon-btn" title="Transfer to another department" onclick="dhOpenTransfer('+a+')">⇄</button>'+
+      '<button class="dh-icon-btn dh-icon-dc" title="Discharge" onclick="dhOpenDischarge('+a+')">✅</button>'+
+      '<button class="dh-icon-btn dh-icon-del" title="Remove" onclick="dhDeletePatient('+a+')">🗑️</button>';
+  }
+  function soapHtml(p){
+    var rows=[['S',p.soapS],['O',p.soapO],['A',p.soapA],['P',p.soapP]].filter(function(r){return r[1]});
+    if(!rows.length)return '';
+    return rows.map(function(r){return '<div class="dh-soap-row"><b>'+r[0]+'</b><span>'+esc(r[1])+'</span></div>'}).join('');
+  }
+
+  function dhCard(it){
+    var p=it.p,el=document.createElement('div'),days=daysIn(p),soap=soapHtml(p);
+    el.className='dh-patient-card dh-card-'+statusOf(p);
+    var sub=[p.age,p.mrn].filter(Boolean).map(esc).join(' · ');
     el.innerHTML=
-      '<div class="dh-card-top"><div><div class="dh-card-name">'+esc(pt.name)+'</div>'+
-      (pt.mrn?'<div class="dh-card-mrn">'+esc(pt.mrn)+'</div>':'')+
-      '</div></div>'+
-      '<div class="dh-card-meta">'+
-      '<div class="dh-card-meta-item"><span class="dh-meta-label">Bed</span><span class="dh-meta-val">'+esc(pt.bed||'--')+'</span></div>'+
-      '<div class="dh-card-meta-item"><span class="dh-meta-label">Doctor</span><span class="dh-meta-val">'+esc(pt.doctor||'--')+'</span></div>'+
-      '<div class="dh-card-meta-item"><span class="dh-meta-label">Admitted</span><span class="dh-meta-val">'+(pt.admDate||'--')+' '+db+'</span></div>'+
+      '<div class="dh-card-top">'+
+        '<div class="dh-bed-badge'+(p.bed?'':' empty')+'">'+esc(p.bed||'No bed')+'</div>'+
+        '<div class="dh-card-id"><div class="dh-card-name">'+esc(p.name)+'</div>'+(sub?'<div class="dh-card-mrn">'+sub+'</div>':'')+'</div>'+
+        statusPill(it)+
       '</div>'+
-      '<div class="dh-card-diag">'+esc(pt.diagnosis)+'</div>'+
-      (pt.soapS||pt.soapO||pt.soapA||pt.soapP?'<div><div class="dh-notes-label">Handover (SOAP)</div><div class="dh-card-notes">'+(pt.soapS?'<div><strong>S:</strong> '+esc(pt.soapS)+'</div>':'')+(pt.soapO?'<div><strong>O:</strong> '+esc(pt.soapO)+'</div>':'')+(pt.soapA?'<div><strong>A:</strong> '+esc(pt.soapA)+'</div>':'')+(pt.soapP?'<div><strong>P:</strong> '+esc(pt.soapP)+'</div>':'')+'</div></div>':'')+
-      '<div class="dh-card-actions">'+
-      '<button class="dh-card-btn dh-card-btn-edit" onclick="dhEditPatient(\''+pt.id+'\')">&#x270F;&#xFE0F; Edit</button>'+
-      '<button class="dh-card-btn dh-card-btn-discharge" onclick="dhOpenDischarge(\''+pt.id+'\')">&#x2705; Discharge</button>'+
-      '<button class="dh-card-btn dh-card-btn-delete" onclick="dhDeletePatient(\''+pt.id+'\')">&#x1F5D1;&#xFE0F;</button>'+
+      '<div class="dh-card-diag">'+esc(p.diagnosis)+'</div>'+
+      (soap?'<div class="dh-card-soap">'+soap+'</div><button class="dh-more" onclick="dhToggleSoap(this)">Show more</button>':'<div class="dh-card-nosoap">No handover notes yet</div>')+
+      '<div class="dh-card-foot">'+
+        '<div class="dh-card-meta2">'+(days!==null?'<span class="dh-days-badge">Day '+days+'</span>':'')+(p.doctor?'<span>👨‍⚕️ '+esc(p.doctor)+'</span>':'')+'</div>'+
+        '<div class="dh-card-acts">'+actions(it)+'</div>'+
       '</div>';
+    if(soap){setTimeout(function(){var s=el.querySelector('.dh-card-soap');if(s&&s.scrollHeight<=s.clientHeight+2){var m=el.querySelector('.dh-more');if(m)m.style.display='none'}},0)}
     return el;
   }
 
-  function dhDcItem(pt,deptLabel){
-    var el=document.createElement('div');el.className='dh-dc-card';
-    var dcD=pt.dischargeDate?new Date(pt.dischargeDate).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):'--';
-    var admD=pt.admDate?new Date(pt.admDate).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):(pt.admDate||'--');
-    el.innerHTML=
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Admission Date &amp; Time</span><span class="dh-dc-val">'+admD+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Discharge Date &amp; Time</span><span class="dh-dc-val dh-dc-val-discharge">'+dcD+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Name</span><span class="dh-dc-val dh-dc-val-name">'+esc(pt.name)+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">ID Card No.</span><span class="dh-dc-val">'+esc(pt.mrn||'--')+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Age / Sex</span><span class="dh-dc-val">'+esc(pt.age||'--')+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Bed</span><span class="dh-dc-val">'+esc(pt.bed||'--')+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Department</span><span class="dh-dc-val">'+esc(pt.dept||deptLabel||'--')+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Diagnosis</span><span class="dh-dc-val dh-dc-val-diag">'+esc(pt.diagnosis)+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Consultant</span><span class="dh-dc-val">'+esc(pt.doctor||'--')+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Entered By</span><span class="dh-dc-val">'+esc(pt.enteredBy||'--')+'</span></div>'+
-      '<div class="dh-dc-row"><span class="dh-dc-lbl">Remarks</span><span class="dh-dc-val dh-dc-val-remarks">'+esc(pt.dischargeNotes||'--')+'</span></div>'+
-      '<div class="dh-dc-actions"><button class="dh-dc-readmit-btn" onclick="dhReadmit(\''+pt.id+'\')">&larr; Re-admit</button></div>';
-    return el;
+  function dhTable(items){
+    var wrap=document.createElement('div');wrap.className='dh-table-wrap';
+    var rows=items.map(function(it){
+      var p=it.p,d=daysIn(p);
+      return '<tr class="dh-row-'+statusOf(p)+'"><td class="nowrap"><b>'+esc(p.bed||'--')+'</b></td>'+
+        '<td><div class="dh-t-name">'+esc(p.name)+'</div><div class="dh-t-sub">'+esc([p.age,p.mrn].filter(Boolean).join(' · '))+'</div></td>'+
+        '<td>'+statusPill(it)+'</td>'+
+        '<td><div>'+esc(p.diagnosis)+'</div>'+(p.soapP?'<div class="dh-t-sub"><b>Plan:</b> '+esc(p.soapP)+'</div>':'')+'</td>'+
+        '<td class="nowrap">'+(d!==null?'Day '+d:'--')+'</td>'+
+        '<td>'+esc(p.doctor||'--')+'</td>'+
+        '<td class="nowrap dh-t-acts">'+actions(it)+'</td></tr>';
+    }).join('');
+    wrap.innerHTML='<table class="dh-table"><thead><tr><th>Bed</th><th>Patient</th><th>Status</th><th>Diagnosis / Plan</th><th>Stay</th><th>Consultant</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
+    return wrap;
   }
 
   function dhRefreshCounts(){
-    var d=dhLoad();
+    var d=dhLoad(),total=0;
     DEPARTMENTS.forEach(function(dep){
-      var el=document.getElementById('dhCount_'+dep.id);
-      if(el){var n=(d[dep.id]&&d[dep.id].active)?d[dep.id].active.length:0;el.textContent=n||''}
+      var el=$('dhCount_'+dep.id);
+      var n=(d[dep.id]&&d[dep.id].active)?d[dep.id].active.length:0;total+=n;
+      if(el)el.textContent=n||'';
     });
+    var a=$('dhCount_all');if(a)a.textContent=total||'';
   }
 
+  /* ---------- add / edit ---------- */
+  window.dhPickStatus=function(s){dhFormStatus=s;document.querySelectorAll('#dhPtStatusPick .dh-spick').forEach(function(b){b.classList.toggle('on',b.dataset.s===s)})};
+  function fillDoctors(){
+    var d=dhLoad(),set={};
+    Object.keys(d).forEach(function(k){['active','discharged'].forEach(function(t){(d[k][t]||[]).forEach(function(p){if(p.doctor)set[p.doctor]=1})})});
+    $('dhDoctorList').innerHTML=Object.keys(set).sort().map(function(n){return '<option value="'+esc(n)+'">'}).join('');
+  }
+  function localNow(){var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)}
+
   window.dhOpenAddModal=function(){
-    dhEditingId=null;
-    document.getElementById('dhModalTitle').textContent='Add Patient';
-    document.getElementById('dhBtnSave').textContent='Add Patient';
-    ['dhPtName','dhPtMrn','dhPtDoctor','dhPtDiag','dhSoapS','dhSoapO','dhSoapA','dhSoapP','dhPtAge','dhPtEnteredBy'].forEach(function(id){document.getElementById(id).value='';});
-    document.getElementById('dhPtDate').value=new Date().toISOString().slice(0,16);    document.getElementById('dhPtWard').value='';dhWardChanged();document.getElementById('dhPtAge').value='';var _prof=JSON.parse(localStorage.getItem('asmh_profile_custom')||'{}');document.getElementById('dhPtEnteredBy').value=_prof.displayName||'';
-    document.getElementById('dhModalBg').classList.add('open');
-    setTimeout(function(){document.getElementById('dhPtName').focus()},80);
+    dhEditingId=null;dhEditingDept=null;
+    $('dhModalTitle').textContent='Add Patient';$('dhBtnSave').textContent='Add Patient';
+    ['dhPtName','dhPtMrn','dhPtDoctor','dhPtDiag','dhSoapS','dhSoapO','dhSoapA','dhSoapP','dhPtAge','dhPtEnteredBy'].forEach(function(id){$(id).value='';});
+    $('dhPtDept').value=dhActiveDept==='all'?DEPARTMENTS[0].id:dhActiveDept;
+    $('dhPtDate').value=localNow();
+    $('dhPtWard').value='';dhWardChanged();
+    var prof={};try{prof=JSON.parse(localStorage.getItem('asmh_profile_custom')||'{}')}catch(e){}
+    $('dhPtEnteredBy').value=prof.displayName||'';
+    dhPickStatus('stable');fillDoctors();
+    ['dhPtName','dhPtDiag'].forEach(function(id){$(id).style.borderColor=''});
+    $('dhModalBg').classList.add('open');
+    setTimeout(function(){$('dhPtName').focus()},80);
   };
 
-  window.dhEditPatient=function(id){
-    var dd=dhGetDept(dhActiveDept);
-    var pt=dd.active.find(function(p){return p.id===id});if(!pt)return;
-    dhEditingId=id;
-    document.getElementById('dhModalTitle').textContent='Edit Patient';
-    document.getElementById('dhBtnSave').textContent='Save Changes';
-    document.getElementById('dhPtName').value=pt.name||'';
-    document.getElementById('dhPtMrn').value=pt.mrn||'';
-    var bedParts=(pt.bed||'').split(' ');document.getElementById('dhPtWard').value=bedParts[0]||'';dhWardChanged(bedParts[1]||'');
-    document.getElementById('dhPtDoctor').value=pt.doctor||'';
-    document.getElementById('dhPtDiag').value=pt.diagnosis||'';
-    document.getElementById('dhPtDate').value=pt.admDate||'';document.getElementById('dhSoapS').value=pt.soapS||'';document.getElementById('dhSoapO').value=pt.soapO||'';document.getElementById('dhSoapA').value=pt.soapA||'';document.getElementById('dhSoapP').value=pt.soapP||'';document.getElementById('dhPtAge').value=pt.age||'';document.getElementById('dhPtEnteredBy').value=pt.enteredBy||'';
-    document.getElementById('dhModalBg').classList.add('open');
-    setTimeout(function(){document.getElementById('dhPtName').focus()},80);
+  function findPt(id,dept){var dd=dhGetDept(dept);for(var i=0;i<dd.active.length;i++)if(dd.active[i].id===id)return dd.active[i];return null}
+
+  window.dhEditPatient=function(id,dept){
+    dept=dept||dhActiveDept;var pt=findPt(id,dept);if(!pt)return;
+    dhEditingId=id;dhEditingDept=dept;
+    $('dhModalTitle').textContent='Edit Patient';$('dhBtnSave').textContent='Save Changes';
+    $('dhPtDept').value=dept;
+    $('dhPtName').value=pt.name||'';$('dhPtMrn').value=pt.mrn||'';
+    var bp=(pt.bed||'').split(' ');$('dhPtWard').value=WARD_BEDS[bp[0]]?bp[0]:'';dhWardChanged(bp[1]||'');
+    $('dhPtDoctor').value=pt.doctor||'';$('dhPtDiag').value=pt.diagnosis||'';$('dhPtDate').value=pt.admDate||'';
+    $('dhSoapS').value=pt.soapS||'';$('dhSoapO').value=pt.soapO||'';$('dhSoapA').value=pt.soapA||'';$('dhSoapP').value=pt.soapP||'';
+    $('dhPtAge').value=pt.age||'';$('dhPtEnteredBy').value=pt.enteredBy||'';
+    dhPickStatus(statusOf(pt));fillDoctors();
+    $('dhModalBg').classList.add('open');
+    setTimeout(function(){$('dhSoapS').focus()},80);
   };
 
   window.dhSavePatient=function(){
-    var name=document.getElementById('dhPtName').value.trim();
-    var diag=document.getElementById('dhPtDiag').value.trim();
-    var ni=document.getElementById('dhPtName'),di=document.getElementById('dhPtDiag');
+    var ni=$('dhPtName'),di=$('dhPtDiag'),name=ni.value.trim(),diag=di.value.trim();
     ni.style.borderColor='';di.style.borderColor='';
     if(!name){ni.style.borderColor='#ef4444';ni.focus();return}
     if(!diag){di.style.borderColor='#ef4444';di.focus();return}
+    var dept=$('dhPtDept').value;
+    var w=$('dhPtWard').value,b=$('dhPtBedNum').value;
     var pt={
       id:dhEditingId||('pt_'+Date.now()+'_'+Math.random().toString(36).slice(2,6)),
-      name:name,mrn:document.getElementById('dhPtMrn').value.trim(),
-      bed:(function(){var w=document.getElementById('dhPtWard').value,b=document.getElementById('dhPtBedNum').value;return w&&b?(w+' '+b):'';})(),
-      doctor:document.getElementById('dhPtDoctor').value.trim(),
-      diagnosis:diag,admDate:document.getElementById('dhPtDate').value,
-      soapS:document.getElementById('dhSoapS').value.trim(),soapO:document.getElementById('dhSoapO').value.trim(),soapA:document.getElementById('dhSoapA').value.trim(),soapP:document.getElementById('dhSoapP').value.trim(),
-      age:document.getElementById('dhPtAge').value.trim(),
-      enteredBy:document.getElementById('dhPtEnteredBy').value.trim()
+      name:name,mrn:$('dhPtMrn').value.trim(),bed:w&&b?(w+' '+b):'',
+      doctor:$('dhPtDoctor').value.trim(),diagnosis:diag,admDate:$('dhPtDate').value,
+      soapS:$('dhSoapS').value.trim(),soapO:$('dhSoapO').value.trim(),soapA:$('dhSoapA').value.trim(),soapP:$('dhSoapP').value.trim(),
+      age:$('dhPtAge').value.trim(),enteredBy:$('dhPtEnteredBy').value.trim(),status:dhFormStatus,updatedAt:Date.now()
     };
-    var dd=dhGetDept(dhActiveDept);
+    // bed clash warning
+    if(pt.bed){var clash=collectAllActive().filter(function(it){return it.p.bed===pt.bed&&it.p.id!==pt.id});
+      if(clash.length&&!confirm(pt.bed+' is already taken by '+clash[0].p.name+'. Save anyway?'))return;}
+    var d=dhLoad();
     if(dhEditingId){
-      var ix=dd.active.findIndex(function(p){return p.id===dhEditingId});
-      if(ix!==-1){pt.createdAt=dd.active[ix].createdAt;dd.active[ix]=pt}
-    }else{pt.createdAt=Date.now();dd.active.push(pt)}
-    dhSetDept(dhActiveDept,dd);
-    dhCloseModal(null);dhSwitchView('active');dhRender();
+      var from=d[dhEditingDept]||{active:[],discharged:[]};
+      var ix=from.active.findIndex(function(p){return p.id===dhEditingId});
+      if(ix!==-1){pt.createdAt=from.active[ix].createdAt;from.active.splice(ix,1)}
+      d[dhEditingDept]=from;
+    }else pt.createdAt=Date.now();
+    if(!d[dept])d[dept]={active:[],discharged:[]};
+    if(dhEditingId&&dept===dhEditingDept&&typeof ix==='number'&&ix!==-1)d[dept].active.splice(ix,0,pt);else d[dept].active.push(pt);
+    dhSave(d);
+    dhCloseModal(null);
+    if(dhActiveDept!=='all'&&dhActiveDept!==dept)dhSelectDept(dept);else dhSwitchView('active');
+    toast(dhEditingId?'Changes saved':'Patient added');
+  };
+  function collectAllActive(){var d=dhLoad(),out=[];DEPARTMENTS.forEach(function(x){(d[x.id]&&d[x.id].active||[]).forEach(function(p){out.push({p:p,dept:x.id})})});return out}
+
+  window.dhCycleStatus=function(id,dept){
+    var dd=dhGetDept(dept),pt=dd.active.find(function(p){return p.id===id});if(!pt)return;
+    var order=['stable','improving','guarded','critical'];
+    pt.status=order[(order.indexOf(statusOf(pt))+1)%order.length];pt.updatedAt=Date.now();
+    dhSetDept(dept,dd);dhRender();
   };
 
-  window.dhDeletePatient=function(id){
-    if(!confirm('Remove this patient from the active list?'))return;
-    var dd=dhGetDept(dhActiveDept);
-    dd.active=dd.active.filter(function(p){return p.id!==id});
-    dhSetDept(dhActiveDept,dd);dhRender();
+  window.dhDeletePatient=function(id,dept){
+    dept=dept||dhActiveDept;var pt=findPt(id,dept);if(!pt)return;
+    if(!confirm('Remove '+pt.name+' completely? (Use Discharge to keep a record.)'))return;
+    var dd=dhGetDept(dept);dd.active=dd.active.filter(function(p){return p.id!==id});
+    dhSetDept(dept,dd);dhRender();toast('Patient removed');
   };
 
-  window.dhOpenDischarge=function(id){
-    var dd=dhGetDept(dhActiveDept);
-    var pt=dd.active.find(function(p){return p.id===id});if(!pt)return;
-    dhDischargingId=id;
-    document.getElementById('dhDischargeName').textContent=pt.name;
-    document.getElementById('dhDischargeNotes').value='';
-    document.getElementById('dhDischargeModalBg').classList.add('open');
-    setTimeout(function(){document.getElementById('dhDischargeNotes').focus()},80);
+  window.dhOpenDischarge=function(id,dept){
+    dept=dept||dhActiveDept;var pt=findPt(id,dept);if(!pt)return;
+    dhDischargingId=id;dhDischargingDept=dept;
+    $('dhDischargeName').textContent=pt.name;$('dhDischargeNotes').value='';
+    $('dhDischargeModalBg').classList.add('open');
+    setTimeout(function(){$('dhDischargeNotes').focus()},80);
   };
-
   window.dhConfirmDischarge=function(){
-    var dd=dhGetDept(dhActiveDept);
+    var dd=dhGetDept(dhDischargingDept);
     var ix=dd.active.findIndex(function(p){return p.id===dhDischargingId});if(ix===-1)return;
     var pt=dd.active[ix];
-    pt.dischargeDate=new Date().toISOString();
-    pt.dischargeNotes=document.getElementById('dhDischargeNotes').value.trim();pt.dept=dhActiveDept;
+    pt.dischargeDate=new Date().toISOString();pt.dischargeNotes=$('dhDischargeNotes').value.trim();pt.dept=dhDischargingDept;
     dd.discharged.push(pt);dd.active.splice(ix,1);
-    dhSetDept(dhActiveDept,dd);
-    dhCloseDischargeModal(null);dhRender();
+    dhSetDept(dhDischargingDept,dd);dhCloseDischargeModal(null);dhRender();toast(pt.name+' discharged');
   };
-
-  window.dhReadmit=function(id){
-    if(!confirm('Re-admit this patient to the active list?'))return;
-    var dd=dhGetDept(dhActiveDept);
-    var ix=dd.discharged.findIndex(function(p){return p.id===id});if(ix===-1)return;
-    var pt=dd.discharged[ix];
-    delete pt.dischargeDate;delete pt.dischargeNotes;
+  window.dhReadmit=function(id,dept){
+    dept=dept||dhActiveDept;
+    if(!confirm('Re-admit this patient to the inpatient list?'))return;
+    var dd=dhGetDept(dept);var ix=dd.discharged.findIndex(function(p){return p.id===id});if(ix===-1)return;
+    var pt=dd.discharged[ix];delete pt.dischargeDate;delete pt.dischargeNotes;
     dd.active.push(pt);dd.discharged.splice(ix,1);
-    dhSetDept(dhActiveDept,dd);dhSwitchView('active');dhRender();
+    dhSetDept(dept,dd);dhSwitchView('active');toast(pt.name+' re-admitted');
   };
 
-  window.dhCloseModal=function(e){
-    if(e&&e.target!==document.getElementById('dhModalBg'))return;
-    document.getElementById('dhModalBg').classList.remove('open');
+  window.dhOpenTransfer=function(id,dept){
+    var pt=findPt(id,dept);if(!pt)return;
+    dhTransferId=id;dhTransferFrom=dept;
+    $('dhTransferName').textContent=pt.name;
+    Array.prototype.forEach.call($('dhTransferDept').options,function(o){o.disabled=(o.value===dept)});
+    var first=DEPARTMENTS.filter(function(d){return d.id!==dept})[0];$('dhTransferDept').value=first.id;
+    $('dhTransferModalBg').classList.add('open');
   };
-  window.dhCloseDischargeModal=function(e){
-    if(e&&e.target!==document.getElementById('dhDischargeModalBg'))return;
-    document.getElementById('dhDischargeModalBg').classList.remove('open');
+  window.dhConfirmTransfer=function(){
+    var to=$('dhTransferDept').value;if(!to||to===dhTransferFrom)return;
+    var d=dhLoad(),from=d[dhTransferFrom];if(!from)return;
+    var ix=from.active.findIndex(function(p){return p.id===dhTransferId});if(ix===-1)return;
+    var pt=from.active.splice(ix,1)[0];pt.updatedAt=Date.now();
+    if(!d[to])d[to]={active:[],discharged:[]};d[to].active.push(pt);
+    dhSave(d);dhCloseTransfer(null);dhRender();toast(pt.name+' moved to '+deptLabelText(to));
+  };
+
+  window.dhCloseModal=function(e){if(e&&e.target!==$('dhModalBg'))return;$('dhModalBg').classList.remove('open')};
+  window.dhCloseDischargeModal=function(e){if(e&&e.target!==$('dhDischargeModalBg'))return;$('dhDischargeModalBg').classList.remove('open')};
+  window.dhCloseTransfer=function(e){if(e&&e.target!==$('dhTransferModalBg'))return;$('dhTransferModalBg').classList.remove('open')};
+
+  document.addEventListener('keydown',function(e){
+    var m=$('dhModalBg');
+    if(e.key==='Escape'){['dhModalBg','dhDischargeModalBg','dhTransferModalBg'].forEach(function(id){var x=$(id);if(x)x.classList.remove('open')})}
+    if(m&&m.classList.contains('open')&&e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();dhSavePatient()}
+  });
+
+  /* ---------- copy / print / backup ---------- */
+  function title(){return dhActiveDept==='all'?'All Departments':deptLabelText(dhActiveDept)}
+  function stamp(){return new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}
+
+  function byDeptOrder(v){var out=[];DEPARTMENTS.forEach(function(d){v.forEach(function(it){if(it.dept===d.id)out.push(it)})});return out}
+  window.dhCopy=function(){
+    var v=visibleActive().list;
+    if(!v.length){toast('No patients to copy');return}
+    var lines=['*'+title()+' — Handover*','_'+stamp()+'_',''],lastDept=null,n=0;
+    byDeptOrder(v).forEach(function(it){
+      var p=it.p,d=daysIn(p);
+      if(dhActiveDept==='all'&&it.dept!==lastDept){if(lastDept)lines.push('');lines.push('*— '+deptLabelText(it.dept).toUpperCase()+' —*');lastDept=it.dept}
+      n++;
+      lines.push('*'+n+'. '+(p.bed?p.bed+' · ':'')+p.name+'*'+(p.age?' ('+p.age+')':'')+(d!==null?' · Day '+d:'')+' · '+statusLabel(statusOf(p)).toUpperCase());
+      lines.push('Dx: '+p.diagnosis);
+      if(p.soapS)lines.push('S: '+p.soapS);if(p.soapO)lines.push('O: '+p.soapO);if(p.soapA)lines.push('A: '+p.soapA);if(p.soapP)lines.push('P: '+p.soapP);
+      lines.push('');
+    });
+    var text=lines.join('\n').trim();
+    function fallback(){var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast('Handover copied')}catch(e){toast('Copy failed')}t.remove()}
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(function(){toast('Handover copied — paste into chat')},fallback);else fallback();
+  };
+
+  window.dhPrint=function(){
+    var v=byDeptOrder(visibleActive().list);
+    if(!v.length){toast('No patients to print');return}
+    var rows='',lastDept=null;
+    v.forEach(function(it){
+      var p=it.p,d=daysIn(p);
+      if(dhActiveDept==='all'&&it.dept!==lastDept){rows+='<tr class="g"><td colspan="5">'+deptById(it.dept).label+'</td></tr>';lastDept=it.dept}
+      rows+='<tr><td><b>'+esc(p.bed||'--')+'</b></td><td><b>'+esc(p.name)+'</b><br>'+esc([p.age,p.mrn].filter(Boolean).join(' · '))+'<br>'+(d!==null?'Day '+d:'')+'</td>'+
+        '<td><span class="s s-'+statusOf(p)+'">'+statusLabel(statusOf(p))+'</span><br>'+esc(p.doctor||'')+'</td>'+
+        '<td><b>'+esc(p.diagnosis)+'</b>'+soapHtml(p).replace(/dh-soap-row/g,'r')+'</td><td class="n"></td></tr>';
+    });
+    var html='<!doctype html><html><head><meta charset="utf-8"><title>Handover — '+esc(title())+'</title><style>'+
+      'body{font:12px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;margin:18px;color:#111}h1{font-size:18px;margin:0}p.m{margin:2px 0 12px;color:#555}'+
+      'table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:6px 7px;vertical-align:top;text-align:left}th{background:#eee}'+
+      'tr{page-break-inside:avoid}tr.g td{background:#dfe9f0;font-weight:700}.r{margin-top:3px}.r b{display:inline-block;width:14px}'+
+      '.s{font-weight:700;font-size:11px}.s-critical{color:#c00}.s-guarded{color:#b45309}.s-improving{color:#1d4ed8}.s-stable{color:#15803d}td.n{width:18%}'+
+      '</style></head><body><h1>'+esc(title())+' — Inpatient Handover</h1><p class="m">'+stamp()+' · '+v.length+' patient'+(v.length>1?'s':'')+'</p>'+
+      '<table><thead><tr><th style="width:7%">Bed</th><th style="width:17%">Patient</th><th style="width:11%">Status</th><th>Diagnosis &amp; SOAP</th><th>Notes</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+      '<script>window.onload=function(){window.print()}<\/script></body></html>';
+    var w=window.open('','_blank');
+    if(!w){toast('Allow pop-ups to print');return}
+    w.document.open();w.document.write(html);w.document.close();
+  };
+
+  window.dhExport=function(){
+    var data={app:'ASMH CarePortal',type:'dept-handover',version:2,exportedAt:new Date().toISOString(),data:dhLoad()};
+    var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download='careportal-handover-'+new Date().toISOString().slice(0,10)+'.json';
+    document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
+    toast('Backup downloaded');
+  };
+  window.dhImport=function(input){
+    var f=input.files&&input.files[0];if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      try{
+        var j=JSON.parse(r.result),inc=j&&j.data?j.data:j;
+        if(!inc||typeof inc!=='object')throw 0;
+        var cur=dhLoad(),added=0,updated=0;
+        Object.keys(inc).forEach(function(dep){
+          if(!inc[dep]||typeof inc[dep]!=='object')return;
+          if(!cur[dep])cur[dep]={active:[],discharged:[]};
+          ['active','discharged'].forEach(function(t){
+            (inc[dep][t]||[]).forEach(function(p){
+              if(!p||!p.id||!p.name)return;
+              // remove this id from anywhere else first
+              Object.keys(cur).forEach(function(k){['active','discharged'].forEach(function(tt){var arr=cur[k][tt]||[];var i=arr.findIndex(function(x){return x.id===p.id});if(i!==-1){arr.splice(i,1);updated++;added--}})});
+              (cur[dep][t]=cur[dep][t]||[]).push(p);added++;
+            });
+          });
+        });
+        if(!confirm('Import '+(added+updated)+' patient records? ('+added+' new, '+updated+' updated)')){input.value='';return}
+        dhSave(cur);dhRender();toast('Backup imported');
+      }catch(e){alert('That file is not a valid CarePortal handover backup.')}
+      input.value='';
+    };
+    r.readAsText(f);
   };
 
   // Patch showDeptHandover to init on open
   document.addEventListener('DOMContentLoaded',function(){
     var orig=window.showDeptHandover;
     if(typeof orig==='function'){
-      var prev=orig;
       window.showDeptHandover=function(){var i,e,ids=['welcomeScreen','catContent','qlContent','erDashContent','stickyContent','filesContent','disclaimerContent'],f=document.getElementById('addDrugFab'),ft=document.querySelector('footer');for(i=0;i<ids.length;i++){e=document.getElementById(ids[i]);if(e)e.style.display='none';}if(f)f.style.display='none';if(ft)ft.style.display='none';var d=document.getElementById('deptContent');if(d)d.style.display='block';window.dhInit();}
     }
   });
