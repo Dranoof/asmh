@@ -2033,6 +2033,133 @@ textarea.er-in{resize:vertical}
 .lp-row .lp-ann{background:linear-gradient(180deg,rgba(99,102,241,.08),transparent 120px),var(--card)}
 .lp-bar{background:linear-gradient(90deg,#0aa5b5,#05557a)}
 </style>
+<style id="breathe-v1">
+/* ═══ Breathe v1 — calmer spacing + minimal brand colour + global footer ═══ */
+[data-theme="light"]{
+  --bg:#f5f8f9;--bg2:#ffffff;--bg3:#ebf2f4;--card:#ffffff;--card-h:#fbfdfd;
+  --border:rgba(5,85,122,.09);--border2:rgba(5,85,122,.15);
+  --text:#14202a;--text2:#3b4954;--muted:#6f7d88;
+  --accent:#05557a;--accent2:#0a7f8c;--teal:#0a8f9e;
+  --aside-bg:#ebf2f4;--shadow:0 6px 20px -8px rgba(5,85,122,.18);
+  --brand:#0aa5b5;--brand-soft:rgba(10,165,181,.09);
+  --logo-gr:linear-gradient(135deg,#0aa5b5,#05557a);
+}
+[data-theme="dark"]{
+  --bg:#10171a;--bg2:#151e22;--bg3:#1c272c;--card:#151e22;--card-h:#1a252a;
+  --border:rgba(180,225,232,.07);--border2:rgba(180,225,232,.13);
+  --text:#eef3f4;--text2:#c6d1d4;--muted:#87969c;
+  --accent:#5fd0dc;--accent2:#45bfcc;--teal:#4cc3cf;
+  --aside-bg:#10171a;--hdr-bg:rgba(16,23,26,.94);--shadow:0 8px 24px -10px rgba(0,0,0,.6);
+  --brand:#2fc3d1;--brand-soft:rgba(47,195,209,.10);
+  --logo-gr:linear-gradient(135deg,#5fd0dc,#2fa5c4);
+}
+
+/* Main gutter, driven by variables so full-bleed views + footer line up */
+main#mainContent{--px:36px;--py:32px;padding:var(--py) var(--px) 0 !important;display:flex;flex-direction:column}
+main#mainContent > *{flex-shrink:0}
+main#mainContent:has(> #welcomeScreen:not([style*="none"])),
+main#mainContent:has(> #deptContent[style*="block"]),
+main#mainContent:has(> #erDashContent[style*="flex"]),
+main#mainContent:has(> #stickyContent[style*="flex"]){--px:0px;--py:0px}
+#erDashContent[style*="flex"],#stickyContent[style*="flex"]{margin:0 !important;height:100% !important;min-height:calc(100vh - 108px)}
+#deptContent[style*="block"]{min-height:100%;height:100%}
+
+/* Reading width for content pages */
+#catContent,#qlContent,#toolsContent,#filesContent,#teamContent,#disclaimerContent{width:100%;max-width:1360px !important;margin-left:auto !important;margin-right:auto !important}
+#qlContent,#toolsContent{padding:0 !important}
+
+/* Category header + legend */
+.cat-hdr{gap:16px;margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid var(--border)}
+.cat-icon{width:52px;height:52px;border-radius:14px}
+.cat-title{font-size:24px;letter-spacing:-.025em}
+.legend{border:1px solid var(--border);border-radius:12px;margin-bottom:12px;background:var(--card)}
+.li{padding:10px 18px;font-size:11.5px}
+.lk{color:var(--accent2)}
+
+/* Section headings */
+.sec-head{font-size:11px;letter-spacing:.1em;color:var(--text2);margin:44px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border);gap:10px}
+.sec-head::before{width:4px;height:14px;background:var(--brand)}
+
+/* Drug cards */
+.drug-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-bottom:8px}
+.dc{border:1px solid var(--border);border-radius:16px;padding:20px 22px 16px;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(5,85,122,.04)}
+.dc:hover{border-color:color-mix(in srgb,var(--brand) 35%,transparent);background:var(--card-h);box-shadow:var(--shadow)}
+.dc.inj,.dc.topical,.dc.combo{border-left-width:3px}
+.dn{font-size:14px;margin-bottom:10px;line-height:1.4}
+.dd{font-size:12.5px;line-height:1.75}
+.dtags{margin-top:12px !important;display:flex;flex-wrap:wrap;gap:6px}
+.dc-code{margin-bottom:8px;color:var(--accent2);background:var(--brand-soft);padding:3px 8px}
+.dc-actions{margin-top:auto;padding-top:16px;gap:6px}
+
+.dc-btn{padding:5px 11px;border-radius:8px;background:transparent;border:1px solid var(--border)}
+.dc-btn-code:hover{background:var(--brand-soft);color:var(--accent2);border-color:transparent}
+
+/* Paediatric cards */
+.paed-grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-bottom:8px}
+.paed-card{border:1px solid var(--border);border-radius:16px}
+.paed-drug{font-size:14px;padding:16px 20px 14px;background:linear-gradient(180deg,var(--brand-soft),transparent);border-bottom:1px solid var(--border)}
+.age-row{padding:11px 20px;gap:14px;font-size:12.5px}
+.age-dose{color:var(--accent2)}
+
+/* Quick links / tools */
+.ql-page-title{font-size:26px;letter-spacing:-.02em;margin-bottom:8px}
+.ql-page-sub{font-size:13.5px;margin-bottom:32px}
+.ql-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.ql-card{border:1px solid var(--border);border-radius:16px;padding:20px 22px;gap:16px}
+.ql-card:hover{box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--brand) 40%,transparent)}
+.ql-desc{font-size:12px;margin-top:4px;line-height:1.45}
+
+/* Nav + chips accents */
+.hnav{gap:4px;padding:0 24px}
+.hnav-btn:hover,.hnav-item.open .hnav-btn{background:var(--brand-soft);color:var(--accent)}
+.hnav-drop-item:hover{background:var(--brand-soft);color:var(--accent)}
+.chip.active{background:var(--brand-soft);border-color:color-mix(in srgb,var(--brand) 40%,transparent);color:var(--accent)}
+header{padding:0 24px}
+
+/* Landing: a touch more air */
+.welcome{padding:36px 40px 0 !important;min-height:auto !important}
+.lp-hero{padding:36px 40px;border-radius:22px}
+.lp-dash{margin-top:40px !important}
+.lp-head{margin-bottom:16px}
+.lp-tiles{gap:18px !important;margin-bottom:20px}
+.lp-tile{padding:20px 22px}
+.lp-row{gap:20px}
+.lp-qa{gap:12px}
+
+/* ── Global footer ── */
+#siteFooter{display:block !important;margin:72px calc(-1 * var(--px)) 0;margin-top:auto;padding-top:72px;background:transparent;font-family:'Figtree','Inter',sans-serif}
+#siteFooter .sf-inner,#siteFooter .sf-bottom{background:var(--card)}
+#siteFooter .sf-inner{border-top:1px solid var(--border);position:relative;display:grid;grid-template-columns:1.7fr repeat(4,1fr);gap:40px;padding:48px 48px 40px}
+#siteFooter .sf-inner::before{content:'';position:absolute;left:0;top:-1px;width:120px;height:2px;background:linear-gradient(90deg,var(--brand),transparent)}
+.sf-logos{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.sf-asmh{width:40px;height:auto}
+.sf-sep{width:1px;height:28px;background:var(--border2)}
+.sf-cp{width:30px;height:auto}
+.sf-name{font-size:15px;font-weight:600;color:var(--text);letter-spacing:-.01em}
+.sf-name b{color:var(--accent);font-weight:800}
+.sf-tag{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:8px}
+.sf-desc{font-size:12.5px;line-height:1.7;color:var(--muted);max-width:300px}
+.sf-col{display:flex;flex-direction:column;gap:10px}
+.sf-col h4{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);margin-bottom:6px}
+.sf-col a{font-size:13px;color:var(--muted);text-decoration:none;width:fit-content;transition:color .15s}
+.sf-col a:hover{color:var(--accent)}
+#siteFooter .sf-bottom{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:18px 104px 22px 48px;border-top:1px solid var(--border);font-size:11.5px;color:var(--muted)}
+@media (max-width:1100px){#siteFooter .sf-inner{grid-template-columns:1fr 1fr 1fr}#siteFooter .sf-brand{grid-column:1/-1}}
+
+@media (max-width:700px){
+  main#mainContent{--px:16px;--py:20px}
+  .welcome{padding:16px 16px 0 !important}
+  .lp-hero{padding:22px 18px}
+  .drug-grid,.paed-grid{grid-template-columns:1fr;gap:14px}
+  .sec-head{margin:32px 0 12px}
+  .dc{padding:16px 18px 14px}
+  .age-label{min-width:110px}
+  #siteFooter{padding-top:48px}
+  #siteFooter .sf-inner{grid-template-columns:1fr 1fr;gap:28px 20px;padding:32px 16px 28px}
+  #siteFooter .sf-bottom{padding:16px 16px 20px;flex-direction:column}
+}
+
+</style>
 </head>
 <body>
 
@@ -2173,75 +2300,7 @@ textarea.er-in{resize:vertical}
       
     
 
-<footer style="
-  width: calc(100% + 100px); margin-left: -50px; margin-right: -50px;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  background: #0d1117;
-  font-family: Inter, sans-serif;
-  margin-top: 80px;
-  text-align: left;
-">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 48px 40px 0;">
-    <div style="display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 40px;">
 
-      <!-- Brand -->
-      <div>
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
-          <img src="https://asmh.gov.mv/storage/images/logos/asmh_logo.svg" alt="ASMH" class="footer-logo-img" style="width:48px;height:auto;flex-shrink:0;">
-          <img src="data:image/png;base64,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" alt="" style="width:38px;height:auto;flex-shrink:0;">
-          <span style="font-size: 14px; font-weight: 600; color: #e6edf3;">ASMH CarePortal</span>
-        </div>
-        <p style="font-size: 12.5px; color: #5c6b7d; line-height: 1.75; margin: 0 0 18px; max-width: 260px;">One Portal. One Team. Better Care.</p>
-        <p style="font-size: 12.5px; color: #5c6b7d; line-height: 1.75; margin: 0 0 14px; max-width: 260px;">Access patient handovers, clinical resources, hospital announcements, and essential tools designed to support safe and efficient healthcare delivery.</p>
-      </div>
-
-      <!-- Categories -->
-      <div>
-        <p style="font-size: 10.5px; font-weight: 600; color: #3d4f60; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 16px;">Categories</p>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Pain &amp; Fever</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Cardiovascular</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Antibiotics</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Respiratory</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Paediatrics</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Antifungal / Antiviral</a>
-        </div>
-      </div>
-
-      <!-- Special Populations -->
-      <div>
-        <p style="font-size: 10.5px; font-weight: 600; color: #3d4f60; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 16px;">Populations</p>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Gynaecology</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Pregnancy</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Lactation</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">G6PD Guide</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Paeds OPD</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Paeds Acute</a>
-        </div>
-      </div>
-
-      <!-- Resources -->
-      <div>
-        <p style="font-size: 10.5px; font-weight: 600; color: #3d4f60; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 16px;">Resources</p>
-        <div style="display: flex; flex-direction: column; gap: 11px;">
-          <a href="https://dranoof.github.io/myportal/" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Dr. ASMH Portal</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">National Guidelines</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Disclaimer</a>
-          <a href="#" style="font-size: 13px; color: #5c6b7d; text-decoration: none;" onmouseover="this.style.color='#e6edf3'" onmouseout="this.style.color='#5c6b7d'">Feedback</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom bar -->
-  <div style="border-top: 1px solid rgba(255,255,255,0.05); margin: 0 40px;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 18px 0; display: flex; align-items: center; justify-content: space-between;">
-      <span style="font-size: 11.5px; color: #3d4f60;">Crafted with &#x2764;&#xFE0F; by dranoof &nbsp;&bull;&nbsp; All rights reserved</span>
-      <span style="font-size: 11.5px; color: #3d4f60;">dranoof.github.io</span>
-    </div>
-  </div>
-</footer>
 </div>
     <div 
   <div id="qlContent" style="display:none;">
@@ -2522,6 +2581,28 @@ textarea.er-in{resize:vertical}
 </div><!-- end deptContent -->
   <div id="stickyContent"></div>
   <div id="disclaimerContent"></div>
+<footer id="siteFooter" class="site-footer">
+  <div class="sf-inner">
+    <div class="sf-brand">
+      <div class="sf-logos">
+        <img src="https://asmh.gov.mv/storage/images/logos/asmh_logo.svg" alt="ASMH" class="footer-logo-img sf-asmh">
+        <span class="sf-sep"></span>
+        <img src="data:image/png;base64,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" alt="" class="sf-cp">
+        <span class="sf-name">ASMH <b>CarePortal</b></span>
+      </div>
+      <p class="sf-tag">One Portal. One Team. Better Care.</p>
+      <p class="sf-desc">Patient handovers, clinical resources, hospital announcements and essential tools for safe, efficient care.</p>
+    </div>
+    <nav class="sf-col" aria-label="Categories"><h4>Categories</h4><a href="#" onclick="hnavGo('pain');return false">Pain &amp; Fever</a><a href="#" onclick="hnavGo('respiratory');return false">Respiratory</a><a href="#" onclick="hnavGo('cardiovascular');return false">Cardiovascular</a><a href="#" onclick="hnavGo('gi');return false">Gastroenterology</a><a href="#" onclick="hnavGo('antibiotics');return false">Antibiotics</a><a href="#" onclick="hnavGo('antifungal');return false">Antifungal &amp; Antiviral</a></nav>
+    <nav class="sf-col" aria-label="Populations"><h4>Populations</h4><a href="#" onclick="hnavGo('paed-opd');return false">Paeds OPD</a><a href="#" onclick="hnavGo('paed-acute');return false">Paeds Acute</a><a href="#" onclick="hnavGo('gynae');return false">Gynaecology</a><a href="#" onclick="hnavGo('pregnancy');return false">Pregnancy</a><a href="#" onclick="hnavGo('lactation');return false">Lactation</a><a href="#" onclick="hnavGo('g6pd');return false">G6PD Guide</a></nav>
+    <nav class="sf-col" aria-label="Portal"><h4>Portal</h4><a href="#" onclick="showERDashboard();return false">ER Handover</a><a href="#" onclick="showDeptHandover();return false">Dept Handover</a><a href="#" onclick="showQuickLinks();return false">Quick Links</a><a href="#" onclick="showStickyNotes();return false">Sticky Notes</a><a href="#" onclick="showToolsSection();return false">Tools</a><a href="#" onclick="showOurTeam();return false">Our Team</a></nav>
+    <nav class="sf-col" aria-label="Resources"><h4>Resources</h4><a href="#" onclick="hnavGo('files');return false">National Guidelines</a><a href="https://dranoof.github.io/myportal/">Dr. ASMH Portal</a><a href="https://asmh.gov.mv" target="_blank" rel="noopener">ASMH Website</a><a href="#" onclick="showDisclaimer();return false">Disclaimer</a></nav>
+  </div>
+  <div class="sf-bottom">
+    <span>Crafted with &#x2764;&#xFE0F; by dranoof &middot; All rights reserved</span>
+    <span>dranoof.github.io</span>
+  </div>
+</footer>
   </main>
 </div>
 

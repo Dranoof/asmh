@@ -42,6 +42,16 @@
             .search-box { min-width: 100%; }
             table { font-size: 0.85em; }
         }
+        .site-footer{margin-top:72px;background:#fff;border-top:1px solid rgba(5,85,122,.09);position:relative;font-size:13px}
+        .site-footer::before{content:'';position:absolute;left:0;top:-1px;width:120px;height:2px;background:linear-gradient(90deg,#0aa5b5,transparent)}
+        .sf-inner{max-width:1200px;margin:0 auto;padding:44px 20px 36px;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px}
+        .sf-name{font-size:15px;font-weight:600;color:#14202a;margin-bottom:10px}.sf-name b{color:#05557a}
+        .sf-desc{color:#6f7d88;line-height:1.7;max-width:320px}
+        .sf-col{display:flex;flex-direction:column;gap:10px}
+        .sf-col h4{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#3b4954;margin-bottom:4px}
+        .sf-col a{color:#6f7d88;text-decoration:none}.sf-col a:hover{color:#05557a}
+        .sf-bottom{border-top:1px solid rgba(5,85,122,.09);max-width:1200px;margin:0 auto;padding:18px 20px 22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11.5px;color:#6f7d88}
+        @media (max-width:768px){.sf-inner{grid-template-columns:1fr 1fr}.sf-inner>div:first-child{grid-column:1/-1}}
     </style>
 </head>
 <body>
@@ -81,6 +91,14 @@
         </div>
     </div>
     
+    <footer class="site-footer">
+        <div class="sf-inner">
+            <div><div class="sf-name">ASMH <b>CarePortal</b></div><p class="sf-desc">One Portal. One Team. Better Care. Patient handovers, clinical resources, hospital announcements and essential tools for safe, efficient care.</p></div>
+            <nav class="sf-col"><h4>Portal</h4><a href="index.html">Home</a><a href="index.html">Drug Reference</a><a href="guidelines.html">Guidelines</a></nav>
+            <nav class="sf-col"><h4>Resources</h4><a href="https://dranoof.github.io/myportal/">Dr. ASMH Portal</a><a href="https://asmh.gov.mv" target="_blank" rel="noopener">ASMH Website</a><a href="https://health.gov.mv" target="_blank" rel="noopener">Ministry of Health</a></nav>
+        </div>
+        <div class="sf-bottom"><span>Crafted with &#x2764;&#xFE0F; by dranoof &middot; All rights reserved</span><span>dranoof.github.io</span></div>
+    </footer>
     <script>
         const docs = [
             { title: 'National Standard Treatment Guideline for Acid Peptic Disease', desc: 'Guidelines for treating acid peptic disease', version: '1', url: 'https://maaharaa.health.gov.mv/Public/Home/GetFile/c80bc697-f92c-4d7f-954b-6534f22af381', featured: true },
