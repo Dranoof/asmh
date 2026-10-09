@@ -2202,6 +2202,209 @@ header{padding:0 24px}
 /* Icon slots that used to hold emojis: hide when empty */
 .lp-qa-ic:empty,.dh-sidebar-icon:empty,.dh-empty-icon:empty,.dh-dept-emoji:empty,.cat-icon:empty,.files-icon:empty,.file-card-icon:empty,.sn-card-icon:empty,.tm-dept-hdr>span:empty{display:none !important}
 </style>
+<style id="dept-handover-v2">
+/* ═══ Department Handover v2 — organised, readable, touch-friendly ═══ */
+#deptContent{--dx-crit:#dc2626;--dx-crit-bg:#fef2f2;--dx-guard:#d97706;--dx-guard-bg:#fffbeb;--dx-imp:#2563eb;--dx-imp-bg:#eff6ff;--dx-stab:#16a34a;--dx-stab-bg:#f0fdf4;--dx-teal:var(--accent2,#0a7f8c);--dx-teal-soft:rgba(10,143,158,.09)}
+[data-theme="dark"] #deptContent{--dx-crit:#f87171;--dx-crit-bg:rgba(248,113,113,.10);--dx-guard:#fbbf24;--dx-guard-bg:rgba(251,191,36,.09);--dx-imp:#60a5fa;--dx-imp-bg:rgba(96,165,250,.10);--dx-stab:#4ade80;--dx-stab-bg:rgba(74,222,128,.08);--dx-teal-soft:rgba(95,208,220,.10)}
+#deptContent .dx{display:block;max-width:1400px;margin:0 auto;padding:26px 32px 48px;height:auto;min-height:0;overflow:visible;background:none;border:0}
+#deptContent svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* header */
+.dx-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.dx-title{font-size:24px;font-weight:700;letter-spacing:-.02em;color:var(--text)}
+.dx-context{font-size:13.5px;color:var(--muted);margin-top:4px}
+.dx-context #dhActiveDeptName{color:var(--text);font-weight:600}
+.dx-head-r{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dx-btn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:10px;border:1px solid var(--border2);background:var(--card);color:var(--text2);font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:border-color .12s,color .12s,background .12s}
+.dx-btn:hover{border-color:var(--dx-teal);color:var(--dx-teal)}
+.dx-btn-icon{width:38px;padding:0;justify-content:center}
+.dx-btn-primary{background:var(--accent,#05557a);border-color:var(--accent,#05557a);color:#fff}
+.dx-btn-primary:hover{background:var(--dx-teal);border-color:var(--dx-teal);color:#fff}
+[data-theme="dark"] .dx-btn-primary{color:#0b1a1f}
+.dx-menu-wrap{position:relative}
+.dx-menu{position:absolute;right:0;top:calc(100% + 6px);width:230px;background:var(--card);border:1px solid var(--border2);border-radius:12px;box-shadow:0 16px 36px -14px rgba(0,0,0,.35);padding:6px;z-index:50}
+.dx-menu button{display:block;width:100%;text-align:left;border:0;background:none;padding:9px 10px;border-radius:8px;font:inherit;font-size:13px;color:var(--text);cursor:pointer}
+.dx-menu button:hover{background:var(--dx-teal-soft)}
+.dx-menu p{font-size:11.5px;color:var(--muted);padding:8px 10px 4px;border-top:1px solid var(--border);margin-top:4px}
+
+/* departments */
+.dx-depts{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.dx-dept{position:relative;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 14px;border-radius:999px;border:1px solid var(--border2);background:var(--card);color:var(--text2);font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.dx-dept b{min-width:22px;height:20px;padding:0 6px;border-radius:10px;background:var(--bg3);color:var(--text2);font-size:11.5px;display:inline-flex;align-items:center;justify-content:center}
+.dx-dept:hover{border-color:var(--dx-teal)}
+.dx-dept.on{background:var(--accent,#05557a);border-color:var(--accent,#05557a);color:#fff}
+.dx-dept.on b{background:rgba(255,255,255,.2);color:#fff}
+[data-theme="dark"] .dx-dept.on{color:#0b1a1f}[data-theme="dark"] .dx-dept.on b{color:#0b1a1f}
+.dx-crit-dot{position:absolute;top:-2px;right:-2px;width:10px;height:10px;border-radius:50%;background:var(--dx-crit);border:2px solid var(--bg)}
+.dx-dept-more{height:36px;border-radius:999px;border:1px dashed var(--border2);background:transparent;color:var(--muted);font:inherit;font-size:13px;padding:0 12px;cursor:pointer;max-width:220px}
+
+/* summary tiles */
+.dx-stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.dx-stat{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--card);cursor:pointer;font:inherit;color:var(--text);transition:border-color .12s,box-shadow .12s}
+.dx-stat span{font-size:12px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:7px}
+.dx-stat span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--dx-teal))}
+.dx-stat b{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2;color:var(--c,var(--text))}
+.dx-stat small{font-size:11px;color:var(--muted)}
+.dx-stat:hover{border-color:var(--c,var(--dx-teal))}
+.dx-stat.on{border-color:var(--c,var(--dx-teal));box-shadow:inset 0 0 0 1px var(--c,var(--dx-teal));background:var(--cbg,var(--dx-teal-soft))}
+.dx-stat.zero b{color:var(--muted)}
+.dx-s-all{--c:var(--text)}.dx-s-all span::before{background:var(--dx-teal)}
+.dx-s-critical{--c:var(--dx-crit);--cbg:var(--dx-crit-bg)}
+.dx-s-guarded{--c:var(--dx-guard);--cbg:var(--dx-guard-bg)}
+.dx-s-improving{--c:var(--dx-imp);--cbg:var(--dx-imp-bg)}
+.dx-s-stable{--c:var(--dx-stab);--cbg:var(--dx-stab-bg)}
+.dx-s-stale{--c:var(--dx-guard);--cbg:var(--dx-guard-bg)}
+.dx-s-stale span::before{border-radius:2px}
+
+/* toolbar */
+.dx-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px;border:1px solid var(--border);border-radius:14px;background:var(--card);margin-bottom:20px}
+.dx-seg{display:inline-flex;background:var(--bg3);border-radius:10px;padding:3px;gap:2px}
+.dx-seg button{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border:0;border-radius:8px;background:none;color:var(--muted);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.dx-seg button svg{width:14px;height:14px}
+.dx-seg button b{font-size:11.5px;padding:1px 7px;border-radius:9px;background:var(--border);color:var(--text2)}
+.dx-seg button.on,.dx-seg button.active{background:var(--card);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.dx-search{flex:1;min-width:220px;display:flex;align-items:center;gap:8px;height:38px;padding:0 12px;border-radius:10px;border:1px solid var(--border2);background:var(--bg);color:var(--muted)}
+.dx-search:focus-within{border-color:var(--dx-teal);box-shadow:0 0 0 3px var(--dx-teal-soft)}
+.dx-search input{flex:1;min-width:0;border:0;background:none;outline:none;font:inherit;font-size:13.5px;color:var(--text)}
+.dx-select{height:38px;border-radius:10px;border:1px solid var(--border2);background:var(--bg);color:var(--text);font:inherit;font-size:13px;padding:0 10px;cursor:pointer}
+
+/* groups */
+.dx-group{margin-bottom:28px}
+.dx-group-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid var(--border)}
+.dx-group-h h2{font-size:15px;font-weight:700;color:var(--text)}
+.dx-group-h>b{font-size:12px;padding:2px 8px;border-radius:9px;background:var(--bg3);color:var(--text2)}
+.dx-mixes{display:flex;gap:12px;flex-wrap:wrap;margin-left:6px}
+.dx-mix{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--muted)}
+.dx-mix i{width:7px;height:7px;border-radius:50%}
+.dx-mix-critical i{background:var(--dx-crit)}.dx-mix-guarded i{background:var(--dx-guard)}.dx-mix-improving i{background:var(--dx-imp)}.dx-mix-stable i{background:var(--dx-stab)}
+.dx-mix-critical{color:var(--dx-crit);font-weight:600}
+.dx-link{margin-left:auto;border:0;background:none;color:var(--dx-teal);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;padding:2px 0}
+.dx-link:hover{text-decoration:underline}
+.dx-nonotes .dx-link{margin:0}
+
+/* patient card */
+.dx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:14px;align-items:start}
+.dx-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 16px 12px 20px;overflow:hidden;transition:box-shadow .15s,border-color .15s}
+.dx-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.dx-card:hover{box-shadow:0 10px 26px -16px rgba(0,0,0,.35);border-color:var(--border2)}
+.dx-card-critical{--c:var(--dx-crit);border-color:color-mix(in srgb,var(--dx-crit) 35%,var(--border))}
+.dx-card-guarded{--c:var(--dx-guard)}.dx-card-improving{--c:var(--dx-imp)}.dx-card-stable{--c:var(--dx-stab)}
+.dx-card-top{display:flex;align-items:center;gap:12px}
+.dx-bed{width:52px;height:52px;flex-shrink:0;border-radius:12px;background:var(--bg3);color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:19px;font-weight:800;line-height:1}
+.dx-bed small{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-bottom:3px}
+.dx-bed.none{font-size:10.5px;font-weight:600;color:var(--muted);text-align:center;line-height:1.2}
+.dx-who{flex:1;min-width:0}
+.dx-who h3{font-size:16px;font-weight:700;color:var(--text);line-height:1.25;overflow-wrap:anywhere}
+.dx-sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+.dx-pill{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:999px;border:1px solid transparent;font:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;color:var(--c);background:var(--cbg)}
+.dx-pill i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+.dx-pill:hover{border-color:var(--c)}
+.dx-pill-critical{--c:var(--dx-crit);--cbg:var(--dx-crit-bg)}.dx-pill-guarded{--c:var(--dx-guard);--cbg:var(--dx-guard-bg)}.dx-pill-improving{--c:var(--dx-imp);--cbg:var(--dx-imp-bg)}.dx-pill-stable{--c:var(--dx-stab);--cbg:var(--dx-stab-bg)}
+.dx-dx{font-size:14.5px;font-weight:600;color:var(--text);margin:12px 0 8px;line-height:1.35}
+.dx-meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.dx-meta span{display:inline-flex;align-items:center;gap:5px}
+.dx-meta svg{width:13px;height:13px}
+.dx-stale{color:var(--dx-guard) !important;font-weight:600}
+.dx-soap{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.dx-soap-c{background:var(--card);padding:9px 11px;min-width:0}
+.dx-soap-c span{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.dx-soap-c p{font-size:13px;line-height:1.45;color:var(--text2);white-space:pre-wrap;overflow-wrap:anywhere}
+.dx-soap-c.empty p{color:var(--muted)}
+.dx-soap-p{background:var(--dx-teal-soft)}
+.dx-soap-p span{color:var(--dx-teal)}
+.dx-soap-p p{color:var(--text);font-weight:500}
+.dx-nonotes{font-size:13px;color:var(--muted);padding:10px 12px;border:1px dashed var(--border2);border-radius:10px}
+.dx-card-foot{display:flex;align-items:center;gap:6px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border);flex-wrap:wrap}
+.dx-act{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 11px;border-radius:8px;border:1px solid var(--border2);background:var(--card);color:var(--text2);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
+.dx-act svg{width:14px;height:14px}
+.dx-act:hover{border-color:var(--dx-teal);color:var(--dx-teal)}
+.dx-act-main{background:var(--dx-teal-soft);border-color:transparent;color:var(--dx-teal)}
+.dx-ib{width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid var(--border2);background:var(--card);color:var(--muted);cursor:pointer}
+.dx-ib svg{width:14px;height:14px}
+.dx-ib:hover{color:var(--dx-teal);border-color:var(--dx-teal)}
+.dx-card-foot .dx-ib-del{margin-left:auto;border-color:transparent}
+.dx-ib-del:hover{color:var(--dx-crit) !important;border-color:var(--dx-crit) !important}
+
+/* tables */
+.dx-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--card)}
+.dx-table{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}
+.dx-table th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:11px 12px;border-bottom:1px solid var(--border);background:var(--bg)}
+.dx-table td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text2)}
+.dx-table tr:last-child td{border-bottom:0}
+.dx-table tbody tr:hover td{background:var(--dx-teal-soft)}
+.dx-table .nowrap{white-space:nowrap}
+.dx-t-bed{font-weight:800;color:var(--text) !important;font-size:14px}
+.dx-table tr td:first-child{box-shadow:inset 4px 0 0 var(--c,transparent)}
+.dx-row-critical{--c:var(--dx-crit)}.dx-row-guarded{--c:var(--dx-guard)}.dx-row-improving{--c:var(--dx-imp)}.dx-row-stable{--c:var(--dx-stab)}
+.dx-t-name{font-weight:700;color:var(--text)}
+.dx-t-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.dx-t-dx{font-weight:600;color:var(--text)}
+.dx-t-plan{font-size:12.5px;color:var(--text2);margin-top:4px}
+.dx-t-plan b{color:var(--dx-teal);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;margin-right:4px}
+.dx-t-acts{display:flex;gap:4px}
+.dx-t-notes{max-width:280px}
+.dx-month{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 10px}
+.dx-month:first-child{margin-top:0}
+
+/* empty states */
+#deptContent .dx-empty{display:none;flex-direction:column;align-items:center;text-align:center;padding:56px 20px;border:1px dashed var(--border2);border-radius:16px;background:var(--card)}
+#deptContent .dx-empty.show{display:flex}
+.dx-empty-ic{width:52px;height:52px;border-radius:14px;background:var(--dx-teal-soft);color:var(--dx-teal);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+#deptContent .dx-empty-ic svg{width:26px;height:26px}
+#deptContent .dx-empty .dh-empty-title{font-size:16px;font-weight:700;color:var(--text)}
+#deptContent .dx-empty .dh-empty-sub{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* add / edit modal */
+.dx-modal{width:820px !important;max-width:calc(100vw - 24px) !important}
+.dx-modal .dh-modal-body{padding:6px 22px 18px}
+.dx-fsec{padding:16px 0;border-bottom:1px solid var(--border)}
+.dx-fsec:last-child{border-bottom:0}
+.dx-fsec h4{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.dx-fsec h4 small{font-weight:600;letter-spacing:.04em;margin-left:6px;padding:1px 6px;border-radius:5px;background:var(--bg3)}
+.dx-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px}
+.dx-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px}
+.dx-span2{grid-column:span 2}
+.dx-modal .dh-form-group{margin:0}
+.dx-modal .dh-label{font-size:12px;font-weight:600;margin-bottom:6px;display:block}
+.dx-modal .dh-input{height:40px;border-radius:10px;font-size:13.5px}
+.dx-modal .dh-textarea{height:auto;min-height:84px;line-height:1.45;padding-top:9px}
+.dx-plan .dh-label{color:var(--dx-teal)}
+.dx-plan .dh-textarea{border-color:color-mix(in srgb,var(--dx-teal) 45%,var(--border2));background:var(--dx-teal-soft)}
+.dx-modal .dh-status-pick{display:flex;gap:8px;flex-wrap:wrap}
+.dx-modal .dh-spick{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:600}
+.dx-modal .dh-spick i{width:8px;height:8px;border-radius:50%;background:currentColor}
+
+/* responsive */
+@media (max-width:1100px){.dx-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){
+  #deptContent .dx{padding:16px 14px 40px}
+  .dx-title{font-size:20px}
+  .dx-head{align-items:stretch}
+  .dx-head-r{width:100%}
+  .dx-head-r .dx-btn-primary{flex:1;justify-content:center}
+  .dx-depts{flex-wrap:nowrap;overflow-x:auto;margin:0 -14px 14px;padding:2px 14px 4px;scrollbar-width:none}
+  .dx-depts::-webkit-scrollbar{display:none}
+  .dx-stats{gap:8px}
+  .dx-stat{padding:10px}
+  .dx-stat b{font-size:20px}
+  .dx-stat small{display:none}
+  .dx-toolbar{padding:8px}
+  .dx-search{order:-1;flex-basis:100%}
+  .dx-tabs{flex:1}.dx-tabs button{flex:1;justify-content:center}
+  .dx-select{flex:1;min-width:0}
+  .dx-grid{grid-template-columns:1fr}
+  .dx-soap{grid-template-columns:1fr}
+  .dx-mixes{display:none}
+  .dx-grid3,.dx-grid2{grid-template-columns:1fr}
+  .dx-span2{grid-column:auto}
+  .dx-modal .dh-modal-body{padding:4px 16px 14px}
+}
+@media (max-width:420px){.dx-act{padding:0 9px}.dx-head-r .dx-btn span{display:none}.dx-head-r .dx-btn-primary span{display:inline}.dx-head-r .dx-btn{width:38px;padding:0;justify-content:center}.dx-head-r .dx-btn-primary{width:auto;padding:0 14px}}
+#deptContent:not([style*="none"]){display:block !important;height:auto !important;min-height:100%;overflow:visible !important}
+#deptContent .dx{width:100%;box-sizing:border-box}
+.dx-modal .dh-label{text-transform:none;letter-spacing:0;color:var(--text2)}
+.dx-modal .dh-input{background:var(--bg)}
+</style>
 </head>
 <body>
 
@@ -2452,154 +2655,151 @@ header{padding:0 24px}
      DEPARTMENT INPATIENT HANDOVER SYSTEM
 ═══════════════════════════════════════════════════════════════ -->
 
-<div class="dh-wrap">
+<div class="dh-wrap dx">
 
-  <!-- Sidebar: Department List -->
-  <aside class="dh-sidebar">
-    <div class="dh-sidebar-header">
-      <span class="dh-sidebar-icon"></span>
-      <span class="dh-sidebar-title">Departments</span>
+  <!-- Header -->
+  <div class="dx-head">
+    <div class="dx-head-l">
+      <h1 class="dx-title">Department Handover</h1>
+      <p class="dx-context"><span id="dhActiveDeptName">All Departments</span><span id="dxContext"></span></p>
     </div>
-    <nav class="dh-dept-list" id="dhDeptList"></nav>
-    <div class="dh-side-foot">
-      <div class="dh-side-note">Saved on this device only</div>
-      <button class="dh-side-link" onclick="dhExport()">Export backup</button>
-      <button class="dh-side-link" onclick="document.getElementById('dhImportFile').click()">Import backup</button>
+    <div class="dx-head-r">
+      <button class="dx-btn" onclick="dhCopy()" title="Copy handover as text for WhatsApp / Viber">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg><span>Copy</span></button>
+      <button class="dx-btn" onclick="dhPrint()" title="Print handover sheet">
+        <svg viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/></svg><span>Print</span></button>
+      <div class="dx-menu-wrap">
+        <button class="dx-btn dx-btn-icon" onclick="dxToggleMenu(event)" title="More" aria-label="More options"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></button>
+        <div class="dx-menu" id="dxMenu" hidden>
+          <button onclick="dhExport()">Export backup</button>
+          <button onclick="document.getElementById('dhImportFile').click()">Import backup</button>
+          <p>Handover data is saved on this device only.</p>
+        </div>
+      </div>
       <input type="file" id="dhImportFile" accept=".json,application/json" hidden onchange="dhImport(this)">
+      <button class="dx-btn dx-btn-primary" id="dhAddBtn" onclick="dhOpenAddModal()">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>Add patient</span></button>
     </div>
-  </aside>
+  </div>
 
-  <!-- Main Panel -->
-  <div class="dh-main">
-    <div class="dh-topbar">
-      <div class="dh-topbar-left">
-        <h2 class="dh-dept-name" id="dhActiveDeptName">All Departments</h2>
-        <div class="dh-view-tabs">
-          <button class="dh-view-tab active" id="dhTabActive" onclick="dhSwitchView('active')">
-            <span class="dh-tab-dot dh-dot-green"></span>Inpatients
-            <span class="dh-badge" id="dhBadgeActive">0</span>
-          </button>
-          <button class="dh-view-tab" id="dhTabDischarged" onclick="dhSwitchView('discharged')">
-            <span class="dh-tab-dot dh-dot-gray"></span>Discharged
-            <span class="dh-badge dh-badge-gray" id="dhBadgeDischarged">0</span>
-          </button>
-        </div>
-      </div>
-      <div class="dh-top-actions">
-        <button class="dh-tool-btn" onclick="dhCopy()" title="Copy handover as text (for WhatsApp / Viber)"><span>Copy</span></button>
-        <button class="dh-tool-btn" onclick="dhPrint()" title="Print handover sheet"><span>Print</span></button>
-        <button class="dh-add-btn" id="dhAddBtn" onclick="dhOpenAddModal()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Add Patient
-        </button>
-      </div>
-    </div>
+  <!-- Department switcher -->
+  <nav class="dx-depts" id="dhDeptList" aria-label="Departments"></nav>
 
-    <div class="dh-toolbar">
-      <div class="dh-search">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="dhSearch" placeholder="Search name, ID, bed, diagnosis…" autocomplete="off" oninput="dhSetQuery(this.value)">
-      </div>
-      <div class="dh-chips" id="dhStatusChips"></div>
-      <div class="dh-toolbar-right">
-        <select id="dhSort" class="dh-sort" onchange="dhSetSort(this.value)" title="Sort patients">
-          <option value="bed">Sort: Bed</option>
-          <option value="status">Sort: Status</option>
-          <option value="days">Sort: Days admitted</option>
-          <option value="name">Sort: Name</option>
-        </select>
-        <div class="dh-seg" title="Layout">
-          <button id="dhLayoutCards" onclick="dhSetLayout('cards')">▦ Cards</button>
-          <button id="dhLayoutList" onclick="dhSetLayout('list')">☰ List</button>
-        </div>
-      </div>
-    </div>
+  <!-- Status summary (click to filter) -->
+  <div class="dx-stats" id="dhStatusChips"></div>
 
-    <div class="dh-view" id="dhViewActive">
-      <div class="dh-empty" id="dhEmptyActive">
-        <div class="dh-empty-icon"></div>
-        <div class="dh-empty-title" id="dhEmptyActiveTitle">No Inpatients</div>
-        <div class="dh-empty-sub" id="dhEmptyActiveSub">Click "Add Patient" to admit a patient.</div>
-      </div>
-      <div id="dhActiveBody"></div>
+  <!-- Toolbar -->
+  <div class="dx-toolbar">
+    <div class="dx-seg dx-tabs" role="tablist">
+      <button id="dhTabActive" class="active" onclick="dhSwitchView('active')">Inpatients <b id="dhBadgeActive">0</b></button>
+      <button id="dhTabDischarged" onclick="dhSwitchView('discharged')">Discharged <b id="dhBadgeDischarged">0</b></button>
     </div>
+    <div class="dx-search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="dhSearch" placeholder="Search name, ID, bed, diagnosis, doctor…" autocomplete="off" oninput="dhSetQuery(this.value)">
+    </div>
+    <select id="dhSort" class="dx-select" onchange="dhSetSort(this.value)" title="Sort patients">
+      <option value="bed">Sort by bed</option>
+      <option value="status">Sort by status</option>
+      <option value="days">Sort by days admitted</option>
+      <option value="name">Sort by name</option>
+    </select>
+    <div class="dx-seg dh-seg" title="Layout">
+      <button id="dhLayoutCards" onclick="dhSetLayout('cards')" title="Cards"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>Cards</button>
+      <button id="dhLayoutList" onclick="dhSetLayout('list')" title="Table"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>Table</button>
+    </div>
+  </div>
 
-    <div class="dh-view" id="dhViewDischarged" style="display:none">
-      <div class="dh-empty" id="dhEmptyDischarged">
-        <div class="dh-empty-icon"></div>
-        <div class="dh-empty-title">No Discharged Patients</div>
-        <div class="dh-empty-sub">Discharged patients will appear here.</div>
-      </div>
-      <div class="dh-discharged-list" id="dhDischargedList"></div>
+  <div class="dh-view" id="dhViewActive">
+    <div class="dh-empty dx-empty" id="dhEmptyActive">
+      <div class="dx-empty-ic"><svg viewBox="0 0 24 24"><path d="M2 5v14M2 15h20v4M22 15v-3a3 3 0 0 0-3-3h-8v6"/><circle cx="6.5" cy="11" r="2"/></svg></div>
+      <div class="dh-empty-title" id="dhEmptyActiveTitle">No inpatients</div>
+      <div class="dh-empty-sub" id="dhEmptyActiveSub">Click “Add patient” to admit a patient.</div>
     </div>
+    <div id="dhActiveBody"></div>
+  </div>
+
+  <div class="dh-view" id="dhViewDischarged" style="display:none">
+    <div class="dh-empty dx-empty" id="dhEmptyDischarged">
+      <div class="dx-empty-ic"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></div>
+      <div class="dh-empty-title">No discharged patients</div>
+      <div class="dh-empty-sub">Discharged patients will appear here.</div>
+    </div>
+    <div class="dh-discharged-list" id="dhDischargedList"></div>
   </div>
 </div>
 
 <!-- ── Add / Edit Patient Modal ── -->
 <div class="dh-modal-bg" id="dhModalBg" onclick="dhCloseModal(event)">
-  <div class="dh-modal">
+  <div class="dh-modal dx-modal">
     <div class="dh-modal-header">
       <h3 class="dh-modal-title" id="dhModalTitle">Add Patient</h3>
-      <button class="dh-modal-close" onclick="dhCloseModal(null)">✕</button>
+      <button class="dh-modal-close" onclick="dhCloseModal(null)" aria-label="Close">✕</button>
     </div>
     <div class="dh-modal-body">
-      <div class="dh-form-row">
-        <div class="dh-form-group">
-          <label class="dh-label">Department <span class="dh-required">*</span></label>
-          <select class="dh-input" id="dhPtDept"></select>
-        </div>
-        <div class="dh-form-group">
-          <label class="dh-label">Status</label>
-          <div class="dh-status-pick" id="dhPtStatusPick"></div>
-        </div>
-      </div>
-      <div class="dh-form-row">
-        <div class="dh-form-group">
-          <label class="dh-label">Patient Name <span class="dh-required">*</span></label>
-          <input class="dh-input" id="dhPtName" placeholder="Full name" autocomplete="off"/>
-        </div>
-        <div class="dh-form-group">
-          <label class="dh-label">ID Card / MRN</label>
-          <input class="dh-input" id="dhPtMrn" placeholder="e.g. A123456" autocomplete="off"/>
-        </div>
-      </div>
-      <div class="dh-form-row">
-        <div class="dh-form-group">
-          <label class="dh-label">Age / Sex</label>
-          <input class="dh-input" id="dhPtAge" placeholder="e.g. 35Y/M" autocomplete="off"/>
-        </div>
-        <div class="dh-form-group">
-          <label class="dh-label">Ward / Bed</label>
-          <div class="dh-inline2">
-            <select class="dh-input" id="dhPtWard" onchange="dhWardChanged()"><option value="">Ward…</option><option value="PW">PW</option><option value="SW">SW</option><option value="PVT">PVT</option></select>
-            <select class="dh-input" id="dhPtBedNum" disabled><option value="">Bed…</option></select>
+      <section class="dx-fsec">
+        <h4>Patient</h4>
+        <div class="dx-grid3">
+          <div class="dh-form-group dx-span2">
+            <label class="dh-label" for="dhPtName">Patient name <span class="dh-required">*</span></label>
+            <input class="dh-input" id="dhPtName" placeholder="Full name" autocomplete="off"/>
+          </div>
+          <div class="dh-form-group">
+            <label class="dh-label" for="dhPtAge">Age / Sex</label>
+            <input class="dh-input" id="dhPtAge" placeholder="e.g. 35Y/M" autocomplete="off"/>
+          </div>
+          <div class="dh-form-group">
+            <label class="dh-label" for="dhPtMrn">ID card / MRN</label>
+            <input class="dh-input" id="dhPtMrn" placeholder="e.g. A123456" autocomplete="off"/>
+          </div>
+          <div class="dh-form-group dx-span2">
+            <label class="dh-label" for="dhPtDiag">Primary diagnosis <span class="dh-required">*</span></label>
+            <input class="dh-input" id="dhPtDiag" placeholder="e.g. Community-acquired pneumonia" autocomplete="off"/>
           </div>
         </div>
-      </div>
-      <div class="dh-form-group">
-        <label class="dh-label">Primary Diagnosis <span class="dh-required">*</span></label>
-        <input class="dh-input" id="dhPtDiag" placeholder="e.g. Community-acquired pneumonia" autocomplete="off"/>
-      </div>
-      <div class="dh-form-row">
-        <div class="dh-form-group">
-          <label class="dh-label">Admission Date</label>
-          <input class="dh-input" id="dhPtDate" type="datetime-local"/>
+      </section>
+      <section class="dx-fsec">
+        <h4>Admission</h4>
+        <div class="dx-grid3">
+          <div class="dh-form-group">
+            <label class="dh-label" for="dhPtDept">Department <span class="dh-required">*</span></label>
+            <select class="dh-input" id="dhPtDept"></select>
+          </div>
+          <div class="dh-form-group">
+            <label class="dh-label" for="dhPtWard">Ward / Bed</label>
+            <div class="dh-inline2">
+              <select class="dh-input" id="dhPtWard" onchange="dhWardChanged()"><option value="">Ward…</option><option value="PW">PW</option><option value="SW">SW</option><option value="PVT">PVT</option></select>
+              <select class="dh-input" id="dhPtBedNum" disabled aria-label="Bed"><option value="">Bed…</option></select>
+            </div>
+          </div>
+          <div class="dh-form-group">
+            <label class="dh-label" for="dhPtDate">Admitted on</label>
+            <input class="dh-input" id="dhPtDate" type="datetime-local"/>
+          </div>
+          <div class="dh-form-group">
+            <label class="dh-label" for="dhPtDoctor">Consultant</label>
+            <input class="dh-input" id="dhPtDoctor" placeholder="Dr. Name" autocomplete="off" list="dhDoctorList"/>
+            <datalist id="dhDoctorList"></datalist>
+          </div>
+          <div class="dh-form-group">
+            <label class="dh-label" for="dhPtEnteredBy">Entered by</label>
+            <input class="dh-input" id="dhPtEnteredBy" placeholder="Dr. Name" autocomplete="off"/>
+          </div>
         </div>
-        <div class="dh-form-group">
-          <label class="dh-label">Consultant</label>
-          <input class="dh-input" id="dhPtDoctor" placeholder="Dr. Name" autocomplete="off" list="dhDoctorList"/>
-          <datalist id="dhDoctorList"></datalist>
+      </section>
+      <section class="dx-fsec">
+        <h4>Clinical status</h4>
+        <div class="dh-status-pick" id="dhPtStatusPick"></div>
+      </section>
+      <section class="dx-fsec">
+        <h4>Handover notes <small>SOAP</small></h4>
+        <div class="dx-grid2">
+          <div class="dh-form-group"><label class="dh-label" for="dhSoapS">S — Subjective</label><textarea class="dh-input dh-textarea" id="dhSoapS" placeholder="Symptoms, complaints, overnight events…" rows="3"></textarea></div>
+          <div class="dh-form-group"><label class="dh-label" for="dhSoapO">O — Objective</label><textarea class="dh-input dh-textarea" id="dhSoapO" placeholder="Vitals, exam, investigation results…" rows="3"></textarea></div>
+          <div class="dh-form-group"><label class="dh-label" for="dhSoapA">A — Assessment</label><textarea class="dh-input dh-textarea" id="dhSoapA" placeholder="Clinical impression…" rows="3"></textarea></div>
+          <div class="dh-form-group dx-plan"><label class="dh-label" for="dhSoapP">P — Plan / to-do for next shift</label><textarea class="dh-input dh-textarea" id="dhSoapP" placeholder="Plan, pending investigations, jobs for next shift…" rows="3"></textarea></div>
         </div>
-      </div>
-      <div class="dh-form-group">
-        <label class="dh-label">Entered By</label>
-        <input class="dh-input" id="dhPtEnteredBy" placeholder="Dr. Name" autocomplete="off"/>
-      </div>
-      <div class="dh-soap-hdr">Handover (SOAP)</div>
-      <div class="dh-form-group"><label class="dh-label">S — Subjective</label><textarea class="dh-input dh-textarea" id="dhSoapS" placeholder="Symptoms, complaints, overnight events…" rows="2"></textarea></div>
-      <div class="dh-form-group"><label class="dh-label">O — Objective</label><textarea class="dh-input dh-textarea" id="dhSoapO" placeholder="Vitals, exam, investigation results…" rows="2"></textarea></div>
-      <div class="dh-form-group"><label class="dh-label">A — Assessment</label><textarea class="dh-input dh-textarea" id="dhSoapA" placeholder="Clinical impression…" rows="2"></textarea></div>
-      <div class="dh-form-group"><label class="dh-label">P — Plan / To-do</label><textarea class="dh-input dh-textarea" id="dhSoapP" placeholder="Plan, pending investigations, jobs for next shift…" rows="2"></textarea></div>
+      </section>
     </div>
     <div class="dh-modal-footer">
       <span class="dh-kbd-hint">Ctrl + Enter to save · Esc to close</span>
@@ -4439,11 +4639,15 @@ function showDisclaimer() {
     });
     return arr;
   }
+  function shiftStart(){var d=new Date(),h=d.getHours();d.setMinutes(0,0,0);d.setHours(h<8?0:h<16?8:16);return d.getTime()}
+  function lastTouch(p){return p.updatedAt||p.createdAt||(p.admDate?new Date(p.admDate).getTime():0)}
+  function isStale(p){return lastTouch(p)<shiftStart()}
+  function rel(t){if(!t)return'';var m=Math.round((Date.now()-t)/6e4);if(m<1)return'just now';if(m<60)return m+' min ago';var h=Math.round(m/60);if(h<24)return h+' h ago';var d=Math.round(h/24);return d+' day'+(d>1?'s':'')+' ago'}
   function visibleActive(){
     var all=collect('active').filter(matches);
-    var counts={all:all.length};STATUSES.forEach(function(s){counts[s.id]=0});
-    all.forEach(function(it){counts[statusOf(it.p)]++});
-    var list=dhStatusFilter==='all'?all:all.filter(function(it){return statusOf(it.p)===dhStatusFilter});
+    var counts={all:all.length,stale:0};STATUSES.forEach(function(s){counts[s.id]=0});
+    all.forEach(function(it){counts[statusOf(it.p)]++;if(isStale(it.p))counts.stale++});
+    var list=dhStatusFilter==='all'?all:dhStatusFilter==='stale'?all.filter(function(it){return isStale(it.p)}):all.filter(function(it){return statusOf(it.p)===dhStatusFilter});
     return {list:sortItems(list),counts:counts};
   }
 
@@ -4463,31 +4667,33 @@ function showDisclaimer() {
       list.dataset.built='1';
       var opts=DEPARTMENTS.filter(function(d){return !d.legacy}).map(function(d){return '<option value="'+d.id+'">'+d.label+'</option>'}).join('');
       $('dhPtDept').innerHTML=opts;$('dhTransferDept').innerHTML=opts;
-      $('dhPtStatusPick').innerHTML=STATUSES.map(function(s){return '<button type="button" class="dh-spick dh-spick-'+s.id+'" data-s="'+s.id+'" onclick="dhPickStatus(\''+s.id+'\')">'+s.label+'</button>'}).join('');
-      var all=document.createElement('button');
-      all.className='dh-dept-btn dh-dept-all';all.dataset.deptId='all';
-      all.innerHTML='<span class="dh-dept-emoji"></span><span class="dh-dept-label">All Departments</span><span class="dh-dept-count" id="dhCount_all">0</span>';
-      all.addEventListener('click',function(){dhSelectDept('all')});
-      list.appendChild(all);
-      DEPARTMENTS.forEach(function(d){
-        if(d.legacy){var _x=dhLoad()[d.id];if(!_x||!((_x.active||[]).length+(_x.discharged||[]).length))return}
-        var b=document.createElement('button');
-        b.className='dh-dept-btn';b.dataset.deptId=d.id;
-        b.innerHTML='<span class="dh-dept-emoji">'+d.emoji+'</span><span class="dh-dept-label">'+d.label+'</span><span class="dh-dept-count" id="dhCount_'+d.id+'"></span>';
-        b.addEventListener('click',function(){dhSelectDept(d.id)});
-        list.appendChild(b);
-      });
+      $('dhPtStatusPick').innerHTML=STATUSES.map(function(s){return '<button type="button" class="dh-spick dh-spick-'+s.id+'" data-s="'+s.id+'" onclick="dhPickStatus(\''+s.id+'\')"><i></i>'+s.label+'</button>'}).join('');
       $('dhSort').value=dhSort;
+      document.addEventListener('click',function(e){if(!e.target.closest('.dx-menu-wrap')){var m=$('dxMenu');if(m)m.hidden=true}});
     }
     dhSelectDept(dhActiveDept,true);
   };
+  window.dxToggleMenu=function(e){e.stopPropagation();var m=$('dxMenu');m.hidden=!m.hidden};
+
+  function dhRenderDepts(){
+    var list=$('dhDeptList');if(!list)return;
+    var d=dhLoad(),total=0,pills=[],rest=[];
+    DEPARTMENTS.forEach(function(dep){
+      var act=(d[dep.id]&&d[dep.id].active)||[],n=act.length,crit=act.filter(function(p){return statusOf(p)==='critical'}).length;total+=n;
+      var hasAny=n||((d[dep.id]&&d[dep.id].discharged)||[]).length;
+      if(dep.legacy&&!hasAny)return;
+      if(n||dep.id===dhActiveDept)pills.push({dep:dep,n:n,crit:crit});else rest.push(dep);
+    });
+    var pill=function(id,label,n,crit){return '<button class="dx-dept'+(dhActiveDept===id?' on':'')+'" onclick="dhSelectDept(\''+id+'\')">'+label+'<b>'+n+'</b>'+(crit?'<i class="dx-crit-dot" title="'+crit+' critical"></i>':'')+'</button>'};
+    list.innerHTML=pill('all','All departments',total,0)+pills.map(function(x){return pill(x.dep.id,x.dep.label,x.n,x.crit)}).join('')+
+      (rest.length?'<select class="dx-dept-more" onchange="if(this.value)dhSelectDept(this.value)" aria-label="Other departments"><option value="">Other departments…</option>'+rest.map(function(dep){return '<option value="'+dep.id+'">'+dep.label+'</option>'}).join('')+'</select>':'');
+  }
 
   window.dhSelectDept=function(id,keepView){
     if(id!=='all'&&!DEPARTMENTS.some(function(d){return d.id===id}))id='all';
     dhActiveDept=id;saveUi();
     if(!keepView)dhActiveView='active';
-    document.querySelectorAll('.dh-dept-btn').forEach(function(b){b.classList.toggle('active',b.dataset.deptId===id)});
-    $('dhActiveDeptName').innerHTML=id==='all'?'All Departments':deptById(id).label;
+    $('dhActiveDeptName').innerHTML=id==='all'?'All departments':deptById(id).label;
     dhSwitchView(dhActiveView);
   };
 
@@ -4510,20 +4716,25 @@ function showDisclaimer() {
 
   /* ---------- render ---------- */
   function dhRender(){
-    var v=visibleActive();
-    // chips
-    $('dhStatusChips').innerHTML='<button class="dh-chip'+(dhStatusFilter==='all'?' on':'')+'" onclick="dhSetStatusFilter(\'all\')">All <b>'+v.counts.all+'</b></button>'+
-      STATUSES.map(function(s){return '<button class="dh-chip dh-chip-'+s.id+(dhStatusFilter===s.id?' on':'')+'" onclick="dhSetStatusFilter(\''+s.id+'\')"><i></i>'+s.label+' <b>'+v.counts[s.id]+'</b></button>'}).join('');
+    var v=visibleActive(),c=v.counts;
+    // summary tiles (click to filter)
+    var tile=function(id,label,n,cls,sub){return '<button class="dx-stat '+cls+(dhStatusFilter===id?' on':'')+(n?'':' zero')+'" onclick="dhSetStatusFilter(\''+(dhStatusFilter===id&&id!=='all'?'all':id)+'\')"><span>'+label+'</span><b>'+n+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</button>'};
+    $('dhStatusChips').innerHTML=tile('all','Inpatients',c.all,'dx-s-all','Show all')+
+      tile('critical','Critical',c.critical,'dx-s-critical')+tile('guarded','Guarded',c.guarded,'dx-s-guarded')+
+      tile('improving','Improving',c.improving,'dx-s-improving')+tile('stable','Stable',c.stable,'dx-s-stable')+
+      tile('stale','Needs update',c.stale,'dx-s-stale','Not updated this shift');
     $('dhLayoutCards').classList.toggle('on',dhLayout==='cards');
     $('dhLayoutList').classList.toggle('on',dhLayout==='list');
+    var ctx=$('dxContext');
+    if(ctx){var tot=collect('active').length;ctx.textContent=' · '+tot+' inpatient'+(tot===1?'':'s')+(c.critical?' · '+c.critical+' critical':'')+' · '+new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}
 
     var body=$('dhActiveBody'),emA=$('dhEmptyActive');
     body.innerHTML='';
     if(!v.list.length){
       emA.classList.add('show');
       var none=collect('active').length===0;
-      $('dhEmptyActiveTitle').textContent=none?'No Inpatients':'No matches';
-      $('dhEmptyActiveSub').textContent=none?'Click "Add Patient" to admit a patient.':'Try a different search or status filter.';
+      $('dhEmptyActiveTitle').textContent=none?'No inpatients':'No matching patients';
+      $('dhEmptyActiveSub').textContent=none?'Click “Add patient” to admit a patient.':'Try a different search or filter.';
     }else{
       emA.classList.remove('show');
       var groups=[];
@@ -4531,9 +4742,15 @@ function showDisclaimer() {
         DEPARTMENTS.forEach(function(d){var g=v.list.filter(function(it){return it.dept===d.id});if(g.length)groups.push({dept:d,items:g})});
       }else groups.push({dept:null,items:v.list});
       groups.forEach(function(g){
-        if(g.dept){var h=document.createElement('div');h.className='dh-group-hdr';h.innerHTML='<span>'+g.dept.emoji+' '+g.dept.label+'</span><b>'+g.items.length+'</b><button class="dh-group-open" onclick="dhSelectDept(\''+g.dept.id+'\')">Open →</button>';body.appendChild(h)}
-        if(dhLayout==='list')body.appendChild(dhTable(g.items));
-        else{var grid=document.createElement('div');grid.className='dh-patient-grid';g.items.forEach(function(it){grid.appendChild(dhCard(it))});body.appendChild(grid)}
+        var sec=document.createElement('section');sec.className='dx-group';
+        if(g.dept){
+          var sc={};g.items.forEach(function(it){var k=statusOf(it.p);sc[k]=(sc[k]||0)+1});
+          var mix=STATUSES.filter(function(s){return sc[s.id]}).map(function(s){return '<span class="dx-mix dx-mix-'+s.id+'"><i></i>'+sc[s.id]+' '+s.label.toLowerCase()+'</span>'}).join('');
+          sec.innerHTML='<div class="dx-group-h"><h2>'+g.dept.label+'</h2><b>'+g.items.length+'</b><div class="dx-mixes">'+mix+'</div><button class="dx-link" onclick="dhSelectDept(\''+g.dept.id+'\')">Open department →</button></div>';
+        }
+        if(dhLayout==='list')sec.appendChild(dhTable(g.items));
+        else{var grid=document.createElement('div');grid.className='dx-grid';g.items.forEach(function(it){grid.appendChild(dhCard(it))});sec.appendChild(grid)}
+        body.appendChild(sec);
       });
     }
 
@@ -4548,93 +4765,106 @@ function showDisclaimer() {
       dc.forEach(function(it){
         var m=it.p.dischargeDate?new Date(it.p.dischargeDate).toLocaleString('en-GB',{month:'long',year:'numeric'}):'Unknown';
         if(m!==lastMonth){
-          var hdr=document.createElement('div');hdr.className='dh-month-hdr';hdr.textContent=m;dcList.appendChild(hdr);lastMonth=m;
-          var wrap=document.createElement('div');wrap.className='dh-table-wrap';
-          wrap.innerHTML='<table class="dh-table"><thead><tr><th>Discharged</th><th>Patient</th><th>Bed</th>'+(dhActiveDept==='all'?'<th>Dept</th>':'')+'<th>Diagnosis</th><th>Admitted</th><th>Consultant</th><th>Remarks</th><th></th></tr></thead><tbody></tbody></table>';
+          var hdr=document.createElement('div');hdr.className='dx-month';hdr.textContent=m;dcList.appendChild(hdr);lastMonth=m;
+          var wrap=document.createElement('div');wrap.className='dx-table-wrap';
+          wrap.innerHTML='<table class="dx-table"><thead><tr><th>Discharged</th><th>Patient</th><th>Bed</th>'+(dhActiveDept==='all'?'<th>Department</th>':'')+'<th>Diagnosis</th><th>Admitted</th><th>Consultant</th><th>Discharge notes</th><th></th></tr></thead><tbody></tbody></table>';
           dcList.appendChild(wrap);tbody=wrap.querySelector('tbody');
         }
         var p=it.p,tr=document.createElement('tr');
         tr.innerHTML='<td class="nowrap">'+fmtDate(p.dischargeDate,true)+'</td>'+
-          '<td><div class="dh-t-name">'+esc(p.name)+'</div><div class="dh-t-sub">'+esc([p.mrn,p.age].filter(Boolean).join(' · '))+'</div></td>'+
-          '<td class="nowrap">'+esc(p.bed||'--')+'</td>'+
-          (dhActiveDept==='all'?'<td class="nowrap">'+deptById(it.dept).label+'</td>':'')+
+          '<td><div class="dx-t-name">'+esc(p.name)+'</div><div class="dx-t-sub">'+esc([p.age,p.mrn].filter(Boolean).join(' · '))+'</div></td>'+
+          '<td class="nowrap">'+esc(p.bed||'—')+'</td>'+
+          (dhActiveDept==='all'?'<td>'+deptById(it.dept).label+'</td>':'')+
           '<td>'+esc(p.diagnosis)+'</td>'+
           '<td class="nowrap">'+fmtDate(p.admDate,false)+'</td>'+
-          '<td>'+esc(p.doctor||'--')+'</td>'+
-          '<td class="dh-t-remarks">'+esc(p.dischargeNotes||'--')+'</td>'+
-          '<td class="nowrap"><button class="dh-mini-btn" onclick="dhReadmit(\''+p.id+'\',\''+it.dept+'\')">↩ Re-admit</button></td>';
+          '<td>'+esc(p.doctor||'—')+'</td>'+
+          '<td class="dx-t-notes">'+esc(p.dischargeNotes||'—')+'</td>'+
+          '<td class="nowrap"><button class="dx-act" onclick="dhReadmit(\''+p.id+'\',\''+it.dept+'\')">Re-admit</button></td>';
         tbody.appendChild(tr);
       });
     }
 
     $('dhBadgeActive').textContent=collect('active').length;
     $('dhBadgeDischarged').textContent=collect('discharged').length;
-    dhRefreshCounts();
+    dhRenderDepts();
   }
   window.dhRender=dhRender;
 
+  var IC={
+    edit:'<svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+    move:'<svg viewBox="0 0 24 24"><path d="M7 4 3 8l4 4"/><path d="M3 8h14"/><path d="m17 20 4-4-4-4"/><path d="M21 16H7"/></svg>',
+    out:'<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>',
+    del:'<svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>',
+    clock:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    user:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+    cal:'<svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>'
+  };
   function statusPill(it){
     var s=statusOf(it.p);
-    return '<button class="dh-status-pill dh-status-'+s+'" title="Click to change status" onclick="dhCycleStatus(\''+it.p.id+'\',\''+it.dept+'\')">'+statusLabel(s)+'</button>';
+    return '<button class="dx-pill dx-pill-'+s+'" title="Click to change status" onclick="dhCycleStatus(\''+it.p.id+'\',\''+it.dept+'\')"><i></i>'+statusLabel(s)+'</button>';
   }
-  function actions(it){
+  function actions(it,compact){
     var a='\''+it.p.id+'\',\''+it.dept+'\'';
-    return '<button class="dh-icon-btn" title="Edit" onclick="dhEditPatient('+a+')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>'+
-      '<button class="dh-icon-btn" title="Transfer to another department" onclick="dhOpenTransfer('+a+')">⇄</button>'+
-      '<button class="dh-icon-btn dh-icon-dc" title="Discharge" onclick="dhOpenDischarge('+a+')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></button>'+
-      '<button class="dh-icon-btn dh-icon-del" title="Remove" onclick="dhDeletePatient('+a+')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></button>';
+    if(compact)return '<button class="dx-ib" title="Update handover" onclick="dhEditPatient('+a+')">'+IC.edit+'</button>'+
+      '<button class="dx-ib" title="Transfer" onclick="dhOpenTransfer('+a+')">'+IC.move+'</button>'+
+      '<button class="dx-ib" title="Discharge" onclick="dhOpenDischarge('+a+')">'+IC.out+'</button>'+
+      '<button class="dx-ib dx-ib-del" title="Remove" onclick="dhDeletePatient('+a+')">'+IC.del+'</button>';
+    return '<button class="dx-act dx-act-main" onclick="dhEditPatient('+a+')">'+IC.edit+'Update</button>'+
+      '<button class="dx-act" onclick="dhOpenTransfer('+a+')">'+IC.move+'Transfer</button>'+
+      '<button class="dx-act" onclick="dhOpenDischarge('+a+')">'+IC.out+'Discharge</button>'+
+      '<button class="dx-ib dx-ib-del" title="Remove patient" onclick="dhDeletePatient('+a+')">'+IC.del+'</button>';
   }
   function soapHtml(p){
     var rows=[['S',p.soapS],['O',p.soapO],['A',p.soapA],['P',p.soapP]].filter(function(r){return r[1]});
     if(!rows.length)return '';
     return rows.map(function(r){return '<div class="dh-soap-row"><b>'+r[0]+'</b><span>'+esc(r[1])+'</span></div>'}).join('');
   }
+  function soapGrid(p){
+    var L=[['Subjective',p.soapS,'s'],['Objective',p.soapO,'o'],['Assessment',p.soapA,'a'],['Plan / to-do',p.soapP,'p']];
+    if(!L.some(function(r){return r[1]}))return '<div class="dx-nonotes">No handover notes yet — <button class="dx-link" onclick="dhEditPatient(\''+p.id+'\',\''+(p._dept||'')+'\')">add notes</button></div>';
+    return '<div class="dx-soap">'+L.map(function(r){return '<div class="dx-soap-c dx-soap-'+r[2]+(r[1]?'':' empty')+'"><span>'+r[0]+'</span><p>'+(r[1]?esc(r[1]):'—')+'</p></div>'}).join('')+'</div>';
+  }
 
   function dhCard(it){
-    var p=it.p,el=document.createElement('div'),days=daysIn(p),soap=soapHtml(p);
-    el.className='dh-patient-card dh-card-'+statusOf(p);
+    var p=it.p,el=document.createElement('article'),days=daysIn(p),st=statusOf(p),stale=isStale(p);
+    p._dept=it.dept;
+    el.className='dx-card dx-card-'+st;
     var sub=[p.age,p.mrn].filter(Boolean).map(esc).join(' · ');
     el.innerHTML=
-      '<div class="dh-card-top">'+
-        '<div class="dh-bed-badge'+(p.bed?'':' empty')+'">'+esc(p.bed||'No bed')+'</div>'+
-        '<div class="dh-card-id"><div class="dh-card-name">'+esc(p.name)+'</div>'+(sub?'<div class="dh-card-mrn">'+sub+'</div>':'')+'</div>'+
+      '<div class="dx-card-top">'+
+        '<div class="dx-bed'+(p.bed?'':' none')+'">'+(p.bed?'<small>'+esc(p.bed.split(' ')[0])+'</small>'+esc(p.bed.split(' ')[1]||''):'No<br>bed')+'</div>'+
+        '<div class="dx-who"><h3>'+esc(p.name)+'</h3>'+(sub?'<div class="dx-sub">'+sub+'</div>':'')+'</div>'+
         statusPill(it)+
       '</div>'+
-      '<div class="dh-card-diag">'+esc(p.diagnosis)+'</div>'+
-      (soap?'<div class="dh-card-soap">'+soap+'</div><button class="dh-more" onclick="dhToggleSoap(this)">Show more</button>':'<div class="dh-card-nosoap">No handover notes yet</div>')+
-      '<div class="dh-card-foot">'+
-        '<div class="dh-card-meta2">'+(days!==null?'<span class="dh-days-badge">Day '+days+'</span>':'')+(p.doctor?'<span>'+esc(p.doctor)+'</span>':'')+'</div>'+
-        '<div class="dh-card-acts">'+actions(it)+'</div>'+
-      '</div>';
-    if(soap){setTimeout(function(){var s=el.querySelector('.dh-card-soap');if(s&&s.scrollHeight<=s.clientHeight+2){var m=el.querySelector('.dh-more');if(m)m.style.display='none'}},0)}
+      '<div class="dx-dx">'+esc(p.diagnosis)+'</div>'+
+      '<div class="dx-meta">'+
+        (days!==null?'<span>'+IC.cal+'Day '+days+'</span>':'')+
+        (p.doctor?'<span>'+IC.user+esc(p.doctor)+'</span>':'')+
+        '<span class="'+(stale?'dx-stale':'')+'" title="'+(stale?'Not updated this shift':'Updated this shift')+'">'+IC.clock+'Updated '+rel(lastTouch(p))+'</span>'+
+      '</div>'+
+      soapGrid(p)+
+      '<div class="dx-card-foot">'+actions(it)+'</div>';
     return el;
   }
 
   function dhTable(items){
-    var wrap=document.createElement('div');wrap.className='dh-table-wrap';
+    var wrap=document.createElement('div');wrap.className='dx-table-wrap';
     var rows=items.map(function(it){
-      var p=it.p,d=daysIn(p);
-      return '<tr class="dh-row-'+statusOf(p)+'"><td class="nowrap"><b>'+esc(p.bed||'--')+'</b></td>'+
-        '<td><div class="dh-t-name">'+esc(p.name)+'</div><div class="dh-t-sub">'+esc([p.age,p.mrn].filter(Boolean).join(' · '))+'</div></td>'+
+      var p=it.p,d=daysIn(p),stale=isStale(p);
+      return '<tr class="dx-row-'+statusOf(p)+'"><td class="nowrap dx-t-bed">'+esc(p.bed||'—')+'</td>'+
+        '<td><div class="dx-t-name">'+esc(p.name)+'</div><div class="dx-t-sub">'+esc([p.age,p.mrn].filter(Boolean).join(' · '))+'</div></td>'+
         '<td>'+statusPill(it)+'</td>'+
-        '<td><div>'+esc(p.diagnosis)+'</div>'+(p.soapP?'<div class="dh-t-sub"><b>Plan:</b> '+esc(p.soapP)+'</div>':'')+'</td>'+
-        '<td class="nowrap">'+(d!==null?'Day '+d:'--')+'</td>'+
-        '<td>'+esc(p.doctor||'--')+'</td>'+
-        '<td class="nowrap dh-t-acts">'+actions(it)+'</td></tr>';
+        '<td><div class="dx-t-dx">'+esc(p.diagnosis)+'</div>'+(p.soapP?'<div class="dx-t-plan"><b>Plan</b> '+esc(p.soapP)+'</div>':'')+'</td>'+
+        '<td class="nowrap">'+(d!==null?'Day '+d:'—')+'</td>'+
+        '<td>'+esc(p.doctor||'—')+'</td>'+
+        '<td class="nowrap'+(stale?' dx-stale':'')+'">'+rel(lastTouch(p))+'</td>'+
+        '<td class="nowrap"><div class="dx-t-acts">'+actions(it,true)+'</div></td></tr>';
     }).join('');
-    wrap.innerHTML='<table class="dh-table"><thead><tr><th>Bed</th><th>Patient</th><th>Status</th><th>Diagnosis / Plan</th><th>Stay</th><th>Consultant</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
+    wrap.innerHTML='<table class="dx-table"><thead><tr><th>Bed</th><th>Patient</th><th>Status</th><th>Diagnosis &amp; plan</th><th>Stay</th><th>Consultant</th><th>Updated</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
     return wrap;
   }
 
-  function dhRefreshCounts(){
-    var d=dhLoad(),total=0;
-    DEPARTMENTS.forEach(function(dep){
-      var el=$('dhCount_'+dep.id);
-      var n=(d[dep.id]&&d[dep.id].active)?d[dep.id].active.length:0;total+=n;
-      if(el)el.textContent=n||'';
-    });
-    var a=$('dhCount_all');if(a)a.textContent=total||'';
-  }
+  function dhRefreshCounts(){dhRenderDepts()}
 
   /* ---------- add / edit ---------- */
   window.dhPickStatus=function(s){dhFormStatus=s;document.querySelectorAll('#dhPtStatusPick .dh-spick').forEach(function(b){b.classList.toggle('on',b.dataset.s===s)})};
