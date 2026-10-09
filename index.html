@@ -799,6 +799,7 @@ color: var(--text2); font-size: 13px; font-weight: 500; font-family: 'Figtree', 
 .ql-name { font-size: 14px; font-weight: 700; color: var(--text); }
 .ql-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .hov-btn.ql { border-left: 3px solid #6366f1; }
+.hov-btn.roster { border-left: 3px solid #0a8f9e; }
 
 /* ===== ER Dashboard ===== */
 #erDashContent { display:none; flex-direction:column; height:100%; }
@@ -2442,6 +2443,7 @@ header{padding:0 24px}
   <div class="hdr-right">
     <button class="hov-btn er" onclick="showERDashboard()" title="ER Handover">ER Handover</button>
     <button class="hov-btn dept" onclick="showDeptHandover()" title="Dept Handover">Dept Handover</button>
+    <a class="hov-btn roster" href="roster.html" title="Staff duty roster" style="text-decoration:none">Duty Roster</a>
     <button class="hov-btn ql" onclick="showQuickLinks()" title="Quick Links">Quick Links</button>
     <div class="au-wrap" id="auWrap" hidden>
       <button class="au-chip" id="auChip" onclick="auToggle(event)" aria-label="Account"><span class="au-av" id="auAv">?</span><span class="au-name" id="auName"></span></button>
@@ -2500,6 +2502,9 @@ header{padding:0 24px}
   <div class="hnav-item" id="hnavItem5">
     <button class="hnav-btn" onclick="showOurTeam()">Our Team</button>
   </div>
+  <div class="hnav-item" id="hnavItemRoster">
+    <a class="hnav-btn" href="roster.html" style="text-decoration:none">Duty Roster</a>
+  </div>
 </nav>
 
 
@@ -2529,6 +2534,7 @@ header{padding:0 24px}
           <button class="lp-qa-btn" onclick="showStickyNotes()"><span class="lp-qa-ic" style="background:rgba(245,158,11,.14)"></span><span><b>Sticky Notes</b><small>Templates &amp; notes</small></span></button>
           <button class="lp-qa-btn" onclick="showToolsSection()"><span class="lp-qa-ic" style="background:rgba(59,130,246,.12)"></span><span><b>Tools</b><small>Clinical calculators</small></span></button>
           <button class="lp-qa-btn" onclick="showOurTeam()"><span class="lp-qa-ic" style="background:rgba(5,85,122,.12)"></span><span><b>Our Team</b><small>Doctors directory</small></span></button>
+          <a class="lp-qa-btn" href="roster.html" style="text-decoration:none;color:inherit"><span class="lp-qa-ic" style="background:rgba(10,143,158,.12)"></span><span><b>Duty Roster</b><small>Shifts, on-call &amp; leave</small></span></a>
         </div>
       </div>
       </div>
@@ -2893,7 +2899,7 @@ header{padding:0 24px}
     </div>
     <nav class="sf-col" aria-label="Categories"><h4>Categories</h4><a href="#" onclick="hnavGo('pain');return false">Pain &amp; Fever</a><a href="#" onclick="hnavGo('respiratory');return false">Respiratory</a><a href="#" onclick="hnavGo('cardiovascular');return false">Cardiovascular</a><a href="#" onclick="hnavGo('gi');return false">Gastroenterology</a><a href="#" onclick="hnavGo('antibiotics');return false">Antibiotics</a><a href="#" onclick="hnavGo('antifungal');return false">Antifungal &amp; Antiviral</a></nav>
     <nav class="sf-col" aria-label="Populations"><h4>Populations</h4><a href="#" onclick="hnavGo('paed-opd');return false">Paeds OPD</a><a href="#" onclick="hnavGo('paed-acute');return false">Paeds Acute</a><a href="#" onclick="hnavGo('gynae');return false">Gynaecology</a><a href="#" onclick="hnavGo('pregnancy');return false">Pregnancy</a><a href="#" onclick="hnavGo('lactation');return false">Lactation</a><a href="#" onclick="hnavGo('g6pd');return false">G6PD Guide</a></nav>
-    <nav class="sf-col" aria-label="Portal"><h4>Portal</h4><a href="#" onclick="showERDashboard();return false">ER Handover</a><a href="#" onclick="showDeptHandover();return false">Dept Handover</a><a href="#" onclick="showQuickLinks();return false">Quick Links</a><a href="#" onclick="showStickyNotes();return false">Sticky Notes</a><a href="#" onclick="showToolsSection();return false">Tools</a><a href="#" onclick="showOurTeam();return false">Our Team</a></nav>
+    <nav class="sf-col" aria-label="Portal"><h4>Portal</h4><a href="#" onclick="showERDashboard();return false">ER Handover</a><a href="#" onclick="showDeptHandover();return false">Dept Handover</a><a href="#" onclick="showQuickLinks();return false">Quick Links</a><a href="#" onclick="showStickyNotes();return false">Sticky Notes</a><a href="#" onclick="showToolsSection();return false">Tools</a><a href="#" onclick="showOurTeam();return false">Our Team</a><a href="roster.html">Duty Roster</a></nav>
     <nav class="sf-col" aria-label="Resources"><h4>Resources</h4><a href="#" onclick="hnavGo('files');return false">National Guidelines</a><a href="https://dranoof.github.io/myportal/">Dr. ASMH Portal</a><a href="https://asmh.gov.mv" target="_blank" rel="noopener">ASMH Website</a><a href="#" onclick="showDisclaimer();return false">Disclaimer</a></nav>
   </div>
   <div class="sf-bottom">
