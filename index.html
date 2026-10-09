@@ -1865,6 +1865,44 @@ main#mainContent:has(> #deptContent[style*="block"]){padding:0}
 .lp-ann-by{font-size:11px;color:var(--muted);margin-top:4px}
 .lp-ann-empty{font-size:12.5px;color:var(--muted);padding:18px 4px;text-align:center}
 @media (max-width:980px){.lp-dash{grid-template-columns:1fr}.lp-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.lp-ann{max-height:none}}
+.lp-stats{margin-top:16px;background:linear-gradient(180deg,rgba(16,185,129,.06),transparent 120px),var(--card)}
+.lp-st-hdr{flex-wrap:wrap;gap:10px}
+.lp-st-ctrl{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lp-seg{display:inline-flex;background:var(--bg3);border-radius:9px;padding:3px}
+.lp-seg button{border:none;background:none;font:inherit;font-size:12px;font-weight:600;color:var(--text2);padding:5px 12px;border-radius:7px;cursor:pointer}
+.lp-seg button.on{background:var(--card);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.lp-st-nav{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;color:var(--text)}
+.lp-st-nav span{min-width:112px;text-align:center}
+.lp-st-nav button{width:26px;height:26px;border-radius:7px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:15px;line-height:1;cursor:pointer}
+.lp-st-nav button:disabled{opacity:.35;cursor:default}
+.lp-st-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.lp-kpi{border:1px solid var(--border);border-radius:11px;padding:10px 12px;background:var(--bg2)}
+.lp-kpi b{display:block;font-size:22px;font-weight:800;line-height:1.15;color:var(--text);font-variant-numeric:tabular-nums}
+.lp-kpi span{font-size:11.5px;font-weight:600;color:var(--text2)}
+.lp-kpi small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.lp-st-body{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:20px}
+.lp-st-sub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:8px}
+.lp-st-bars{display:flex;align-items:flex-end;gap:3px;height:150px;padding-top:16px;border-bottom:1px solid var(--border)}
+.lp-st-col{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative}
+.lp-st-col i{display:block;width:100%;max-width:34px;background:#0aa5b5;border-radius:3px 3px 0 0;min-height:1px}
+.lp-st-col i+i{border-radius:0}
+.lp-st-col i.adm{background:#6366f1}
+.lp-st-col em{position:absolute;top:-16px;font-style:normal;font-size:10px;font-weight:700;color:var(--text2)}
+.lp-st-col:hover i{filter:brightness(1.12)}
+.lp-st-x{display:flex;gap:3px;margin-top:4px}
+.lp-st-x span{flex:1;min-width:0;text-align:center;font-size:10px;color:var(--muted);overflow:visible;white-space:nowrap}
+.lp-st-kpis .lp-empty{grid-column:1/-1}
+.lp-st-leg{display:flex;gap:12px;font-size:11px;color:var(--muted);margin-top:8px}
+.lp-st-leg i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.lp-out-row{display:grid;grid-template-columns:96px minmax(0,1fr) 64px;align-items:center;gap:8px;font-size:12.5px;padding:3px 0}
+.lp-out-row span:first-child{color:var(--text2)}
+.lp-out-row .lp-bar-track{height:8px}
+.lp-out-row b{text-align:right;font-variant-numeric:tabular-nums;color:var(--text)}
+.lp-out-row b small{font-weight:500;color:var(--muted);margin-left:3px}
+.lp-st-dh{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lp-st-dh .lp-kpi b{font-size:18px}
+@media (max-width:980px){.lp-st-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.lp-st-body{grid-template-columns:1fr}}
+@media (max-width:520px){.lp-st-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.lp-st-ctrl{width:100%;justify-content:space-between}.lp-st-col em{display:none}}
 @media (max-width:420px){.lp-tile-num{font-size:24px}.lp-bar-row{grid-template-columns:96px minmax(0,1fr) auto}}
 </style>
 <style id="landing-layout-v2">
@@ -2295,6 +2333,36 @@ header{padding:0 24px}
             <div class="lp-card-hdr"><h3>📢 Announcements</h3><button class="lp-link" onclick="lpLoadAnnouncements(true)" title="Refresh">↻</button></div>
             <div id="lpAnnList"><div class="lp-ann-empty">Loading…</div></div>
           </div>
+        </div>
+        <div class="lp-card lp-stats" id="lpStats">
+          <div class="lp-card-hdr lp-st-hdr">
+            <h3>📊 Hospital statistics</h3>
+            <div class="lp-st-ctrl">
+              <div class="lp-seg" role="tablist">
+                <button id="lpStM" class="on" onclick="lpStatsMode('month')">Monthly</button>
+                <button id="lpStY" onclick="lpStatsMode('year')">Yearly</button>
+              </div>
+              <div class="lp-st-nav">
+                <button onclick="lpStatsStep(-1)" title="Previous" aria-label="Previous">‹</button>
+                <span id="lpStPeriod">–</span>
+                <button id="lpStNext" onclick="lpStatsStep(1)" title="Next" aria-label="Next">›</button>
+              </div>
+            </div>
+          </div>
+          <div class="lp-st-kpis" id="lpStKpis"></div>
+          <div class="lp-st-body">
+            <div class="lp-st-chart">
+              <div class="lp-st-sub" id="lpStChartTtl">ER visits</div>
+              <div id="lpStChart" class="lp-st-bars"></div>
+            </div>
+            <div class="lp-st-side">
+              <div class="lp-st-sub">ER outcomes</div>
+              <div id="lpStOut"></div>
+              <div class="lp-st-sub" style="margin-top:14px">Dept Handover · this device</div>
+              <div id="lpStDh" class="lp-st-dh"></div>
+            </div>
+          </div>
+          <p class="lp-note">ER figures are counted from the shared monthly ER record sheets (records start April 2026). Admissions &amp; discharges below come from Dept Handover on this device.</p>
         </div>
       </section>
       
@@ -5074,9 +5142,92 @@ function showDisclaimer() {
     }).catch(function(){box.innerHTML='<div class="lp-ann-empty">Could not load announcements.</div>'});
   };
 
+
+  /* ---------- monthly / yearly statistics ---------- */
+  var MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var stCache={},st={mode:'month',y:new Date().getFullYear(),m:new Date().getMonth(),seq:0};
+  function stDT(c){if(!c||c.v==null)return null;var g=String(c.v).match(/^Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+))?/);if(g)return new Date(+g[1],+g[2],+g[3],+(g[4]||0),+(g[5]||0));var s=String(c.f!=null?c.f:c.v).trim(),m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);if(m)return new Date(+m[3],+m[1]-1,+m[2]);return null}
+  function stCat(s){s=(s||'').toLowerCase();if(/demis|death|dead|expired/.test(s))return'dead';if(/admi/.test(s))return'adm';if(/refer|transfer/.test(s))return'ref';if(/dor|lama|abscond|against/.test(s))return'dor';if(/dischar/.test(s))return'dc';return'oth'}
+  function stMonth(y,m){
+    var key=MN[m]+' '+y,now=new Date(),cur=(y===now.getFullYear()&&m===now.getMonth());
+    if(stCache[key]&&(!cur||Date.now()-stCache[key].t<5*60e3))return Promise.resolve(stCache[key].d);
+    if(new Date(y,m,1)>now)return Promise.resolve(null);
+    return fetchSheet(SID,key,null).then(function(data){
+      var rows=(data&&data.table&&data.table.rows)||[];
+      var isHo=rows.slice(0,8).some(function(r){return (r.c||[]).some(function(c){return c&&/bed no/i.test(String(c.v||''))})});
+      var res=null;
+      if(!isHo){
+        res={n:0,adm:0,dc:0,ref:0,dor:0,dead:0,oth:0,days:{}};
+        rows.forEach(function(r){var nm=cell(r,4),id=cell(r,3);if(!(nm||id)||/patient name/i.test(nm))return;
+          res.n++;res[stCat(cell(r,8))]++;var d=stDT(r.c&&r.c[2]);var day=d&&d.getMonth()===m?d.getDate():0;
+          if(day){var o=res.days[day]||(res.days[day]={n:0,adm:0});o.n++;if(stCat(cell(r,8))==='adm')o.adm++}});
+      }
+      stCache[key]={t:Date.now(),d:res};return res;
+    });
+  }
+  function stDh(from,to){
+    var d={};try{d=JSON.parse(localStorage.getItem('asmh_dh_v2')||'{}')}catch(e){}
+    var a=0,dc=0,seen={};
+    Object.keys(d).forEach(function(k){var x=d[k]||{};
+      (x.active||[]).concat(x.discharged||[]).forEach(function(p){if(p.id&&seen[p.id])return;if(p.id)seen[p.id]=1;var t=p.admDate?new Date(p.admDate).getTime():(p.createdAt||0);if(t>=from&&t<to)a++});
+      (x.discharged||[]).forEach(function(p){var t=p.dischargeDate?new Date(p.dischargeDate).getTime():0;if(t>=from&&t<to)dc++})});
+    return {a:a,dc:dc};
+  }
+  function kpi(lbl,v,sub){return '<div class="lp-kpi"><span>'+lbl+'</span><b>'+v+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</div>'}
+  function pct(a,n){return n?Math.round(a/n*100)+'%':'–'}
+  function stRender(){
+    var now=new Date(),ym=st.mode==='month';
+    $('lpStM').classList.toggle('on',ym);$('lpStY').classList.toggle('on',!ym);
+    $('lpStPeriod').textContent=ym?MN[st.m]+' '+st.y:String(st.y);
+    $('lpStNext').disabled=ym?(st.y>now.getFullYear()||(st.y===now.getFullYear()&&st.m>=now.getMonth())):st.y>=now.getFullYear();
+    $('lpStKpis').innerHTML='<div class="lp-empty">⏳ Loading statistics…</div>';
+    var seq=++st.seq,months=ym?[st.m]:MN.map(function(_,i){return i});
+    Promise.all(months.map(function(m){return stMonth(st.y,m).catch(function(){return 'err'})})).then(function(list){
+      if(seq!==st.seq)return;
+      if(list.every(function(x){return x==='err'})){$('lpStKpis').innerHTML='<div class="lp-empty">Could not reach the ER record sheets.</div>';$('lpStChart').innerHTML='';$('lpStOut').innerHTML='';}
+      var T={n:0,adm:0,dc:0,ref:0,dor:0,dead:0,oth:0},has=0;
+      list.forEach(function(r){if(r&&r!=='err'){has++;Object.keys(T).forEach(function(k){T[k]+=r[k]})}});
+      // days elapsed for average
+      var from=ym?new Date(st.y,st.m,1):new Date(st.y,0,1),to=ym?new Date(st.y,st.m+1,1):new Date(st.y+1,0,1);
+      var span=Math.max(1,Math.ceil((Math.min(to,now)-from)/864e5));
+      if(!ym){var first=list.findIndex(function(r){return r&&r!=='err'});if(first>0){span=Math.max(1,Math.ceil((Math.min(to,now)-new Date(st.y,first,1))/864e5))}}
+      var dh=stDh(from.getTime(),to.getTime());
+      if(!list.every(function(x){return x==='err'}))
+      $('lpStKpis').innerHTML=has?(
+        kpi('🚑 ER visits',T.n,(T.n/span).toFixed(1)+' / day')+
+        kpi('🏥 ER → admission',T.adm,pct(T.adm,T.n)+' of visits')+
+        kpi('✅ Discharged',T.dc,pct(T.dc,T.n)+' of visits')+
+        kpi('↗️ Referred',T.ref,pct(T.ref,T.n))+
+        kpi('🚪 DOR / LAMA',T.dor,pct(T.dor,T.n))+
+        kpi('🕊️ Demised',T.dead,pct(T.dead,T.n))
+      ):'<div class="lp-empty">No ER records for '+$('lpStPeriod').textContent+'.</div>';
+      // outcomes
+      var O=[['Discharged','dc','#10b981'],['Admitted','adm','#6366f1'],['Referred','ref','#0aa5b5'],['DOR / LAMA','dor','#f59e0b'],['Demised','dead','#ef4444'],['Other / open','oth','#94a3b8']];
+      $('lpStOut').innerHTML=has?O.map(function(o){var v=T[o[1]],w=T.n?Math.max(v?2:0,Math.round(v/T.n*100)):0;
+        return '<div class="lp-out-row"><span>'+o[0]+'</span><span class="lp-bar-track"><span class="lp-bar" style="width:'+w+'%;background:'+o[2]+'"></span></span><b>'+v+'<small>'+pct(v,T.n)+'</small></b></div>'}).join(''):'<div class="lp-empty">–</div>';
+      $('lpStDh').innerHTML=kpi('Admitted',dh.a)+kpi('Discharged',dh.dc);
+      // chart
+      var bars=[];
+      if(ym){var nd=new Date(st.y,st.m+1,0).getDate(),r=list[0]&&list[0]!=='err'?list[0]:{days:{}};
+        for(var i=1;i<=nd;i++){var o=r.days[i]||{n:0,adm:0};bars.push({l:i,n:o.n,adm:o.adm,t:i+' '+MN[st.m].slice(0,3)})}
+        $('lpStChartTtl').textContent='ER visits per day';
+      }else{list.forEach(function(r,i){var ok=r&&r!=='err';bars.push({l:MN[i].slice(0,3),n:ok?r.n:0,adm:ok?r.adm:0,t:MN[i]+' '+st.y})});$('lpStChartTtl').textContent='ER visits per month'}
+      var max=Math.max.apply(null,bars.map(function(b){return b.n}).concat([1]));
+      var showVal=!ym;
+      $('lpStChart').innerHTML=bars.map(function(b){var h=b.n/max*100,ha=b.n?b.adm/b.n*h:0;
+        return '<div class="lp-st-col" title="'+b.t+': '+b.n+' visit'+(b.n===1?'':'s')+', '+b.adm+' admitted">'+(showVal&&b.n?'<em>'+b.n+'</em>':'')+
+          (b.n>b.adm?'<i style="height:'+(h-ha)+'%"></i>':'')+(b.adm?'<i class="adm" style="height:'+ha+'%"></i>':'')+(b.n?'':'<i style="height:0"></i>')+'</div>'}).join('');
+      var x=bars.map(function(b,i){return '<span>'+(ym?((i===0||(i+1)%5===0)?b.l:''):b.l)+'</span>'}).join('');
+      var ex=$('lpStChart').nextElementSibling;if(!ex||!ex.classList.contains('lp-st-x')){ex=document.createElement('div');ex.className='lp-st-x';$('lpStChart').after(ex);var lg=document.createElement('div');lg.className='lp-st-leg';lg.innerHTML='<span><i style="background:#0aa5b5"></i>Other outcomes</span><span><i style="background:#6366f1"></i>Admitted</span>';ex.after(lg)}
+      ex.innerHTML=x;
+    });
+  }
+  window.lpStatsMode=function(m){st.mode=m;var n=new Date();if(m==='month'&&st.y===n.getFullYear()&&st.m>n.getMonth())st.m=n.getMonth();stRender()};
+  window.lpStatsStep=function(d){if(st.mode==='month'){st.m+=d;if(st.m<0){st.m=11;st.y--}if(st.m>11){st.m=0;st.y++}}else st.y+=d;stRender()};
+
   function lpRefresh(){
     if(!$('lpDash'))return;
-    lpInpatients();lpEr();lpLoadAnnouncements(false);
+    lpInpatients();lpEr();lpLoadAnnouncements(false);if($('lpStats'))stRender();
     $('lpUpdated').textContent='Updated '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
   }
   window.lpRefresh=lpRefresh;
