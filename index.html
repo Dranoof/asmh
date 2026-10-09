@@ -2198,6 +2198,10 @@ header{padding:0 24px}
 }
 
 </style>
+<style id="no-emoji">
+/* Icon slots that used to hold emojis: hide when empty */
+.lp-qa-ic:empty,.dh-sidebar-icon:empty,.dh-empty-icon:empty,.dh-dept-emoji:empty,.cat-icon:empty,.files-icon:empty,.file-card-icon:empty,.sn-card-icon:empty,.tm-dept-hdr>span:empty{display:none !important}
+</style>
 </head>
 <body>
 
@@ -2215,9 +2219,9 @@ header{padding:0 24px}
     <button class="search-clear" id="searchClear" aria-label="Clear">&#x2715;</button>
   </div>
   <div class="hdr-right">
-    <button class="hov-btn er" onclick="showERDashboard()" title="ER Handover">🚨 ER Handover</button>
-    <button class="hov-btn dept" onclick="showDeptHandover()" title="Dept Handover">🏥 Dept Handover</button>
-    <button class="hov-btn ql" onclick="showQuickLinks()" title="Quick Links">🔗 Quick Links</button>
+    <button class="hov-btn er" onclick="showERDashboard()" title="ER Handover">ER Handover</button>
+    <button class="hov-btn dept" onclick="showDeptHandover()" title="Dept Handover">Dept Handover</button>
+    <button class="hov-btn ql" onclick="showQuickLinks()" title="Quick Links">Quick Links</button>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Switch to dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
   </div>
 </header>
@@ -2285,17 +2289,17 @@ header{padding:0 24px}
       </div>
       <div class="ws-title">One Portal. One Team.<br><span>Better Care.</span></div>
       <p class="ws-subtitle">Access patient handovers, clinical resources, hospital announcements, and essential tools designed to support safe and efficient healthcare delivery.</p>
-      <div class="ws-search-hint" onclick="document.getElementById('searchInput').focus()">&#x1F50D; Search any drug, class or condition &nbsp;<kbd>/</kbd></div>
+      <div class="ws-search-hint" onclick="document.getElementById('searchInput').focus()">Search any drug, class or condition &nbsp;<kbd>/</kbd></div>
       </div>
       <div class="lp-hero-r">
         <div class="lp-qa-title">Quick access</div>
         <div class="lp-qa">
-          <button class="lp-qa-btn" onclick="showERDashboard()"><span class="lp-qa-ic" style="background:rgba(239,68,68,.12)">🚨</span><span><b>ER Handover</b><small>Live ER board</small></span></button>
-          <button class="lp-qa-btn" onclick="showDeptHandover()"><span class="lp-qa-ic" style="background:rgba(13,148,136,.12)">🏥</span><span><b>Dept Handover</b><small>Inpatients by department</small></span></button>
-          <button class="lp-qa-btn" onclick="showQuickLinks()"><span class="lp-qa-ic" style="background:rgba(99,102,241,.12)">🔗</span><span><b>Quick Links</b><small>Portals &amp; references</small></span></button>
-          <button class="lp-qa-btn" onclick="showStickyNotes()"><span class="lp-qa-ic" style="background:rgba(245,158,11,.14)">📝</span><span><b>Sticky Notes</b><small>Templates &amp; notes</small></span></button>
-          <button class="lp-qa-btn" onclick="showToolsSection()"><span class="lp-qa-ic" style="background:rgba(59,130,246,.12)">🛠️</span><span><b>Tools</b><small>Clinical calculators</small></span></button>
-          <button class="lp-qa-btn" onclick="showOurTeam()"><span class="lp-qa-ic" style="background:rgba(5,85,122,.12)">👩‍⚕️</span><span><b>Our Team</b><small>Doctors directory</small></span></button>
+          <button class="lp-qa-btn" onclick="showERDashboard()"><span class="lp-qa-ic" style="background:rgba(239,68,68,.12)"></span><span><b>ER Handover</b><small>Live ER board</small></span></button>
+          <button class="lp-qa-btn" onclick="showDeptHandover()"><span class="lp-qa-ic" style="background:rgba(13,148,136,.12)"></span><span><b>Dept Handover</b><small>Inpatients by department</small></span></button>
+          <button class="lp-qa-btn" onclick="showQuickLinks()"><span class="lp-qa-ic" style="background:rgba(99,102,241,.12)"></span><span><b>Quick Links</b><small>Portals &amp; references</small></span></button>
+          <button class="lp-qa-btn" onclick="showStickyNotes()"><span class="lp-qa-ic" style="background:rgba(245,158,11,.14)"></span><span><b>Sticky Notes</b><small>Templates &amp; notes</small></span></button>
+          <button class="lp-qa-btn" onclick="showToolsSection()"><span class="lp-qa-ic" style="background:rgba(59,130,246,.12)"></span><span><b>Tools</b><small>Clinical calculators</small></span></button>
+          <button class="lp-qa-btn" onclick="showOurTeam()"><span class="lp-qa-ic" style="background:rgba(5,85,122,.12)"></span><span><b>Our Team</b><small>Doctors directory</small></span></button>
         </div>
       </div>
       </div>
@@ -2303,22 +2307,22 @@ header{padding:0 24px}
         <div class="lp-head"><h2>Today at ASMH</h2><span class="lp-updated" id="lpUpdated"></span></div>
         <div class="lp-tiles">
           <button class="lp-tile" onclick="showERDashboard()" title="Open ER Handover">
-            <span class="lp-tile-lbl">🚨 In ER now</span>
+            <span class="lp-tile-lbl">In ER now</span>
             <span class="lp-tile-num" id="lpErNow">–</span>
             <span class="lp-tile-sub" id="lpErSub">Live from ER handover sheet</span>
           </button>
           <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
-            <span class="lp-tile-lbl">🛏️ Inpatients</span>
+            <span class="lp-tile-lbl">Inpatients</span>
             <span class="lp-tile-num" id="lpInNow">0</span>
             <span class="lp-tile-sub" id="lpInSub">No patients admitted</span>
           </button>
           <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
-            <span class="lp-tile-lbl">⚠️ Need attention</span>
+            <span class="lp-tile-lbl">Need attention</span>
             <span class="lp-tile-num" id="lpAttn">0</span>
             <span class="lp-tile-sub" id="lpAttnSub"><i class="lp-dot lp-crit"></i>0 critical · <i class="lp-dot lp-guard"></i>0 guarded</span>
           </button>
           <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
-            <span class="lp-tile-lbl">➕ Admitted · 24 h</span>
+            <span class="lp-tile-lbl">Admitted · 24 h</span>
             <span class="lp-tile-num" id="lpAdm24">0</span>
             <span class="lp-tile-sub" id="lpDc7">0 discharged in last 7 days</span>
           </button>
@@ -2330,13 +2334,13 @@ header{padding:0 24px}
             <p class="lp-note">Inpatient figures come from Dept Handover on this device. ER figures are shared and live.</p>
           </div>
           <div class="lp-card lp-ann">
-            <div class="lp-card-hdr"><h3>📢 Announcements</h3><button class="lp-link" onclick="lpLoadAnnouncements(true)" title="Refresh">↻</button></div>
+            <div class="lp-card-hdr"><h3>Announcements</h3><button class="lp-link" onclick="lpLoadAnnouncements(true)" title="Refresh">↻</button></div>
             <div id="lpAnnList"><div class="lp-ann-empty">Loading…</div></div>
           </div>
         </div>
         <div class="lp-card lp-stats" id="lpStats">
           <div class="lp-card-hdr lp-st-hdr">
-            <h3>📊 Hospital statistics</h3>
+            <h3>Hospital statistics</h3>
             <div class="lp-st-ctrl">
               <div class="lp-seg" role="tablist">
                 <button id="lpStM" class="on" onclick="lpStatsMode('month')">Monthly</button>
@@ -2372,7 +2376,7 @@ header{padding:0 24px}
 </div>
     <div 
   <div id="qlContent" style="display:none;">
-    <div class="ql-page-title">🔗 Quick Links</div>
+    <div class="ql-page-title">Quick Links</div>
     <p class="ql-page-sub">Frequently used clinical portals and references</p>
     <div class="ql-grid">
       <a class="ql-card" href="https://auth.aasandha.mv/auth/login" target="_blank">
@@ -2405,7 +2409,7 @@ header{padding:0 24px}
   
     <div id="teamContent" style="display:none;"></div>
     <div id="toolsContent" style="display:none;">
-    <div class="ql-page-title">🛠️ Tools</div>
+    <div class="ql-page-title">Tools</div>
     <p class="ql-page-sub">Clinical calculators and utility tools</p>
     <div class="ql-grid">
       <a class="ql-card" href="https://jaundice-calculator.dranaan.com/" target="_blank">
@@ -2421,7 +2425,7 @@ header{padding:0 24px}
 
   <div id="erDashContent" style="display:none; flex-direction:column; height:calc(100vh - 120px);">
     <div class="erd-header">
-      <div class="erd-title">🚨 ER Handover Dashboard</div>
+      <div class="erd-title">ER Handover Dashboard</div>
       <div class="erd-tabs">
         <button class="erd-tab active" id="erdTabActive" onclick="erdSwitchTab('active')">Active Patients</button>
         <button class="erd-tab" id="erdTabMonthly" onclick="erdSwitchTab('monthly')">Monthly</button>
@@ -2436,7 +2440,7 @@ header{padding:0 24px}
       </div>
     </div>
     <div class="erd-frame-wrap">
-      <div id="erdTableWrap"><div style="text-align:center;padding:40px;color:var(--muted)">⏳ Loading...</div></div>
+      <div id="erdTableWrap"><div style="text-align:center;padding:40px;color:var(--muted)">Loading...</div></div>
     </div>
   
   </div>
@@ -2453,14 +2457,14 @@ header{padding:0 24px}
   <!-- Sidebar: Department List -->
   <aside class="dh-sidebar">
     <div class="dh-sidebar-header">
-      <span class="dh-sidebar-icon">🏥</span>
+      <span class="dh-sidebar-icon"></span>
       <span class="dh-sidebar-title">Departments</span>
     </div>
     <nav class="dh-dept-list" id="dhDeptList"></nav>
     <div class="dh-side-foot">
       <div class="dh-side-note">Saved on this device only</div>
-      <button class="dh-side-link" onclick="dhExport()">⬇ Export backup</button>
-      <button class="dh-side-link" onclick="document.getElementById('dhImportFile').click()">⬆ Import backup</button>
+      <button class="dh-side-link" onclick="dhExport()">Export backup</button>
+      <button class="dh-side-link" onclick="document.getElementById('dhImportFile').click()">Import backup</button>
       <input type="file" id="dhImportFile" accept=".json,application/json" hidden onchange="dhImport(this)">
     </div>
   </aside>
@@ -2482,8 +2486,8 @@ header{padding:0 24px}
         </div>
       </div>
       <div class="dh-top-actions">
-        <button class="dh-tool-btn" onclick="dhCopy()" title="Copy handover as text (for WhatsApp / Viber)">📋 <span>Copy</span></button>
-        <button class="dh-tool-btn" onclick="dhPrint()" title="Print handover sheet">🖨 <span>Print</span></button>
+        <button class="dh-tool-btn" onclick="dhCopy()" title="Copy handover as text (for WhatsApp / Viber)"><span>Copy</span></button>
+        <button class="dh-tool-btn" onclick="dhPrint()" title="Print handover sheet"><span>Print</span></button>
         <button class="dh-add-btn" id="dhAddBtn" onclick="dhOpenAddModal()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Add Patient
@@ -2513,7 +2517,7 @@ header{padding:0 24px}
 
     <div class="dh-view" id="dhViewActive">
       <div class="dh-empty" id="dhEmptyActive">
-        <div class="dh-empty-icon">🛏️</div>
+        <div class="dh-empty-icon"></div>
         <div class="dh-empty-title" id="dhEmptyActiveTitle">No Inpatients</div>
         <div class="dh-empty-sub" id="dhEmptyActiveSub">Click "Add Patient" to admit a patient.</div>
       </div>
@@ -2522,7 +2526,7 @@ header{padding:0 24px}
 
     <div class="dh-view" id="dhViewDischarged" style="display:none">
       <div class="dh-empty" id="dhEmptyDischarged">
-        <div class="dh-empty-icon">✅</div>
+        <div class="dh-empty-icon"></div>
         <div class="dh-empty-title">No Discharged Patients</div>
         <div class="dh-empty-sub">Discharged patients will appear here.</div>
       </div>
@@ -2667,7 +2671,7 @@ header{padding:0 24px}
     <nav class="sf-col" aria-label="Resources"><h4>Resources</h4><a href="#" onclick="hnavGo('files');return false">National Guidelines</a><a href="https://dranoof.github.io/myportal/">Dr. ASMH Portal</a><a href="https://asmh.gov.mv" target="_blank" rel="noopener">ASMH Website</a><a href="#" onclick="showDisclaimer();return false">Disclaimer</a></nav>
   </div>
   <div class="sf-bottom">
-    <span>Crafted with &#x2764;&#xFE0F; by dranoof &middot; All rights reserved</span>
+    <span>Crafted by dranoof &middot; All rights reserved</span>
     <span>dranoof.github.io</span>
   </div>
 </footer>
@@ -3501,7 +3505,7 @@ document.addEventListener('keydown', function(e){
 });
 
 // -- FILES LIBRARY ---------------------------------------------------
-var filesLibData = {"national-guidelines":{"title":"National Guidelines","icon":"🇲🇻","color":"#3b82f6","desc":"Official Ministry of Health & WHO clinical guidelines","files":[{"name":"ASMH Standard Treatment Guidelines 2023","meta":"Ministry of Health · 2023","tag":"pdf","icon":"📕","specialty":"General & Pharmacy"},{"name":"Maldives Essential Medicines List","meta":"Ministry of Health · 2022","tag":"pdf","icon":"📕","specialty":"General & Pharmacy"},{"name":"WHO Model Formulary for Children","meta":"World Health Organization","tag":"link","icon":"🌐","specialty":"Pediatrics"},{"name":"ASMH Infection Control Policy","meta":"Dr. ASMH · Updated 2024","tag":"pdf","icon":"📄","specialty":"Infection Control & Prevention"},{"name":"National Antibiotic Stewardship Guidelines","meta":"Ministry of Health · 2023","tag":"pdf","icon":"📕","specialty":"Infectious Diseases"},{"name":"Maldives Immunization Schedule","meta":"Ministry of Health · 2024","tag":"link","icon":"🌐","specialty":"Pediatrics"},{"name":"Acute Respiratory Tract Infections in Children","meta":"Maaharaa Portal · 13 Aug 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/81c2f8dc-c50d-4ed2-89c4-23a73d5d3228","specialty":"Pediatrics"},{"name":"Air Ambulance SOP V2","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/72b210c7-bb18-4906-9a01-5cf8c0ffe5e2","specialty":"Emergency & Transport"},{"name":"Clinical Documentation guideline","meta":"Maaharaa Portal · 21 Aug 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/68a85fec-5548-4b6d-83f7-7163a45a7a3f","specialty":"Administrative & Quality"},{"name":"Clinical Guideline for Management of Nephrotic Syndrome in children in Maldives","meta":"Maaharaa Portal · 21 Aug 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/ba2af12b-c5f0-472c-83f1-5902ca2097d3","specialty":"Pediatrics"},{"name":"Clinical Guideline for Treatment of Childhood Tuberculosis","meta":"Maaharaa Portal · 21 Aug 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/540f0b88-0f38-4385-81c1-a3f7c580c892","specialty":"Pediatrics"},{"name":"Clinical Guidelines for management of Hypertension in adults 2025","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/d31ca76e-1fd6-4525-a57a-e44565fe5794","specialty":"Cardiology"},{"name":"Clinical Management of Chikungunya Fever in Children","meta":"Maaharaa Portal · 21 Aug 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/bf097f69-e3b4-4e39-b856-e27c66c29b11","specialty":"Pediatrics"},{"name":"Clinical management of Diabetes Mellitus and Diabetic Keto Acidosis in Children","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a4be18a7-31d2-42fc-8dbb-5da440398eba","specialty":"Pediatrics"},{"name":"Clinical treatment guideline for the management of Hyperthyroidism in Adults","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/fa81404e-f7dd-49b0-9a98-5db2ca4d3f17","specialty":"Endocrinology"},{"name":"Guideline for Evaluation and Management of Neonatal Hypoglycemia","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/0c05fdf7-9df5-457e-81c7-f2cb465838ac","specialty":"Neonatology"},{"name":"Guideline for Evaluation and Management of Neonatl Sepsis","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a4498e46-647f-4048-b7f2-a9e27c3dd7a9","specialty":"Neonatology"},{"name":"Guideline for Management of Childhood Asthma","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/c4bdc827-ec9b-42ff-b25f-dcc00b72bf33","specialty":"Pediatrics"},{"name":"Guideline for management of pediatric CNS infection","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/8ca3077e-448b-4263-97cb-2ea86d57b26b","specialty":"Pediatrics"},{"name":"Guideline for Rapid Antigen Diagnostic Testing (Ag-RDT) for COVID-19","meta":"Maaharaa Portal · 06 Aug 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a4e97e9c-ddbf-4542-97e7-cba3fab86c0c","specialty":"Infectious Diseases"},{"name":"Guideline for the Management of Chronic Obstructive Pulmonary Disease","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/6817d51e-8355-41f1-b051-f7ca7a018575","specialty":"Respiratory Medicine"},{"name":"Guideline for the Management of Dengue Fever in Children","meta":"Maaharaa Portal · 06 Aug 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/e626b920-598e-4cad-9025-497902ccca22","specialty":"Pediatrics"},{"name":"Guideline for the Management of Diarrhoea in Children","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/5625d429-3d7a-44e7-9fb3-f7890c8a7748","specialty":"Pediatrics"},{"name":"Guideline for the Management of First Unprovoked Seizure in Children","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/998d719d-a9e1-4987-97db-0236c1aa6348","specialty":"Pediatrics"},{"name":"Guideline for the management of Iron Deficiency Anemia in Adults","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/b0612b67-e996-4e69-89d9-fa9b38c85cc1","specialty":"Hematology & Oncology"},{"name":"Maldives National Medication Practice Standard","meta":"Maaharaa Portal · 18 Aug 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/94aeb710-4a4c-4f17-bef6-73a5ef4600c2","specialty":"General & Pharmacy"},{"name":"Maldives National Policy on HEALTH LABORATORIES","meta":"Maaharaa Portal · 18 Aug 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/3246be9f-bb36-408b-94ef-12b09dcd3e09","specialty":"Laboratory Medicine"},{"name":"Management of Transfusion Dependent Thalassemias in the Maldives","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/c3401ee3-1d51-45a3-a6d6-d8f8446c4354","specialty":"Hematology & Oncology"},{"name":"Minimum Requirement criteria for Operation Theatre (OT)","meta":"Maaharaa Portal · 18 Aug 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/ecfca4d7-6220-42a9-86ef-40753cf60679","specialty":"Surgery & Facility Standards"},{"name":"Minimum standard for establishing a resort clinic","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/630f8e65-2d20-4b6a-8de0-13aa5dc55bb1","specialty":"Surgery & Facility Standards"},{"name":"Minimum Standard for facilities providing ophthalmology and optometry services","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/5d17d066-ae07-4e8c-b47e-d70ed7d3fd6e","specialty":"Ophthalmology"},{"name":"Minimum standard for providing Dialysis services in the Maldives","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/f070645e-1584-49c7-9857-e783f86384e7","specialty":"Nephrology"},{"name":"Minimum standards for hijama therapy in the maldives","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/c6871398-c7e0-4b7a-8925-d7d242878846","specialty":"Rehabilitation & Therapy"},{"name":"National Guideline for Management of Paediatric Hypertension","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/ba3bf90b-43b1-47f3-93ee-d2a51bb3ed35","specialty":"Pediatrics"},{"name":"National Colposcopy Guideline 2025","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/f5f94203-c5c1-482d-948a-f43bd2022584","specialty":"Obstetrics & Gynecology"},{"name":"National Guideline for Safe Transport of Sick Children and Neonates","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/538e1d13-69aa-4f22-82b9-431335f31ef5","specialty":"Neonatology"},{"name":"National Guideline for the Management of Persistent Pulmonary Hypertension in Newborn (PPHN)","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/3b959fda-1016-449c-9db8-38d95abe84c8","specialty":"Neonatology"},{"name":"National Guideline for Follow-Up Care of “At-Risk” Neonates After Discharge From Hospital","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/fcddd921-fec0-4aa3-9f41-3111fa859d05","specialty":"Neonatology"},{"name":"National Guideline for Follow-up care of \"AT-RISK\" Neonates after discharge from Hospital","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/0885bc17-a831-4265-aa52-a2ca8fff1d36","specialty":"Neonatology"},{"name":"National Guideline for management of Anemia in children","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/087f0892-91ba-4dae-95b2-bdc5ee6ec2b7","specialty":"Pediatrics"},{"name":"National Guideline for Speech-Language and Audiological Clinical Service in the Maldives","meta":"Maaharaa Portal · 02 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/04fa922e-8f2a-453f-870a-10a1a4fd6d3d","specialty":"Rehabilitation & Therapy"},{"name":"National Guideline on Management of Neonatal Abstinence Syndrome","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/6bd64e49-fd92-4e73-b85b-281fc85d13c5","specialty":"Neonatology"},{"name":"National Guideline on Management of Oxygen Therapy in Neonates","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/c6d48ede-2aae-400d-9270-a31257ac3466","specialty":"Neonatology"},{"name":"National Health Care Waste Management Guideline","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/6f4867b2-9f03-452b-95b9-60e1c0a36822","specialty":"Infection Control & Prevention"},{"name":"National Protocol for Early learning and Development Service","meta":"Maaharaa Portal · 02 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/92ad681c-f94c-4c99-9df2-5c0c01348ea0","specialty":"Rehabilitation & Therapy"},{"name":"National protocol for physiotherapy practice s","meta":"Maaharaa Portal · 02 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/56d624d1-8723-416f-98ba-966fad4b1efc","specialty":"Rehabilitation & Therapy"},{"name":"National Standard for Clinical Laboratories","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a77af5b1-0b58-45b8-93b1-6cc4457e65ad","specialty":"Laboratory Medicine"},{"name":"National Standard Treatment Guideline for Acid Peptic Disease","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/c80bc697-f92c-4d7f-954b-6534f22af381","specialty":"Gastroenterology & Hepatology"},{"name":"National Standard Treatment Guideline for Acute Anxiety","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/d597cfe5-57e4-4403-895d-9f1dceaa71f8","specialty":"Mental Health & Neurology"},{"name":"National Standard Treatment Guideline for Acute Kidney Injury","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/ae8e3f0d-ab57-4b64-858c-23c7ea7ac3c7","specialty":"Nephrology"},{"name":"National Standard Treatment Guideline for Acute Liver Failure","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/644253ac-8d8f-4334-a51a-65b22e23f11b","specialty":"Gastroenterology & Hepatology"},{"name":"National Standard Treatment Guideline for Acute Pancreatitis","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/950251b4-2ec4-4387-b9f1-8da548bdeb9c","specialty":"Gastroenterology & Hepatology"},{"name":"National Standard Treatment Guideline for Acute Psychosis","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/26eb5b5e-c141-4328-b64a-d54de2ba9ec2","specialty":"Mental Health & Neurology"},{"name":"National Standard Treatment Guideline for Arrhythmia","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/1ceaa496-9586-48a5-8cad-6783ad4f6a09","specialty":"Cardiology"},{"name":"National Standard Treatment Guideline for Chronic Kidney Disease","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/eab48ff9-64b4-4b18-b361-13a8fcee8c07","specialty":"Nephrology"},{"name":"National Standard Treatment Guideline for Chronic Liver Disease","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/70c1a35d-bd4f-4f3d-80a2-e3f6ea82d5c6","specialty":"Gastroenterology & Hepatology"},{"name":"National Standard Treatment Guideline for Chronic Pancreatitis","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/9eb262df-acb8-4d87-b366-5cff6b7c83f3","specialty":"Gastroenterology & Hepatology"},{"name":"National Standard Treatment Guideline for Dementia","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/6a094b35-1e40-46d2-ae76-e4cf37edf9e2","specialty":"Mental Health & Neurology"},{"name":"National Standard Treatment Guideline for Heart Failure","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/37a027d4-a5cb-4392-95c1-98413271746f","specialty":"Cardiology"},{"name":"National Standard Treatment Guideline for Interstitial Lung Disease","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/4d07b298-d44a-4a85-bb64-9b3597125684","specialty":"Respiratory Medicine"},{"name":"National Standard Treatment Guideline for Obesity","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/6ac4e277-910c-4091-96ff-f98fba783503","specialty":"Endocrinology"},{"name":"National Therapeutic Protocol for Psychological Interventions and services","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/157e8a5b-30e2-457f-84f8-c6fab034d425","specialty":"Mental Health & Neurology"},{"name":"National Therapeutic Protocol for Psychological Interventions and Services","meta":"Maaharaa Portal · 02 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a993b0bd-fb55-4f91-8a90-3810e4134ef3","specialty":"Mental Health & Neurology"},{"name":"National Treatment Guideline for Lung Cancer (Small Cell & Non-Small cell Lung Cancer)","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/85ebe42c-64a1-4727-94e2-ac33c11321e5","specialty":"Hematology & Oncology"},{"name":"Regulatory Guide for Application For Licensing of Medical Use of Sealed/ Unsealed Radioactive Material","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/e3b532a5-8a21-409b-8188-d383d58afe3a","specialty":"Surgery & Facility Standards"},{"name":"Selection Criteria for Patient Retrieval and transfer by Air Ambulance","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/1d8715ec-dee5-4fcd-8d16-51cec4a6bde1","specialty":"Emergency & Transport"},{"name":"Serious Reportable Events List","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/5606e84f-f84d-4329-8e3c-d42b84e4137a","specialty":"Administrative & Quality"},{"name":"Teleconsultation Guideline for Healthcare Professionals","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/84899449-05bb-4559-9c9a-1b132d4e2407","specialty":"Telemedicine & Digital Health"},{"name":"Telemedicine Guideline for Healthcare Professionals","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/d4884371-e951-4b54-9272-63702cb640c8","specialty":"Telemedicine & Digital Health"},{"name":"The National Guideline on Infection Prevention and Control","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/08bb500c-56b0-4df8-9c05-024609ced2b9","specialty":"Infection Control & Prevention"},{"name":"Therapeutic Protocols- Occupational Therapy","meta":"Maaharaa Portal · 02 Jun 2025","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/b20159e6-7df0-491f-ac26-e24c338e5441","specialty":"Rehabilitation & Therapy"},{"name":"Treatment guideline for management of Asthma","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"📄","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a95b7602-f373-4e06-a25d-f84d0789fa77","specialty":"Respiratory Medicine"}]},"notes":{"title":"Clinical Notes","icon":"📝","color":"#f59e0b","desc":"Clinical pearls, quick references and MO notes","files":[{"name":"Approach to Fever in OPD","meta":"Dr. Anoof · Quick Reference","tag":"note","icon":"📋"},{"name":"Common OPD Prescribing Tips","meta":"ASMH MO Team · 2024","tag":"note","icon":"📋"},{"name":"IV Fluid Calculations Cheat Sheet","meta":"Dr. Anoof · Paeds","tag":"note","icon":"📋"},{"name":"Antibiotic Dose Adjustment in Renal Failure","meta":"Quick Reference Card","tag":"note","icon":"📋"},{"name":"Drug-Drug Interactions to Avoid in OPD","meta":"Safety Notes","tag":"note","icon":"⚠️"},{"name":"Paediatric Weight Estimation Guide","meta":"Emergency Quick Ref","tag":"note","icon":"📋"}]},"protocols":{"title":"Protocols","icon":"📋","color":"#8b5cf6","desc":"Clinical protocols and management algorithms","files":[{"name":"Acute Asthma Management Protocol","meta":"ASMH Emergency · 2023","tag":"pdf","icon":"📄"},{"name":"Diabetic Ketoacidosis Protocol","meta":"ASMH Internal Medicine","tag":"pdf","icon":"📄"},{"name":"Sepsis Bundle Protocol","meta":"ASMH Critical Care","tag":"pdf","icon":"📄"},{"name":"Paediatric Resuscitation Algorithm","meta":"ASMH Paeds · 2024","tag":"pdf","icon":"📄"},{"name":"Status Epilepticus Management","meta":"ASMH Emergency","tag":"pdf","icon":"📄"},{"name":"Hypertensive Emergency Protocol","meta":"ASMH Cardiology","tag":"pdf","icon":"📄"}]},"references":{"title":"References","icon":"📚","color":"#14b8a6","desc":"Textbooks, journals and online reference tools","files":[{"name":"BNF Online","meta":"British National Formulary","tag":"link","icon":"🌐"},{"name":"Micromedex Drug Reference","meta":"Clinical Decision Support","tag":"link","icon":"🌐"},{"name":"UpToDate","meta":"Evidence-based clinical resource","tag":"link","icon":"🌐"},{"name":"PubMed / MEDLINE","meta":"National Library of Medicine","tag":"link","icon":"🌐"},{"name":"WHO Essential Medicines","meta":"World Health Organization","tag":"link","icon":"🌐"},{"name":"ASMH Pharmacy Formulary","meta":"Internal Reference","tag":"doc","icon":"📄"}]},"forms":{"title":"Forms & Charts","icon":"📊","color":"#ec4899","desc":"Clinical forms, growth charts and scoring tools","files":[{"name":"WHO Growth Charts (Boys)","meta":"0Ã¢ÂÂ18 years · Weight / Height","tag":"pdf","icon":"📊"},{"name":"WHO Growth Charts (Girls)","meta":"0Ã¢ÂÂ18 years · Weight / Height","tag":"pdf","icon":"📊"},{"name":"PHQ-9 Depression Screening","meta":"Psychiatry Scoring Tool","tag":"pdf","icon":"📋"},{"name":"CURB-65 Pneumonia Severity Score","meta":"Respiratory Quick Score","tag":"note","icon":"📋"},{"name":"Paediatric Broselow Reference","meta":"Emergency Weight / Dose","tag":"doc","icon":"📊"},{"name":"OPD Referral Form","meta":"ASMH Standard Form","tag":"doc","icon":"📄"}]}};
+var filesLibData = {"national-guidelines":{"title":"National Guidelines","icon":"","color":"#3b82f6","desc":"Official Ministry of Health & WHO clinical guidelines","files":[{"name":"ASMH Standard Treatment Guidelines 2023","meta":"Ministry of Health · 2023","tag":"pdf","icon":"","specialty":"General & Pharmacy"},{"name":"Maldives Essential Medicines List","meta":"Ministry of Health · 2022","tag":"pdf","icon":"","specialty":"General & Pharmacy"},{"name":"WHO Model Formulary for Children","meta":"World Health Organization","tag":"link","icon":"","specialty":"Pediatrics"},{"name":"ASMH Infection Control Policy","meta":"Dr. ASMH · Updated 2024","tag":"pdf","icon":"","specialty":"Infection Control & Prevention"},{"name":"National Antibiotic Stewardship Guidelines","meta":"Ministry of Health · 2023","tag":"pdf","icon":"","specialty":"Infectious Diseases"},{"name":"Maldives Immunization Schedule","meta":"Ministry of Health · 2024","tag":"link","icon":"","specialty":"Pediatrics"},{"name":"Acute Respiratory Tract Infections in Children","meta":"Maaharaa Portal · 13 Aug 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/81c2f8dc-c50d-4ed2-89c4-23a73d5d3228","specialty":"Pediatrics"},{"name":"Air Ambulance SOP V2","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/72b210c7-bb18-4906-9a01-5cf8c0ffe5e2","specialty":"Emergency & Transport"},{"name":"Clinical Documentation guideline","meta":"Maaharaa Portal · 21 Aug 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/68a85fec-5548-4b6d-83f7-7163a45a7a3f","specialty":"Administrative & Quality"},{"name":"Clinical Guideline for Management of Nephrotic Syndrome in children in Maldives","meta":"Maaharaa Portal · 21 Aug 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/ba2af12b-c5f0-472c-83f1-5902ca2097d3","specialty":"Pediatrics"},{"name":"Clinical Guideline for Treatment of Childhood Tuberculosis","meta":"Maaharaa Portal · 21 Aug 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/540f0b88-0f38-4385-81c1-a3f7c580c892","specialty":"Pediatrics"},{"name":"Clinical Guidelines for management of Hypertension in adults 2025","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/d31ca76e-1fd6-4525-a57a-e44565fe5794","specialty":"Cardiology"},{"name":"Clinical Management of Chikungunya Fever in Children","meta":"Maaharaa Portal · 21 Aug 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/bf097f69-e3b4-4e39-b856-e27c66c29b11","specialty":"Pediatrics"},{"name":"Clinical management of Diabetes Mellitus and Diabetic Keto Acidosis in Children","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a4be18a7-31d2-42fc-8dbb-5da440398eba","specialty":"Pediatrics"},{"name":"Clinical treatment guideline for the management of Hyperthyroidism in Adults","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/fa81404e-f7dd-49b0-9a98-5db2ca4d3f17","specialty":"Endocrinology"},{"name":"Guideline for Evaluation and Management of Neonatal Hypoglycemia","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/0c05fdf7-9df5-457e-81c7-f2cb465838ac","specialty":"Neonatology"},{"name":"Guideline for Evaluation and Management of Neonatl Sepsis","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a4498e46-647f-4048-b7f2-a9e27c3dd7a9","specialty":"Neonatology"},{"name":"Guideline for Management of Childhood Asthma","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/c4bdc827-ec9b-42ff-b25f-dcc00b72bf33","specialty":"Pediatrics"},{"name":"Guideline for management of pediatric CNS infection","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/8ca3077e-448b-4263-97cb-2ea86d57b26b","specialty":"Pediatrics"},{"name":"Guideline for Rapid Antigen Diagnostic Testing (Ag-RDT) for COVID-19","meta":"Maaharaa Portal · 06 Aug 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a4e97e9c-ddbf-4542-97e7-cba3fab86c0c","specialty":"Infectious Diseases"},{"name":"Guideline for the Management of Chronic Obstructive Pulmonary Disease","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/6817d51e-8355-41f1-b051-f7ca7a018575","specialty":"Respiratory Medicine"},{"name":"Guideline for the Management of Dengue Fever in Children","meta":"Maaharaa Portal · 06 Aug 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/e626b920-598e-4cad-9025-497902ccca22","specialty":"Pediatrics"},{"name":"Guideline for the Management of Diarrhoea in Children","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/5625d429-3d7a-44e7-9fb3-f7890c8a7748","specialty":"Pediatrics"},{"name":"Guideline for the Management of First Unprovoked Seizure in Children","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/998d719d-a9e1-4987-97db-0236c1aa6348","specialty":"Pediatrics"},{"name":"Guideline for the management of Iron Deficiency Anemia in Adults","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/b0612b67-e996-4e69-89d9-fa9b38c85cc1","specialty":"Hematology & Oncology"},{"name":"Maldives National Medication Practice Standard","meta":"Maaharaa Portal · 18 Aug 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/94aeb710-4a4c-4f17-bef6-73a5ef4600c2","specialty":"General & Pharmacy"},{"name":"Maldives National Policy on HEALTH LABORATORIES","meta":"Maaharaa Portal · 18 Aug 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/3246be9f-bb36-408b-94ef-12b09dcd3e09","specialty":"Laboratory Medicine"},{"name":"Management of Transfusion Dependent Thalassemias in the Maldives","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/c3401ee3-1d51-45a3-a6d6-d8f8446c4354","specialty":"Hematology & Oncology"},{"name":"Minimum Requirement criteria for Operation Theatre (OT)","meta":"Maaharaa Portal · 18 Aug 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/ecfca4d7-6220-42a9-86ef-40753cf60679","specialty":"Surgery & Facility Standards"},{"name":"Minimum standard for establishing a resort clinic","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/630f8e65-2d20-4b6a-8de0-13aa5dc55bb1","specialty":"Surgery & Facility Standards"},{"name":"Minimum Standard for facilities providing ophthalmology and optometry services","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/5d17d066-ae07-4e8c-b47e-d70ed7d3fd6e","specialty":"Ophthalmology"},{"name":"Minimum standard for providing Dialysis services in the Maldives","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/f070645e-1584-49c7-9857-e783f86384e7","specialty":"Nephrology"},{"name":"Minimum standards for hijama therapy in the maldives","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/c6871398-c7e0-4b7a-8925-d7d242878846","specialty":"Rehabilitation & Therapy"},{"name":"National Guideline for Management of Paediatric Hypertension","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/ba3bf90b-43b1-47f3-93ee-d2a51bb3ed35","specialty":"Pediatrics"},{"name":"National Colposcopy Guideline 2025","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/f5f94203-c5c1-482d-948a-f43bd2022584","specialty":"Obstetrics & Gynecology"},{"name":"National Guideline for Safe Transport of Sick Children and Neonates","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/538e1d13-69aa-4f22-82b9-431335f31ef5","specialty":"Neonatology"},{"name":"National Guideline for the Management of Persistent Pulmonary Hypertension in Newborn (PPHN)","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/3b959fda-1016-449c-9db8-38d95abe84c8","specialty":"Neonatology"},{"name":"National Guideline for Follow-Up Care of “At-Risk” Neonates After Discharge From Hospital","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/fcddd921-fec0-4aa3-9f41-3111fa859d05","specialty":"Neonatology"},{"name":"National Guideline for Follow-up care of \"AT-RISK\" Neonates after discharge from Hospital","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/0885bc17-a831-4265-aa52-a2ca8fff1d36","specialty":"Neonatology"},{"name":"National Guideline for management of Anemia in children","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/087f0892-91ba-4dae-95b2-bdc5ee6ec2b7","specialty":"Pediatrics"},{"name":"National Guideline for Speech-Language and Audiological Clinical Service in the Maldives","meta":"Maaharaa Portal · 02 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/04fa922e-8f2a-453f-870a-10a1a4fd6d3d","specialty":"Rehabilitation & Therapy"},{"name":"National Guideline on Management of Neonatal Abstinence Syndrome","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/6bd64e49-fd92-4e73-b85b-281fc85d13c5","specialty":"Neonatology"},{"name":"National Guideline on Management of Oxygen Therapy in Neonates","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/c6d48ede-2aae-400d-9270-a31257ac3466","specialty":"Neonatology"},{"name":"National Health Care Waste Management Guideline","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/6f4867b2-9f03-452b-95b9-60e1c0a36822","specialty":"Infection Control & Prevention"},{"name":"National Protocol for Early learning and Development Service","meta":"Maaharaa Portal · 02 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/92ad681c-f94c-4c99-9df2-5c0c01348ea0","specialty":"Rehabilitation & Therapy"},{"name":"National protocol for physiotherapy practice s","meta":"Maaharaa Portal · 02 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/56d624d1-8723-416f-98ba-966fad4b1efc","specialty":"Rehabilitation & Therapy"},{"name":"National Standard for Clinical Laboratories","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a77af5b1-0b58-45b8-93b1-6cc4457e65ad","specialty":"Laboratory Medicine"},{"name":"National Standard Treatment Guideline for Acid Peptic Disease","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/c80bc697-f92c-4d7f-954b-6534f22af381","specialty":"Gastroenterology & Hepatology"},{"name":"National Standard Treatment Guideline for Acute Anxiety","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/d597cfe5-57e4-4403-895d-9f1dceaa71f8","specialty":"Mental Health & Neurology"},{"name":"National Standard Treatment Guideline for Acute Kidney Injury","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/ae8e3f0d-ab57-4b64-858c-23c7ea7ac3c7","specialty":"Nephrology"},{"name":"National Standard Treatment Guideline for Acute Liver Failure","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/644253ac-8d8f-4334-a51a-65b22e23f11b","specialty":"Gastroenterology & Hepatology"},{"name":"National Standard Treatment Guideline for Acute Pancreatitis","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/950251b4-2ec4-4387-b9f1-8da548bdeb9c","specialty":"Gastroenterology & Hepatology"},{"name":"National Standard Treatment Guideline for Acute Psychosis","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/26eb5b5e-c141-4328-b64a-d54de2ba9ec2","specialty":"Mental Health & Neurology"},{"name":"National Standard Treatment Guideline for Arrhythmia","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/1ceaa496-9586-48a5-8cad-6783ad4f6a09","specialty":"Cardiology"},{"name":"National Standard Treatment Guideline for Chronic Kidney Disease","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/eab48ff9-64b4-4b18-b361-13a8fcee8c07","specialty":"Nephrology"},{"name":"National Standard Treatment Guideline for Chronic Liver Disease","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/70c1a35d-bd4f-4f3d-80a2-e3f6ea82d5c6","specialty":"Gastroenterology & Hepatology"},{"name":"National Standard Treatment Guideline for Chronic Pancreatitis","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/9eb262df-acb8-4d87-b366-5cff6b7c83f3","specialty":"Gastroenterology & Hepatology"},{"name":"National Standard Treatment Guideline for Dementia","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/6a094b35-1e40-46d2-ae76-e4cf37edf9e2","specialty":"Mental Health & Neurology"},{"name":"National Standard Treatment Guideline for Heart Failure","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/37a027d4-a5cb-4392-95c1-98413271746f","specialty":"Cardiology"},{"name":"National Standard Treatment Guideline for Interstitial Lung Disease","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/4d07b298-d44a-4a85-bb64-9b3597125684","specialty":"Respiratory Medicine"},{"name":"National Standard Treatment Guideline for Obesity","meta":"Maaharaa Portal · 08 Jan 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/6ac4e277-910c-4091-96ff-f98fba783503","specialty":"Endocrinology"},{"name":"National Therapeutic Protocol for Psychological Interventions and services","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/157e8a5b-30e2-457f-84f8-c6fab034d425","specialty":"Mental Health & Neurology"},{"name":"National Therapeutic Protocol for Psychological Interventions and Services","meta":"Maaharaa Portal · 02 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a993b0bd-fb55-4f91-8a90-3810e4134ef3","specialty":"Mental Health & Neurology"},{"name":"National Treatment Guideline for Lung Cancer (Small Cell & Non-Small cell Lung Cancer)","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/85ebe42c-64a1-4727-94e2-ac33c11321e5","specialty":"Hematology & Oncology"},{"name":"Regulatory Guide for Application For Licensing of Medical Use of Sealed/ Unsealed Radioactive Material","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/e3b532a5-8a21-409b-8188-d383d58afe3a","specialty":"Surgery & Facility Standards"},{"name":"Selection Criteria for Patient Retrieval and transfer by Air Ambulance","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/1d8715ec-dee5-4fcd-8d16-51cec4a6bde1","specialty":"Emergency & Transport"},{"name":"Serious Reportable Events List","meta":"Maaharaa Portal · 24 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/5606e84f-f84d-4329-8e3c-d42b84e4137a","specialty":"Administrative & Quality"},{"name":"Teleconsultation Guideline for Healthcare Professionals","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/84899449-05bb-4559-9c9a-1b132d4e2407","specialty":"Telemedicine & Digital Health"},{"name":"Telemedicine Guideline for Healthcare Professionals","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/d4884371-e951-4b54-9272-63702cb640c8","specialty":"Telemedicine & Digital Health"},{"name":"The National Guideline on Infection Prevention and Control","meta":"Maaharaa Portal · 23 Apr 2026","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/08bb500c-56b0-4df8-9c05-024609ced2b9","specialty":"Infection Control & Prevention"},{"name":"Therapeutic Protocols- Occupational Therapy","meta":"Maaharaa Portal · 02 Jun 2025","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/b20159e6-7df0-491f-ac26-e24c338e5441","specialty":"Rehabilitation & Therapy"},{"name":"Treatment guideline for management of Asthma","meta":"Maaharaa Portal · 09 Sep 2024","tag":"pdf","icon":"","url":"https://maaharaa.health.gov.mv/Public/Home/GetFile/a95b7602-f373-4e06-a25d-f84d0789fa77","specialty":"Respiratory Medicine"}]},"notes":{"title":"Clinical Notes","icon":"","color":"#f59e0b","desc":"Clinical pearls, quick references and MO notes","files":[{"name":"Approach to Fever in OPD","meta":"Dr. Anoof · Quick Reference","tag":"note","icon":""},{"name":"Common OPD Prescribing Tips","meta":"ASMH MO Team · 2024","tag":"note","icon":""},{"name":"IV Fluid Calculations Cheat Sheet","meta":"Dr. Anoof · Paeds","tag":"note","icon":""},{"name":"Antibiotic Dose Adjustment in Renal Failure","meta":"Quick Reference Card","tag":"note","icon":""},{"name":"Drug-Drug Interactions to Avoid in OPD","meta":"Safety Notes","tag":"note","icon":""},{"name":"Paediatric Weight Estimation Guide","meta":"Emergency Quick Ref","tag":"note","icon":""}]},"protocols":{"title":"Protocols","icon":"","color":"#8b5cf6","desc":"Clinical protocols and management algorithms","files":[{"name":"Acute Asthma Management Protocol","meta":"ASMH Emergency · 2023","tag":"pdf","icon":""},{"name":"Diabetic Ketoacidosis Protocol","meta":"ASMH Internal Medicine","tag":"pdf","icon":""},{"name":"Sepsis Bundle Protocol","meta":"ASMH Critical Care","tag":"pdf","icon":""},{"name":"Paediatric Resuscitation Algorithm","meta":"ASMH Paeds · 2024","tag":"pdf","icon":""},{"name":"Status Epilepticus Management","meta":"ASMH Emergency","tag":"pdf","icon":""},{"name":"Hypertensive Emergency Protocol","meta":"ASMH Cardiology","tag":"pdf","icon":""}]},"references":{"title":"References","icon":"","color":"#14b8a6","desc":"Textbooks, journals and online reference tools","files":[{"name":"BNF Online","meta":"British National Formulary","tag":"link","icon":""},{"name":"Micromedex Drug Reference","meta":"Clinical Decision Support","tag":"link","icon":""},{"name":"UpToDate","meta":"Evidence-based clinical resource","tag":"link","icon":""},{"name":"PubMed / MEDLINE","meta":"National Library of Medicine","tag":"link","icon":""},{"name":"WHO Essential Medicines","meta":"World Health Organization","tag":"link","icon":""},{"name":"ASMH Pharmacy Formulary","meta":"Internal Reference","tag":"doc","icon":""}]},"forms":{"title":"Forms & Charts","icon":"","color":"#ec4899","desc":"Clinical forms, growth charts and scoring tools","files":[{"name":"WHO Growth Charts (Boys)","meta":"0Ã¢ÂÂ18 years · Weight / Height","tag":"pdf","icon":""},{"name":"WHO Growth Charts (Girls)","meta":"0Ã¢ÂÂ18 years · Weight / Height","tag":"pdf","icon":""},{"name":"PHQ-9 Depression Screening","meta":"Psychiatry Scoring Tool","tag":"pdf","icon":""},{"name":"CURB-65 Pneumonia Severity Score","meta":"Respiratory Quick Score","tag":"note","icon":""},{"name":"Paediatric Broselow Reference","meta":"Emergency Weight / Dose","tag":"doc","icon":""},{"name":"OPD Referral Form","meta":"ASMH Standard Form","tag":"doc","icon":""}]}};
 
 var activeFilesKey = null;
 var filesSearchQuery = '';
@@ -3768,7 +3772,7 @@ function getCell(row, idx) {
 function erdFetchAndRender(sheetId, sheetName, gid) {
   var wrap = document.getElementById('erdTableWrap');
   if (!wrap) return;
-  wrap.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">⏳ Loading data...</div>';
+  wrap.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">Loading data...</div>';
   fetchSheet(sheetId, sheetName, gid).then(function(data) {
     var rows = (data && data.table && data.table.rows) ? data.table.rows : [];
     var dataRows = rows.slice(2).filter(function(r) {
@@ -3801,7 +3805,7 @@ function erdFetchAndRender(sheetId, sheetName, gid) {
     html += '</tbody></table>';
     wrap.innerHTML = html;
   }).catch(function(e) {
-    wrap.innerHTML = '<p style="text-align:center;padding:40px;color:var(--rose);">⚠️ Failed to load data. Please check connection.</p>';
+    wrap.innerHTML = '<p style="text-align:center;padding:40px;color:var(--rose);">Failed to load data. Please check connection.</p>';
   });
 }
 
@@ -3817,7 +3821,7 @@ function showDeptHandover() {
 function deptFetchAndRender() {
   var el = document.getElementById('deptContent');
   if (!el) return;
-  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">⏳ Loading department data...</div>';
+  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);">Loading department data...</div>';
   var DSID = '1hqZ6IBS_hkCu_1fFgkTlmgG04whLpZYf1FueUX8ijO4';
   var depts = [
     { sheet: 'MEDICINE', label: 'Medicine' },
@@ -3830,7 +3834,7 @@ function deptFetchAndRender() {
   });
   Promise.all(promises).then(function(results) {
     var html = '<div style="padding:24px;">';
-    html += '<h2 style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:24px;">🏥 Department Handover – Inpatients</h2>';
+    html += '<h2 style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:24px;">Department Handover – Inpatients</h2>';
     results.forEach(function(r) {
       var rows = (r.data && r.data.table && r.data.table.rows) ? r.data.table.rows : [];
       var dataRows = rows.slice(4).filter(function(row) {
@@ -3862,11 +3866,11 @@ function deptFetchAndRender() {
       }
       html += '</div>';
     });
-    html += '<div style="margin-top:16px;text-align:center;"><a href="https://docs.google.com/spreadsheets/d/' + DSID + '/edit" target="_blank" style="color:var(--accent);font-size:13px;text-decoration:none;">📄 Open full Dept Handover Sheet</a></div>';
+    html += '<div style="margin-top:16px;text-align:center;"><a href="https://docs.google.com/spreadsheets/d/' + DSID + '/edit" target="_blank" style="color:var(--accent);font-size:13px;text-decoration:none;">Open full Dept Handover Sheet</a></div>';
     html += '</div>';
     el.innerHTML = html;
   }).catch(function(e) {
-    el.innerHTML = '<p style="text-align:center;padding:40px;color:var(--rose);">⚠️ Failed to load department data.</p>';
+    el.innerHTML = '<p style="text-align:center;padding:40px;color:var(--rose);">Failed to load department data.</p>';
   });
 }
 
@@ -3878,7 +3882,7 @@ var snEditIdx = -1;
 var snTemplates = [
   {
     id: 'tpl-history-adult',
-    icon: '📋',
+    icon: '',
     title: 'History Taking — Adult',
     badge: 'Template',
     body: [
@@ -3918,7 +3922,7 @@ var snTemplates = [
   },
   {
     id: 'tpl-history-paeds',
-    icon: '👶',
+    icon: '',
     title: 'History Taking — Paediatric',
     badge: 'Template',
     body: [
@@ -3954,7 +3958,7 @@ var snTemplates = [
   },
   {
     id: 'tpl-exam-general',
-    icon: '🩺',
+    icon: '',
     title: 'Examination — General',
     badge: 'Template',
     body: [
@@ -3993,7 +3997,7 @@ var snTemplates = [
   },
   {
     id: 'tpl-soap',
-    icon: '📝',
+    icon: '',
     title: 'SOAP Note',
     badge: 'Template',
     body: [
@@ -4020,7 +4024,7 @@ var snTemplates = [
   },
   {
     id: 'tpl-discharge',
-    icon: '🏥',
+    icon: '',
     title: 'Discharge Summary Template',
     badge: 'Template',
     body: [
@@ -4062,7 +4066,7 @@ var snTemplates = [
   },
   {
     id: 'tpl-referral',
-    icon: '📤',
+    icon: '',
     title: 'Referral Letter Template',
     badge: 'Template',
     body: [
@@ -4117,7 +4121,7 @@ function snRender() {
   snNotes = customNotes;
 
   var html = '<div class="sn-header">' +
-    '<div><div class="sn-title">📌 Sticky Notes</div>' +
+    '<div><div class="sn-title">Sticky Notes</div>' +
     '<div class="sn-sub">Clinical templates and personal notes — saved locally on this device</div></div>' +
     '<button class="sn-add-btn" onclick="snOpenModal(-1)">+ New Note</button>' +
     '</div>' +
@@ -4149,7 +4153,7 @@ function snRender() {
   } else {
     html += '<div class="sn-grid">';
     snNotes.forEach(function(note, i) {
-      var icon = note.icon || '📄';
+      var icon = note.icon || '';
       html += '<div class="sn-card custom" onclick="snView(\'note\','+i+')">' +
         '<div class="sn-card-hdr">' +
         '<span class="sn-card-icon">' + icon + '</span>' +
@@ -4204,7 +4208,7 @@ function snSaveNote() {
   if (!title) { document.getElementById('snNoteTitle').focus(); return; }
   var notes = JSON.parse(localStorage.getItem('snNotes') || '[]');
   if (snEditIdx === -1) {
-    notes.push({ title: title, body: body, icon: '📄', created: Date.now() });
+    notes.push({ title: title, body: body, icon: '', created: Date.now() });
   } else {
     notes[snEditIdx].title = title;
     notes[snEditIdx].body = body;
@@ -4254,7 +4258,7 @@ function snView(type, idx) {
   document.getElementById('snNoteTitle').value = note.title;
   document.getElementById('snNoteBody').value = note.body;
   if (type === 'tpl') {
-    document.getElementById('snModalTitle').textContent = note.icon + ' ' + note.title;
+    document.getElementById('snModalTitle').textContent = (note.icon ? note.icon + ' ' : '') + note.title;
     // Make save create a new copy
     snEditIdx = -1;
     document.getElementById('snNoteTitle').value = note.title + ' (copy)';
@@ -4286,7 +4290,7 @@ function showDisclaimer() {
   panel.innerHTML = `
     <div style="max-width:780px;margin:0 auto;padding:32px 20px 60px;">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;">
-        <span style="font-size:2rem;">⚠️</span>
+        <span style="font-size:2rem;"></span>
         <h1 style="font-size:1.6rem;font-weight:700;color:var(--text);margin:0;">Disclaimer</h1>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 30px;line-height:1.8;color:var(--text2);font-size:0.97rem;">
@@ -4366,20 +4370,20 @@ function showDisclaimer() {
 (function() {
   // Official ASMH departments (labels shown without the "Department of" prefix)
   var DEPARTMENTS=[
-    {id:'medical',label:'Internal Medicine',emoji:'&#x1FA7A;'},
-    {id:'surgical',label:'General Surgery',emoji:'&#x1F52A;'},
-    {id:'obs',label:'Obstetrics &amp; Gynaecology',emoji:'&#x1F931;'},
-    {id:'paeds',label:'Paediatrics',emoji:'&#x1F476;'},
-    {id:'ortho',label:'Orthopaedics &amp; Trauma Surgery',emoji:'&#x1F9B4;'},
-    {id:'ent',label:'Otorhinolaryngology (ENT)',emoji:'&#x1F442;'},
-    {id:'ophtha',label:'Ophthalmology',emoji:'&#x1F441;&#xFE0F;'},
-    {id:'derma',label:'Dermatology',emoji:'&#x1FA79;'},
-    {id:'psych',label:'Mental Health',emoji:'&#x1F9E0;'},
-    {id:'dental',label:'Dental &amp; Oral Health',emoji:'&#x1F9B7;'},
-    {id:'anaes',label:'Anaesthesiology',emoji:'&#x1F489;'},
-    {id:'gp',label:'General Practice',emoji:'&#x1F468;&#x200D;&#x2695;&#xFE0F;'},
-    {id:'radio',label:'Radiology &amp; Medical Imaging',emoji:'&#x1FA7B;'},
-    {id:'icu',label:'ICU / HDU (old records)',emoji:'&#x2764;',legacy:true}
+    {id:'medical',label:'Internal Medicine',emoji:''},
+    {id:'surgical',label:'General Surgery',emoji:''},
+    {id:'obs',label:'Obstetrics &amp; Gynaecology',emoji:''},
+    {id:'paeds',label:'Paediatrics',emoji:''},
+    {id:'ortho',label:'Orthopaedics &amp; Trauma Surgery',emoji:''},
+    {id:'ent',label:'Otorhinolaryngology (ENT)',emoji:''},
+    {id:'ophtha',label:'Ophthalmology',emoji:''},
+    {id:'derma',label:'Dermatology',emoji:''},
+    {id:'psych',label:'Mental Health',emoji:''},
+    {id:'dental',label:'Dental &amp; Oral Health',emoji:''},
+    {id:'anaes',label:'Anaesthesiology',emoji:''},
+    {id:'gp',label:'General Practice',emoji:''},
+    {id:'radio',label:'Radiology &amp; Medical Imaging',emoji:''},
+    {id:'icu',label:'ICU / HDU (old records)',emoji:'',legacy:true}
   ];
   var STATUSES=[
     {id:'critical',label:'Critical'},
@@ -4462,7 +4466,7 @@ function showDisclaimer() {
       $('dhPtStatusPick').innerHTML=STATUSES.map(function(s){return '<button type="button" class="dh-spick dh-spick-'+s.id+'" data-s="'+s.id+'" onclick="dhPickStatus(\''+s.id+'\')">'+s.label+'</button>'}).join('');
       var all=document.createElement('button');
       all.className='dh-dept-btn dh-dept-all';all.dataset.deptId='all';
-      all.innerHTML='<span class="dh-dept-emoji">&#x1F4CB;</span><span class="dh-dept-label">All Departments</span><span class="dh-dept-count" id="dhCount_all">0</span>';
+      all.innerHTML='<span class="dh-dept-emoji"></span><span class="dh-dept-label">All Departments</span><span class="dh-dept-count" id="dhCount_all">0</span>';
       all.addEventListener('click',function(){dhSelectDept('all')});
       list.appendChild(all);
       DEPARTMENTS.forEach(function(d){
@@ -4575,10 +4579,10 @@ function showDisclaimer() {
   }
   function actions(it){
     var a='\''+it.p.id+'\',\''+it.dept+'\'';
-    return '<button class="dh-icon-btn" title="Edit" onclick="dhEditPatient('+a+')">✏️</button>'+
+    return '<button class="dh-icon-btn" title="Edit" onclick="dhEditPatient('+a+')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>'+
       '<button class="dh-icon-btn" title="Transfer to another department" onclick="dhOpenTransfer('+a+')">⇄</button>'+
-      '<button class="dh-icon-btn dh-icon-dc" title="Discharge" onclick="dhOpenDischarge('+a+')">✅</button>'+
-      '<button class="dh-icon-btn dh-icon-del" title="Remove" onclick="dhDeletePatient('+a+')">🗑️</button>';
+      '<button class="dh-icon-btn dh-icon-dc" title="Discharge" onclick="dhOpenDischarge('+a+')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></button>'+
+      '<button class="dh-icon-btn dh-icon-del" title="Remove" onclick="dhDeletePatient('+a+')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg></button>';
   }
   function soapHtml(p){
     var rows=[['S',p.soapS],['O',p.soapO],['A',p.soapA],['P',p.soapP]].filter(function(r){return r[1]});
@@ -4599,7 +4603,7 @@ function showDisclaimer() {
       '<div class="dh-card-diag">'+esc(p.diagnosis)+'</div>'+
       (soap?'<div class="dh-card-soap">'+soap+'</div><button class="dh-more" onclick="dhToggleSoap(this)">Show more</button>':'<div class="dh-card-nosoap">No handover notes yet</div>')+
       '<div class="dh-card-foot">'+
-        '<div class="dh-card-meta2">'+(days!==null?'<span class="dh-days-badge">Day '+days+'</span>':'')+(p.doctor?'<span>👨‍⚕️ '+esc(p.doctor)+'</span>':'')+'</div>'+
+        '<div class="dh-card-meta2">'+(days!==null?'<span class="dh-days-badge">Day '+days+'</span>':'')+(p.doctor?'<span>'+esc(p.doctor)+'</span>':'')+'</div>'+
         '<div class="dh-card-acts">'+actions(it)+'</div>'+
       '</div>';
     if(soap){setTimeout(function(){var s=el.querySelector('.dh-card-soap');if(s&&s.scrollHeight<=s.clientHeight+2){var m=el.querySelector('.dh-more');if(m)m.style.display='none'}},0)}
@@ -4976,7 +4980,7 @@ function showDisclaimer() {
       ['Zel Nan','Medical Officer','',6183]
     ]
   };
-  var DEPT_ICON={'Anaesthesia':'💉','Dental':'🦷','Dermatology':'🩹','ENT':'👂','Obs & Gynae':'🤱','Ophthalmology':'👁️','Orthopaedics':'🦴','Paediatrics':'👶','Medicine':'🩺','Psychiatry':'🧠','Radiology':'🩻','Surgery':'🔪'};
+  var DEPT_ICON={'Anaesthesia':'','Dental':'','Dermatology':'','ENT':'','Obs & Gynae':'','Ophthalmology':'','Orthopaedics':'','Paediatrics':'','Medicine':'','Psychiatry':'','Radiology':'','Surgery':''};
   var DEPT_NAME={'Medicine':'Internal Medicine','Surgery':'General Surgery','Obs & Gynae':'Obstetrics & Gynaecology','Paediatrics':'Paediatrics','Orthopaedics':'Orthopaedics & Trauma Surgery','ENT':'Otorhinolaryngology (ENT)','Ophthalmology':'Ophthalmology','Dermatology':'Dermatology','Psychiatry':'Mental Health','Dental':'Dental & Oral Health','Anaesthesia':'Anaesthesiology','Radiology':'Radiology & Medical Imaging'};
   var DEPT_ORDER=['Medicine','Surgery','Obs & Gynae','Paediatrics','Orthopaedics','ENT','Ophthalmology','Dermatology','Psychiatry','Dental','Anaesthesia','Radiology'];
   var filter='all', q='';
@@ -5004,7 +5008,7 @@ function showDisclaimer() {
       sp.forEach(function(d){if(!groups[d[2]]){groups[d[2]]=[];order.push(d[2])}groups[d[2]].push(d)});
       order.sort(function(a,b){return DEPT_ORDER.indexOf(a)-DEPT_ORDER.indexOf(b)});
       html+='<div class="tm-depts">'+order.map(function(g){
-        return '<div class="tm-dept"><div class="tm-dept-hdr"><span>'+(DEPT_ICON[g]||'🏥')+'</span>'+esc(DEPT_NAME[g]||g)+'<b>'+groups[g].length+'</b></div><div class="tm-dept-list">'+groups[g].map(card).join('')+'</div></div>';
+        return '<div class="tm-dept"><div class="tm-dept-hdr"><span>'+(DEPT_ICON[g]||'')+'</span>'+esc(DEPT_NAME[g]||g)+'<b>'+groups[g].length+'</b></div><div class="tm-dept-list">'+groups[g].map(card).join('')+'</div></div>';
       }).join('')+'</div>';
     }
     if(filter!=='sp'&&mo.length){
@@ -5018,7 +5022,7 @@ function showDisclaimer() {
     var el=document.getElementById('teamContent');if(!el||el.dataset.built)return;
     el.dataset.built='1';
     el.innerHTML=
-      '<div class="tm-head"><div><div class="ql-page-title">👩‍⚕️ Our Team</div><p class="ql-page-sub">Consultants, specialists and medical officers at Dr. Abdul Samad Memorial Hospital</p></div>'+
+      '<div class="tm-head"><div><div class="ql-page-title">Our Team</div><p class="ql-page-sub">Consultants, specialists and medical officers at Dr. Abdul Samad Memorial Hospital</p></div>'+
       '<div class="tm-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="tmSearch" placeholder="Search name or specialty…" autocomplete="off"></div></div>'+
       '<div class="tm-tabs"><button class="tm-tab" data-f="all">All <b id="tmCountAll"></b></button><button class="tm-tab" data-f="sp">Consultants &amp; Specialists <b id="tmCountSp"></b></button><button class="tm-tab" data-f="mo">Medical Officers <b id="tmCountMo"></b></button></div>'+
       '<div id="tmBody"></div>'+
@@ -5180,7 +5184,7 @@ function showDisclaimer() {
     $('lpStM').classList.toggle('on',ym);$('lpStY').classList.toggle('on',!ym);
     $('lpStPeriod').textContent=ym?MN[st.m]+' '+st.y:String(st.y);
     $('lpStNext').disabled=ym?(st.y>now.getFullYear()||(st.y===now.getFullYear()&&st.m>=now.getMonth())):st.y>=now.getFullYear();
-    $('lpStKpis').innerHTML='<div class="lp-empty">⏳ Loading statistics…</div>';
+    $('lpStKpis').innerHTML='<div class="lp-empty">Loading statistics…</div>';
     var seq=++st.seq,months=ym?[st.m]:MN.map(function(_,i){return i});
     Promise.all(months.map(function(m){return stMonth(st.y,m).catch(function(){return 'err'})})).then(function(list){
       if(seq!==st.seq)return;
@@ -5194,12 +5198,12 @@ function showDisclaimer() {
       var dh=stDh(from.getTime(),to.getTime());
       if(!list.every(function(x){return x==='err'}))
       $('lpStKpis').innerHTML=has?(
-        kpi('🚑 ER visits',T.n,(T.n/span).toFixed(1)+' / day')+
-        kpi('🏥 ER → admission',T.adm,pct(T.adm,T.n)+' of visits')+
-        kpi('✅ Discharged',T.dc,pct(T.dc,T.n)+' of visits')+
-        kpi('↗️ Referred',T.ref,pct(T.ref,T.n))+
-        kpi('🚪 DOR / LAMA',T.dor,pct(T.dor,T.n))+
-        kpi('🕊️ Demised',T.dead,pct(T.dead,T.n))
+        kpi('ER visits',T.n,(T.n/span).toFixed(1)+' / day')+
+        kpi('ER → admission',T.adm,pct(T.adm,T.n)+' of visits')+
+        kpi('Discharged',T.dc,pct(T.dc,T.n)+' of visits')+
+        kpi('Referred',T.ref,pct(T.ref,T.n))+
+        kpi('DOR / LAMA',T.dor,pct(T.dor,T.n))+
+        kpi('Demised',T.dead,pct(T.dead,T.n))
       ):'<div class="lp-empty">No ER records for '+$('lpStPeriod').textContent+'.</div>';
       // outcomes
       var O=[['Discharged','dc','#10b981'],['Admitted','adm','#6366f1'],['Referred','ref','#0aa5b5'],['DOR / LAMA','dor','#f59e0b'],['Demised','dead','#ef4444'],['Other / open','oth','#94a3b8']];
@@ -5306,13 +5310,13 @@ function showDisclaimer() {
     var el=$('erDashContent');if(!el||el.dataset.v2)return;el.dataset.v2='1';
     el.innerHTML=
       '<div class="er-top">'+
-        '<div class="er-title">🚨 ER Handover <span class="er-sub">Department of Emergency Medicine &amp; Trauma</span></div>'+
+        '<div class="er-title">ER Handover <span class="er-sub">Department of Emergency Medicine &amp; Trauma</span></div>'+
         '<div class="er-tabs"><button id="erTabBoard" onclick="erdSwitchTab(\'active\')">Bed board</button><button id="erTabRec" onclick="erdSwitchTab(\'monthly\')">Records</button></div>'+
         '<div class="er-acts">'+
-          '<button class="er-btn" onclick="erCopy()" title="Copy handover text">📋 <span>Copy</span></button>'+
-          '<button class="er-btn" onclick="erPrint()" title="Print handover sheet">🖨 <span>Print</span></button>'+
+          '<button class="er-btn" onclick="erCopy()" title="Copy handover text"><span>Copy</span></button>'+
+          '<button class="er-btn" onclick="erPrint()" title="Print handover sheet"><span>Print</span></button>'+
           '<button class="er-btn" onclick="erRefresh()" title="Refresh">↻</button>'+
-          '<a class="er-btn" href="'+SHEET_URL+'" target="_blank" rel="noopener" title="Open Google Sheet">📄 <span>Sheet</span></a>'+
+          '<a class="er-btn" href="'+SHEET_URL+'" target="_blank" rel="noopener" title="Open Google Sheet"><span>Sheet</span></a>'+
         '</div>'+
       '</div>'+
       '<div class="er-body" id="erBody"></div>'+
@@ -5329,13 +5333,13 @@ function showDisclaimer() {
 
   function renderBoard(){
     var body=$('erBody'),beds=state.beds;
-    if(!beds.length){body.innerHTML='<div class="er-empty">'+(state.loading?'⏳ Loading ER board…':'No beds found in the HANDOVER sheet.')+'</div>';return}
+    if(!beds.length){body.innerHTML='<div class="er-empty">'+(state.loading?'Loading ER board…':'No beds found in the HANDOVER sheet.')+'</div>';return}
     var occ=beds.filter(occupied),counts={};
     occ.forEach(function(b){var s=b.status||'No status';counts[s]=(counts[s]||0)+1});
     var stats='<div class="er-stats"><div class="er-stat"><b>'+occ.length+'</b>/'+beds.length+' beds occupied</div>'+
       Object.keys(counts).map(function(k){return '<span class="er-chip '+statusCls(k)+'">'+esc(k)+' <b>'+counts[k]+'</b></span>'}).join('')+
       '<div class="er-legend"><span><i class="z1"></i>P1 · RESUS / R1</span><span><i class="z2"></i>P2 · Receiving / R2</span><span><i class="z3"></i>P3 · Trauma / R3</span></div></div>';
-    var banner=ER_API?'':'<div class="er-banner">👁 View only — editing from the portal isn\'t switched on yet. Use the 📄 Sheet button to edit.</div>';
+    var banner=ER_API?'':'<div class="er-banner">View only — editing from the portal isn\'t switched on yet. Use the Sheet button to edit.</div>';
     var upd=state.updated?'<div class="er-upd">Updated '+state.updated.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+' · refreshes every minute</div>':'';
     body.innerHTML=banner+stats+'<div class="er-grid">'+beds.map(card).join('')+'</div>'+upd;
   }
@@ -5371,7 +5375,7 @@ function showDisclaimer() {
     $('erModal').innerHTML=
       '<div class="er-m-hd '+z.cls+'"><div><div class="er-m-bed">'+esc(b.bed)+'</div><div class="er-m-zone">'+(z.name||'')+'</div></div><button class="er-x" onclick="erClose()">✕</button></div>'+
       '<div class="er-m-body">'+
-        (ro?'<div class="er-banner">👁 View only — editing isn\'t switched on yet.</div>':'')+
+        (ro?'<div class="er-banner">View only — editing isn\'t switched on yet.</div>':'')+
         '<div class="er-row2"><label>Arrival date &amp; time<input class="er-in" id="erArr" type="datetime-local" value="'+localInput(arr)+'"></label><label>ID Card No'+inp('erId',b.id,'e.g. A123456')+'</label></div>'+
         '<div class="er-row2"><label>Patient name *'+inp('erName',b.name,'Full name')+'</label><label>Age / Gender'+inp('erAge',b.age,'e.g. 34 y / M')+'</label></div>'+
         '<label>Working diagnosis'+inp('erDx',b.dx,'e.g. Acute gastroenteritis')+'</label>'+
@@ -5414,7 +5418,7 @@ function showDisclaimer() {
   function renderRecords(){
     var body=$('erBody');if(!state.month)state.month=monthNames()[0];
     body.innerHTML='<div class="er-rec-bar"><select class="er-in er-month" id="erMonth" onchange="erSetMonth(this.value)">'+monthNames().map(function(m){return '<option'+(m===state.month?' selected':'')+'>'+m+'</option>'}).join('')+'</select>'+
-      '<div class="er-search"><input id="erRecQ" placeholder="Search name, ID, diagnosis, doctor…" value="'+esc(state.q)+'" oninput="erRecFilter(this.value)"></div><span class="er-rec-count" id="erRecCount"></span></div><div id="erRecWrap"><div class="er-empty">⏳ Loading records…</div></div>';
+      '<div class="er-search"><input id="erRecQ" placeholder="Search name, ID, diagnosis, doctor…" value="'+esc(state.q)+'" oninput="erRecFilter(this.value)"></div><span class="er-rec-count" id="erRecCount"></span></div><div id="erRecWrap"><div class="er-empty">Loading records…</div></div>';
     if(typeof fetchSheet!=='function')return;
     var month=state.month;
     fetchSheet(SID,month,null).then(function(data){

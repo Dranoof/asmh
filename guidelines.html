@@ -56,20 +56,20 @@
 </head>
 <body>
     <div class="header">
-        <h1>📋 Medical Guidelines & Documents</h1>
+        <h1>Medical Guidelines & Documents</h1>
         <p>Access comprehensive health guidelines from the Ministry of Health - Maldives</p>
     </div>
     
     <div class="container">
         <a href="index.html" class="back-btn">← Back to ASMH CarePortal</a>
         
-        <div class="featured-title">⭐ Featured Documents</div>
+        <div class="featured-title">Featured Documents</div>
         <div class="featured-subtitle">Quick access to the most important guidelines</div>
         
         <div class="featured-grid" id="featuredDocs"></div>
         
         <div class="all-docs-section">
-            <div class="section-title">📚 All Guidelines</div>
+            <div class="section-title">All Guidelines</div>
             
             <div class="controls">
                 <div class="search-box">
@@ -97,7 +97,7 @@
             <nav class="sf-col"><h4>Portal</h4><a href="index.html">Home</a><a href="index.html">Drug Reference</a><a href="guidelines.html">Guidelines</a></nav>
             <nav class="sf-col"><h4>Resources</h4><a href="https://dranoof.github.io/myportal/">Dr. ASMH Portal</a><a href="https://asmh.gov.mv" target="_blank" rel="noopener">ASMH Website</a><a href="https://health.gov.mv" target="_blank" rel="noopener">Ministry of Health</a></nav>
         </div>
-        <div class="sf-bottom"><span>Crafted with &#x2764;&#xFE0F; by dranoof &middot; All rights reserved</span><span>dranoof.github.io</span></div>
+        <div class="sf-bottom"><span>Crafted with by dranoof &middot; All rights reserved</span><span>dranoof.github.io</span></div>
     </footer>
     <script>
         const docs = [
@@ -117,7 +117,7 @@
             const featured = docs.filter(d => d.featured);
             const html = featured.map(d => `
                 <div class="doc-card">
-                    <div class="doc-icon">📄</div>
+                    <div class="doc-icon"></div>
                     <div class="doc-title">${d.title}</div>
                     <div class="doc-desc">${d.desc}</div>
                 </div>
@@ -131,7 +131,7 @@
                     <td class="doc-name">${d.title}</td>
                     <td>${d.desc}</td>
                     <td>${d.version}</td>
-                    <td><a href="${d.url}" target="_blank" class="dl-btn">📥 Get</a></td>
+                    <td><a href="${d.url}" target="_blank" class="dl-btn">Get</a></td>
                 </tr>
             `).join('');
             document.getElementById('tableBody').innerHTML = html || '<tr><td colspan="4" style="text-align:center;color:#57606a;">No documents found</td></tr>';
