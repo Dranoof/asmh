@@ -2198,11 +2198,356 @@ header{padding:0 24px}
 }
 
 </style>
+<style id="clinical-v2">
+/* ═══ Clinical dashboard v2 — navy navigation · teal actions · amber warnings · red = critical only ═══ */
+:root,[data-theme="light"]{
+  --cx-navy:#0b2a45;--cx-navy-2:#0f3556;--cx-navy-line:rgba(255,255,255,.08);
+  --cx-nav-tx:#c3d3e2;--cx-nav-tx-hi:#ffffff;--cx-nav-lbl:#7f9bb5;
+  --cx-teal:#0a8f9e;--cx-teal-hi:#087a87;--cx-teal-soft:rgba(10,143,158,.10);
+  --cx-amber:#b45309;--cx-amber-bg:#fef6e7;--cx-amber-line:#f5d9a6;
+  --cx-red:#c81e1e;--cx-red-bg:#fdeeee;--cx-red-line:#f4c4c4;
+  --cx-ink:#14202a;--cx-sub:#5b6b78;--cx-line:rgba(11,42,69,.10);--cx-card:#ffffff;--cx-page:#f4f7f9;
+  --cx-side-w:248px;
+}
+[data-theme="dark"]{
+  --cx-navy:#0a1622;--cx-navy-2:#11233a;--cx-navy-line:rgba(255,255,255,.06);
+  --cx-nav-tx:#a9bccd;--cx-nav-tx-hi:#ffffff;--cx-nav-lbl:#64809a;
+  --cx-teal:#3cc4d2;--cx-teal-hi:#5fd0dc;--cx-teal-soft:rgba(60,196,210,.12);
+  --cx-amber:#f2b24c;--cx-amber-bg:rgba(242,178,76,.10);--cx-amber-line:rgba(242,178,76,.28);
+  --cx-red:#f87171;--cx-red-bg:rgba(248,113,113,.10);--cx-red-line:rgba(248,113,113,.30);
+  --cx-ink:#eef3f4;--cx-sub:#93a4ad;--cx-line:rgba(180,225,232,.10);--cx-card:#151e22;--cx-page:#10171a;
+}
+[hidden]{display:none !important}
+#welcomeScreen p{max-width:none}
+.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* ── Shell: header + permanent sidebar ── */
+.hnav{display:none !important}
+.hov-btn{display:none !important}
+header{height:64px;gap:12px}
+.layout{height:calc(100vh - 64px) !important;display:flex}
+#searchResults{top:64px !important;left:var(--cx-side-w) !important}
+#erDashContent[style*="flex"],#stickyContent[style*="flex"]{min-height:calc(100vh - 64px) !important}
+
+.cx-side{width:var(--cx-side-w);flex-shrink:0;background:var(--cx-navy);color:var(--cx-nav-tx);display:flex;flex-direction:column;border-right:1px solid var(--cx-navy-line);z-index:160}
+.cx-side-scroll{flex:1;overflow-y:auto;padding:14px 12px 10px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
+.cx-side-lbl{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--cx-nav-lbl);padding:18px 12px 6px}
+.cx-nav,.cx-grp>summary{display:flex;align-items:center;gap:11px;width:100%;padding:9px 12px;border:0;border-radius:9px;background:none;color:var(--cx-nav-tx);font-family:inherit;font-weight:500;font-size:13.5px;line-height:1.2;text-align:left;cursor:pointer;transition:background .12s,color .12s;list-style:none}
+.cx-grp>summary::-webkit-details-marker{display:none}
+.cx-nav:hover,.cx-grp>summary:hover{background:rgba(255,255,255,.06);color:var(--cx-nav-tx-hi)}
+.cx-nav.on{background:var(--cx-navy-2);color:var(--cx-nav-tx-hi);box-shadow:inset 3px 0 0 var(--cx-teal)}
+.cx-nav.on .ic{color:var(--cx-teal-hi)}
+.cx-nav-badge{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:rgba(255,255,255,.12);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+.cx-nav-badge.crit{background:var(--cx-red);color:#fff}
+.cx-grp>summary .cx-chev{margin-left:auto;width:14px;height:14px;transition:transform .15s;opacity:.7}
+.cx-grp[open]>summary .cx-chev{transform:rotate(90deg)}
+.cx-grp-items{padding:2px 0 6px 29px;display:flex;flex-direction:column}
+.cx-sub{display:flex;align-items:center;gap:8px;border:0;background:none;color:var(--cx-nav-tx);font-family:inherit;font-weight:500;font-size:12.5px;line-height:1.2;padding:7px 10px;border-radius:7px;cursor:pointer;text-align:left}
+.cx-sub:hover{background:rgba(255,255,255,.06);color:#fff}
+.cx-sub.on{color:#fff;background:var(--cx-navy-2)}
+.cx-sub .n{margin-left:auto;font-size:11px;color:var(--cx-nav-lbl)}
+.cx-side-foot{border-top:1px solid var(--cx-navy-line);padding:12px 22px 16px;display:flex;gap:14px;flex-wrap:wrap}
+.cx-side-foot a{color:var(--cx-nav-lbl);font-size:12px;text-decoration:none}
+.cx-side-foot a:hover{color:#fff}
+.cx-scrim{display:none}
+
+/* Header widgets */
+.cx-icon-btn{position:relative;width:38px;height:38px;border-radius:10px;border:1px solid var(--border2);background:var(--bg2);color:var(--text2);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.cx-icon-btn:hover{color:var(--cx-teal);border-color:var(--cx-teal)}
+.cx-burger{display:none}
+.cx-shift{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 12px;border-radius:10px;background:var(--cx-teal-soft);color:var(--cx-teal);font-size:12.5px;font-weight:600;white-space:nowrap}
+.cx-shift b{color:var(--cx-ink);font-weight:700}
+.cx-bell-badge{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--cx-amber);color:#fff;font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg2)}
+.cx-bell-badge.crit{background:var(--cx-red)}
+.cx-pop-wrap{position:relative}
+.cx-pop{position:absolute;right:0;top:calc(100% + 8px);width:320px;max-width:calc(100vw - 24px);background:var(--cx-card);border:1px solid var(--cx-line);border-radius:14px;box-shadow:0 18px 40px -12px rgba(11,42,69,.35);z-index:400;padding:8px}
+.cx-pop-h{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cx-sub);padding:8px 10px}
+.cx-pop-item{display:flex;gap:10px;align-items:flex-start;width:100%;border:0;background:none;text-align:left;padding:10px;border-radius:10px;cursor:pointer;color:var(--cx-ink);font-family:inherit}
+.cx-pop-item:hover{background:var(--cx-teal-soft)}
+.cx-pop-item .dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex-shrink:0;background:var(--cx-teal)}
+.cx-pop-item .dot.warn{background:var(--cx-amber)}.cx-pop-item .dot.crit{background:var(--cx-red)}
+.cx-pop-item b{display:block;font-size:13px;font-weight:600}
+.cx-pop-item small{display:block;font-size:12px;color:var(--cx-sub);margin-top:2px}
+.cx-pop-empty{padding:16px 10px;color:var(--cx-sub);font-size:13px}
+.cx-profile{display:flex;align-items:center;gap:9px;height:38px;padding:0 10px 0 4px;border-radius:10px;border:1px solid var(--border2);background:var(--bg2);cursor:pointer;color:var(--cx-ink);font-family:inherit}
+.cx-avatar{width:30px;height:30px;border-radius:8px;background:var(--cx-navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.cx-prof-name{font-size:13px;font-weight:600;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cx-prof-form{padding:6px 10px 10px;display:flex;flex-direction:column;gap:6px}
+.cx-prof-form label{font-size:11.5px;font-weight:600;color:var(--cx-sub);margin-top:4px}
+.cx-prof-form input{height:36px;border-radius:9px;border:1px solid var(--border2);background:var(--bg);color:var(--cx-ink);padding:0 10px;font:inherit;font-size:13px}
+.cx-prof-form input:focus{outline:2px solid var(--cx-teal);outline-offset:-1px}
+.cx-prof-form small{font-size:11.5px;color:var(--cx-sub)}
+.cx-btn{height:36px;border:0;border-radius:9px;background:var(--cx-teal);color:#fff;font-family:inherit;font-weight:600;font-size:13px;cursor:pointer;margin-top:6px}
+.cx-btn:hover{background:var(--cx-teal-hi)}
+
+/* ── Homepage ── */
+#welcomeScreen{display:block;text-align:left;padding:0 !important;min-height:0 !important;overflow:visible;background:var(--cx-page)}
+#welcomeScreen::before,#welcomeScreen::after{display:none !important}
+#welcomeScreen > :first-child{margin-top:0}
+.cx-home{max-width:1400px;margin:0 auto;padding:26px 32px 40px;color:var(--cx-ink)}
+.cx-urgent{display:flex;align-items:center;gap:12px;background:var(--cx-red-bg);border:1px solid var(--cx-red-line);color:var(--cx-red);border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:13.5px;cursor:pointer}
+.cx-urgent[hidden]{display:none}
+.cx-urgent b{font-weight:700}
+.cx-urgent span{color:var(--cx-ink)}
+.cx-greet{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.cx-greet h1{font-size:24px;font-weight:700;letter-spacing:-.02em;color:var(--cx-ink)}
+.cx-greet p{font-size:13.5px;color:var(--cx-sub);margin-top:4px}
+.cx-greet-r{display:flex;align-items:center;gap:12px}
+.cx-greet .lp-updated{font-size:12px;color:var(--cx-sub)}
+.cx-btn-ghost{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:9px;border:1px solid var(--cx-line);background:var(--cx-card);color:var(--cx-teal);font-family:inherit;font-weight:600;font-size:12.5px;cursor:pointer}
+.cx-btn-ghost .ic{width:15px;height:15px}
+.cx-btn-ghost:hover{border-color:var(--cx-teal)}
+
+.cx-sec{margin-bottom:30px}
+.cx-sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cx-sec-h h2{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--cx-sub)}
+.cx-link{border:0;background:none;color:var(--cx-teal);font-family:inherit;font-weight:600;font-size:12.5px;cursor:pointer;padding:4px 0}
+.cx-link:hover{text-decoration:underline}
+.cx-note{font-size:11.5px;color:var(--cx-sub);margin-top:10px}
+
+.cx-tiles{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.cx-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:var(--cx-card);border:1px solid var(--cx-line);border-radius:14px;padding:16px 16px 14px;cursor:pointer;font-family:inherit;color:var(--cx-ink);transition:border-color .12s,box-shadow .12s,transform .12s}
+.cx-tile:hover{border-color:var(--cx-teal);box-shadow:0 8px 22px -14px rgba(11,42,69,.45);transform:translateY(-1px)}
+.cx-tile-ic{width:32px;height:32px;border-radius:9px;background:var(--cx-teal-soft);color:var(--cx-teal);display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.cx-tile-lbl{font-size:12.5px;font-weight:600;color:var(--cx-sub)}
+.cx-tile-num{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1.15;font-variant-numeric:tabular-nums}
+.cx-tile-sub{font-size:12px;color:var(--cx-sub);line-height:1.35}
+.cx-tile.warn{background:var(--cx-amber-bg);border-color:var(--cx-amber-line)}
+.cx-tile.warn .cx-tile-ic{background:var(--cx-amber-line);color:var(--cx-amber)}
+.cx-tile.warn .cx-tile-num{color:var(--cx-amber)}
+.cx-tile.crit{background:var(--cx-red-bg);border-color:var(--cx-red-line)}
+.cx-tile.crit .cx-tile-ic{background:var(--cx-red-line);color:var(--cx-red)}
+.cx-tile.crit .cx-tile-num{color:var(--cx-red)}
+.cx-tile .lp-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:1px}
+.cx-tile .lp-guard{background:var(--cx-amber)}
+
+.cx-qa{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.cx-qa-btn{display:flex;align-items:center;gap:14px;background:var(--cx-card);border:1px solid var(--cx-line);border-radius:14px;padding:16px;cursor:pointer;font-family:inherit;text-align:left;color:var(--cx-ink);transition:border-color .12s,box-shadow .12s}
+.cx-qa-btn:hover{border-color:var(--cx-teal);box-shadow:0 8px 22px -14px rgba(10,143,158,.6)}
+.cx-qa-ic{width:44px;height:44px;border-radius:12px;background:var(--cx-teal);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cx-qa-ic .ic{width:22px;height:22px}
+.cx-qa-txt{flex:1;min-width:0}
+.cx-qa-txt b{display:block;font-size:14.5px;font-weight:700}
+.cx-qa-txt small{display:block;font-size:12px;color:var(--cx-sub);margin-top:3px}
+.cx-qa-go{color:var(--cx-sub);transition:transform .12s,color .12s}
+.cx-qa-btn:hover .cx-qa-go{color:var(--cx-teal);transform:translateX(3px)}
+
+.cx-upd{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+.cx-card{background:var(--cx-card) !important;border:1px solid var(--cx-line);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+.cx-upd .cx-card{margin:0;max-height:340px;overflow-y:auto}
+.cx-card-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.cx-card-h h3{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--cx-ink)}
+.cx-card-h h3 .ic{color:var(--cx-teal);width:17px;height:17px}
+.cx-card-meta{font-size:11.5px;color:var(--cx-sub)}
+#cxUrgCard.has{border-color:var(--cx-red-line)}
+#cxUrgCard.has .cx-card-h h3 .ic{color:var(--cx-red)}
+.cx-empty{font-size:13px;color:var(--cx-sub);padding:10px 0}
+.cx-empty.ok{display:flex;align-items:center;gap:8px}
+.cx-empty.ok::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--cx-teal)}
+.cx-upd .lp-ann-item{border:0;border-left:3px solid var(--cx-line);border-radius:0;background:none;padding:4px 0 4px 12px;margin:0 0 12px}
+.cx-upd .lp-ann-urgent{border-left-color:var(--cx-red)}
+.cx-upd .lp-ann-important{border-left-color:var(--cx-amber)}
+.cx-upd .lp-ann-urgent .lp-ann-pri{background:var(--cx-red-bg);color:var(--cx-red)}
+.cx-upd .lp-ann-important .lp-ann-pri{background:var(--cx-amber-bg);color:var(--cx-amber)}
+.cx-oc{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--cx-line)}
+.cx-oc:last-child{border-bottom:0}
+.cx-oc-dept{font-size:11.5px;font-weight:700;color:var(--cx-sub);text-transform:uppercase;letter-spacing:.04em}
+.cx-oc-name{font-size:13.5px;font-weight:600;color:var(--cx-ink)}
+.cx-oc-role{font-size:12px;color:var(--cx-sub)}
+.cx-oc-call{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:8px;background:var(--cx-teal-soft);color:var(--cx-teal);font-size:12.5px;font-weight:600;text-decoration:none;white-space:nowrap}
+.cx-oc-call .ic{width:14px;height:14px}
+
+/* stats card restyle */
+#lpStats{margin-top:0}
+#lpStats .lp-kpi span{font-weight:600}
+#lpDeptBars .lp-bar{background:var(--cx-teal) !important}
+#lpDeptBars .lp-bar-val em{color:var(--cx-red);font-style:normal}
+
+/* ── Responsive ── */
+@media (max-width:1280px){.cx-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}.cx-qa{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:1100px){.cx-upd{grid-template-columns:1fr 1fr}.cx-upd .cx-card:first-child{grid-column:1/-1}.cx-prof-name{display:none}}
+@media (max-width:900px){
+  .cx-burger{display:inline-flex}
+  .cx-side{position:fixed;left:0;top:64px;bottom:0;transform:translateX(-102%);transition:transform .22s ease;box-shadow:12px 0 32px -12px rgba(0,0,0,.4);z-index:320}
+  .cx-side.open{transform:none}
+  .cx-scrim.open{display:block;position:fixed;inset:64px 0 0 0;background:rgba(6,20,34,.45);z-index:310}
+  #searchResults{left:0 !important}
+  .cx-shift span{display:none}
+  .cx-shift{padding:0 10px}
+}
+@media (max-width:700px){
+  .cx-home{padding:18px 16px 32px}
+  .cx-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .cx-tile{padding:12px}
+  .cx-tile-ic{width:28px;height:28px;margin-bottom:6px}
+  .cx-tile-num{font-size:24px}
+  .cx-qa{grid-template-columns:1fr}
+  .cx-upd{grid-template-columns:1fr}
+  .cx-greet h1{font-size:20px}
+  header{padding:0 12px !important;gap:8px}
+  .cx-shift{display:none}
+  .cx-profile{padding:0 4px;border:0;background:none}
+  header .logo-img,header .logo-sep{display:none !important}
+}
+@media (max-width:520px){
+  .search-kbd{display:none}
+  .cx-icon-btn{width:34px;height:34px}
+  #themeBtn{display:none}
+}
+</style>
+<style id="duty-roster-css">
+main#mainContent:has(> #rosterContent[style*="block"]){--px:0px;--py:0px}
+#rosterContent{display:none;width:100%;max-width:1400px;margin:0 auto;padding:26px 32px 40px;color:var(--cx-ink)}
+@media (max-width:700px){#rosterContent{padding:18px 16px 32px}}
+.rs-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.rs-title{font-size:24px;font-weight:700;letter-spacing:-.02em}
+.rs-sub{font-size:13.5px;color:var(--cx-sub);margin-top:4px}
+.rs-tabs{display:flex;gap:4px;background:var(--cx-card);border:1px solid var(--cx-line);border-radius:11px;padding:4px;flex-wrap:wrap}
+.rs-tabs button{border:0;background:none;border-radius:8px;padding:8px 13px;font-family:inherit;font-size:13px;font-weight:600;color:var(--cx-sub);cursor:pointer}
+.rs-tabs button:hover{color:var(--cx-ink)}
+.rs-tabs button.on{background:var(--cx-navy);color:#fff}
+.rs-banner{display:flex;align-items:center;gap:10px;border-radius:11px;padding:11px 14px;margin-bottom:12px;font-size:13px}
+.rs-banner.warn{background:var(--cx-amber-bg);border:1px solid var(--cx-amber-line);color:var(--cx-amber)}
+.rs-banner span{color:var(--cx-ink)}
+.rs-editbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;font-size:12.5px;color:var(--cx-sub)}
+.rs-editbar .cx-btn{margin:0;padding:0 16px}
+.rs-now{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--cx-navy);color:#fff;border-radius:14px;padding:18px 22px;margin-bottom:12px}
+.rs-now h2{font-size:22px;font-weight:700;margin-top:6px}
+.rs-now h2 small{font-size:14px;font-weight:500;color:#b9cbdc;margin-left:6px}
+.rs-now p{font-size:13px;color:#b9cbdc;margin-top:2px}
+.rs-pill{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--cx-teal);color:#fff;border-radius:6px;padding:3px 8px}
+.rs-next{text-align:right;display:flex;flex-direction:column;gap:2px}
+.rs-next span{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8fa9c2}
+.rs-next b{font-size:17px}
+.rs-next small{font-size:12.5px;color:#b9cbdc}
+.rs-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.rs-grid2 .cx-card{margin-bottom:12px}
+.rs-meta{font-size:12px;color:var(--cx-sub);margin:-6px 0 8px}
+.rs-blk{border-top:1px solid var(--cx-line);padding:10px 0 4px}
+.rs-blk:first-of-type{border-top:0;padding-top:0}
+.rs-blk.on{background:var(--cx-teal-soft);border:0;border-radius:10px;padding:10px 12px;margin-bottom:6px}
+.rs-blk-h{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--cx-sub);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.rs-tag{font-size:10px;letter-spacing:.06em;background:var(--cx-teal);color:#fff;border-radius:5px;padding:2px 6px}
+.rs-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--cx-line);font-size:13.5px}
+.rs-row:last-child{border-bottom:0}
+.rs-area{flex:0 0 118px;font-size:12px;font-weight:600;color:var(--cx-sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rs-name{flex:1;min-width:0;font-weight:600}
+.rs-name small{font-weight:500;color:var(--cx-sub);font-size:12px}
+.rs-call{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:8px;background:var(--cx-teal-soft);color:var(--cx-teal);font-size:12.5px;font-weight:600;text-decoration:none;white-space:nowrap}
+.rs-call:hover{background:var(--cx-teal);color:#fff}
+.rs-call .ic{width:14px;height:14px}
+.rs-ext{font-size:12px;font-weight:600;color:var(--cx-sub);white-space:nowrap}
+.rs-gap{color:var(--cx-sub);font-style:italic;font-size:12px}
+.rs-hand{border:1px solid var(--cx-line);border-radius:10px;padding:12px;margin-bottom:10px}
+.rs-hand-t{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.rs-hand-t b{font-size:20px}
+.rs-hand-t span{font-weight:600}
+.rs-hand-t small{color:var(--cx-amber);font-weight:600;font-size:12.5px}
+.rs-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.rs-tbl th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--cx-sub);padding:6px 6px 6px 0;border-bottom:1px solid var(--cx-line)}
+.rs-tbl td{padding:7px 6px 7px 0;border-bottom:1px solid var(--cx-line);vertical-align:top}
+.rs-tbl tr:last-child td{border-bottom:0}
+.rs-tbl td:first-child{font-weight:600;color:var(--cx-sub);font-size:12px}
+.rs-upnext{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--cx-sub)}
+.rs-upnext b{color:var(--cx-ink);margin-right:4px}
+.rs-esc .cx-card-h h3 .ic{color:var(--cx-red)}
+.rs-steps{list-style:none;display:flex;flex-direction:column;gap:0}
+.rs-steps li{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--cx-line)}
+.rs-steps li:last-child{border-bottom:0}
+.rs-step{width:26px;height:26px;border-radius:50%;background:var(--cx-navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rs-step-b{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.rs-step-b b{font-size:13.5px}
+.rs-step-b span{font-size:13px}
+.rs-step-b small{font-size:12px;color:var(--cx-sub)}
+.rs-tools{display:flex;align-items:center;gap:10px}
+.rs-search{height:32px;border-radius:9px;border:1px solid var(--border2);background:var(--bg);color:var(--cx-ink);padding:0 10px;font:inherit;font-size:13px;width:220px;max-width:100%}
+.rs-search:focus{outline:2px solid var(--cx-teal);outline-offset:-1px}
+.rs-contacts{columns:2 320px;column-gap:28px}
+.rs-cgrp{break-inside:avoid;margin-bottom:14px}
+.rs-weeknav{display:flex;align-items:center;gap:8px;font-size:13px}
+.rs-weeknav .cx-icon-btn{width:30px;height:30px;font-size:16px}
+.rs-scroll{overflow-x:auto;margin:0 -4px;padding:0 4px}
+.rs-week{width:100%;min-width:860px;border-collapse:separate;border-spacing:0;font-size:12.5px}
+.rs-week th,.rs-week td{border-bottom:1px solid var(--cx-line);padding:8px;text-align:left;vertical-align:top}
+.rs-week thead th{font-size:11.5px;font-weight:700;color:var(--cx-sub);white-space:nowrap}
+.rs-week thead th.today{color:var(--cx-teal)}
+.rs-week tbody th{width:150px;font-weight:500}
+.rs-week tbody th b{display:block;font-size:13px}
+.rs-week tbody th small{color:var(--cx-sub);font-size:11.5px}
+.rs-week td{min-width:104px}
+.rs-week td.cur{background:var(--cx-teal-soft)}
+.rs-week td.ed{cursor:pointer}
+.rs-week td.ed:hover,.rs-week td.ed:focus{outline:2px solid var(--cx-teal);outline-offset:-2px;border-radius:6px}
+.rs-chip{line-height:1.3;margin-bottom:4px;font-weight:600}
+.rs-chip i{display:block;font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--cx-sub)}
+.rs-add{color:var(--cx-teal);font-weight:600;font-size:12px}
+.rs-modal-bg{display:none;position:fixed;inset:0;background:rgba(6,20,34,.5);z-index:500;align-items:center;justify-content:center;padding:16px}
+.rs-modal-bg.open{display:flex}
+.rs-modal{background:var(--cx-card);border-radius:16px;width:760px;max-width:100%;max-height:calc(100vh - 32px);display:flex;flex-direction:column;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.rs-modal-h{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--cx-line)}
+.rs-modal-h h3{font-size:15px;font-weight:700}
+#rsModalB{padding:14px 18px;overflow:auto}
+.rs-mrows{display:flex;flex-direction:column;gap:8px;min-width:520px}
+.rs-mrow{display:grid;grid-template-columns:var(--cols);gap:8px;align-items:center}
+.rs-mhead span{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--cx-sub)}
+.rs-mrow input{height:36px;border-radius:9px;border:1px solid var(--border2);background:var(--bg);color:var(--cx-ink);padding:0 10px;font:inherit;font-size:13px;min-width:0}
+.rs-mrow input:focus{outline:2px solid var(--cx-teal);outline-offset:-1px}
+.rs-del{width:34px;height:34px;border-radius:8px;border:1px solid var(--cx-line);background:none;color:var(--cx-sub);cursor:pointer}
+.rs-del:hover{color:var(--cx-red);border-color:var(--cx-red-line)}
+.rs-modal-f{display:flex;align-items:center;gap:8px;padding:12px 18px;border-top:1px solid var(--cx-line)}
+.rs-modal-f .cx-btn{margin:0;padding:0 18px}
+.rs-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--cx-navy);color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:all .2s;z-index:600}
+.rs-toast.show{opacity:1;transform:translateX(-50%)}
+#cxOnCall .rs-area{flex-basis:80px}
+@media (max-width:1000px){.rs-grid2{grid-template-columns:1fr}}
+@media (max-width:600px){
+  .rs-now{padding:14px 16px}.rs-next{text-align:left}
+  .rs-area{flex-basis:84px}
+  .rs-row{flex-wrap:wrap}
+  .rs-tabs{width:100%}.rs-tabs button{flex:1 1 auto;padding:8px 10px}
+  .rs-search{width:100%}.rs-tools{width:100%}
+  .rs-weeknav{flex-wrap:wrap}
+}
+</style>
+
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></symbol>
+    <symbol id="i-er" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 5 12 2.5-6h4"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.3-9.5C1.4 8 3.6 4.5 7.2 4.5c2 0 3.5 1.1 4.8 2.8 1.3-1.7 2.8-2.8 4.8-2.8 3.6 0 5.8 3.5 4.5 7-1.8 4.9-9.3 9.5-9.3 9.5z"/><path d="M7 12h2.5l1.5-2.5 2 5 1.5-2.5H17"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 5v14"/><path d="M2 15h20v4"/><path d="M22 15v-3a3 3 0 0 0-3-3h-8v6"/><circle cx="6.5" cy="11" r="2"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 10h6M9 14h6M9 18h3"/></symbol>
+    <symbol id="i-in" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M10 21v-4h4v4"/><path d="M12 7v4M10 9h4"/></symbol>
+    <symbol id="i-pill" viewBox="0 0 24 24"><rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M8.5 8.5l7 7"/></symbol>
+    <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8 6.5h8"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5h.01M8.5 18h.01M12 18h.01M15.5 18h.01"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M15 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"/><path d="M15 21v-6h6"/><path d="M7 8h10M7 12h6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6.5A2.5 2.5 0 0 0 4 20.5 2.5 2.5 0 0 0 6.5 23H20"/><path d="M9 7h7"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18 14a6.5 6.5 0 0 1 3.5 6"/></symbol>
+    <symbol id="i-adult" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><path d="M8 22v-7H6v-4a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v4h-2v7"/></symbol>
+    <symbol id="i-baby" viewBox="0 0 24 24"><circle cx="12" cy="10" r="7"/><path d="M9 10h.01M15 10h.01"/><path d="M10 13.5a3 3 0 0 0 4 0"/><path d="M12 3c-1 1.3-1 2.5 0 3.5"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-8.8-9C2 7.7 4 4.5 7.3 4.5c2 0 3.6 1.1 4.7 2.7 1.1-1.6 2.7-2.7 4.7-2.7C20 4.5 22 7.7 20.8 11 19 15.6 12 20 12 20z"/></symbol>
+    <symbol id="i-mega" viewBox="0 0 24 24"><path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19.5 5.5a9 9 0 0 1 0 13"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 3.7 2 2 0 0 1 3.1 1.5h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7 9.4a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M8 17v-5M12 17V8M16 17v-8M20 17v-3"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/><path d="M8 14h3M8 17.5h6"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  </defs>
+</svg>
+
 
 <header>
-  
+  <button class="cx-icon-btn cx-burger" onclick="cxSideToggle()" aria-label="Open menu"><svg class="ic"><use href="#i-menu"/></svg></button>
   <a class="logo" href="#" onclick="showLanding()">
     <img src="https://asmh.gov.mv/storage/images/logos/asmh_logo2.svg" class="logo-img" alt="Logo" />
     <span class="logo-sep"></span>
@@ -2215,10 +2560,25 @@ header{padding:0 24px}
     <button class="search-clear" id="searchClear" aria-label="Clear">&#x2715;</button>
   </div>
   <div class="hdr-right">
-    <button class="hov-btn er" onclick="showERDashboard()" title="ER Handover">🚨 ER Handover</button>
-    <button class="hov-btn dept" onclick="showDeptHandover()" title="Dept Handover">🏥 Dept Handover</button>
-    <button class="hov-btn ql" onclick="showQuickLinks()" title="Quick Links">🔗 Quick Links</button>
+    <span class="cx-shift" title="Current shift"><svg class="ic"><use href="#i-clock"/></svg><span id="cxShiftTxt">–</span></span>
+    <div class="cx-pop-wrap">
+      <button class="cx-icon-btn" aria-label="Notifications" title="Notifications" onclick="cxTogglePop('cxBellPop')"><svg class="ic"><use href="#i-bell"/></svg><span class="cx-bell-badge" id="cxBellBadge" hidden></span></button>
+      <div class="cx-pop" id="cxBellPop" hidden><div class="cx-pop-h">Needs attention</div><div id="cxBellList"><div class="cx-pop-empty">Loading…</div></div></div>
+    </div>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Switch to dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+    <div class="cx-pop-wrap">
+      <button class="cx-profile" onclick="cxTogglePop('cxProfPop')" aria-label="Profile"><span class="cx-avatar" id="cxAvatar">?</span><span class="cx-prof-name" id="cxProfName">Set your name</span></button>
+      <div class="cx-pop" id="cxProfPop" hidden>
+        <div class="cx-pop-h">Your profile</div>
+        <div class="cx-prof-form">
+          <label for="cxNameIn">Name</label><input id="cxNameIn" placeholder="e.g. Dr. Aishath Ali" autocomplete="name">
+          <label for="cxRoleIn">Role / department</label><input id="cxRoleIn" placeholder="e.g. Medical Officer · ER">
+          <button class="cx-btn" onclick="cxSaveUser()">Save</button>
+          <button class="cx-link" style="text-align:left" onclick="document.getElementById('themeBtn').click()">Toggle dark mode</button>
+          <small>Saved on this device only.</small>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 <nav class="hnav" id="hnav">
@@ -2271,100 +2631,179 @@ header{padding:0 24px}
 
 
 <div class="layout">
-  
+  <div class="cx-side" id="cxSide" role="navigation" aria-label="Main navigation">
+    <div class="cx-side-scroll">
+      <button class="cx-nav on" data-nav="home" onclick="showLanding()"><svg class="ic"><use href="#i-home"/></svg>Dashboard</button>
+
+      <div class="cx-side-lbl">Clinical</div>
+      <button class="cx-nav" data-nav="er" onclick="showERDashboard()"><svg class="ic"><use href="#i-er"/></svg>ER Handover<span class="cx-nav-badge" id="cxNavEr" hidden></span></button>
+      <button class="cx-nav" data-nav="dept" onclick="showDeptHandover()"><svg class="ic"><use href="#i-building"/></svg>Dept Handover<span class="cx-nav-badge" id="cxNavDh" hidden></span></button>
+      <button class="cx-nav" data-nav="roster" onclick="showRoster()"><svg class="ic"><use href="#i-cal"/></svg>Duty Roster</button>
+
+      <div class="cx-side-lbl">Drug guide</div>
+      <div id="cxDrugGroups"></div>
+
+      <div class="cx-side-lbl">Resources</div>
+      <button class="cx-nav" data-nav="tools" onclick="showToolsSection()"><svg class="ic"><use href="#i-calc"/></svg>Clinical Calculators</button>
+      <button class="cx-nav" data-nav="files" onclick="hnavGo('files')"><svg class="ic"><use href="#i-book"/></svg>National Guidelines</button>
+      <button class="cx-nav" data-nav="ql" onclick="showQuickLinks()"><svg class="ic"><use href="#i-link"/></svg>Quick Links</button>
+      <button class="cx-nav" data-nav="sticky" onclick="showStickyNotes()"><svg class="ic"><use href="#i-note"/></svg>Sticky Notes</button>
+      <button class="cx-nav" data-nav="team" onclick="showOurTeam()"><svg class="ic"><use href="#i-users"/></svg>Our Team</button>
+    </div>
+    <div class="cx-side-foot">
+      <a href="https://dranoof.github.io/myportal/">Dr. ASMH Portal</a>
+      <a href="#" onclick="showDisclaimer();return false">Disclaimer</a>
+    </div>
+  </div>
+  <div class="cx-scrim" id="cxScrim" onclick="cxSideClose()"></div>
 
   <main id="mainContent">    <div class="welcome" id="welcomeScreen">
-      <div class="lp-hero"><div class="lp-hero-l">
-      <div class="ws-logo-wrap">
+      <div class="cx-home">
 
-        <div class="ws-brand-row">
-          <div class="ws-logo"><img src="https://asmh.gov.mv/storage/images/logos/asmh_logo.svg" alt="Dr. Abdul Samad Memorial Hospital" class="ws-logo-img"></div>
-          <span class="ws-brand-sep"></span>
-          <span class="cp-brand cp-hero" role="img" aria-label="ASMH CarePortal"><img src="data:image/png;base64,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" alt=""><span class="cp-words"><span class="cp-asmh">ASMH</span><span>Care</span><span>Portal.</span></span></span>
+        <div class="cx-urgent" id="cxUrgentBanner" hidden></div>
+
+        <div class="cx-greet">
+          <div>
+            <h1 id="cxGreet">Good day</h1>
+            <p id="cxToday">–</p>
+          </div>
+          <div class="cx-greet-r">
+            <span class="lp-updated" id="lpUpdated"></span>
+            <button class="cx-btn-ghost" onclick="lpRefresh()" title="Refresh dashboard"><svg class="ic"><use href="#i-refresh"/></svg>Refresh</button>
+          </div>
         </div>
-      </div>
-      <div class="ws-title">One Portal. One Team.<br><span>Better Care.</span></div>
-      <p class="ws-subtitle">Access patient handovers, clinical resources, hospital announcements, and essential tools designed to support safe and efficient healthcare delivery.</p>
-      <div class="ws-search-hint" onclick="document.getElementById('searchInput').focus()">&#x1F50D; Search any drug, class or condition &nbsp;<kbd>/</kbd></div>
-      </div>
-      <div class="lp-hero-r">
-        <div class="lp-qa-title">Quick access</div>
-        <div class="lp-qa">
-          <button class="lp-qa-btn" onclick="showERDashboard()"><span class="lp-qa-ic" style="background:rgba(239,68,68,.12)">🚨</span><span><b>ER Handover</b><small>Live ER board</small></span></button>
-          <button class="lp-qa-btn" onclick="showDeptHandover()"><span class="lp-qa-ic" style="background:rgba(13,148,136,.12)">🏥</span><span><b>Dept Handover</b><small>Inpatients by department</small></span></button>
-          <button class="lp-qa-btn" onclick="showQuickLinks()"><span class="lp-qa-ic" style="background:rgba(99,102,241,.12)">🔗</span><span><b>Quick Links</b><small>Portals &amp; references</small></span></button>
-          <button class="lp-qa-btn" onclick="showStickyNotes()"><span class="lp-qa-ic" style="background:rgba(245,158,11,.14)">📝</span><span><b>Sticky Notes</b><small>Templates &amp; notes</small></span></button>
-          <button class="lp-qa-btn" onclick="showToolsSection()"><span class="lp-qa-ic" style="background:rgba(59,130,246,.12)">🛠️</span><span><b>Tools</b><small>Clinical calculators</small></span></button>
-          <button class="lp-qa-btn" onclick="showOurTeam()"><span class="lp-qa-ic" style="background:rgba(5,85,122,.12)">👩‍⚕️</span><span><b>Our Team</b><small>Doctors directory</small></span></button>
-        </div>
-      </div>
-      </div>
-      <section class="lp-dash" id="lpDash">
-        <div class="lp-head"><h2>Today at ASMH</h2><span class="lp-updated" id="lpUpdated"></span></div>
-        <div class="lp-tiles">
-          <button class="lp-tile" onclick="showERDashboard()" title="Open ER Handover">
-            <span class="lp-tile-lbl">🚨 In ER now</span>
-            <span class="lp-tile-num" id="lpErNow">–</span>
-            <span class="lp-tile-sub" id="lpErSub">Live from ER handover sheet</span>
-          </button>
-          <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
-            <span class="lp-tile-lbl">🛏️ Inpatients</span>
-            <span class="lp-tile-num" id="lpInNow">0</span>
-            <span class="lp-tile-sub" id="lpInSub">No patients admitted</span>
-          </button>
-          <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
-            <span class="lp-tile-lbl">⚠️ Need attention</span>
-            <span class="lp-tile-num" id="lpAttn">0</span>
-            <span class="lp-tile-sub" id="lpAttnSub"><i class="lp-dot lp-crit"></i>0 critical · <i class="lp-dot lp-guard"></i>0 guarded</span>
-          </button>
-          <button class="lp-tile" onclick="showDeptHandover()" title="Open Dept Handover">
-            <span class="lp-tile-lbl">➕ Admitted · 24 h</span>
-            <span class="lp-tile-num" id="lpAdm24">0</span>
-            <span class="lp-tile-sub" id="lpDc7">0 discharged in last 7 days</span>
-          </button>
-        </div>
-        <div class="lp-row">
-          <div class="lp-card">
-            <div class="lp-card-hdr"><h3>Inpatients by department</h3><button class="lp-link" onclick="showDeptHandover()">Open handover →</button></div>
+
+        <!-- 1 · CLINICAL OVERVIEW -->
+        <section class="cx-sec" id="lpDash" aria-labelledby="cxOvH">
+          <div class="cx-sec-h"><h2 id="cxOvH">Clinical overview</h2></div>
+          <div class="cx-tiles">
+            <button class="cx-tile" id="cxTileEr" onclick="showERDashboard()">
+              <span class="cx-tile-ic"><svg class="ic"><use href="#i-er"/></svg></span>
+              <span class="cx-tile-lbl">ER patients</span>
+              <span class="cx-tile-num" id="lpErNow">–</span>
+              <span class="cx-tile-sub" id="lpErSub">Live from ER handover</span>
+            </button>
+            <button class="cx-tile" onclick="showDeptHandover()">
+              <span class="cx-tile-ic"><svg class="ic"><use href="#i-bed"/></svg></span>
+              <span class="cx-tile-lbl">Total inpatients</span>
+              <span class="cx-tile-num" id="lpInNow">0</span>
+              <span class="cx-tile-sub" id="lpInSub">No patients admitted</span>
+            </button>
+            <button class="cx-tile" id="cxTileCrit" onclick="showDeptHandover()">
+              <span class="cx-tile-ic"><svg class="ic"><use href="#i-pulse"/></svg></span>
+              <span class="cx-tile-lbl">Critical patients</span>
+              <span class="cx-tile-num" id="lpAttn">0</span>
+              <span class="cx-tile-sub" id="lpAttnSub">None critical</span>
+            </button>
+            <button class="cx-tile" id="cxTilePend" onclick="showDeptHandover()">
+              <span class="cx-tile-ic"><svg class="ic"><use href="#i-clip"/></svg></span>
+              <span class="cx-tile-lbl">Pending handovers</span>
+              <span class="cx-tile-num" id="cxPend">0</span>
+              <span class="cx-tile-sub" id="cxPendSub">All updated this shift</span>
+            </button>
+            <button class="cx-tile" onclick="showDeptHandover()">
+              <span class="cx-tile-ic"><svg class="ic"><use href="#i-in"/></svg></span>
+              <span class="cx-tile-lbl">Admissions · 24 h</span>
+              <span class="cx-tile-num" id="lpAdm24">0</span>
+              <span class="cx-tile-sub" id="cxAdmSub">Dept Handover</span>
+            </button>
+            <button class="cx-tile" onclick="showDeptHandover()">
+              <span class="cx-tile-ic"><svg class="ic"><use href="#i-out"/></svg></span>
+              <span class="cx-tile-lbl">Discharges · 24 h</span>
+              <span class="cx-tile-num" id="cxDc24">0</span>
+              <span class="cx-tile-sub" id="lpDc7">0 in last 7 days</span>
+            </button>
+          </div>
+          <p class="cx-note">Inpatient figures come from Dept Handover on this device. ER figures are shared and live.</p>
+        </section>
+
+        <!-- 2 · QUICK ACTIONS -->
+        <section class="cx-sec" aria-labelledby="cxQaH">
+          <div class="cx-sec-h"><h2 id="cxQaH">Quick actions</h2></div>
+          <div class="cx-qa">
+            <button class="cx-qa-btn" onclick="showERDashboard()">
+              <span class="cx-qa-ic"><svg class="ic"><use href="#i-er"/></svg></span>
+              <span class="cx-qa-txt"><b>ER Handover</b><small>Live ER board &amp; bed status</small></span>
+              <svg class="ic cx-qa-go"><use href="#i-arrow"/></svg>
+            </button>
+            <button class="cx-qa-btn" onclick="showDeptHandover()">
+              <span class="cx-qa-ic"><svg class="ic"><use href="#i-building"/></svg></span>
+              <span class="cx-qa-txt"><b>Department Handover</b><small>Inpatients by department</small></span>
+              <svg class="ic cx-qa-go"><use href="#i-arrow"/></svg>
+            </button>
+            <button class="cx-qa-btn" onclick="cxDrugGuide()">
+              <span class="cx-qa-ic"><svg class="ic"><use href="#i-pill"/></svg></span>
+              <span class="cx-qa-txt"><b>Drug Guide</b><small>Search any drug, class or condition</small></span>
+              <svg class="ic cx-qa-go"><use href="#i-arrow"/></svg>
+            </button>
+            <button class="cx-qa-btn" onclick="showToolsSection()">
+              <span class="cx-qa-ic"><svg class="ic"><use href="#i-calc"/></svg></span>
+              <span class="cx-qa-txt"><b>Clinical Calculators</b><small>Jaundice, gestational age &amp; more</small></span>
+              <svg class="ic cx-qa-go"><use href="#i-arrow"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- 3 · HOSPITAL UPDATES -->
+        <section class="cx-sec" aria-labelledby="cxUpH">
+          <div class="cx-sec-h"><h2 id="cxUpH">Hospital updates</h2><button class="cx-link" onclick="lpLoadAnnouncements(true);cxLoadOnCall(true)">Refresh</button></div>
+          <div class="cx-upd">
+            <div class="cx-card" id="cxUrgCard">
+              <div class="cx-card-h"><h3><svg class="ic"><use href="#i-alert"/></svg>Urgent notices</h3></div>
+              <div id="cxUrgList"><div class="cx-empty">Loading…</div></div>
+            </div>
+            <div class="cx-card">
+              <div class="cx-card-h"><h3><svg class="ic"><use href="#i-mega"/></svg>Announcements</h3></div>
+              <div id="lpAnnList"><div class="cx-empty">Loading…</div></div>
+            </div>
+            <div class="cx-card">
+              <div class="cx-card-h"><h3><svg class="ic"><use href="#i-cal"/></svg>On duty now</h3><span class="cx-card-meta" id="cxOnCallDate"></span></div>
+              <div id="cxOnCall"><div class="cx-empty">Loading…</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4 · OPERATIONAL STATISTICS -->
+        <section class="cx-sec" aria-labelledby="cxStH">
+          <div class="cx-sec-h"><h2 id="cxStH">Operational statistics</h2></div>
+          <div class="cx-card lp-stats" id="lpStats">
+            <div class="cx-card-h lp-st-hdr">
+              <h3><svg class="ic"><use href="#i-chart"/></svg>Patient volume &amp; trends</h3>
+              <div class="lp-st-ctrl">
+                <div class="lp-seg" role="tablist">
+                  <button id="lpStM" class="on" onclick="lpStatsMode('month')">Monthly</button>
+                  <button id="lpStY" onclick="lpStatsMode('year')">Yearly</button>
+                </div>
+                <div class="lp-st-nav">
+                  <button onclick="lpStatsStep(-1)" title="Previous" aria-label="Previous">‹</button>
+                  <span id="lpStPeriod">–</span>
+                  <button id="lpStNext" onclick="lpStatsStep(1)" title="Next" aria-label="Next">›</button>
+                </div>
+              </div>
+            </div>
+            <div class="lp-st-kpis" id="lpStKpis"></div>
+            <div class="lp-st-body">
+              <div class="lp-st-chart">
+                <div class="lp-st-sub" id="lpStChartTtl">ER visits</div>
+                <div id="lpStChart" class="lp-st-bars"></div>
+              </div>
+              <div class="lp-st-side">
+                <div class="lp-st-sub">ER outcomes</div>
+                <div id="lpStOut"></div>
+                <div class="lp-st-sub" style="margin-top:14px">Dept Handover · this device</div>
+                <div id="lpStDh" class="lp-st-dh"></div>
+              </div>
+            </div>
+            <p class="cx-note">ER figures are counted from the shared monthly ER record sheets (records start April 2026).</p>
+          </div>
+          <div class="cx-card">
+            <div class="cx-card-h"><h3><svg class="ic"><use href="#i-building"/></svg>Department activity</h3><button class="cx-link" onclick="showDeptHandover()">Open handover →</button></div>
             <div id="lpDeptBars"></div>
-            <p class="lp-note">Inpatient figures come from Dept Handover on this device. ER figures are shared and live.</p>
           </div>
-          <div class="lp-card lp-ann">
-            <div class="lp-card-hdr"><h3>📢 Announcements</h3><button class="lp-link" onclick="lpLoadAnnouncements(true)" title="Refresh">↻</button></div>
-            <div id="lpAnnList"><div class="lp-ann-empty">Loading…</div></div>
-          </div>
-        </div>
-        <div class="lp-card lp-stats" id="lpStats">
-          <div class="lp-card-hdr lp-st-hdr">
-            <h3>📊 Hospital statistics</h3>
-            <div class="lp-st-ctrl">
-              <div class="lp-seg" role="tablist">
-                <button id="lpStM" class="on" onclick="lpStatsMode('month')">Monthly</button>
-                <button id="lpStY" onclick="lpStatsMode('year')">Yearly</button>
-              </div>
-              <div class="lp-st-nav">
-                <button onclick="lpStatsStep(-1)" title="Previous" aria-label="Previous">‹</button>
-                <span id="lpStPeriod">–</span>
-                <button id="lpStNext" onclick="lpStatsStep(1)" title="Next" aria-label="Next">›</button>
-              </div>
-            </div>
-          </div>
-          <div class="lp-st-kpis" id="lpStKpis"></div>
-          <div class="lp-st-body">
-            <div class="lp-st-chart">
-              <div class="lp-st-sub" id="lpStChartTtl">ER visits</div>
-              <div id="lpStChart" class="lp-st-bars"></div>
-            </div>
-            <div class="lp-st-side">
-              <div class="lp-st-sub">ER outcomes</div>
-              <div id="lpStOut"></div>
-              <div class="lp-st-sub" style="margin-top:14px">Dept Handover · this device</div>
-              <div id="lpStDh" class="lp-st-dh"></div>
-            </div>
-          </div>
-          <p class="lp-note">ER figures are counted from the shared monthly ER record sheets (records start April 2026). Admissions &amp; discharges below come from Dept Handover on this device.</p>
-        </div>
-      </section>
+        </section>
+
+      </div>
+
       
     
 
@@ -2649,6 +3088,7 @@ header{padding:0 24px}
 </div><!-- end deptContent -->
   <div id="stickyContent"></div>
   <div id="disclaimerContent"></div>
+  <div id="rosterContent" style="display:none"></div>
 <footer id="siteFooter" class="site-footer">
   <div class="sf-inner">
     <div class="sf-brand">
@@ -4976,6 +5416,7 @@ function showDisclaimer() {
       ['Zel Nan','Medical Officer','',6183]
     ]
   };
+  window.ASMH_TEAM=TEAM;
   var DEPT_ICON={'Anaesthesia':'💉','Dental':'🦷','Dermatology':'🩹','ENT':'👂','Obs & Gynae':'🤱','Ophthalmology':'👁️','Orthopaedics':'🦴','Paediatrics':'👶','Medicine':'🩺','Psychiatry':'🧠','Radiology':'🩻','Surgery':'🔪'};
   var DEPT_NAME={'Medicine':'Internal Medicine','Surgery':'General Surgery','Obs & Gynae':'Obstetrics & Gynaecology','Paediatrics':'Paediatrics','Orthopaedics':'Orthopaedics & Trauma Surgery','ENT':'Otorhinolaryngology (ENT)','Ophthalmology':'Ophthalmology','Dermatology':'Dermatology','Psychiatry':'Mental Health','Dental':'Dental & Oral Health','Anaesthesia':'Anaesthesiology','Radiology':'Radiology & Medical Imaging'};
   var DEPT_ORDER=['Medicine','Surgery','Obs & Gynae','Paediatrics','Orthopaedics','ENT','Ophthalmology','Dermatology','Psychiatry','Dental','Anaesthesia','Radiology'];
@@ -5081,10 +5522,20 @@ function showDisclaimer() {
     });
     $('lpInNow').textContent=total;
     $('lpInSub').textContent=total?('across '+rows.length+' department'+(rows.length>1?'s':'')):'No patients admitted';
-    $('lpAttn').textContent=crit+guard;
-    $('lpAttnSub').innerHTML='<i class="lp-dot lp-crit"></i>'+crit+' critical · <i class="lp-dot lp-guard"></i>'+guard+' guarded';
+    // pending handovers = active patients not updated since the current shift began
+    var shStart=(window.cxShift?cxShift().start:now-8*36e5),pend=0,pendDepts={},dc24=0;
+    DEPTS.forEach(function(dp){var x=d[dp[0]]||{};
+      (x.active||[]).forEach(function(p){var t=p.updatedAt||p.createdAt||(p.admDate?new Date(p.admDate).getTime():0);if(t<shStart){pend++;pendDepts[dp[1]]=1}});
+      (x.discharged||[]).forEach(function(p){var t=p.dischargeDate?new Date(p.dischargeDate).getTime():0;if(t&&now-t<=864e5)dc24++});
+    });
+    var pd=Object.keys(pendDepts);
+    $('lpAttn').textContent=crit;
+    $('lpAttnSub').innerHTML=guard?('<i class="lp-dot lp-guard"></i>'+guard+' guarded'):(crit?'Review now':'None critical');
+    if($('cxPend')){$('cxPend').textContent=pend;$('cxPendSub').textContent=pend?(pd.length>2?pd.length+' departments':pd.join(', ')):(total?'All updated this shift':'No inpatients');}
     $('lpAdm24').textContent=adm24;
-    $('lpDc7').textContent=dc7+' discharged in last 7 days';
+    if($('cxDc24'))$('cxDc24').textContent=dc24;
+    $('lpDc7').textContent=dc7+' in last 7 days';
+    if(window.cxState){cxState.crit=crit;cxState.guard=guard;cxState.pend=pend;cxNotify()}
     var box=$('lpDeptBars');
     if(!rows.length){box.innerHTML='<div class="lp-empty">No inpatients recorded yet. Add patients in <a href="#" onclick="showDeptHandover();return false">Dept Handover</a>.</div>';return}
     rows.sort(function(a,b){return b[1]-a[1]});
@@ -5107,7 +5558,8 @@ function showDisclaimer() {
       var pts=rows.slice(h+1).filter(function(r){return cell(r,iName)||cell(r,iId)});
       var admit=pts.filter(function(r){return /admi/i.test(cell(r,iSt))}).length;
       $('lpErNow').textContent=pts.length;
-      $('lpErSub').textContent=pts.length?(admit+' for admission'):'ER board is clear';
+      $('lpErSub').textContent=pts.length?(admit?admit+' awaiting admission':'None awaiting admission'):'ER board is clear';
+      if(window.cxState){cxState.erAdm=admit;cxNotify()}
     }).catch(function(){$('lpErNow').textContent='–';$('lpErSub').textContent='Could not reach ER sheet'});
   }
 
@@ -5123,23 +5575,28 @@ function showDisclaimer() {
       // header may be parsed as column labels or as the first row
       var m={},start=0;
       cols.forEach(function(c,j){if(c.label)m[String(c.label).toLowerCase().trim()]=j});
-      if(col(m,['title'])<0){var h=headerIdx(rows,'title');if(h<0){box.innerHTML='<div class="lp-ann-empty">No announcements right now.</div>';return}m=colMap(rows[h]);start=h+1}
+      if(col(m,['title'])<0){var h=headerIdx(rows,'title');if(h<0){box.innerHTML='<div class="cx-empty">No announcements right now.</div>';var ub0=$('cxUrgList');if(ub0)ub0.innerHTML='<div class="cx-empty ok">No urgent notices.</div>';return}m=colMap(rows[h]);start=h+1}
       var iD=col(m,['date']),iT=col(m,['title']),iM=col(m,['message','details']),iP=col(m,['priority']),iE=col(m,['expires','expiry','until']),iB=col(m,['posted by','by','from']);
       var today=new Date();today.setHours(0,0,0,0);
       var items=rows.slice(start).map(function(r){return {date:cell(r,iD),title:cell(r,iT),msg:cell(r,iM),pri:cell(r,iP).toLowerCase(),exp:cell(r,iE),by:cell(r,iB),raw:r}})
         .filter(function(a){if(!a.title&&!a.msg)return false;var e=parseDate(a.exp);return !e||e>=today});
       items.sort(function(a,b){var pa=/urgent/.test(a.pri)?0:/important|high/.test(a.pri)?1:2,pb=/urgent/.test(b.pri)?0:/important|high/.test(b.pri)?1:2;if(pa!==pb)return pa-pb;return (parseDate(b.date)||0)-(parseDate(a.date)||0)});
-      if(!items.length){box.innerHTML='<div class="lp-ann-empty">No announcements right now.</div>';return}
-      box.innerHTML=items.slice(0,8).map(function(a){
-        var cls=/urgent/.test(a.pri)?'urgent':/important|high/.test(a.pri)?'important':'normal';
+      items.forEach(function(a){a.cls=/urgent/.test(a.pri)?'urgent':/important|high/.test(a.pri)?'important':'normal'});
+      if(window.cxState){cxState.ann=items;cxNotify()}
+      var ub=$('cxUrgList'),urg=items.filter(function(a){return a.cls==='urgent'});
+      if(ub){$('cxUrgCard').classList.toggle('has',urg.length>0);ub.innerHTML=urg.length?urg.map(card).join(''):'<div class="cx-empty ok">No urgent notices.</div>';items=items.filter(function(a){return a.cls!=='urgent'})}
+      if(!items.length){box.innerHTML='<div class="cx-empty">No announcements right now.</div>';return}
+      box.innerHTML=items.slice(0,8).map(card).join('');
+      function card(a){
+        var cls=a.cls;
         var d=parseDate(a.date);
         return '<div class="lp-ann-item lp-ann-'+cls+'">'+
           '<div class="lp-ann-top">'+(cls!=='normal'?'<span class="lp-ann-pri">'+(cls==='urgent'?'Urgent':'Important')+'</span>':'')+
           '<span class="lp-ann-date">'+(d?d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):esc(a.date))+'</span></div>'+
           '<div class="lp-ann-title">'+esc(a.title)+'</div>'+(a.msg?'<div class="lp-ann-msg">'+esc(a.msg)+'</div>':'')+
           (a.by?'<div class="lp-ann-by">— '+esc(a.by)+'</div>':'')+'</div>';
-      }).join('');
-    }).catch(function(){box.innerHTML='<div class="lp-ann-empty">Could not load announcements.</div>'});
+      }
+    }).catch(function(){box.innerHTML='<div class="cx-empty">Could not load announcements.</div>';var ub=$('cxUrgList');if(ub)ub.innerHTML='<div class="cx-empty">Could not load notices.</div>'});
   };
 
 
@@ -5194,12 +5651,12 @@ function showDisclaimer() {
       var dh=stDh(from.getTime(),to.getTime());
       if(!list.every(function(x){return x==='err'}))
       $('lpStKpis').innerHTML=has?(
-        kpi('🚑 ER visits',T.n,(T.n/span).toFixed(1)+' / day')+
-        kpi('🏥 ER → admission',T.adm,pct(T.adm,T.n)+' of visits')+
-        kpi('✅ Discharged',T.dc,pct(T.dc,T.n)+' of visits')+
-        kpi('↗️ Referred',T.ref,pct(T.ref,T.n))+
-        kpi('🚪 DOR / LAMA',T.dor,pct(T.dor,T.n))+
-        kpi('🕊️ Demised',T.dead,pct(T.dead,T.n))
+        kpi('ER visits',T.n,(T.n/span).toFixed(1)+' / day')+
+        kpi('ER → admission',T.adm,pct(T.adm,T.n)+' of visits')+
+        kpi('Discharged',T.dc,pct(T.dc,T.n)+' of visits')+
+        kpi('Referred',T.ref,pct(T.ref,T.n))+
+        kpi('DOR / LAMA',T.dor,pct(T.dor,T.n))+
+        kpi('Demised',T.dead,pct(T.dead,T.n))
       ):'<div class="lp-empty">No ER records for '+$('lpStPeriod').textContent+'.</div>';
       // outcomes
       var O=[['Discharged','dc','#10b981'],['Admitted','adm','#6366f1'],['Referred','ref','#0aa5b5'],['DOR / LAMA','dor','#f59e0b'],['Demised','dead','#ef4444'],['Other / open','oth','#94a3b8']];
@@ -5469,4 +5926,434 @@ function showDisclaimer() {
   window.erdChangeMonth=function(){};
 })();
 </script>
+<script id="clinical-v2-js">
+// ===============================================================
+// CLINICAL DASHBOARD v2 — sidebar, shift, notifications, profile,
+// pending handovers, on-call roster.
+// ===============================================================
+(function(){
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+  /* ---------- SHIFTS (edit to match the hospital roster) ---------- */
+  var SHIFTS=[{n:'Morning',s:8,e:16},{n:'Evening',s:16,e:24},{n:'Night',s:0,e:8}];
+  function pad(h){return (h%24<10?'0':'')+(h%24)+':00'}
+  window.cxShift=function(d){
+    d=d||new Date();var h=d.getHours();
+    for(var i=0;i<SHIFTS.length;i++){var s=SHIFTS[i];
+      if(s.s<s.e?(h>=s.s&&h<s.e):(h>=s.s||h<s.e)){
+        var st=new Date(d);st.setMinutes(0,0,0);st.setHours(s.s);if(s.s>s.e&&h<s.e)st.setDate(st.getDate()-1);
+        return {name:s.n,label:pad(s.s)+'–'+pad(s.e),start:st.getTime()};
+      }}
+    return {name:'',label:'',start:d.setHours(0,0,0,0)};
+  };
+
+  /* ---------- sidebar ---------- */
+  var ICON={0:'i-adult',1:'i-baby',2:'i-heart'};
+  function buildDrugGroups(){
+    var box=$('cxDrugGroups');if(!box)return;
+    var html='';
+    document.querySelectorAll('#hnav .hnav-item').forEach(function(item,i){
+      var drop=item.querySelector('.hnav-drop');if(!drop)return;
+      var title=item.querySelector('.hnav-btn').childNodes[0].textContent.trim();
+      html+='<details class="cx-grp"><summary><svg class="ic"><use href="#'+(ICON[i]||'i-pill')+'"/></svg>'+esc(title)+'<svg class="ic cx-chev"><use href="#i-chev"/></svg></summary><div class="cx-grp-items">';
+      drop.querySelectorAll('.hnav-drop-item').forEach(function(b){
+        var m=(b.getAttribute('onclick')||'').match(/hnavGo\('([^']+)'\)/);if(!m)return;
+        var cnt=b.querySelector('.hnav-count');
+        var name=Array.prototype.filter.call(b.childNodes,function(n){return n.nodeType===3}).map(function(n){return n.textContent}).join('').trim();
+        html+='<button class="cx-sub" data-cat="'+m[1]+'" onclick="hnavGo(\''+m[1]+'\')">'+esc(name)+(cnt?'<span class="n">'+esc(cnt.textContent)+'</span>':'')+'</button>';
+      });
+      html+='</div></details>';
+    });
+    box.innerHTML=html;
+  }
+  window.cxSideToggle=function(){var s=$('cxSide'),o=$('cxScrim');var open=!s.classList.contains('open');s.classList.toggle('open',open);o.classList.toggle('open',open)};
+  window.cxSideClose=function(){var s=$('cxSide'),o=$('cxScrim');if(s)s.classList.remove('open');if(o)o.classList.remove('open')};
+  function setActive(key,cat){
+    document.querySelectorAll('.cx-nav').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-nav')===key)});
+    document.querySelectorAll('.cx-sub').forEach(function(b){var on=!!cat&&b.getAttribute('data-cat')===cat;b.classList.toggle('on',on);if(on)b.closest('details').open=true});
+    cxSideClose();closePops();
+  }
+  var NAV={showLanding:'home',showERDashboard:'er',showDeptHandover:'dept',showToolsSection:'tools',showQuickLinks:'ql',showStickyNotes:'sticky',showOurTeam:'team',showRoster:'roster',showDisclaimer:'',showFilesSection:'files',showCat:'cat',hnavGo:'cat'};
+  function wrapNav(){
+    Object.keys(NAV).forEach(function(n){
+      var f=window[n];if(typeof f!=='function'||f._cxWrapped)return;
+      var w=function(a){var r=f.apply(this,arguments);var k=NAV[n];if(n==='hnavGo'&&a==='files')k='files';setActive(k,k==='cat'?a:null);return r};
+      w._cxWrapped=true;window[n]=w;
+    });
+  }
+  window.cxDrugGuide=function(){
+    var si=$('searchInput');if(si){si.focus();si.select()}
+    var g=document.querySelector('#cxDrugGroups details');if(g&&window.innerWidth>900)g.open=true;
+  };
+
+  /* ---------- popovers ---------- */
+  function closePops(except){document.querySelectorAll('.cx-pop').forEach(function(p){if(p.id!==except)p.hidden=true})}
+  window.cxTogglePop=function(id){var p=$(id);var show=p.hidden;closePops(id);p.hidden=!show;if(show&&id==='cxProfPop'){var u=getUser();$('cxNameIn').value=u.name||'';$('cxRoleIn').value=u.role||'';$('cxNameIn').focus()}};
+  document.addEventListener('click',function(e){if(!e.target.closest('.cx-pop-wrap'))closePops()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closePops();cxSideClose()}});
+
+  /* ---------- profile (stored on this device) ---------- */
+  function getUser(){try{return JSON.parse(localStorage.getItem('asmh_user')||'{}')}catch(e){return {}}}
+  function initials(n){n=(n||'').replace(/^dr\.?\s+/i,'').trim();if(!n)return'?';var p=n.split(/\s+/);return (p[0][0]+(p.length>1?p[p.length-1][0]:'')).toUpperCase()}
+  function renderUser(){
+    var u=getUser();$('cxAvatar').textContent=initials(u.name);$('cxProfName').textContent=u.name||'Set your name';
+    var h=new Date().getHours(),g=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+    $('cxGreet').textContent=g+(u.name?', '+u.name:'');
+  }
+  window.cxSaveUser=function(){
+    var u={name:$('cxNameIn').value.trim(),role:$('cxRoleIn').value.trim()};
+    try{localStorage.setItem('asmh_user',JSON.stringify(u))}catch(e){}
+    renderUser();closePops();
+  };
+
+  /* ---------- shift + date ---------- */
+  function renderShift(){
+    var s=cxShift();
+    $('cxShiftTxt').innerHTML='<b>'+s.name+' shift</b> · '+s.label;
+    var d=new Date();
+    $('cxToday').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+' · '+s.name+' shift ('+s.label+')';
+  }
+
+  /* ---------- notifications ---------- */
+  window.cxState={crit:0,guard:0,pend:0,erAdm:0,ann:[]};
+  window.cxNotify=function(){
+    var S=cxState,items=[];
+    S.ann.filter(function(a){return a.cls==='urgent'}).forEach(function(a){items.push({sev:'crit',t:a.title||'Urgent notice',s:'Urgent notice',go:'upd'})});
+    if(S.crit)items.push({sev:'crit',t:S.crit+' critical patient'+(S.crit>1?'s':''),s:'Review in Dept Handover',go:'dept'});
+    if(S.pend)items.push({sev:'warn',t:S.pend+' handover'+(S.pend>1?'s':'')+' pending',s:'Not updated this shift',go:'dept'});
+    if(S.erAdm)items.push({sev:'warn',t:S.erAdm+' ER patient'+(S.erAdm>1?'s':'')+' awaiting admission',s:'ER Handover',go:'er'});
+    if(S.shiftSoon)items.push({sev:'warn',t:S.shiftSoon,s:'Prepare handover',go:'roster'});
+    if(S.guard)items.push({sev:'warn',t:S.guard+' guarded patient'+(S.guard>1?'s':''),s:'Dept Handover',go:'dept'});
+    S.ann.filter(function(a){return a.cls==='important'}).forEach(function(a){items.push({sev:'warn',t:a.title||'Important notice',s:'Announcement',go:'upd'})});
+    var b=$('cxBellBadge');b.hidden=!items.length;b.textContent=items.length;b.classList.toggle('crit',items.some(function(i){return i.sev==='crit'}));
+    $('cxBellList').innerHTML=items.length?items.map(function(i){return '<button class="cx-pop-item" onclick="cxGo(\''+i.go+'\')"><span class="dot '+i.sev+'"></span><span><b>'+esc(i.t)+'</b><small>'+esc(i.s)+'</small></span></button>'}).join(''):'<div class="cx-pop-empty">Nothing needs your attention right now.</div>';
+    // sidebar badges
+    var ne=$('cxNavEr'),nd=$('cxNavDh');
+    var er=parseInt(($('lpErNow')||{}).textContent,10);ne.hidden=!(er>0);ne.textContent=er;
+    nd.hidden=!S.crit;nd.textContent=S.crit;nd.classList.add('crit');nd.title=S.crit+' critical';
+    // tile states: red only for critical, amber for warnings
+    $('cxTileCrit').classList.toggle('crit',S.crit>0);
+    $('cxTileCrit').classList.toggle('warn',!S.crit&&S.guard>0);
+    $('cxTilePend').classList.toggle('warn',S.pend>0);
+    $('cxTileEr').classList.toggle('warn',S.erAdm>0);
+    // urgent banner
+    var urg=S.ann.filter(function(a){return a.cls==='urgent'}),ub=$('cxUrgentBanner');
+    ub.hidden=!urg.length;
+    if(urg.length)ub.innerHTML='<svg class="ic"><use href="#i-alert"/></svg><b>Urgent:</b><span>'+esc(urg[0].title)+(urg.length>1?' (+'+(urg.length-1)+' more)':'')+'</span>';
+  };
+  window.cxGo=function(k){closePops();if(k==='dept')showDeptHandover();else if(k==='er')showERDashboard();else if(k==='roster')showRoster();else{showLanding();setTimeout(function(){var u=$('cxUpH');if(u)u.scrollIntoView({behavior:'smooth',block:'start'})},60)}};
+
+  /* ---------- init ---------- */
+  document.addEventListener('DOMContentLoaded',function(){
+    buildDrugGroups();renderUser();renderShift();
+    $('cxNameIn').addEventListener('keydown',function(e){if(e.key==='Enter')cxSaveUser()});
+    $('cxRoleIn').addEventListener('keydown',function(e){if(e.key==='Enter')cxSaveUser()});
+    // the legacy mobile-sidebar helpers close our drawer too
+    try{sidebar=$('cxSide');overlay=$('cxScrim')}catch(e){}
+    setTimeout(wrapNav,120);   // after the other modules have wrapped these functions
+    setTimeout(function(){cxLoadOnCall(false)},200);
+    setInterval(function(){renderShift();renderUser()},60e3);
+  });
+})();
+</script>
+<script id="duty-roster">
+// ===============================================================
+// DUTY ROSTER — MO duty roster + consultant on-call roster,
+// department contacts and emergency escalation. Edited on the site.
+//
+// Shared storage: deploy roster-api.gs (in this repo) as a Google
+// Apps Script web app and paste its /exec URL into ROSTER_API.
+// Until then, edits are saved on this device only.
+// ===============================================================
+(function(){
+  var ROSTER_API='';   // e.g. 'https://script.google.com/macros/s/XXXX/exec'
+  var LKEY='asmh_roster_v1', CKEY='asmh_roster_cache', PKEY='asmh_roster_pin';
+  var SHIFTS=[{k:'N',n:'Night',s:0,e:8},{k:'M',n:'Morning',s:8,e:16},{k:'E',n:'Evening',s:16,e:24}];
+  var SH={};SHIFTS.forEach(function(s){SH[s.k]=s});
+  var CONS_START=8;    // consultant on-call day runs 08:00 → 08:00 next day
+  var AREAS=['ER','Wards','OPD','ICU / HDU','Paediatrics','Labour Room'];
+  var DEPTS=[['Medicine','Internal Medicine'],['Surgery','General Surgery'],['Obs & Gynae','Obstetrics & Gynaecology'],['Paediatrics','Paediatrics'],['Orthopaedics','Orthopaedics & Trauma'],['Anaesthesia','Anaesthesiology'],['ENT','ENT'],['Ophthalmology','Ophthalmology'],['Psychiatry','Mental Health'],['Radiology','Radiology'],['Dermatology','Dermatology'],['Dental','Dental & Oral Health']];
+  var DNAME={};DEPTS.forEach(function(d){DNAME[d[0]]=d[1]});
+
+  var R={data:empty(),updated:'',shared:!!ROSTER_API,offline:false,loaded:false,view:'today',week:null,edit:false,q:''};
+  function empty(){return {mo:[],cons:[],contacts:[],esc:[],people:[]}}
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function pad(n){return (n<10?'0':'')+n}
+  function ymd(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+  function pd(s){var p=String(s).split('-');return new Date(+p[0],+p[1]-1,+p[2])}
+  function addD(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}
+  function hh(h){return pad(h%24)+':00'}
+  function dShort(d){return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}
+  function dur(ms){var m=Math.max(0,Math.round(ms/6e4)),h=Math.floor(m/60);return (h?h+' h ':'')+(m%60)+' min'}
+  function tel(p){return String(p||'').replace(/[^\d+]/g,'')}
+  function callBtn(p,ext){var t=tel(p);return t?'<a class="rs-call" href="tel:'+esc(t)+'" title="Call '+esc(p)+'"><svg class="ic"><use href="#i-phone"/></svg>'+esc(p)+'</a>':(ext?'<span class="rs-ext">Ext '+esc(ext)+'</span>':'')}
+  function team(){return window.ASMH_TEAM||{specialists:[],officers:[]}}
+
+  /* ---------- time ---------- */
+  function shiftAt(t){
+    var d=new Date(t),h=d.getHours(),s=SHIFTS.filter(function(x){return h>=x.s&&h<x.e})[0];
+    var st=new Date(d);st.setHours(s.s,0,0,0);var en=new Date(d);en.setHours(0,0,0,0);en.setHours(s.e);
+    return {k:s.k,n:s.n,s:s.s,e:s.e,date:ymd(st),start:st,end:en,label:hh(s.s)+'–'+hh(s.e)};
+  }
+  function consDate(t){var d=new Date(t);if(d.getHours()<CONS_START)d=addD(d,-1);return ymd(d)}
+  function weekStart(d){var x=new Date(d);x.setHours(0,0,0,0);return addD(x,-x.getDay())}   // Sunday
+
+  /* ---------- data ---------- */
+  function mo(date,k){return R.data.mo.filter(function(e){return e.date===date&&e.shift===k})}
+  function cons(date){return R.data.cons.filter(function(e){return e.date===date})}
+  function deptOrder(a){var i=DEPTS.map(function(d){return d[0]}).indexOf(a);return i<0?99:i}
+  function phoneOf(name){if(!name)return'';var p=R.data.people.filter(function(x){return x.name===name})[0];return p?p.phone:''}
+
+  function loadLocal(){try{var d=JSON.parse(localStorage.getItem(R.shared?CKEY:LKEY)||'null');if(d&&d.data){R.data=norm(d.data);R.updated=d.updated||''}}catch(e){}}
+  function norm(d){var o=empty();Object.keys(o).forEach(function(k){o[k]=Array.isArray(d&&d[k])?d[k]:[]});return o}
+  function load(force){
+    if(R.loaded&&!force)return Promise.resolve();
+    loadLocal();
+    if(!R.shared){R.loaded=true;return Promise.resolve()}
+    return fetch(ROSTER_API+'?action=roster&t='+Date.now()).then(function(r){return r.json()}).then(function(j){
+      if(!j.ok)throw new Error(j.error);R.data=norm(j.data);R.updated=j.updated||'';R.offline=false;R.loaded=true;
+      try{localStorage.setItem(CKEY,JSON.stringify({data:R.data,updated:R.updated}))}catch(e){}
+    }).catch(function(){R.offline=true;R.loaded=true});
+  }
+  function getPin(){var p='';try{p=localStorage.getItem(PKEY)||''}catch(e){}if(!p){p=prompt('Enter the roster PIN to save changes:')||'';if(p){try{localStorage.setItem(PKEY,p)}catch(e){}}}return p}
+  function persist(){
+    var cut=ymd(addD(new Date(),-60));
+    R.data.mo=R.data.mo.filter(function(e){return e.date>=cut});R.data.cons=R.data.cons.filter(function(e){return e.date>=cut});
+    if(!R.shared){
+      R.updated=new Date().toISOString();
+      try{localStorage.setItem(LKEY,JSON.stringify({data:R.data,updated:R.updated}))}catch(e){}
+      toast('Saved on this device');return Promise.resolve();
+    }
+    var pin=getPin();if(!pin)return Promise.reject(new Error('PIN required'));
+    return fetch(ROSTER_API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save',pin:pin,base:R.updated,data:R.data})})
+      .then(function(r){return r.json()}).then(function(j){
+        if(!j.ok){if(/pin/i.test(j.error||'')){try{localStorage.removeItem(PKEY)}catch(e){}}throw new Error(j.error||'Save failed')}
+        R.data=norm(j.data);R.updated=j.updated||'';
+        try{localStorage.setItem(CKEY,JSON.stringify({data:R.data,updated:R.updated}))}catch(e){}
+        toast('Roster saved for everyone');
+      });
+  }
+  function toast(m){var t=$('rsToast');if(!t)return;t.textContent=m;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('show')},2600)}
+
+  /* ---------- page ---------- */
+  function shell(){
+    var el=$('rosterContent');if(el.dataset.built)return;el.dataset.built='1';
+    el.innerHTML=
+      '<div class="rs-head"><div><h1 class="rs-title">Duty Roster</h1><p class="rs-sub">Duty medical officers, specialists on call, contacts and escalation</p></div>'+
+      '<div class="rs-tabs" role="tablist"><button data-v="today">Today</button><button data-v="mo">MO duty roster</button><button data-v="cons">Consultant on-call</button><button data-v="contacts">Contacts &amp; escalation</button></div></div>'+
+      '<div id="rsBanner"></div><div id="rsBody"></div><div class="rs-toast" id="rsToast"></div>'+
+      '<datalist id="rsAreas">'+AREAS.map(function(a){return '<option value="'+esc(a)+'">'}).join('')+'</datalist>'+
+      '<datalist id="rsDepts">'+DEPTS.map(function(d){return '<option value="'+esc(d[0])+'">'}).join('')+'</datalist>'+
+      '<datalist id="rsMOs"></datalist><datalist id="rsCons"></datalist><datalist id="rsAll"></datalist>'+
+      '<div class="rs-modal-bg" id="rsModalBg"><div class="rs-modal" role="dialog" aria-modal="true" aria-labelledby="rsModalT"><div class="rs-modal-h"><h3 id="rsModalT"></h3><button class="cx-icon-btn" onclick="rsClose()" aria-label="Close">✕</button></div><div id="rsModalB"></div><div class="rs-modal-f"><button class="cx-btn-ghost" onclick="rsAddRow()">+ Add row</button><span style="flex:1"></span><button class="cx-btn-ghost" onclick="rsClose()">Cancel</button><button class="cx-btn" id="rsSaveBtn" onclick="rsSaveModal()">Save</button></div></div></div>';
+    el.querySelectorAll('.rs-tabs button').forEach(function(b){b.onclick=function(){R.view=b.dataset.v;render()}});
+  }
+  function fillLists(){
+    var T=team(),o=function(n){return '<option value="Dr. '+esc(n)+'">'};
+    $('rsMOs').innerHTML=T.officers.map(function(d){return o(d[0])}).join('');
+    $('rsCons').innerHTML=T.specialists.map(function(d){return o(d[0])}).join('');
+    $('rsAll').innerHTML=T.specialists.concat(T.officers).map(function(d){return o(d[0])}).join('');
+  }
+  function banner(){
+    var b=$('rsBanner'),src;
+    if(!R.shared)src='<div class="rs-banner warn"><svg class="ic"><use href="#i-alert"/></svg><span><b>Saved on this device only.</b> Other staff won’t see changes until shared roster storage is switched on.</span></div>';
+    else if(R.offline)src='<div class="rs-banner warn"><svg class="ic"><use href="#i-alert"/></svg><span><b>Offline copy.</b> Could not reach the shared roster — showing the last version saved on this device.</span></div>';
+    else src='';
+    var editable=R.view!=='today';
+    b.innerHTML=src+(editable?'<div class="rs-editbar"><span>'+(R.edit?(R.view==='contacts'?'<b>Editing.</b> Use Edit on each card.':'<b>Editing.</b> Click any cell to change it.'):(R.updated?'Last updated '+new Date(R.updated).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'No roster entered yet.'))+'</span><span style="flex:1"></span>'+
+      (R.edit&&(R.view==='mo'||R.view==='cons')?'<button class="cx-btn-ghost" onclick="rsCopyWeek()">Copy previous week</button>':'')+
+      '<button class="'+(R.edit?'cx-btn':'cx-btn-ghost')+'" onclick="rsToggleEdit()">'+(R.edit?'Done':'Edit roster')+'</button></div>':'');
+  }
+  function render(){
+    if(!$('rosterContent')||$('rosterContent').style.display==='none')return;
+    document.querySelectorAll('#rosterContent .rs-tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.v===R.view)});
+    banner();
+    var B=$('rsBody');
+    if(!R.loaded){B.innerHTML='<div class="cx-empty">Loading roster…</div>';return}
+    B.innerHTML=R.view==='today'?vToday():R.view==='mo'?vMO():R.view==='cons'?vCons():vContacts();
+    var s=$('rsSearch');if(s){s.value=R.q;s.oninput=function(){R.q=this.value;var p=this.selectionStart;render();var n=$('rsSearch');n.focus();n.setSelectionRange(p,p)}}
+  }
+
+  /* ----- Today ----- */
+  function moList(list,empty){
+    if(!list.length)return '<div class="cx-empty">'+(empty||'No MO assigned.')+'</div>';
+    return list.map(function(e){return '<div class="rs-row"><span class="rs-area">'+esc(e.area||'—')+'</span><span class="rs-name">'+esc(e.name)+'</span>'+callBtn(e.phone||phoneOf(e.name))+'</div>'}).join('');
+  }
+  function consList(date,compact){
+    var l=cons(date).slice().sort(function(a,b){return deptOrder(a.dept)-deptOrder(b.dept)});
+    if(!l.length)return '<div class="cx-empty">No specialists on call entered.</div>';
+    return l.map(function(e){return '<div class="rs-row"><span class="rs-area">'+esc(compact?e.dept:(DNAME[e.dept]||e.dept))+'</span><span class="rs-name">'+esc(e.name)+(e.role?' <small>'+esc(e.role)+'</small>':'')+'</span>'+callBtn(e.phone||phoneOf(e.name))+'</div>'}).join('');
+  }
+  function vToday(){
+    var now=Date.now(),c=shiftAt(now),n=shiftAt(c.end.getTime()),n2=shiftAt(n.end.getTime()),cd=consDate(now);
+    var consEnd=pd(cd);consEnd.setDate(consEnd.getDate()+1);consEnd.setHours(CONS_START);
+    var h='<div class="rs-now"><div><span class="rs-pill">Now</span><h2>'+c.n+' shift <small>'+c.label+'</small></h2><p>'+new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})+'</p></div>'+
+      '<div class="rs-next"><span>Next shift change</span><b>'+hh(c.e)+' · '+n.n+'</b><small>in '+dur(c.end-now)+'</small></div></div>';
+    h+='<div class="rs-grid2">';
+    h+='<div class="cx-card"><div class="cx-card-h"><h3><svg class="ic"><use href="#i-users"/></svg>Duty medical officers</h3><button class="cx-link" onclick="rsView(\'mo\')">Full MO roster →</button></div>'+
+      '<div class="rs-blk on"><div class="rs-blk-h">'+c.n+' · '+c.label+' <span class="rs-tag">On duty</span></div>'+moList(mo(c.date,c.k))+'</div>'+
+      '<div class="rs-blk"><div class="rs-blk-h">'+n.n+' · '+n.label+(n.date!==c.date?' · '+dShort(pd(n.date)):'')+'</div>'+moList(mo(n.date,n.k))+'</div>'+
+      '<div class="rs-blk"><div class="rs-blk-h">'+n2.n+' · '+n2.label+(n2.date!==c.date?' · '+dShort(pd(n2.date)):'')+'</div>'+moList(mo(n2.date,n2.k))+'</div></div>';
+    h+='<div class="cx-card"><div class="cx-card-h"><h3><svg class="ic"><use href="#i-pulse"/></svg>Specialists on call</h3><button class="cx-link" onclick="rsView(\'cons\')">Full on-call roster →</button></div>'+
+      '<p class="rs-meta">'+dShort(pd(cd))+' '+hh(CONS_START)+' → '+dShort(consEnd)+' '+hh(CONS_START)+'</p>'+consList(cd)+'</div>';
+    h+='</div><div class="rs-grid2">';
+    // shift changes
+    var out=mo(c.date,c.k),inn=mo(n.date,n.k),areas=[];out.concat(inn).forEach(function(e){var a=e.area||'—';if(areas.indexOf(a)<0)areas.push(a)});
+    h+='<div class="cx-card"><div class="cx-card-h"><h3><svg class="ic"><use href="#i-clock"/></svg>Shift changes</h3></div>'+
+      '<div class="rs-hand"><div class="rs-hand-t"><b>'+hh(c.e)+'</b><span>'+c.n+' → '+n.n+'</span><small>in '+dur(c.end-now)+'</small></div>'+
+      (areas.length?'<table class="rs-tbl"><thead><tr><th>Area</th><th>Handing over</th><th>Taking over</th></tr></thead><tbody>'+areas.map(function(a){
+        var f=function(l){return l.filter(function(e){return (e.area||'—')===a}).map(function(e){return esc(e.name)}).join(', ')||'<span class="rs-gap">Not assigned</span>'};
+        return '<tr><td>'+esc(a)+'</td><td>'+f(out)+'</td><td>'+f(inn)+'</td></tr>'}).join('')+'</tbody></table>':'<div class="cx-empty">No MOs rostered for this handover.</div>')+'</div>'+
+      '<div class="rs-upnext"><div><b>'+hh(n.e)+'</b> '+n.n+' → '+n2.n+'</div><div><b>'+hh(CONS_START)+'</b> Consultant on-call changes · '+dShort(consEnd)+'</div></div></div>';
+    h+=escCard(false)+'</div>';
+    h+=contactsCard(false);
+    return h;
+  }
+  function escCard(edit){
+    var l=R.data.esc;
+    return '<div class="cx-card rs-esc"><div class="cx-card-h"><h3><svg class="ic"><use href="#i-alert"/></svg>Emergency escalation</h3>'+(edit&&R.edit?'<button class="cx-link" onclick="rsEditEsc()">Edit</button>':(!edit?'<button class="cx-link" onclick="rsView(\'contacts\')">Manage →</button>':''))+'</div>'+
+      (l.length?'<ol class="rs-steps">'+l.map(function(e,i){return '<li><span class="rs-step">'+(i+1)+'</span><div class="rs-step-b"><b>'+esc(e.role)+'</b>'+(e.name?'<span>'+esc(e.name)+'</span>':'')+(e.when?'<small>'+esc(e.when)+'</small>':'')+'</div>'+callBtn(e.phone||phoneOf(e.name),e.ext)+'</li>'}).join('')+'</ol>':'<div class="cx-empty">No escalation pathway set yet.</div>')+'</div>';
+  }
+  function contactsCard(edit){
+    var q=R.q.toLowerCase().trim(),l=R.data.contacts.filter(function(c){return !q||(c.dept+' '+c.label+' '+c.ext+' '+c.phone+' '+(c.notes||'')).toLowerCase().indexOf(q)>=0});
+    var g={},order=[];l.forEach(function(c){var k=c.dept||'General';if(!g[k]){g[k]=[];order.push(k)}g[k].push(c)});
+    order.sort(function(a,b){return deptOrder(a)-deptOrder(b)||a.localeCompare(b)});
+    return '<div class="cx-card"><div class="cx-card-h"><h3><svg class="ic"><use href="#i-phone"/></svg>Department contacts</h3><div class="rs-tools"><input id="rsSearch" class="rs-search" placeholder="Search contacts…" autocomplete="off">'+(edit&&R.edit?'<button class="cx-link" onclick="rsEditContacts()">Edit</button>':'')+'</div></div>'+
+      (order.length?'<div class="rs-contacts">'+order.map(function(k){return '<div class="rs-cgrp"><div class="rs-blk-h">'+esc(DNAME[k]||k)+'</div>'+g[k].map(function(c){return '<div class="rs-row"><span class="rs-name">'+esc(c.label)+(c.notes?' <small>'+esc(c.notes)+'</small>':'')+'</span>'+(c.ext?'<span class="rs-ext">Ext '+esc(c.ext)+'</span>':'')+callBtn(c.phone)+'</div>'}).join('')+'</div>'}).join('')+'</div>':'<div class="cx-empty">'+(R.data.contacts.length?'No contacts match.':'No department contacts added yet.')+'</div>')+'</div>';
+  }
+
+  /* ----- Week grids ----- */
+  function weekNav(){
+    var ws=R.week||weekStart(new Date()),we=addD(ws,6);
+    return '<div class="rs-weeknav"><button class="cx-icon-btn" onclick="rsWeek(-1)" aria-label="Previous week">‹</button><b>'+dShort(ws)+' – '+dShort(we)+'</b><button class="cx-icon-btn" onclick="rsWeek(1)" aria-label="Next week">›</button><button class="cx-link" onclick="rsWeek(0)">This week</button></div>';
+  }
+  function days(){var ws=R.week||weekStart(new Date());return [0,1,2,3,4,5,6].map(function(i){return addD(ws,i)})}
+  function vMO(){
+    var D=days(),today=ymd(new Date()),c=shiftAt(Date.now());
+    var h='<div class="cx-card"><div class="cx-card-h"><h3><svg class="ic"><use href="#i-users"/></svg>MO duty roster</h3>'+weekNav()+'</div><div class="rs-scroll"><table class="rs-week"><thead><tr><th></th>'+
+      D.map(function(d){return '<th class="'+(ymd(d)===today?'today':'')+'">'+dShort(d)+'</th>'}).join('')+'</tr></thead><tbody>';
+    ['M','E','N'].forEach(function(k){var s=SH[k];
+      h+='<tr><th><b>'+s.n+'</b><small>'+hh(s.s)+'–'+hh(s.e)+'</small></th>'+D.map(function(d){var ds=ymd(d),l=mo(ds,k),cur=ds===c.date&&k===c.k;
+        return '<td class="'+(cur?'cur ':'')+(R.edit?'ed':'')+'"'+(R.edit?' onclick="rsEditMO(\''+ds+'\',\''+k+'\')" tabindex="0"':'')+'>'+
+          (l.length?l.map(function(e){return '<div class="rs-chip"><i>'+esc(e.area||'')+'</i>'+esc(e.name)+'</div>'}).join(''):(R.edit?'<span class="rs-add">+ Add</span>':'<span class="rs-gap">—</span>'))+'</td>'}).join('')+'</tr>';
+    });
+    return h+'</tbody></table></div><p class="cx-note">Night shift 00:00–08:00 belongs to the date shown. Click a name’s phone on the Today tab to call.</p></div>';
+  }
+  function vCons(){
+    var D=days(),cd=consDate(Date.now());
+    var used=DEPTS.map(function(d){return d[0]});R.data.cons.forEach(function(e){if(used.indexOf(e.dept)<0)used.push(e.dept)});
+    var h='<div class="cx-card"><div class="cx-card-h"><h3><svg class="ic"><use href="#i-pulse"/></svg>Consultant on-call roster</h3>'+weekNav()+'</div><div class="rs-scroll"><table class="rs-week"><thead><tr><th>Department</th>'+
+      D.map(function(d){return '<th class="'+(ymd(d)===cd?'today':'')+'">'+dShort(d)+'</th>'}).join('')+'</tr></thead><tbody>';
+    used.forEach(function(dep){
+      h+='<tr><th><b>'+esc(DNAME[dep]||dep)+'</b></th>'+D.map(function(d){var ds=ymd(d),l=cons(ds).filter(function(e){return e.dept===dep});
+        return '<td class="'+(ds===cd?'cur ':'')+(R.edit?'ed':'')+'"'+(R.edit?' onclick="rsEditCons(\''+ds+'\',\''+esc(dep).replace(/'/g,"\\'")+'\')" tabindex="0"':'')+'>'+
+          (l.length?l.map(function(e){return '<div class="rs-chip">'+(e.role?'<i>'+esc(e.role)+'</i>':'')+esc(e.name)+'</div>'}).join(''):(R.edit?'<span class="rs-add">+ Add</span>':'<span class="rs-gap">—</span>'))+'</td>'}).join('')+'</tr>';
+    });
+    return h+'</tbody></table></div><p class="cx-note">Each on-call day runs '+hh(CONS_START)+' to '+hh(CONS_START)+' the next morning.</p></div>';
+  }
+  function vContacts(){return '<div class="rs-grid2 rs-g-contacts">'+escCard(true)+contactsCard(true)+'</div>'}
+
+  /* ---------- editing ---------- */
+  var M=null;  // {title, fields, rows, apply}
+  function openModal(title,fields,rows,apply){
+    M={title:title,fields:fields,rows:rows.map(function(r){return Object.assign({},r)}),apply:apply};
+    if(!M.rows.length)M.rows.push({});
+    $('rsModalT').textContent=title;drawModal();$('rsModalBg').classList.add('open');
+    setTimeout(function(){var i=document.querySelector('#rsModalB input');if(i)i.focus()},60);
+  }
+  function drawModal(){
+    $('rsModalB').innerHTML='<div class="rs-mrows" style="--cols:'+M.fields.map(function(f){return f.w||'1fr'}).join(' ')+' 34px">'+
+      '<div class="rs-mrow rs-mhead">'+M.fields.map(function(f){return '<span>'+f.label+'</span>'}).join('')+'<span></span></div>'+
+      M.rows.map(function(r,i){return '<div class="rs-mrow">'+M.fields.map(function(f){return '<input data-r="'+i+'" data-k="'+f.k+'" value="'+esc(r[f.k]||'')+'" placeholder="'+esc(f.ph||'')+'"'+(f.list?' list="'+f.list+'"':'')+(f.k==='phone'?' inputmode="tel"':'')+' aria-label="'+esc(f.label)+'">'}).join('')+
+        '<button class="rs-del" onclick="rsDelRow('+i+')" aria-label="Remove row">✕</button></div>'}).join('')+'</div>';
+    $('rsModalB').querySelectorAll('input').forEach(function(inp){inp.oninput=function(){M.rows[+this.dataset.r][this.dataset.k]=this.value.trim()};
+      if(inp.dataset.k==='name')inp.onchange=function(){var r=M.rows[+this.dataset.r],ph=phoneOf(r.name);if(ph&&!r.phone){r.phone=ph;var p=$('rsModalB').querySelector('input[data-r="'+this.dataset.r+'"][data-k="phone"]');if(p)p.value=ph}}});
+  }
+  window.rsAddRow=function(){M.rows.push({});drawModal();var l=$('rsModalB').querySelectorAll('.rs-mrow:last-child input');if(l[0])l[0].focus()};
+  window.rsDelRow=function(i){M.rows.splice(i,1);drawModal()};
+  window.rsClose=function(){$('rsModalBg').classList.remove('open');M=null};
+  window.rsSaveModal=function(){
+    var rows=M.rows.filter(function(r){return M.fields.some(function(f){return r[f.k]})});
+    var snapshot=JSON.stringify(R.data);
+    M.apply(rows);
+    rows.forEach(function(r){if(r.name&&r.phone){var p=R.data.people.filter(function(x){return x.name===r.name})[0];if(p)p.phone=r.phone;else R.data.people.push({name:r.name,phone:r.phone})}});
+    var btn=$('rsSaveBtn');btn.disabled=true;btn.textContent='Saving…';
+    persist().then(function(){btn.disabled=false;btn.textContent='Save';rsClose();render();homeRender()},
+      function(e){R.data=JSON.parse(snapshot);btn.disabled=false;btn.textContent='Save';alert((e&&e.message)||'Save failed');});
+  };
+  window.rsEditMO=function(date,k){
+    openModal(SH[k].n+' shift ('+hh(SH[k].s)+'–'+hh(SH[k].e)+') · '+dShort(pd(date)),
+      [{k:'area',label:'Area',list:'rsAreas',ph:'ER',w:'0.8fr'},{k:'name',label:'Medical officer',list:'rsMOs',ph:'Dr. …',w:'1.6fr'},{k:'phone',label:'Phone',ph:'7xxxxxx',w:'1fr'}],
+      mo(date,k),function(rows){R.data.mo=R.data.mo.filter(function(e){return !(e.date===date&&e.shift===k)}).concat(rows.map(function(r){return {date:date,shift:k,area:r.area||'',name:r.name||'',phone:r.phone||''}}))});
+  };
+  window.rsEditCons=function(date,dep){
+    openModal((DNAME[dep]||dep)+' on call · '+dShort(pd(date)),
+      [{k:'name',label:'Consultant / specialist',list:'rsCons',ph:'Dr. …',w:'1.6fr'},{k:'role',label:'Role',ph:'1st on-call',w:'0.8fr'},{k:'phone',label:'Phone',ph:'7xxxxxx',w:'1fr'}],
+      cons(date).filter(function(e){return e.dept===dep}),function(rows){R.data.cons=R.data.cons.filter(function(e){return !(e.date===date&&e.dept===dep)}).concat(rows.map(function(r){return {date:date,dept:dep,name:r.name||'',role:r.role||'',phone:r.phone||''}}))});
+  };
+  window.rsEditContacts=function(){
+    openModal('Department contacts',[{k:'dept',label:'Department',list:'rsDepts',w:'1fr'},{k:'label',label:'Contact',ph:'Ward nurses’ station',w:'1.3fr'},{k:'ext',label:'Ext',w:'0.5fr'},{k:'phone',label:'Phone',w:'0.9fr'},{k:'notes',label:'Notes',w:'1fr'}],
+      R.data.contacts,function(rows){R.data.contacts=rows});
+  };
+  window.rsEditEsc=function(){
+    var rows=R.data.esc.length?R.data.esc:[{role:'Duty MO (area)',when:'First call for any deteriorating patient'},{role:'On-call specialist of the department',when:'No improvement, or MO needs senior input'},{role:'Head of department',when:'Specialist unavailable / major decision'},{role:'Medical Director',when:'Unresolved clinical risk, multiple casualties'},{role:'Hospital administrator on call',when:'Resources, transfers, major incident'}];
+    openModal('Emergency escalation (in order)',[{k:'role',label:'Level / role',w:'1.2fr'},{k:'name',label:'Name',list:'rsAll',w:'1.2fr'},{k:'phone',label:'Phone',w:'0.8fr'},{k:'ext',label:'Ext',w:'0.5fr'},{k:'when',label:'When to call',w:'1.5fr'}],
+      rows,function(r){R.data.esc=r});
+  };
+  window.rsToggleEdit=function(){R.edit=!R.edit;render()};
+  window.rsView=function(v){R.view=v;render()};
+  window.rsWeek=function(d){R.week=d?addD(R.week||weekStart(new Date()),7*d):weekStart(new Date());render()};
+  window.rsCopyWeek=function(){
+    var D=days().map(ymd),P=days().map(function(d){return ymd(addD(d,-7))}),key=R.view==='mo'?'mo':'cons';
+    var src=R.data[key].filter(function(e){return P.indexOf(e.date)>=0});
+    if(!src.length){alert('Nothing rostered in the previous week.');return}
+    var has=R.data[key].some(function(e){return D.indexOf(e.date)>=0});
+    if(has&&!confirm('Replace this week’s '+(key==='mo'?'MO':'on-call')+' roster with last week’s?'))return;
+    var snap=JSON.stringify(R.data);
+    R.data[key]=R.data[key].filter(function(e){return D.indexOf(e.date)<0}).concat(src.map(function(e){var x=Object.assign({},e);x.date=D[P.indexOf(e.date)];return x}));
+    persist().then(function(){render();homeRender()},function(e){R.data=JSON.parse(snap);alert((e&&e.message)||'Save failed')});
+  };
+  document.addEventListener('keydown',function(e){
+    if($('rsModalBg')&&$('rsModalBg').classList.contains('open')){if(e.key==='Escape')rsClose();if(e.key==='Enter'&&(e.ctrlKey||e.metaKey))rsSaveModal()}
+    else if(e.key==='Enter'&&e.target.matches&&e.target.matches('.rs-week td.ed'))e.target.click();
+  });
+
+  /* ---------- homepage card + notifications ---------- */
+  function homeRender(){
+    var box=$('cxOnCall');if(!box)return;
+    var now=Date.now(),c=shiftAt(now),cd=consDate(now),m=mo(c.date,c.k),cl=cons(cd).slice().sort(function(a,b){return deptOrder(a.dept)-deptOrder(b.dept)});
+    $('cxOnCallDate').textContent=c.n+' · '+c.label;
+    box.innerHTML='<div class="rs-blk-h">Duty MO</div>'+moList(m,'No duty MO rostered.')+
+      '<div class="rs-blk-h" style="margin-top:12px">Specialists on call</div>'+(cl.length?cl.slice(0,6).map(function(e){return '<div class="rs-row"><span class="rs-area">'+esc(e.dept)+'</span><span class="rs-name">'+esc(e.name)+'</span>'+callBtn(e.phone||phoneOf(e.name))+'</div>'}).join(''):'<div class="cx-empty">None entered.</div>')+
+      '<button class="cx-link" style="margin-top:8px" onclick="showRoster()">Full roster, contacts &amp; escalation →</button>';
+    if(window.cxState){var left=c.end-now;cxState.shiftSoon=left<=30*6e4?('Shift change at '+hh(c.e)+' · in '+dur(left)):'';if(window.cxNotify)cxNotify()}
+  }
+  window.cxLoadOnCall=function(force){load(force).then(homeRender)};
+
+  /* ---------- navigation ---------- */
+  window.showRoster=function(){
+    if(typeof window.showToolsSection==='function')window.showToolsSection();   // reuse panel isolation
+    var t=$('toolsContent');if(t)t.style.display='none';
+    shell();fillLists();$('rosterContent').style.display='block';
+    var m=$('mainContent');if(m)m.scrollTop=0;
+    render();load(true).then(render);
+    document.querySelectorAll('.cx-nav').forEach(function(b){b.classList.toggle('on',b.dataset.nav==='roster')});
+    if(window.cxSideClose)cxSideClose();
+  };
+  function hideRoster(){var r=$('rosterContent');if(r)r.style.display='none'}
+  document.addEventListener('DOMContentLoaded',function(){
+    setTimeout(function(){
+      ['showQuickLinks','showToolsSection','showERDashboard','showDeptHandover','showStickyNotes','showCat','showFilesSection','showLanding','showDisclaimer','showOurTeam','hnavGo'].forEach(function(n){
+        var f=window[n];if(typeof f!=='function'||f._rsWrapped)return;
+        var w=function(){hideRoster();return f.apply(this,arguments)};w._rsWrapped=true;window[n]=w;
+      });
+      var si=$('searchInput');if(si)si.addEventListener('input',function(){if(this.value.trim())hideRoster()});
+    },160);
+    setInterval(function(){homeRender();if(R.view==='today')render()},60e3);
+  });
+})();
+</script>
+
 </body>
