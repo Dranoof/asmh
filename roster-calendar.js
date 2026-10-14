@@ -417,6 +417,15 @@ function sheetCell(c, row, d, date, print) {
   return `<td class="${cls}" ${c.span > 1 ? `rowspan="${c.span}"` : ''} ${print ? '' : `data-id="${sh.id}" tabindex="0" title="${esc(sh.name + ' · ' + sh.start + '–' + sh.end)}"`}>${names.join(' / ') || '&nbsp;'}${note}</td>`;
 }
 
+/** everyone on leave / deputation in the week, listed once with the days they are away */
+function awayOf(M) {
+  const tagOf = l => l.type === 'Annual leave' ? 'AL' : (l.remarks || l.type).replace(/^Deputation to /, 'Dep. ');
+  const away = new Map();
+  M.leave.forEach((list, di) => list.forEach(x => { const a = away.get(x.s.id) || { s: x.s, tag: tagOf(x.l), days: [] }; a.days.push(di); away.set(x.s.id, a); }));
+  const lbl = d => fmt.dow(M.days[d]) + ' ' + fmt.day(M.days[d]);
+  return [...away.values()].map(a => Object.assign(a, { when: a.days.length === 7 ? 'All week' : a.days.length === 1 ? lbl(a.days[0]) : fmt.dow(M.days[a.days[0]]) + '–' + fmt.dow(M.days[a.days[a.days.length - 1]]) }));
+}
+
 export function sheetHTML(from, print = false) {
   const M = sheetModel(from), st = settings(), t = E.todayStr();
   const to = M.days[6];
@@ -441,9 +450,9 @@ export function sheetHTML(from, print = false) {
   // other duties not on the standard sheet rows
   if (M.other.some(x => x.length)) body += `<tr><th class="svc full" colspan="3">Other duties</th>${M.other.map(list => `<td class="sc">${list.map(sh => `<span ${print ? '' : `data-id="${sh.id}"`} class="oth">${esc(sh.name)}: ${sh.staff.map(id => drName(staffById(id))).join(' / ') || 'Unassigned'}</span>`).join('')}</td>`).join('')}</tr>`;
   body += `<tr class="brk"><th class="svc full" colspan="3">BREAK COVER (OPD/Ward/ER)</th>${M.days.map(() => '<td></td>').join('')}</tr>`;
-  const offN = Math.max(1, ...M.off.map(x => x.length));
-  for (let i = 0; i < offN; i++) body += `<tr class="off">${i === 0 ? `<th class="svc full" colspan="3" rowspan="${offN}">OFF</th>` : ''}${M.off.map(list => `<td class="sc">${list[i] ? `<span class="${R.me.staff_id === list[i].id ? 'me' : ''}">${drName(list[i])}</span>` : ''}</td>`).join('')}</tr>`;
-  if (M.leave.some(x => x.length)) body += `<tr class="lv"><th class="svc full" colspan="3">LEAVE / DEPUTATION</th>${M.leave.map(list => `<td class="sc">${list.map(x => `<span>${drName(x.s)} <small class="nt">(${esc(x.l.type === 'Annual leave' ? 'AL' : (x.l.remarks || x.l.type).replace(/^Deputation to /, 'Dep. '))})</small></span>`).join('')}</td>`).join('')}</tr>`;
+  body += `<tr class="off"><th class="svc full" colspan="3">OFF</th>${M.off.map(list => `<td class="sc">${list.map(s => drName(s)).join(', ')}</td>`).join('')}</tr>`;
+  const away = awayOf(M);
+  if (away.length) body += `<tr class="lv"><th class="svc full" colspan="3">LEAVE / DEPUTATION</th><td class="sc" colspan="7">${away.map(a => `<span>${drName(a.s)} <small class="nt">(${esc(a.tag)}${a.when === 'All week' ? '' : ', ' + esc(a.when)})</small></span>`).join('')}</td></tr>`;
   const v = R.state.version.filter(x => x.kind !== 'swap' && x.start <= to && x.end >= from).sort((a, b) => b.no - a.no)[0];
   return `<table class="sheet">
     <colgroup><col style="width:30px"><col style="width:30px"><col style="width:132px">${M.days.map(() => '<col>').join('')}</colgroup>
@@ -464,12 +473,40 @@ export function printSheet(from) {
   const w = window.open('', '_blank');
   if (!w) { toast('Allow pop-ups to print.', 'err'); return; }
   w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>MO Duty Roster ${esc(fmt.range(from, E.addDays(from, 6)))}</title><style>
-    @page{size:A4 landscape;margin:8mm}body{margin:0;font:11px/1.25 Calibri,"Segoe UI",Arial,sans-serif;color:#000}
-    ${SHEET_CSS.replace(/var\(--[a-z0-9-]+(?:,\s*([^)]+))?\)/g, (m, f) => f || '#000')}
-    .sheet{width:100%}
-  </style></head><body>${sheetHTML(from, true)}<script>onload=function(){print()}<\/script></body></html>`);
+    @page{size:A4 landscape;margin:7mm}html,body{margin:0;background:#fff}
+    ${PRINT_CSS}
+  </style></head><body>${sheetHTML(from, true)}<script>onload=function(){var t=document.querySelector('.sheet'),s=Math.min(1,1060/t.offsetWidth,735/t.offsetHeight);if(s<1)document.body.style.zoom=s;setTimeout(function(){print()},60)}<\/script></body></html>`);
   w.document.close();
 }
+/** clean print styles: one A4 landscape page */
+const PRINT_CSS = `
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-sizing:border-box}
+.sheet{border-collapse:collapse;width:1060px;table-layout:fixed;font:10.5px/1.25 Arial,Helvetica,sans-serif;color:#111}
+.sheet th,.sheet td{border:.6pt solid #a3abb3;padding:3px 4px;text-align:center;vertical-align:middle;font-weight:400}
+.sheet thead tr:first-child th,.sheet thead tr:nth-child(2) th{border:0;text-align:left;padding:0 0 2px}
+.sheet .ttl{font-size:15px;font-weight:700;letter-spacing:.2px}
+.sheet .org{font-size:10px;color:#555;padding-bottom:7px!important}
+.sheet .shd th{background:#eef1f4;font-weight:700;font-size:9.5px;padding:3px 2px;letter-spacing:.3px}
+.sheet .fri{color:#c62828}
+.sheet .band,.sheet .time{padding:0;font-weight:700;font-size:9px;letter-spacing:.4px}
+.sheet .band span,.sheet .time span{writing-mode:vertical-rl;transform:rotate(180deg);display:inline-block;white-space:nowrap}
+.sheet .band.night{background:#e6def5}.sheet .band.morning{background:#dbeafe}.sheet .band.evening{background:#fdebcc}
+.sheet .time{background:#fff;color:#444}
+.sheet .svc{font-weight:700;font-size:10px;background:#f6f7f8;text-align:left;padding-left:6px}
+.sheet .svc small{display:block;font-size:8.5px;font-weight:400;color:#666}
+.sheet .svc.full{text-align:left}
+.sheet tr.er td{background:#fafbfc}
+.sheet tr.relief th,.sheet tr.relief td{background:#fff5d6}
+.sheet tr.gap td{border-left:0;border-right:0;height:5px;padding:0}
+.sheet tr.brk th,.sheet tr.brk td{background:#f1f2f4;height:20px}
+.sheet tr.off td,.sheet tr.lv td{font-size:9.5px;text-align:left;vertical-align:top;line-height:1.35}
+.sheet tr.off th,.sheet tr.lv th{background:#eef1f4}
+.sheet td.sc small{display:block;font-size:8.5px;color:#555}.sheet td.sc small.nt{display:inline;font-size:inherit;color:inherit}
+.sheet td.sc .oth{display:block}
+.sheet tr.lv td span{display:inline-block;margin-right:14px}
+.sheet tfoot td{border:0;padding:6px 0 0;font-size:9px;color:#555;text-align:left}
+.sheet tfoot td.fn.r{text-align:right}
+`;
 /** print-safe styles for the sheet (fallback colours after the comma are used when printing) */
 const SHEET_CSS = `
 .sheet{border-collapse:collapse;min-width:980px;width:100%;table-layout:fixed;font-size:13px;background:var(--surface,#fff);color:var(--ink,#000)}
@@ -553,26 +590,29 @@ function boardHTML(from) {
     });
     row = start + b.rows.length;
   }
-  // off + leave
-  const offKey = 'off', offC = collapsed.has(offKey);
-  html += `<button type="button" class="bband off" data-band="off" style="${at(row, '1 / -1')}" aria-expanded="${!offC}"><span class="bi">${icon('home')}</span><b>Off &amp; away</b><span class="bt">${editor ? 'Drag a doctor from here onto a duty to assign · drop a duty chip here to remove' : 'Doctors without a duty that day'}</span><span class="chev">${icon(offC ? 'right' : 'down')}</span></button>`;
-  row++;
-  if (!offC) {
-    html += `<div class="bl off" style="${at(row, 1)}"><b>Off</b></div>`;
-    M.days.forEach((d, di) => { html += `<div class="bc off ${d === t ? 'today' : ''}" data-offday="${d}" style="${at(row, di + 2)}">${M.off[di].map(s => chipHTML(s.id, { drag: editor })).join('') || '<span class="none">—</span>'}</div>`; });
-    row++;
-    if (M.leave.some(x => x.length)) {
-      html += `<div class="bl off" style="${at(row, 1)}"><b>Leave / deputation</b></div>`;
-      M.days.forEach((d, di) => { html += `<div class="bc off lv ${d === t ? 'today' : ''}" style="${at(row, di + 2)}">${M.leave[di].map(x => chipHTML(x.s.id, { tag: x.l.type === 'Annual leave' ? 'AL' : (x.l.remarks || x.l.type).replace(/^Deputation to /, 'Dep. ') })).join('')}</div>`; });
-      row++;
-    }
-  }
   if (M.other.some(x => x.length)) {
     html += `<div class="bl" style="${at(row, 1)}"><b>Other duties</b></div>`;
     M.other.forEach((list, di) => { html += `<div class="bc" style="${at(row, di + 2)}">${list.map(sh => `<span class="note" data-open="${sh.id}">${esc(sh.name)}</span>${sh.staff.map(id => chipHTML(id, { shift: sh.id, drag: editor })).join('')}`).join('')}</div>`; });
     row++;
   }
   return html;
+}
+
+function offSideHTML(M, editor) {
+  const t = E.todayStr();
+  const away = awayOf(M);
+  return `<aside class="boff" aria-label="Off and away">
+    <div class="boff-h">${icon('home')}<b>Off &amp; away</b><small>${editor ? 'Drag here to remove from a duty' : 'No duty that day'}</small></div>
+    ${away.length ? `<div class="boff-away"><div class="boff-dh"><b>Away this week</b><span>${away.length}</span></div>
+      ${away.map(a => `<div class="boff-ar">${chipHTML(a.s.id, { tag: a.tag })}<span>${a.when}</span></div>`).join('')}</div>` : ''}
+    <div class="boff-days">${M.days.map((d, di) => {
+      const off = M.off[di];
+      return `<div class="boff-d ${d === t ? 'today' : ''}" data-offday="${d}">
+        <div class="boff-dh"><b>${fmt.dow(d)} ${fmt.day(d)}${d === t ? ' · Today' : ''}</b><span>${off.length} off</span></div>
+        <div class="boff-c">${off.map(s => chipHTML(s.id, { drag: editor })).join('') || '<span class="none">Everyone on duty</span>'}</div>
+      </div>`;
+    }).join('')}</div>
+  </aside>`;
 }
 
 function focusCard(from) {
@@ -607,8 +647,11 @@ function renderSheet(cal, from) {
         <button class="btn sm" data-printsheet>${icon('print')}Print sheet</button>
       </div></div>
     <div id="bfocus">${focusCard(from)}</div>
-    <div class="board-wrap"><div class="board ${focusId ? 'focusing' : ''}" id="board">${boardHTML(from)}</div></div>`;
-  const board = $('#board', cal);
+    <div class="bwrap ${focusId ? 'focusing' : ''}" id="bwrap">
+      <div class="board-wrap"><div class="board" id="board">${boardHTML(from)}</div></div>
+      ${offSideHTML(sheetModel(from), editor)}
+    </div>`;
+  const board = $('#bwrap', cal);
   const setFocus = id => { focusId = focusId === id ? null : id; renderSheet(cal, from); };
   // hover highlight across the week
   board.onpointerover = e => {
@@ -651,7 +694,7 @@ function renderSheet(cal, from) {
       if (!moved) { moved = true; ghost = chip.cloneNode(true); ghost.classList.add('ghost'); layer().appendChild(ghost); chip.classList.add('lifting'); board.classList.add('dragging'); }
       ghost.style.left = ev.clientX + 10 + 'px'; ghost.style.top = ev.clientY + 8 + 'px';
       const el = document.elementFromPoint(ev.clientX, ev.clientY);
-      const tgt = el && (el.closest('.bc[data-shift]') || (fromShift && el.closest('.bc[data-offday]')));
+      const tgt = el && (el.closest('.bc[data-shift]') || (fromShift && el.closest('[data-offday]')));
       const ok = tgt && tgt.dataset.shift !== fromShift ? tgt : null;
       if (over && over !== ok) over.classList.remove('dropok');
       over = ok; if (over) over.classList.add('dropok');
@@ -728,11 +771,11 @@ const BOARD_CSS = `
 .dchip.prop{border-style:dashed;font-style:italic}
 .dchip.warn{border-color:var(--amber-line);background:var(--amber-bg)}
 .dchip.hit{background:#fef08a;color:#000;border-color:#eab308}
-.board.hovering .dchip:not(.hl),.board.focusing .dchip:not(.hl){opacity:.28}
+.bwrap.hovering .dchip:not(.hl),.bwrap.focusing .dchip:not(.hl){opacity:.28}
 .dchip.hl{border-color:hsl(var(--h,200) 55% 42%);box-shadow:0 0 0 2px var(--brand-3);opacity:1;transform:translateY(-1px)}
-.board.focusing .bc:has(.dchip.hl){box-shadow:inset 0 0 0 1.5px var(--brand-3)}
+.bwrap.focusing .bc:has(.dchip.hl){box-shadow:inset 0 0 0 1.5px var(--brand-3)}
 .dchip.lifting{opacity:.35}.dchip.ghost{position:fixed;z-index:1000;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.25);transform:rotate(-2deg)}
-.board.dragging .bc[data-shift],.board.dragging .bc[data-offday]{cursor:copy}
+.bwrap.dragging .bc[data-shift],.bwrap.dragging [data-offday]{cursor:copy}
 .bfocus{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--brand-soft);flex-wrap:wrap}
 .bfocus .bf-who{display:flex;flex-direction:column;min-width:140px}.bfocus .bf-who small{color:var(--muted);font-size:12px}
 .bfocus .bf-days{display:flex;gap:6px;flex-wrap:wrap;flex:1}
@@ -744,6 +787,39 @@ const BOARD_CSS = `
 .bf-d i.day{--k:#10b981}
 [data-theme="dark"] .dav{background:hsl(var(--h) 45% 38%)}
 [data-theme="dark"] .dchip.hit{background:#854d0e;color:#fff}
+/* compact layout + Off & away side panel */
+.btool{padding:10px 14px}
+.bwrap{display:grid;grid-template-columns:minmax(0,1fr) 240px;align-items:start}
+.bwrap>.board-wrap{min-width:0;border-right:1px solid var(--line)}
+.board{grid-template-columns:118px repeat(7,minmax(98px,1fr));min-width:804px}
+.bh{padding:7px 7px 6px}
+.bh.day{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 5px}
+.bh.day .bdw{font-size:10.5px}.bh.day .bdd{font-size:17px}.bh.day .bdm{font-size:11px}
+.bh.day .bdc{flex-basis:100%;margin-top:3px;font-size:10.5px}
+.bband{padding:5px 10px;gap:8px;font-size:12px}
+.bband .bi{width:20px;height:20px;border-radius:6px}.bband .bi .ic{width:12px;height:12px}
+.bband b{font-size:12.5px}.bband .bn{font-size:11px}
+.bl{padding:4px 8px 4px 11px}.bl b{font-size:12px}.bl small{font-size:10px}
+.bc{padding:3px 4px;gap:3px;min-height:32px}
+.dchip{gap:4px;padding:1px 7px 1px 1px;font-size:11.5px}
+.dav{width:18px;height:18px;font-size:8.5px}
+.dav.lg{width:36px;height:36px;font-size:13px}
+.boff{position:sticky;top:0;background:var(--surface)}
+.boff-h{display:flex;align-items:center;gap:7px;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--surface-2);font-size:12.5px}
+.boff-h .ic{width:15px;height:15px;color:var(--muted)}
+.boff-h small{margin-left:auto;font-size:10.5px;color:var(--faint);text-align:right;line-height:1.2}
+.boff-d{padding:7px 12px 8px;border-bottom:1px solid var(--line);transition:background .15s}
+.boff-d:last-child{border-bottom:0}
+.boff-d.today{background:var(--brand-soft)}
+.boff-dh{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-bottom:5px}
+.boff-dh b{font-size:12px}.boff-dh span{font-size:10.5px;color:var(--muted);white-space:nowrap}
+.boff-c{display:flex;flex-wrap:wrap;gap:3px}
+.boff-c .none{font-size:11px;color:var(--faint)}
+.boff-away{padding:8px 12px 9px;border-bottom:1px solid var(--line);background:var(--amber-bg,#fff8e6)}
+.boff-ar{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:4px}
+.boff-ar>span{font-size:10.5px;color:var(--muted);white-space:nowrap}
+.boff-d.dropok{box-shadow:inset 0 0 0 2px var(--brand);background:var(--brand-soft2)}
+@media (max-width:1100px){.bwrap{grid-template-columns:1fr}.bwrap>.board-wrap{border-right:0}.boff{position:static;border-top:1px solid var(--line)}.boff-days{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.boff-d{border-right:1px solid var(--line)}}
 @media (max-width:720px){.board{grid-template-columns:104px repeat(7,minmax(112px,1fr));min-width:888px}.bl{padding:6px 6px 6px 10px}.bl b{font-size:12px}.btool .inp.sm{max-width:160px}}
 `;
 
