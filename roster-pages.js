@@ -165,7 +165,7 @@ export function renderStaff(main) {
   const contacts = can('contacts');
   const list = R.state.staff.filter(s => (!SF.q || (s.name + ' ' + (s.emp_id || '') + ' ' + s.designation).toLowerCase().includes(SF.q.toLowerCase())) && (!SF.dep || s.department_id === SF.dep) && (!SF.des || s.designation === SF.des) && (!SF.status || s.status === SF.status)).sort((a, b) => a.name.localeCompare(b.name));
   main.innerHTML = `<div class="page">
-    <div class="ph"><div><h1>Staff directory</h1><p>${R.state.staff.filter(s => s.status === 'Active').length} active staff across ${new Set(R.state.staff.map(s => s.department_id)).size} departments${R.mode === 'demo' ? ' · <b>demo data</b> (fictional)' : ''}</p></div>
+    <div class="ph"><div><h1>Staff directory</h1><p>${R.state.staff.filter(s => s.status === 'Active').length} active staff across ${new Set(R.state.staff.map(s => s.department_id)).size} departments${R.mode === 'demo' ? ' · <b>sample data</b>' : ''}</p></div>
       <div class="row"><button class="btn" data-exp>${icon('download')}Export</button>${can('staff_edit') ? `<button class="btn primary" data-new>${icon('plus')}Add staff</button>` : ''}</div></div>
     <div class="rtool-2" style="margin-bottom:12px">
       <label class="search">${icon('search')}<input data-q placeholder="Search name, ID or designation…" value="${esc(SF.q)}"></label>

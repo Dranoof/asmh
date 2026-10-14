@@ -1,103 +1,174 @@
 /* =====================================================================
- * ASMH Duty Roster — DEMO DATA (fictional people, generated locally).
+ * ASMH Duty Roster — SAMPLE DATA (generated locally in the browser).
  * Used only when no roster server is connected (e.g. on github.io).
- * Built through the real engine actions so it behaves like live data.
+ * The week of 11–17 Oct 2026 is the ASMH Medical Officers duty roster
+ * exactly as issued; other weeks repeat that pattern with the doctors
+ * rotated. Built through the real engine actions so it behaves like
+ * live data.
  * ===================================================================== */
 import * as E from './roster-engine.js';
 
-const FIRST = ['Aishath', 'Mariyam', 'Fathimath', 'Hawwa', 'Aminath', 'Ahmed', 'Mohamed', 'Ibrahim', 'Hassan', 'Ali', 'Hussain', 'Ismail', 'Zeena', 'Shifa', 'Nashid', 'Riyaz', 'Priya', 'Anil', 'Sunita', 'Ramesh', 'Farah', 'Imran', 'Nadia', 'Kamal', 'Leena', 'Rohan', 'Thilini', 'Kasun', 'Meera', 'Sajid'];
-const LAST = ['Rasheed', 'Naseer', 'Shareef', 'Waheed', 'Hameed', 'Saeed', 'Latheef', 'Manik', 'Zahir', 'Moosa', 'Sharma', 'Perera', 'Khan', 'Fernando', 'Nair', 'Hossain', 'Thapa', 'Silva', 'Rao', 'Ahmed'];
+/** the issued sheet's week (Sunday) */
+export const SAMPLE_WEEK = '2026-10-11';
 
-function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
-
-/** department plan: [dept id, [[designation, count], ...], [[template id, required per day, designation?], ...]] */
-const PLAN = [
-  ['dep_ed', [['Consultant', 3], ['Medical Officer', 7]], [['tpl_morning', 2, 'Medical Officer'], ['tpl_evening', 2, 'Medical Officer'], ['tpl_night', 1, 'Medical Officer'], ['tpl_oncall', 1, 'Consultant']]],
-  ['dep_med', [['Specialist', 4], ['Medical Officer', 3]], [['tpl_day', 1, 'Specialist'], ['tpl_oncall', 1, 'Specialist'], ['tpl_morning', 1, 'Medical Officer'], ['tpl_night', 1, 'Medical Officer']]],
-  ['dep_surg', [['Specialist', 4], ['Medical Officer', 4]], [['tpl_day', 1, 'Specialist'], ['tpl_oncall', 1, 'Specialist'], ['tpl_h24', 1, 'Medical Officer']]],
-  ['dep_paed', [['Specialist', 4], ['Medical Officer', 2]], [['tpl_day', 1, 'Specialist'], ['tpl_oncall', 1, 'Specialist']]],
-  ['dep_obg', [['Specialist', 3], ['Medical Officer', 2]], [['tpl_day', 1, 'Specialist'], ['tpl_oncall', 1, 'Specialist']]],
-  ['dep_anaes', [['Specialist', 3]], [['tpl_oncall', 1, 'Specialist']]],
-  ['dep_rad', [['Specialist', 1]], [['tpl_day', 1, 'Specialist']]]
+/** departments used by the MO roster (service areas on the sheet) */
+const DEPTS = [
+  ['MO', 'Medical Officers', '#05557a'],
+  ['ER', 'Emergency (ER)', '#e11d48'],
+  ['WARD', 'Ward', '#7c3aed'],
+  ['OPD', 'General OPD', '#0d9488'],
+  ['PAED', 'Paediatrics', '#0891b2'],
+  ['SURG', 'General Surgery', '#9333ea'],
+  ['OBG', 'Obstetrics & Gynaecology', '#db2777'],
+  ['IM', 'Internal Medicine', '#2563eb']
 ];
+
+/** one shift template per sheet row: [key, name, start, end, kind, department code] */
+export const MO_TEMPLATES = [
+  ['n_er', 'Night · ER', '00:00', '08:00', 'night', 'ER'],
+  ['n_ward', 'Night · Ward', '00:00', '08:00', 'night', 'WARD'],
+  ['m_opd', 'Morning · General OPD', '08:00', '16:00', 'morning', 'OPD'],
+  ['m_er_tl', 'Morning · ER (team leader)', '08:00', '16:00', 'morning', 'ER'],
+  ['m_er', 'Morning · ER', '08:00', '16:00', 'morning', 'ER'],
+  ['m_paed', 'Morning · Paediatrics', '08:00', '16:00', 'morning', 'PAED'],
+  ['m_surg', 'Morning · G. Surgery', '08:00', '16:00', 'morning', 'SURG'],
+  ['m_obg', 'Morning · OBG', '08:00', '16:00', 'morning', 'OBG'],
+  ['m_surgobg', 'Morning · G. Surgery + OBG', '08:00', '16:00', 'morning', 'SURG'],
+  ['m_im', 'Morning · IM', '08:00', '16:00', 'morning', 'IM'],
+  ['admin', 'DIC-Admin / Relief MO', '08:00', '16:00', 'day', 'MO'],
+  ['relief', 'Relief MO (1200–2000)', '12:00', '20:00', 'day', 'MO'],
+  ['e_opd1', 'Evening · General OPD 1', '16:00', '00:00', 'evening', 'OPD'],
+  ['e_opd2', 'Evening · General OPD 2', '16:00', '00:00', 'evening', 'OPD'],
+  ['e_opd', 'Evening · General OPD 1 + 2', '16:00', '00:00', 'evening', 'OPD'],
+  ['e_er_tl', 'Evening · ER (team leader)', '16:00', '00:00', 'evening', 'ER'],
+  ['e_er', 'Evening · ER', '16:00', '00:00', 'evening', 'ER'],
+  ['e_paed', 'Evening · Paediatrics', '16:00', '00:00', 'evening', 'PAED'],
+  ['e_surgobg', 'Evening · G. Surgery / OBG', '16:00', '00:00', 'evening', 'SURG'],
+  ['e_paedsurg', 'Evening · Paeds + G. Surgery / OBG', '16:00', '00:00', 'evening', 'PAED'],
+  ['e_im', 'Evening · IM', '16:00', '00:00', 'evening', 'IM']
+];
+
+/** Medical Officers on the sheet (short names as written on the roster) */
+const MOS = ['Amran', 'Lama', 'Nahaa', 'Hay Mar', 'Myo', 'Shamsu', 'Wai Mar', 'Win', 'Saad', 'Anoof', 'Kay', 'Thet', 'Manik', 'Zimaamu', 'Nafiz', 'Anaan', 'Hnin', 'Maha', 'Afa'];
+/** MOs away for the sample week: [name, leave type, remarks] */
+const AWAY = [['Maryam', 'Annual leave', 'AL'], ['Rebika', 'Official duty', 'Deputation to Gadhdhoo'], ['Mehtab', 'Official duty', 'Deputation to Faresmathoda']];
+
+/**
+ * The issued roster, 11–17 Oct 2026 (Sun → Sat).
+ * Each entry is a list of doctors, null = no duty for that row that day.
+ * Merged cells on the sheet use the combined templates (m_surgobg, e_opd, e_paedsurg).
+ */
+const _ = null;
+const WEEK = {
+  n_er:      [['Amran'], ['Lama'], ['Nahaa'], ['Hay Mar'], ['Myo'], ['Shamsu'], ['Wai Mar']],
+  n_ward:    [['Lama'], ['Nahaa'], ['Hay Mar'], ['Myo'], ['Shamsu'], ['Wai Mar'], ['Win']],
+  m_opd:     [['Win'], ['Myo'], ['Saad'], ['Anoof'], ['Kay'], ['Thet'], ['Amran']],
+  m_er_tl:   [['Hay Mar'], ['Hnin'], ['Nafiz', 'Anaan'], ['Maha'], ['Nahaa'], ['Manik'], ['Zimaamu']],
+  m_er:      [['Thet'], ['Saad'], ['Anoof'], ['Wai Mar'], ['Amran'], ['Kay'], ['Thet']],
+  m_paed:    [['Hnin'], ['Thet'], ['Shamsu'], ['Shamsu'], ['Anoof'], ['Amran'], ['Hnin']],
+  m_surg:    [_, ['Anaan'], _, _, ['Manik'], _, ['Manik']],
+  m_obg:     [_, ['Hay Mar'], _, _, ['Maha'], _, ['Lama']],
+  m_surgobg: [['Zimaamu'], _, ['Maha'], ['Anaan'], _, ['Nahaa'], _],
+  m_im:      [['Kay'], ['Win'], ['Myo'], ['Nafiz'], ['Wai Mar'], ['Win'], ['Kay']],
+  admin:     [['Afa'], ['Afa'], ['Afa'], ['Afa'], ['Afa'], _, _],
+  relief:    [['Saad'], _, _, ['Amran'], _, ['Lama'], ['Nafiz']],
+  e_opd:     [['Manik'], ['Wai Mar'], ['Thet'], _, ['Nafiz'], _, _],
+  e_opd1:    [_, _, _, ['Lama'], _, ['Hnin'], ['Nahaa']],
+  e_opd2:    [_, _, _, ['Saad'], _, ['Saad'], ['Maha']],
+  e_er_tl:   [['Nafiz'], ['Manik'], ['Amran'], ['Thet'], ['Zimaamu'], ['Anoof'], ['Anaan']],
+  e_er:      [['Wai Mar'], ['Shamsu'], ['Kay'], ['Win'], ['Hnin'], ['Hay Mar'], ['Myo']],
+  e_paedsurg:[['Shamsu'], ['Zimaamu'], ['Manik'], ['Zimaamu'], ['Anaan'], ['Maha'], ['Hay Mar']],
+  e_im:      [['Maha'], ['Kay'], ['Win'], ['Hnin'], ['Lama'], ['Nafiz'], ['Anoof']]
+};
+/** notes written in cells on the sheet: [template key, day index, note] */
+const NOTES = [['m_er', 2, 'Home Visit']];
 
 export const DEMO_ADMIN = { email: 'demo.admin@asmh.demo', role: 'admin', staff_id: null, dept_scope: null, name: 'Demo Administrator' };
 
+const nm = n => 'Dr ' + n;
+const mail = n => n.toLowerCase().replace(/\s+/g, '.') + '@asmh.demo';
+
 export function buildDemo(now = Date.now()) {
   const S = E.seedConfig(E.emptyState(), now);
-  const rand = rng(42);
-  const pick = a => a[Math.floor(rand() * a.length)];
   const A = DEMO_ADMIN;
-  const act = (a, p) => { try { return E.apply(S, A, a, p, now); } catch (e) { return null; } };
-  const used = new Set();
-  const name = (des) => { let n; do { n = pick(FIRST) + ' ' + pick(LAST); } while (used.has(n)); used.add(n); return (['Consultant', 'Specialist', 'Medical Officer'].includes(des) ? 'Dr. ' : '') + n; };
+  const act = (a, p) => E.apply(S, A, a, p, now).result;
+  const soft = (a, p) => { try { return E.apply(S, A, a, p, now).result; } catch (e) { return null; } };
 
-  let emp = 1001;
-  for (const [dep, roles] of PLAN) for (const [des, n] of roles) for (let i = 0; i < n; i++) {
-    const nm = name(des), id = 'ASMH-' + emp++;
-    act('staff.save', { name: nm, designation: des, department_id: dep, emp_id: id, email: nm.replace(/^Dr\. /, '').toLowerCase().replace(/\s+/g, '.') + '@asmh.demo', phone: '+960 7' + Math.floor(100000 + rand() * 899999), status: 'Active' });
+  // replace default departments/templates with the MO roster structure
+  S.settings[0] = Object.assign({}, S.settings[0], { min_rest_hours: 8 });   // as practised on the issued MO roster
+  S.department = DEPTS.map(([code, name, color], i) => ({ id: 'dep_' + code.toLowerCase(), code, name, color, active: true, sort: i, created_at: now }));
+  S.template = MO_TEMPLATES.map(([key, name, start, end, kind], i) => ({ id: 'tpl_' + key, name, start, end, kind, color: E.SHIFT_KINDS[kind].color, active: true, sort: i, rest_exempt: false }));
+  const depOf = Object.fromEntries(MO_TEMPLATES.map(r => [r[0], 'dep_' + r[5].toLowerCase()]));
+  const tplOf = Object.fromEntries(MO_TEMPLATES.map(r => [r[0], r]));
+
+  // staff
+  let emp = 2001;
+  const id = {};
+  for (const n of MOS.concat(AWAY.map(a => a[0]))) {
+    const r = act('staff.save', { name: nm(n), designation: 'Medical Officer', department_id: 'dep_mo', emp_id: 'ASMH-' + emp++, email: mail(n), phone: '', status: 'Active' });
+    id[n] = r.id;
   }
-  // a few illustrative statuses
-  const someone = S.staff[5]; act('staff.save', Object.assign({}, someone, { availability: 'No night duties (approved medical note)' }));
 
-  // staffing requirements
-  for (const [dep, , slots] of PLAN) for (const [tpl, req] of slots) act('requirement.save', { department_id: dep, template_id: tpl, required: req });
-
-  // shifts for last week → three weeks ahead
-  const today = E.todayStr(now), ws = E.weekStartOf(today, 0);
-  const start = E.addDays(ws, -7), end = E.addDays(ws, 27);
-  const tplName = id => S.template.find(t => t.id === id);
-  for (const [dep, , slots] of PLAN) {
-    for (const [tpl, req, des] of slots) {
-      const t = tplName(tpl);
-      for (let d = E.dayNum(start); d <= E.dayNum(end); d++) {
-        const date = E.dayStr(d);
-        if ((tpl === 'tpl_day') && E.isWeekend(date)) continue;               // day duty: working days only
-        act('shift.save', { date, start: t.start, end: t.end, department_id: dep, template_id: tpl, required: req, designation: des, name: t.name + (des && !['Consultant', 'Specialist'].includes(des) ? ' · ' + (des === 'Medical Officer' ? 'MO' : des) : ''), location: dep === 'dep_ed' ? 'Emergency' : '' });
-      }
+  // weeks: one before the sheet, the sheet, and following weeks up to 3 weeks past today
+  const today = E.todayStr(now), curWs = E.weekStartOf(today, 0);
+  const lastWeek = Math.min(12, Math.max(3, Math.round((E.dayNum(curWs) - E.dayNum(SAMPLE_WEEK)) / 7) + 3));
+  const draftFrom = Math.max(2, Math.round((E.dayNum(curWs) - E.dayNum(SAMPLE_WEEK)) / 7) + 2);   // weeks from here stay drafts
+  const N = MOS.length;
+  // duty spans per doctor in the issued week (minutes from Sunday 00:00), for rotation checks
+  const spans = {};
+  for (const [key, days] of Object.entries(WEEK)) days.forEach((docs, d) => (docs || []).forEach(n => {
+    const t = tplOf[key], s = d * 1440 + E.toMin(t[2]); let e = d * 1440 + E.toMin(t[3]); if (e <= s) e += 1440;
+    (spans[n] = spans[n] || []).push({ s, e, night: t[4] === 'night' });
+  }));
+  // how badly two consecutive weeks fit together for a doctor rotation (rest < 8 h, overlaps, >3 nights in a row)
+  const clash = (rotA, rotB) => {
+    let bad = 0;
+    for (const n of MOS) {
+      const a = spans[MOS[((MOS.indexOf(n) - rotA) % N + N) % N]] || [], b = spans[MOS[((MOS.indexOf(n) - rotB) % N + N) % N]] || [];
+      const lastA = Math.max(-1e9, ...a.map(x => x.e)) - 7 * 1440, firstB = Math.min(1e9, ...b.map(x => x.s));
+      if (firstB - lastA < 8 * 60) bad++;
+      const nA = a.filter(x => x.night && x.s >= 4 * 1440).length, nB = b.filter(x => x.night && x.s < 3 * 1440).length;
+      if (nA && nB && nA + nB > 3) bad++;
+    }
+    return bad;
+  };
+  const rots = { 0: 0 };
+  for (let k = 1; k <= lastWeek; k++) { let best = 1, bv = 1e9; for (let r = 1; r < N; r++) { if (r === rots[k - 1]) continue; const v = clash(rots[k - 1], r); if (v < bv) { bv = v; best = r; } } rots[k] = best; }
+  { let best = 1, bv = 1e9; for (let r = 1; r < N; r++) { const v = clash(r, 0); if (v < bv) { bv = v; best = r; } } rots[-1] = best; }
+  for (let k = -1; k <= lastWeek; k++) {
+    const ws = E.addDays(SAMPLE_WEEK, 7 * k);
+    // rotate doctors for weeks other than the issued sheet (k = 0 is exact)
+    const rot = rots[k];
+    const who = n => MOS[(MOS.indexOf(n) + rot) % N];
+    for (const [key, days] of Object.entries(WEEK)) {
+      const t = tplOf[key];
+      days.forEach((docs, d) => {
+        if (!docs) return;
+        const date = E.addDays(ws, d);
+        const note = k === 0 ? (NOTES.find(x => x[0] === key && x[1] === d) || [])[2] : '';
+        const staff = docs.map(who);
+        const sh = act('shift.save', { date, start: t[2], end: t[3], department_id: depOf[key], template_id: 'tpl_' + key, name: t[1], required: docs.length, designation: 'Medical Officer', notes: note || '' });
+        // later draft weeks: leave a few rows open so the builder has gaps to fill
+        const gap = k >= draftFrom && (d * 7 + key.length) % 11 === 0;
+        if (!gap) for (const s of staff) act('assign.add', { shift_id: sh.id, staff_id: id[s], force: true });
+      });
     }
   }
-  // fill with the engine's generator, then leave gaps in later weeks
-  act('roster.generate', { start, end: E.addDays(ws, 13) });
-  act('roster.proposals', { decision: 'approve', start, end: E.addDays(ws, 13) });
-  act('roster.generate', { start: E.addDays(ws, 14), end });
-  // remove some proposals in week 3–4 so the demo has unassigned shifts to work on
-  S.assignment.filter(a => a.proposed).forEach((a, i) => { if (i % 3 === 0) E.apply(S, A, 'assign.remove', { shift_id: a.shift_id, staff_id: a.staff_id }, now); });
-  act('roster.proposals', { decision: 'approve', start: E.addDays(ws, 14), end });
-  // publish last week, this week and next week; weeks 3-4 stay drafts
-  act('roster.publish', { start, end: E.addDays(ws, -1), note: 'Demo: previous week' });
-  act('roster.publish', { start: ws, end: E.addDays(ws, 13), note: 'Demo: current and next week approved' });
-  // a couple of draft edits on this week, and two unassigned slots tomorrow
-  const tomorrow = E.addDays(today, 1);
-  const edShift = S.shift.find(s => s.department_id === 'dep_ed' && s.date === tomorrow && s.template_id === 'tpl_evening');
-  if (edShift) { const ids = E.staffIdsOf(S, edShift); if (ids[0]) act('assign.remove', { shift_id: edShift.id, staff_id: ids[0] }); }
-  act('shift.save', { date: tomorrow, start: '10:00', end: '18:00', department_id: 'dep_surg', name: 'Elective list (extra) · MO', required: 1, designation: 'Medical Officer', location: 'Theatre 2', notes: 'Additional orthopaedic list' });
+  const firstDay = E.addDays(SAMPLE_WEEK, -7);
+  const pubEnd = E.addDays(SAMPLE_WEEK, 7 * draftFrom - 1);
+  soft('roster.publish', { start: firstDay, end: E.addDays(SAMPLE_WEEK, -1), note: 'Previous week' });
+  soft('roster.publish', { start: SAMPLE_WEEK, end: E.addDays(SAMPLE_WEEK, 6), note: 'MO duty roster 11–17 Oct 2026 · prepared by Dr Afa' });
+  if (pubEnd > E.addDays(SAMPLE_WEEK, 6)) soft('roster.publish', { start: E.addDays(SAMPLE_WEEK, 7), end: pubEnd, note: 'Following week(s)' });
 
-  // leave and exchange requests
-  const mo = S.staff.filter(s => s.designation === 'Medical Officer' && s.department_id === 'dep_ed');
-  const asStaff = st => ({ email: st.email, role: 'staff', staff_id: st.id, name: st.name });
-  try { E.apply(S, asStaff(mo[3]), 'leave.create', { type: 'Annual leave', start: E.addDays(ws, 16), end: E.addDays(ws, 20), remarks: 'Family trip to Malé' }, now); } catch (e) {}
-  try { E.apply(S, asStaff(mo[1]), 'leave.create', { type: 'Study leave', start: E.addDays(ws, 23), end: E.addDays(ws, 24), remarks: 'ACLS course' }, now); } catch (e) {}
-  try { const l = E.apply(S, asStaff(mo[2]), 'leave.create', { type: 'Sick leave', start: E.addDays(today, -3), end: E.addDays(today, -2), remarks: '' }, now).result; act('leave.decide', { id: l.id, decision: 'approve' }); } catch (e) {}
-  // exchange request between two ED MOs on a published shift later this week
-  for (const s of S.shift) {
-    if (!s.published || s.department_id !== 'dep_ed' || s.date <= tomorrow || s.date > E.addDays(ws, 13)) continue;
-    const from = s.published.staff_ids.find(id => mo.some(m => m.id === id));
-    const to = from && mo.find(m => m.id !== from && !s.published.staff_ids.includes(m.id) && !E.checkAssign(S, s.id, m.id, 'published').some(x => x.hard));
-    if (from && to) {
-      try {
-        const sw = E.apply(S, asStaff(S.staff.find(x => x.id === from)), 'swap.create', { shift_id: s.id, to_staff_id: to.id, reason: 'Personal commitment' }, now).result;
-        E.apply(S, asStaff(to), 'swap.respond', { id: sw.id, accept: true }, now);
-        break;
-      } catch (e) {}
-    }
+  // leave / deputation shown on the sheet
+  const asStaff = n => ({ email: mail(n), role: 'staff', staff_id: id[n], name: nm(n) });
+  for (const [n, type, remarks] of AWAY) {
+    try { const l = E.apply(S, asStaff(n), 'leave.create', { type, start: SAMPLE_WEEK, end: E.addDays(SAMPLE_WEEK, 6), remarks }, now).result; act('leave.decide', { id: l.id, decision: 'approve' }); } catch (e) {}
   }
+
   // demo users (roles) — for the role switcher
   S.user.push({ id: A.email, email: A.email, role: 'admin', staff_id: null, dept_scope: null, active: true, demo: true });
-  const edCons = S.staff.find(s => s.department_id === 'dep_ed' && s.designation === 'Consultant');
-  S.user.push({ id: edCons.email, email: edCons.email, role: 'roster_admin', staff_id: edCons.id, dept_scope: ['dep_ed'], active: true, demo: true });
-  const paedSp = S.staff.find(s => s.department_id === 'dep_paed' && s.designation === 'Specialist');
-  S.user.push({ id: paedSp.email, email: paedSp.email, role: 'supervisor', staff_id: paedSp.id, dept_scope: ['dep_paed'], active: true, demo: true });
+  S.user.push({ id: mail('Afa'), email: mail('Afa'), role: 'roster_admin', staff_id: id.Afa, dept_scope: null, active: true, demo: true });
   S.demo = true;
   return S;
 }
@@ -105,7 +176,7 @@ export function buildDemo(now = Date.now()) {
 /** demo personas offered in the "View as" switcher */
 export function demoPersonas(S) {
   const u = S.user.filter(x => x.demo);
-  const staffMo = S.staff.find(s => s.designation === 'Medical Officer' && s.department_id === 'dep_ed');
+  const staffMo = S.staff.find(s => s.email === mail('Anoof')) || S.staff.find(s => s.designation === 'Medical Officer');
   const list = u.map(x => ({ key: x.email, label: (E.ROLE_LABEL[x.role]) + (x.staff_id ? ' — ' + (S.staff.find(s => s.id === x.staff_id) || {}).name : ''), actor: { email: x.email, role: x.role, staff_id: x.staff_id, dept_scope: x.dept_scope, name: x.staff_id ? (S.staff.find(s => s.id === x.staff_id) || {}).name : 'Demo Administrator' } }));
   if (staffMo) list.push({ key: staffMo.email, label: 'Staff — ' + staffMo.name, actor: { email: staffMo.email, role: 'staff', staff_id: staffMo.id, dept_scope: null, name: staffMo.name } });
   return list;

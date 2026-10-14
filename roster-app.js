@@ -21,7 +21,7 @@ function draw() {
   try { ROUTES[current](main); } catch (e) { console.error(e); main.innerHTML = `<div class="page"><div class="errbox">Something went wrong displaying this page: ${esc(e.message)}</div></div>`; }
   if (R.mode === 'demo') {
     const pg = main.querySelector('.page');
-    if (pg && !pg.querySelector('.banner.demo')) pg.insertAdjacentHTML('afterbegin', `<div class="banner demo">${icon('alert')}<span><b>Demo data.</b> Fictional staff and shifts generated in your browser — nothing is sent to a server. Viewing as <b>${esc(R.me.name)}</b> (${esc(E.ROLE_LABEL[R.me.role])}).</span></div>`);
+    if (pg && !pg.querySelector('.banner.demo')) pg.insertAdjacentHTML('afterbegin', `<div class="banner demo">${icon('alert')}<span><b>Sample data.</b> MO duty roster for 11–17 Oct 2026 as issued; other weeks follow the same pattern. Changes stay in your browser — nothing is sent to a server. Viewing as <b>${esc(R.me.name)}</b> (${esc(E.ROLE_LABEL[R.me.role])}).</span></div>`);
   }
   if (current !== 'roster') main.scrollTop = y;
   chrome();
@@ -36,7 +36,7 @@ function chrome() {
   const pill = $('#modePill');
   pill.className = 'mode-pill ' + R.mode;
   pill.textContent = R.mode === 'demo' ? 'Demo data' : 'Live · synced';
-  pill.title = R.mode === 'demo' ? 'No roster server is connected. This is fictional demo data saved only in this browser.' : 'Connected to the ASMH roster server. Changes sync to all devices.';
+  pill.title = R.mode === 'demo' ? 'No roster server is connected. This is sample roster data saved only in this browser.' : 'Connected to the ASMH roster server. Changes sync to all devices.';
   $$('.admin-only').forEach(el => (el.hidden = !(can('audit') || can('settings'))));
   const unread = R.state.notif.filter(n => !n.read).length;
   $('#bellBadge').hidden = !unread; $('#bellBadge').textContent = unread;
@@ -46,7 +46,7 @@ function chrome() {
   $('#nbReq').hidden = !req; $('#nbReq').textContent = req;
   const toAck = me.staff_id ? R.state.version.filter(v => (v.affected || []).includes(me.staff_id) && !R.state.ack.some(a => a.version_id === v.id && a.staff_id === me.staff_id)).length : 0;
   $('#nbMy').hidden = !toAck; $('#nbMy').textContent = toAck;
-  $('#sideFoot').innerHTML = R.mode === 'demo' ? 'Demo mode: fictional staff, saved in this browser only. Connect the roster server to go live.' : 'Signed in as ' + esc(me.email) + (staff ? '<br>' + esc(staff.designation) : '');
+  $('#sideFoot').innerHTML = R.mode === 'demo' ? 'Demo mode: sample MO roster, saved in this browser only. Connect the roster server to go live.' : 'Signed in as ' + esc(me.email) + (staff ? '<br>' + esc(staff.designation) : '');
 }
 function bell() {
   const pop = $('#bellPop');
@@ -116,6 +116,6 @@ function wire() {
   route();
   if (R.mode === 'demo' && !sessionStorage.getItem('asmh_roster_demo_seen')) {
     try { sessionStorage.setItem('asmh_roster_demo_seen', '1'); } catch (e) {}
-    toast('Demo mode — fictional staff and shifts. Use the account menu to try other roles.');
+    toast('Demo mode — sample MO roster. Use the account menu to try other roles.');
   }
 })();

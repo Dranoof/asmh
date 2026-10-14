@@ -13,7 +13,7 @@ export const R = {
   listeners: new Set(),
   audit: []               // demo audit log
 };
-const DEMO_KEY = 'asmh_roster_demo_v2';
+const DEMO_KEY = 'asmh_roster_demo_v3';
 
 /* ------------------------------------------------------------------ */
 /* DOM + formatting helpers                                            */
@@ -84,7 +84,7 @@ async function startDemo() {
   try { saved = JSON.parse(localStorage.getItem(DEMO_KEY) || 'null'); } catch (e) {}
   const fresh = !saved || saved.v !== E.VERSION || !saved.built || Date.now() - saved.built > 6 * 864e5;
   R.full = fresh ? buildDemo() : saved.state;
-  R.audit = fresh ? [{ at: Date.now(), actor: 'system', action: 'demo.build', summary: 'Demo data generated (fictional staff)' }] : (saved.audit || []);
+  R.audit = fresh ? [{ at: Date.now(), actor: 'system', action: 'demo.build', summary: 'Sample MO roster loaded' }] : (saved.audit || []);
   R.personas = demoPersonas(R.full);
   const pk = (saved && !fresh && saved.persona) || R.personas[0].key;
   R.me = (R.personas.find(p => p.key === pk) || R.personas[0]).actor;
