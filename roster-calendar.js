@@ -639,7 +639,9 @@ function renderSheet(cal, from) {
   const mos = R.state.staff.filter(s => s.designation === 'Medical Officer' && s.status !== 'Inactive').sort((a, b) => a.name.localeCompare(b.name));
   if (focusId && !staffById(focusId)) focusId = null;
   const editor = can('edit') && showMode() === 'draft';
-  cal.innerHTML = `<div class="btool">
+  cal.innerHTML = `<div class="bwrap ${focusId ? 'focusing' : ''}" id="bwrap">
+    <section class="bmain">
+    <div class="btool">
       <div class="bt-l"><b>Medical Officers duty roster</b><span class="muted small">${esc(fmt.range(from, E.addDays(from, 6)))} · ${editor ? 'click a duty to edit · drag doctors to move them' : 'click a doctor to see their week'}</span></div>
       <div class="bt-r">
         ${R.me.staff_id ? `<button class="btn sm ${focusId === R.me.staff_id ? 'primary' : ''}" data-mine>${icon('user')}My duties</button>` : ''}
@@ -647,10 +649,10 @@ function renderSheet(cal, from) {
         <button class="btn sm" data-printsheet>${icon('print')}Print sheet</button>
       </div></div>
     <div id="bfocus">${focusCard(from)}</div>
-    <div class="bwrap ${focusId ? 'focusing' : ''}" id="bwrap">
-      <div class="board-wrap"><div class="board" id="board">${boardHTML(from)}</div></div>
-      ${offSideHTML(sheetModel(from), editor)}
-    </div>`;
+    <div class="board-wrap"><div class="board" id="board">${boardHTML(from)}</div></div>
+    </section>
+    ${offSideHTML(sheetModel(from), editor)}
+  </div>`;
   const board = $('#bwrap', cal);
   const setFocus = id => { focusId = focusId === id ? null : id; renderSheet(cal, from); };
   // hover highlight across the week
@@ -789,8 +791,10 @@ const BOARD_CSS = `
 [data-theme="dark"] .dchip.hit{background:#854d0e;color:#fff}
 /* compact layout + Off & away side panel */
 .btool{padding:10px 14px}
-.bwrap{display:grid;grid-template-columns:minmax(0,1fr) 240px;align-items:start}
-.bwrap>.board-wrap{min-width:0;border-right:1px solid var(--line)}
+.cal.cal-sheet{background:transparent;border:0;box-shadow:none;border-radius:0}
+.bwrap{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:16px;align-items:start}
+.bmain,.boff{background:var(--surface);border:1px solid var(--line);border-radius:var(--r,12px);box-shadow:var(--shadow);overflow:hidden}
+.bmain{min-width:0}
 .board{grid-template-columns:118px repeat(7,minmax(98px,1fr));min-width:804px}
 .bh{padding:7px 7px 6px}
 .bh.day{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 5px}
@@ -804,7 +808,7 @@ const BOARD_CSS = `
 .dchip{gap:4px;padding:1px 7px 1px 1px;font-size:11.5px}
 .dav{width:18px;height:18px;font-size:8.5px}
 .dav.lg{width:36px;height:36px;font-size:13px}
-.boff{position:sticky;top:0;background:var(--surface)}
+.boff{position:static}
 .boff-h{display:flex;align-items:center;gap:7px;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--surface-2);font-size:12.5px}
 .boff-h .ic{width:15px;height:15px;color:var(--muted)}
 .boff-h small{margin-left:auto;font-size:10.5px;color:var(--faint);text-align:right;line-height:1.2}
@@ -819,7 +823,7 @@ const BOARD_CSS = `
 .boff-ar{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:4px}
 .boff-ar>span{font-size:10.5px;color:var(--muted);white-space:nowrap}
 .boff-d.dropok{box-shadow:inset 0 0 0 2px var(--brand);background:var(--brand-soft2)}
-@media (max-width:1100px){.bwrap{grid-template-columns:1fr}.bwrap>.board-wrap{border-right:0}.boff{position:static;border-top:1px solid var(--line)}.boff-days{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.boff-d{border-right:1px solid var(--line)}}
+@media (max-width:1100px){.bwrap{grid-template-columns:1fr}.boff{position:static}.boff-days{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.boff-d{border-right:1px solid var(--line)}}
 @media (max-width:720px){.board{grid-template-columns:104px repeat(7,minmax(112px,1fr));min-width:888px}.bl{padding:6px 6px 6px 10px}.bl b{font-size:12px}.btool .inp.sm{max-width:160px}}
 `;
 
