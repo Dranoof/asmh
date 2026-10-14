@@ -839,7 +839,6 @@ function viewFor(state, actor) {
   if (!can(actor, "contacts")) v.staff.forEach((s) => {
     if (s.id !== actor.staff_id) {
       delete s.email;
-      delete s.phone;
     }
   });
   if (!can(actor, "users")) v.user = v.user.filter((u) => u.email === actor.email);
