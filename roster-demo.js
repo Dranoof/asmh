@@ -12,16 +12,13 @@ function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 10139
 
 /** department plan: [dept id, [[designation, count], ...], [[template id, required per day, designation?], ...]] */
 const PLAN = [
-  ['dep_ed', [['Consultant', 3], ['Medical Officer', 7], ['Nurse', 9]], [['tpl_morning', 2, 'Medical Officer'], ['tpl_evening', 2, 'Medical Officer'], ['tpl_night', 1, 'Medical Officer'], ['tpl_morning', 2, 'Nurse'], ['tpl_evening', 2, 'Nurse'], ['tpl_night', 2, 'Nurse'], ['tpl_oncall', 1, 'Consultant']]],
+  ['dep_ed', [['Consultant', 3], ['Medical Officer', 7]], [['tpl_morning', 2, 'Medical Officer'], ['tpl_evening', 2, 'Medical Officer'], ['tpl_night', 1, 'Medical Officer'], ['tpl_oncall', 1, 'Consultant']]],
   ['dep_med', [['Specialist', 4], ['Medical Officer', 3]], [['tpl_day', 1, 'Specialist'], ['tpl_oncall', 1, 'Specialist'], ['tpl_morning', 1, 'Medical Officer'], ['tpl_night', 1, 'Medical Officer']]],
   ['dep_surg', [['Specialist', 4], ['Medical Officer', 4]], [['tpl_day', 1, 'Specialist'], ['tpl_oncall', 1, 'Specialist'], ['tpl_h24', 1, 'Medical Officer']]],
-  ['dep_paed', [['Specialist', 4], ['Medical Officer', 2], ['Nurse', 3]], [['tpl_day', 1, 'Specialist'], ['tpl_oncall', 1, 'Specialist'], ['tpl_morning', 1, 'Nurse'], ['tpl_night', 1, 'Nurse']]],
+  ['dep_paed', [['Specialist', 4], ['Medical Officer', 2]], [['tpl_day', 1, 'Specialist'], ['tpl_oncall', 1, 'Specialist']]],
   ['dep_obg', [['Specialist', 3], ['Medical Officer', 2]], [['tpl_day', 1, 'Specialist'], ['tpl_oncall', 1, 'Specialist']]],
   ['dep_anaes', [['Specialist', 3]], [['tpl_oncall', 1, 'Specialist']]],
-  ['dep_rad', [['Specialist', 1], ['Technician', 3]], [['tpl_morning', 1, 'Technician'], ['tpl_evening', 1, 'Technician']]],
-  ['dep_lab', [['Technician', 4]], [['tpl_morning', 1, 'Technician'], ['tpl_evening', 1, 'Technician'], ['tpl_night', 1, 'Technician']]],
-  ['dep_nur', [['Nurse', 4]], [['tpl_day', 2, 'Nurse']]],
-  ['dep_ot', [['Nurse', 3], ['Technician', 1]], [['tpl_day', 2, 'Nurse']]]
+  ['dep_rad', [['Specialist', 1]], [['tpl_day', 1, 'Specialist']]]
 ];
 
 export const DEMO_ADMIN = { email: 'demo.admin@asmh.demo', role: 'admin', staff_id: null, dept_scope: null, name: 'Demo Administrator' };
@@ -56,7 +53,7 @@ export function buildDemo(now = Date.now()) {
       for (let d = E.dayNum(start); d <= E.dayNum(end); d++) {
         const date = E.dayStr(d);
         if ((tpl === 'tpl_day') && E.isWeekend(date)) continue;               // day duty: working days only
-        act('shift.save', { date, start: t.start, end: t.end, department_id: dep, template_id: tpl, required: req, designation: des, name: t.name + (des && !['Consultant', 'Specialist'].includes(des) ? ' · ' + (des === 'Medical Officer' ? 'MO' : des) : ''), location: dep === 'dep_ed' ? 'Emergency' : dep === 'dep_ot' ? 'Main theatre' : '' });
+        act('shift.save', { date, start: t.start, end: t.end, department_id: dep, template_id: tpl, required: req, designation: des, name: t.name + (des && !['Consultant', 'Specialist'].includes(des) ? ' · ' + (des === 'Medical Officer' ? 'MO' : des) : ''), location: dep === 'dep_ed' ? 'Emergency' : '' });
       }
     }
   }
@@ -74,13 +71,12 @@ export function buildDemo(now = Date.now()) {
   const tomorrow = E.addDays(today, 1);
   const edShift = S.shift.find(s => s.department_id === 'dep_ed' && s.date === tomorrow && s.template_id === 'tpl_evening');
   if (edShift) { const ids = E.staffIdsOf(S, edShift); if (ids[0]) act('assign.remove', { shift_id: edShift.id, staff_id: ids[0] }); }
-  act('shift.save', { date: tomorrow, start: '10:00', end: '18:00', department_id: 'dep_ot', name: 'Elective list (extra)', required: 2, designation: 'Nurse', location: 'Theatre 2', notes: 'Additional orthopaedic list' });
+  act('shift.save', { date: tomorrow, start: '10:00', end: '18:00', department_id: 'dep_surg', name: 'Elective list (extra) · MO', required: 1, designation: 'Medical Officer', location: 'Theatre 2', notes: 'Additional orthopaedic list' });
 
   // leave and exchange requests
-  const nurse = S.staff.find(s => s.designation === 'Nurse' && s.department_id === 'dep_ed');
   const mo = S.staff.filter(s => s.designation === 'Medical Officer' && s.department_id === 'dep_ed');
   const asStaff = st => ({ email: st.email, role: 'staff', staff_id: st.id, name: st.name });
-  try { E.apply(S, asStaff(nurse), 'leave.create', { type: 'Annual leave', start: E.addDays(ws, 16), end: E.addDays(ws, 20), remarks: 'Family trip to Malé' }, now); } catch (e) {}
+  try { E.apply(S, asStaff(mo[3]), 'leave.create', { type: 'Annual leave', start: E.addDays(ws, 16), end: E.addDays(ws, 20), remarks: 'Family trip to Malé' }, now); } catch (e) {}
   try { E.apply(S, asStaff(mo[1]), 'leave.create', { type: 'Study leave', start: E.addDays(ws, 23), end: E.addDays(ws, 24), remarks: 'ACLS course' }, now); } catch (e) {}
   try { const l = E.apply(S, asStaff(mo[2]), 'leave.create', { type: 'Sick leave', start: E.addDays(today, -3), end: E.addDays(today, -2), remarks: '' }, now).result; act('leave.decide', { id: l.id, decision: 'approve' }); } catch (e) {}
   // exchange request between two ED MOs on a published shift later this week
@@ -101,7 +97,7 @@ export function buildDemo(now = Date.now()) {
   const edCons = S.staff.find(s => s.department_id === 'dep_ed' && s.designation === 'Consultant');
   S.user.push({ id: edCons.email, email: edCons.email, role: 'roster_admin', staff_id: edCons.id, dept_scope: ['dep_ed'], active: true, demo: true });
   const paedSp = S.staff.find(s => s.department_id === 'dep_paed' && s.designation === 'Specialist');
-  S.user.push({ id: paedSp.email, email: paedSp.email, role: 'supervisor', staff_id: paedSp.id, dept_scope: ['dep_paed', 'dep_nur'], active: true, demo: true });
+  S.user.push({ id: paedSp.email, email: paedSp.email, role: 'supervisor', staff_id: paedSp.id, dept_scope: ['dep_paed'], active: true, demo: true });
   S.demo = true;
   return S;
 }

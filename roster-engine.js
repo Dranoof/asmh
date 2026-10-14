@@ -9,7 +9,7 @@ export const VERSION = '1.0.0';
 
 export const ROLES = { admin: 4, roster_admin: 3, supervisor: 2, staff: 1, viewer: 0 };
 export const ROLE_LABEL = { admin: 'Administrator', roster_admin: 'Roster administrator', supervisor: 'Supervisor', staff: 'Staff', viewer: 'Viewer' };
-export const DESIGNATIONS = ['Consultant', 'Specialist', 'Medical Officer', 'House Officer', 'Nurse', 'Technician', 'Other staff'];
+export const DESIGNATIONS = ['Consultant', 'Specialist', 'Medical Officer', 'House Officer'];
 export const LEAVE_TYPES = ['Annual leave', 'Sick leave', 'Family responsibility', 'Maternity / paternity', 'Study leave', 'Official duty', 'Other'];
 export const EMPLOYMENT = ['Active', 'On leave', 'Inactive'];
 export const KINDS = ['settings', 'department', 'template', 'staff', 'user', 'requirement', 'shift', 'assignment', 'leave', 'swap', 'version', 'ack', 'notif'];
@@ -31,10 +31,7 @@ export const DEFAULT_DEPARTMENTS = [
   ['PAED', 'Paediatrics', '#0891b2'],
   ['OBG', 'Obstetrics & Gynaecology', '#db2777'],
   ['ANAES', 'Anaesthesiology', '#0d9488'],
-  ['RAD', 'Radiology', '#4f46e5'],
-  ['LAB', 'Laboratory', '#ca8a04'],
-  ['NUR', 'Nursing', '#059669'],
-  ['OT', 'Operating Theatre', '#ea580c']
+  ['RAD', 'Radiology', '#4f46e5']
 ];
 
 export const DEFAULT_TEMPLATES = [

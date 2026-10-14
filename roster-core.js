@@ -13,7 +13,7 @@ export const R = {
   listeners: new Set(),
   audit: []               // demo audit log
 };
-const DEMO_KEY = 'asmh_roster_demo_v1';
+const DEMO_KEY = 'asmh_roster_demo_v2';
 
 /* ------------------------------------------------------------------ */
 /* DOM + formatting helpers                                            */

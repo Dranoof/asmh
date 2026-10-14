@@ -2,7 +2,7 @@
 var VERSION = "1.0.0";
 var ROLES = { admin: 4, roster_admin: 3, supervisor: 2, staff: 1, viewer: 0 };
 var ROLE_LABEL = { admin: "Administrator", roster_admin: "Roster administrator", supervisor: "Supervisor", staff: "Staff", viewer: "Viewer" };
-var DESIGNATIONS = ["Consultant", "Specialist", "Medical Officer", "House Officer", "Nurse", "Technician", "Other staff"];
+var DESIGNATIONS = ["Consultant", "Specialist", "Medical Officer", "House Officer"];
 var LEAVE_TYPES = ["Annual leave", "Sick leave", "Family responsibility", "Maternity / paternity", "Study leave", "Official duty", "Other"];
 var EMPLOYMENT = ["Active", "On leave", "Inactive"];
 var KINDS = ["settings", "department", "template", "staff", "user", "requirement", "shift", "assignment", "leave", "swap", "version", "ack", "notif"];
@@ -24,10 +24,7 @@ var DEFAULT_DEPARTMENTS = [
   ["PAED", "Paediatrics", "#0891b2"],
   ["OBG", "Obstetrics & Gynaecology", "#db2777"],
   ["ANAES", "Anaesthesiology", "#0d9488"],
-  ["RAD", "Radiology", "#4f46e5"],
-  ["LAB", "Laboratory", "#ca8a04"],
-  ["NUR", "Nursing", "#059669"],
-  ["OT", "Operating Theatre", "#ea580c"]
+  ["RAD", "Radiology", "#4f46e5"]
 ];
 var DEFAULT_TEMPLATES = [
   ["Morning shift", "08:00", "16:00", "morning"],
