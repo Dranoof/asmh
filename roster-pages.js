@@ -83,7 +83,9 @@ export function renderHomeWorkforce(el) {
   const me = R.me && R.me.staff_id;
   const mine = me ? near.find(s => s.staff_ids.includes(me) && E.span(s).e > now) : null;
   const svc = s => esc(s.name.replace(/^(Morning|Evening|Night) · /, ''));
-  const names = ids => ids.map(id => esc(drN((staffById(id) || {}).name))).join(', ');
+  const tel = s => s && s.phone ? `<a class="lw-tel" href="tel:${esc(s.phone.replace(/[^\d+]/g, ''))}">${esc(s.phone)}</a>` : '';
+  const who = s => `<span class="lw-who">${esc(drN(s && s.name))}${tel(s)}</span>`;
+  const names = ids => ids.map(id => who(staffById(id))).join('');
   const tag = l => l.type === 'Annual leave' ? 'AL' : (l.remarks || l.type).replace(/^Deputation to /, 'Dep. ');
   const when = s => E.span(s).s <= now ? 'On duty now · until ' + s.end : fmt.dow(s.date) + ' ' + fmt.day(s.date) + ' ' + fmt.mon(s.date) + ' · ' + s.start + '–' + s.end;
   el.innerHTML = `
@@ -96,10 +98,10 @@ export function renderHomeWorkforce(el) {
     </div>
     <div class="lp-row lw-row">
       <div class="lp-card"><div class="lp-card-hdr"><h3>On duty now</h3><span class="lw-muted">${onNow.length} post${onNow.length === 1 ? '' : 's'}</span></div>
-        ${onNow.length ? `<div class="lw-list">${onNow.map(s => `<a class="lw-item" href="#/roster"><i style="background:${colorOf(s)}"></i><span class="lw-svc">${svc(s)}<small>${s.start}–${s.end}</small></span><span class="lw-names">${names(s.staff_ids) || '<em>Unassigned</em>'}</span></a>`).join('')}</div>` : '<div class="lw-empty">No one is rostered at this moment.</div>'}
+        ${onNow.length ? `<div class="lw-list">${onNow.map(s => `<div class="lw-item"><i style="background:${colorOf(s)}"></i><a class="lw-svc" href="#/roster">${svc(s)}<small>${s.start}–${s.end}</small></a><span class="lw-names">${names(s.staff_ids) || '<em>Unassigned</em>'}</span></div>`).join('')}</div>` : '<div class="lw-empty">No one is rostered at this moment.</div>'}
       </div>
       <div class="lp-card"><div class="lp-card-hdr"><h3>Off &amp; away today</h3><span class="lw-muted">${fmt.dow(t)} ${fmt.day(t)} ${fmt.mon(t)}</span></div>
-        <div class="lw-sub">Off</div><p class="lw-p">${off.map(s => esc(drN(s.name))).join(', ') || '—'}</p>
+        <div class="lw-sub">Off</div><p class="lw-p lw-ppl">${off.map(who).join('') || '—'}</p>
         ${away.length ? `<div class="lw-sub">On leave / away</div><p class="lw-p">${away.map(x => `${esc(drN(x.s.name))} <span class="lw-tag">${esc(tag(x.l))}</span>`).join(', ')}</p>` : ''}
       </div>
     </div>`;
@@ -216,9 +218,9 @@ export function renderStaff(main) {
       <select class="inp" data-st><option value="">Any status</option>${E.EMPLOYMENT.map(d => `<option ${SF.status === d ? 'selected' : ''}>${d}</option>`).join('')}</select>
       <span class="rlegend">${list.length} shown</span>
     </div>
-    <div class="card"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Name</th><th>Employee ID</th><th>Department</th>${contacts ? '<th>Contact</th>' : ''}<th>Status</th><th class="num">Shifts (week)</th><th class="num">Hours (week)</th><th class="num">Hours (${fmt.mon(t)})</th><th>Availability</th></tr></thead><tbody>
+    <div class="card"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Name</th><th>Employee ID</th><th>Department</th><th>Contact</th><th>Status</th><th class="num">Shifts (week)</th><th class="num">Hours (week)</th><th class="num">Hours (${fmt.mon(t)})</th><th>Availability</th></tr></thead><tbody>
       ${list.map(s => { const w = anW.staff[s.id] || { hours: 0, shifts: 0 }, mo = anM.staff[s.id] || { hours: 0 }, lv = E.approvedLeave(R.state, s.id, t);
-        return `<tr data-id="${s.id}" style="cursor:pointer"><td>${person(s)}</td><td>${esc(s.emp_id || '—')}</td><td><span class="dot" style="background:${dept(s.department_id).color}"></span> ${esc(dept(s.department_id).name)}</td>${contacts ? `<td class="small">${esc(s.phone || '')}<br><span class="muted">${esc(s.email || '')}</span></td>` : ''}<td>${s.status === 'Active' ? (lv ? '<span class="tag amber">On leave</span>' : '<span class="tag green">Active</span>') : s.status === 'Inactive' ? '<span class="tag">Inactive</span>' : '<span class="tag amber">' + esc(s.status) + '</span>'}</td><td class="num">${w.shifts}</td><td class="num ${w.hours > st.max_weekly_hours ? 'tag red' : ''}">${fmt.hrs(w.hours)}</td><td class="num">${fmt.hrs(mo.hours)}</td><td class="small muted">${esc(s.availability || '')}</td></tr>`; }).join('') || `<tr><td colspan="9" class="empty">No staff match.</td></tr>`}
+        return `<tr data-id="${s.id}" style="cursor:pointer"><td>${person(s)}</td><td>${esc(s.emp_id || '—')}</td><td><span class="dot" style="background:${dept(s.department_id).color}"></span> ${esc(dept(s.department_id).name)}</td><td class="small">${s.phone ? `<a href="tel:${esc(s.phone.replace(/[^\d+]/g, ''))}" onclick="event.stopPropagation()">${esc(s.phone)}</a>` : '<span class="muted">—</span>'}${contacts && s.email ? `<br><span class="muted">${esc(s.email)}</span>` : ''}</td><td>${s.status === 'Active' ? (lv ? '<span class="tag amber">On leave</span>' : '<span class="tag green">Active</span>') : s.status === 'Inactive' ? '<span class="tag">Inactive</span>' : '<span class="tag amber">' + esc(s.status) + '</span>'}</td><td class="num">${w.shifts}</td><td class="num ${w.hours > st.max_weekly_hours ? 'tag red' : ''}">${fmt.hrs(w.hours)}</td><td class="num">${fmt.hrs(mo.hours)}</td><td class="small muted">${esc(s.availability || '')}</td></tr>`; }).join('') || `<tr><td colspan="9" class="empty">No staff match.</td></tr>`}
     </tbody></table></div></div></div>`;
   let tm;
   $('[data-q]', main).oninput = e => { clearTimeout(tm); tm = setTimeout(() => { SF.q = e.target.value; renderStaff(main); const n = $('[data-q]', main); n.focus(); n.setSelectionRange(SF.q.length, SF.q.length); }, 200); };
@@ -228,8 +230,8 @@ export function renderStaff(main) {
   main.onclick = e => {
     if (e.target.closest('[data-new]')) return openStaffEditor(null);
     if (e.target.closest('[data-exp]')) {
-      const head = ['Name', 'Employee ID', 'Designation', 'Department', ...(contacts ? ['Phone', 'Email'] : []), 'Status', 'Hours this week', 'Hours this month'];
-      return download('asmh-staff.csv', toCSV([head, ...list.map(s => [s.name, s.emp_id, s.designation, dept(s.department_id).name, ...(contacts ? [s.phone, s.email] : []), s.status, Math.round((anW.staff[s.id] || { hours: 0 }).hours), Math.round((anM.staff[s.id] || { hours: 0 }).hours)])]), 'text/csv');
+      const head = ['Name', 'Employee ID', 'Designation', 'Department', 'Phone', ...(contacts ? ['Email'] : []), 'Status', 'Hours this week', 'Hours this month'];
+      return download('asmh-staff.csv', toCSV([head, ...list.map(s => [s.name, s.emp_id, s.designation, dept(s.department_id).name, s.phone || '', ...(contacts ? [s.email] : []), s.status, Math.round((anW.staff[s.id] || { hours: 0 }).hours), Math.round((anM.staff[s.id] || { hours: 0 }).hours)])]), 'text/csv');
     }
     const r = e.target.closest('tr[data-id]'); if (r) openStaffProfile(r.dataset.id);
   };
@@ -239,7 +241,7 @@ export function openStaffProfile(id) {
   const t = E.todayStr();
   const ups = R.state.shift.map(x => (pubMode() === 'published' ? (x.published ? Object.assign({ id: x.id }, x.published) : null) : (x.deleted ? null : Object.assign({}, x, { staff_ids: R.state.assignment.filter(a => a.shift_id === x.id).map(a => a.staff_id) })))).filter(x => x && x.staff_ids.includes(id) && x.date >= t).sort((a, b) => E.span(a).s - E.span(b).s).slice(0, 12);
   const leave = R.state.leave.filter(l => l.staff_id === id && l.end >= t && l.status !== 'cancelled');
-  const m = modal({ title: s.name, size: 'wide', body: `<div class="grid2"><div><dl class="kv"><dt>Designation</dt><dd>${esc(s.designation)}</dd><dt>Department</dt><dd>${esc(dept(s.department_id).name)}</dd><dt>Employee ID</dt><dd>${esc(s.emp_id || '—')}</dd><dt>Status</dt><dd>${esc(s.status)}</dd>${can('contacts') || s.id === R.me.staff_id ? `<dt>Phone</dt><dd>${esc(s.phone || '—')}</dd><dt>Email</dt><dd>${esc(s.email || '—')}</dd>` : '<dt>Contact</dt><dd class="muted">Visible to supervisors only</dd>'}${s.availability ? `<dt>Availability</dt><dd>${esc(s.availability)}</dd>` : ''}</dl>
+  const m = modal({ title: s.name, size: 'wide', body: `<div class="grid2"><div><dl class="kv"><dt>Designation</dt><dd>${esc(s.designation)}</dd><dt>Department</dt><dd>${esc(dept(s.department_id).name)}</dd><dt>Employee ID</dt><dd>${esc(s.emp_id || '—')}</dd><dt>Status</dt><dd>${esc(s.status)}</dd><dt>Phone</dt><dd>${s.phone ? `<a href="tel:${esc(s.phone.replace(/[^\d+]/g, ''))}">${esc(s.phone)}</a>` : '—'}</dd>${can('contacts') || s.id === R.me.staff_id ? `<dt>Email</dt><dd>${esc(s.email || '—')}</dd>` : ''}${s.availability ? `<dt>Availability</dt><dd>${esc(s.availability)}</dd>` : ''}</dl>
     <div class="fsec">Leave</div>${leave.map(l => `<div class="row small" style="margin-bottom:6px">${statusTag(l.status)} ${esc(l.type)} · ${fmt.date(l.start)} – ${fmt.date(l.end)}</div>`).join('') || '<p class="muted small">No current or upcoming leave.</p>'}</div>
     <div><div class="fsec" style="margin-top:0;padding-top:0;border:0">Upcoming shifts</div>${ups.map(x => `<div class="duty" style="padding:8px 0"><span class="bar-c" style="background:${colorOf(x)}"></span><span class="bdd"><b>${fmt.day(x.date)}</b><small>${fmt.dow(x.date)}</small></span><span><b>${esc(x.name)}</b><br><span class="muted small">${x.start}–${x.end} · ${esc(dept(x.department_id).code)}</span></span></div>`).join('') || '<p class="muted small">No upcoming shifts.</p>'}</div></div>`,
     foot: `<span class="sp"></span>${can('staff_edit', s.department_id) ? '<button class="btn" data-ed>Edit profile</button>' : ''}<button class="btn primary" data-c>Close</button>` });
