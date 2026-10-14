@@ -536,7 +536,7 @@ const SHEET_CSS = `
 /* board view — interactive weekly MO roster (print = paper sheet)    */
 /* ------------------------------------------------------------------ */
 const BAND_ICON = { night: 'moon', morning: 'clock', evening: 'clock', admin: 'users', off: 'home' };
-const shortDr = s => (s && s.name || 'Unknown').replace(/^Dr\.? /, '');
+const shortDr = s => 'Dr ' + (s && s.name || 'Unknown').replace(/^Dr\.? /, '');
 function hueOf(id) { let h = 0; for (const c of String(id)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h % 360; }
 const avStyle = id => `--h:${hueOf(id)}`;
 let focusId = null;
