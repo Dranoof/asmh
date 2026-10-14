@@ -1,5 +1,5 @@
 /* ASMH Duty Roster — calendar page (week / day / month), builder panel, shift editor, publishing */
-import { R, E, $, $$, esc, icon, initials, fmt, dept, staffById, tpl, settings, colorOf, can, act, modal, confirmBox, toast, download, toCSV, exportXLSX, exportPDF, printDoc, approvalLine } from './roster-core.js';
+import { R, E, $, $$, esc, icon, initials, fmt, dept, staffById, tpl, settings, colorOf, can, act, modal, confirmBox, toast, download, toCSV, exportXLSX, exportPDF, printDoc, approvalLine, scopeCSS, layer } from './roster-core.js';
 
 const UI_KEY = 'asmh_roster_ui_v2';
 export const UI = Object.assign({ view: 'sheet', date: E.todayStr(), dept: '', des: '', q: '', show: 'draft', group: 'department', panel: 'staff', allDeptsInPicker: false },
@@ -76,7 +76,7 @@ export function renderRoster(main) {
         <select class="inp" id="rdes" aria-label="Designation"><option value="">All designations</option>${E.DESIGNATIONS.map(d => `<option ${UI.des === d ? 'selected' : ''}>${d}</option>`).join('')}</select>
         ${UI.view === 'day' ? `<select class="inp" id="rgroup" aria-label="Group by"><option value="department" ${UI.group === 'department' ? 'selected' : ''}>Group by department</option><option value="designation" ${UI.group === 'designation' ? 'selected' : ''}>Group by designation</option></select>` : ''}
         ${can('drafts') ? `<div class="seg" title="Which version to show"><button class="${UI.show === 'draft' ? 'on' : ''}" data-show="draft">Draft</button><button class="${UI.show === 'published' ? 'on' : ''}" data-show="published">Published</button></div>` : ''}
-        <div class="legend">${Object.entries(E.SHIFT_KINDS).filter(([k]) => R.state.template.some(t => t.active !== false && t.kind === k)).map(([k, v]) => `<span><i style="background:${v.color}"></i>${esc(v.label)}</span>`).join('')}<span><i style="background:transparent;border:1.5px dashed var(--red)"></i>Unassigned</span></div>
+        <div class="rlegend">${Object.entries(E.SHIFT_KINDS).filter(([k]) => R.state.template.some(t => t.active !== false && t.kind === k)).map(([k, v]) => `<span><i style="background:${v.color}"></i>${esc(v.label)}</span>`).join('')}<span><i style="background:transparent;border:1.5px dashed var(--red)"></i>Unassigned</span></div>
       </div>
     </div>
     ${statusBar(from, to)}
@@ -152,7 +152,7 @@ function columnsFor(from, to) {
     const cols = [];
     for (let d = E.dayNum(from); d <= E.dayNum(to); d++) {
       const date = E.dayStr(d);
-      cols.push({ key: date, date, today: date === t, weekend: E.isWeekend(date, st), head: `<span class="dn">${fmt.day(date)}</span><span><span class="dw">${fmt.dow(date)}</span></span>`, match: () => true });
+      cols.push({ key: date, date, today: date === t, weekend: E.isWeekend(date, st), head: `<span class="bdn">${fmt.day(date)}</span><span><span class="bdw">${fmt.dow(date)}</span></span>`, match: () => true });
     }
     return cols;
   }
@@ -242,7 +242,7 @@ function wireGrid(cal, PX) {
   const minuteIn = (col, y) => (y - col.getBoundingClientRect().top) / PX;
   const snap = m => Math.round(m / SNAP) * SNAP;
   let tip = null;
-  const showTip = (x, y, txt) => { if (!tip) { tip = document.createElement('div'); tip.className = 'drag-time'; document.body.appendChild(tip); } tip.textContent = txt; tip.style.left = x + 14 + 'px'; tip.style.top = y + 12 + 'px'; };
+  const showTip = (x, y, txt) => { if (!tip) { tip = document.createElement('div'); tip.className = 'drag-time'; layer().appendChild(tip); } tip.textContent = txt; tip.style.left = x + 14 + 'px'; tip.style.top = y + 12 + 'px'; };
   const hideTip = () => { if (tip) tip.remove(); tip = null; };
 
   cal.onpointerdown = e => {
@@ -318,7 +318,7 @@ export function staffDrag(e, staffId, fromShiftId) {
   const sx = e.clientX, sy = e.clientY;
   const move = ev => {
     if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 5) return;
-    if (!moved) { moved = true; document.body.appendChild(ghost); }
+    if (!moved) { moved = true; layer().appendChild(ghost); }
     ghost.style.left = ev.clientX + 12 + 'px'; ghost.style.top = ev.clientY + 10 + 'px';
     const body = $('#calBody'); if (body) autoScroll(body, ev);
     const el = document.elementFromPoint(ev.clientX, ev.clientY), b = el && el.closest('.sb');
@@ -509,7 +509,7 @@ function chipHTML(staffId, opts = {}) {
   const q = UI.q.trim().toLowerCase(), hit = q && s && s.name.toLowerCase().includes(q);
   const cls = ['dchip', me ? 'me' : '', hit ? 'hit' : '', opts.prop ? 'prop' : '', opts.warn ? 'warn' : '', focusId === staffId ? 'hl' : '', opts.drag ? 'drag' : ''].join(' ');
   return `<button type="button" class="${cls}" data-staff="${staffId}" ${opts.shift ? `data-from="${opts.shift}"` : ''} title="${esc((s ? s.name : 'Unknown') + (opts.tl ? ' · team leader' : '') + (opts.warn ? ' · ' + opts.warn : '') + (opts.prop ? ' · proposed' : ''))}">
-    <span class="dav" style="${avStyle(staffId)}">${esc(initials(s && s.name.replace(/^Dr\.? /, '')))}</span><span class="dn">${esc(shortDr(s))}</span>${opts.tl ? '<span class="tl" aria-label="team leader">★</span>' : ''}${opts.tag ? `<span class="dtag">${esc(opts.tag)}</span>` : ''}</button>`;
+    <span class="dav" style="${avStyle(staffId)}">${esc(initials(s && s.name.replace(/^Dr\.? /, '')))}</span><span class="bdn">${esc(shortDr(s))}</span>${opts.tl ? '<span class="tl" aria-label="team leader">★</span>' : ''}${opts.tag ? `<span class="dtag">${esc(opts.tag)}</span>` : ''}</button>`;
 }
 
 function boardHTML(from) {
@@ -525,7 +525,7 @@ function boardHTML(from) {
   html += `<div class="bh corner" style="${at(row, 1)}"><b>Service</b><small>${esc(fmt.range(from, M.days[6]))}</small></div>`;
   M.days.forEach((d, i) => {
     const fri = E.weekday(d) === 5;
-    html += `<div class="bh day ${d === t ? 'today' : ''} ${E.isWeekend(d, st) ? 'wkend' : ''} ${fri ? 'fri' : ''}" style="${at(row, i + 2)}"><span class="dw">${fmt.dow(d)}</span><span class="dd">${fmt.day(d)}</span><span class="dm">${fmt.mon(d)}${d === t ? ' · Today' : ''}</span><span class="dc"><i></i>${onDuty[i]} on · ${M.off[i].length} off</span></div>`;
+    html += `<div class="bh day ${d === t ? 'today' : ''} ${E.isWeekend(d, st) ? 'wkend' : ''} ${fri ? 'fri' : ''}" style="${at(row, i + 2)}"><span class="bdw">${fmt.dow(d)}</span><span class="bdd">${fmt.day(d)}</span><span class="bdm">${fmt.mon(d)}${d === t ? ' · Today' : ''}</span><span class="bdc"><i></i>${onDuty[i]} on · ${M.off[i].length} off</span></div>`;
   });
   row++;
   const bands = SHEET.map(b => b.full ? Object.assign({ band: 'ADMIN & RELIEF', kind: 'admin', time: 'Day duty', key: 'admin' }, b) : Object.assign({ key: b.kind }, b));
@@ -648,7 +648,7 @@ function renderSheet(cal, from) {
     const move = ev => {
       if (!canDrag) return;
       if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 6) return;
-      if (!moved) { moved = true; ghost = chip.cloneNode(true); ghost.classList.add('ghost'); document.body.appendChild(ghost); chip.classList.add('lifting'); board.classList.add('dragging'); }
+      if (!moved) { moved = true; ghost = chip.cloneNode(true); ghost.classList.add('ghost'); layer().appendChild(ghost); chip.classList.add('lifting'); board.classList.add('dragging'); }
       ghost.style.left = ev.clientX + 10 + 'px'; ghost.style.top = ev.clientY + 8 + 'px';
       const el = document.elementFromPoint(ev.clientX, ev.clientY);
       const tgt = el && (el.closest('.bc[data-shift]') || (fromShift && el.closest('.bc[data-offday]')));
@@ -682,14 +682,14 @@ const BOARD_CSS = `
 .bh.corner{left:0;z-index:6;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;border-right:1px solid var(--line)}
 .bh.corner b{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.bh.corner small{color:var(--faint);font-size:11.5px}
 .bh.day{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:8px;align-items:end;border-left:1px solid var(--line)}
-.bh.day .dw{grid-column:1/-1;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.bh.day .dd{font-size:24px;font-weight:700;line-height:1.05;color:var(--ink)}
-.bh.day .dm{font-size:12px;color:var(--muted);align-self:center}
-.bh.day .dc{grid-column:1/-1;margin-top:6px;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.bh.day .dc i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.bh.day .bdw{grid-column:1/-1;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bh.day .bdd{font-size:24px;font-weight:700;line-height:1.05;color:var(--ink)}
+.bh.day .bdm{font-size:12px;color:var(--muted);align-self:center}
+.bh.day .bdc{grid-column:1/-1;margin-top:6px;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.bh.day .bdc i{width:6px;height:6px;border-radius:50%;background:var(--green)}
 .bh.day.today{background:linear-gradient(var(--brand-soft2),var(--brand-soft2)),var(--surface)}
-.bh.day.today .dd,.bh.day.today .dm{color:var(--brand-2)}
-.bh.day.fri .dw,.bh.day.fri .dd{color:var(--red)}
+.bh.day.today .bdd,.bh.day.today .bdm{color:var(--brand-2)}
+.bh.day.fri .bdw,.bh.day.fri .bdd{color:var(--red)}
 .bband{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2);position:sticky;left:0;font-size:13px;color:var(--ink)}
 .bband:hover{background:var(--surface-3)}.bband:focus-visible{outline:2px solid var(--brand);outline-offset:-2px}
 .bband .bi{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;color:#fff;background:var(--k)}
@@ -719,12 +719,12 @@ const BOARD_CSS = `
 .dchip{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:2px 8px 2px 2px;border-radius:999px;background:var(--surface);border:1px solid var(--line-2);font-size:12.5px;color:var(--ink);cursor:pointer;line-height:1.2;transition:opacity .15s,box-shadow .15s,transform .1s}
 .dchip.drag{cursor:grab}
 .dchip:hover{box-shadow:0 1px 4px rgba(0,0,0,.12)}.dchip:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
-.dchip .dn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dchip .bdn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dav{flex-shrink:0;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:9.5px;font-weight:700;color:#fff;background:hsl(var(--h) 55% 42%);letter-spacing:.02em}
 .dav.lg{width:40px;height:40px;font-size:14px}
 .dchip .tl{color:#d97706;font-size:12px;margin-left:-1px}
 .dchip .dtag{font-size:10.5px;font-weight:600;color:var(--amber);background:var(--amber-bg);border-radius:999px;padding:1px 6px}
-.dchip.me{border-color:var(--brand-2);box-shadow:0 0 0 1.5px var(--brand-soft2)}.dchip.me .dn{font-weight:700}
+.dchip.me{border-color:var(--brand-2);box-shadow:0 0 0 1.5px var(--brand-soft2)}.dchip.me .bdn{font-weight:700}
 .dchip.prop{border-style:dashed;font-style:italic}
 .dchip.warn{border-color:var(--amber-line);background:var(--amber-bg)}
 .dchip.hit{background:#fef08a;color:#000;border-color:#eab308}
@@ -770,7 +770,7 @@ function renderPanel(panel, from, to) {
     </div>
     <div class="pbody">${tab === 'staff' ? `
       ${editor ? '<p class="muted small" style="padding:8px 12px 4px">Drag a person onto a shift to assign. Drag an avatar between shifts to move.</p>' : ''}
-      ${sorted.map(x => `<div class="chip ${x.w.hours > max ? 'over' : ''} ${x.leave ? 'leave' : ''}" data-staff="${x.s.id}" ${editor ? '' : 'style="cursor:pointer"'}>
+      ${sorted.map(x => `<div class="schip ${x.w.hours > max ? 'over' : ''} ${x.leave ? 'leave' : ''}" data-staff="${x.s.id}" ${editor ? '' : 'style="cursor:pointer"'}>
         <span class="av" style="background:${dept(x.s.department_id).color}">${esc(initials(x.s.name))}</span>
         <span style="min-width:0"><b>${esc(x.s.name)}</b><small>${esc(x.s.designation)}${x.leave ? ' · on leave' : ''}${x.s.availability ? ' · ' + esc(x.s.availability) : ''}</small></span>
         <span class="hrs" title="Hours this ${UI.view === 'day' ? 'week' : 'period'}">${fmt.hrs(x.w.hours)}<small>${x.w.shifts} shift${x.w.shifts === 1 ? '' : 's'}${x.w.nights ? ' · ' + x.w.nights + ' night' + (x.w.nights > 1 ? 's' : '') : ''}${UI.view === 'day' ? ' this wk' : ''}</small></span></div>`).join('') || '<div class="empty">No staff match the filters.</div>'}`
@@ -781,8 +781,8 @@ function renderPanel(panel, from, to) {
     const t = e.target.closest('[data-tab]'); if (t) { UI.panel = t.dataset.tab; saveUI(); return renderPanel(panel, from, to); }
     const o = e.target.closest('[data-open]'); if (o && o.dataset.open) { selected = o.dataset.open; openShift(o.dataset.open); }
   };
-  panel.onpointerdown = e => { const c = e.target.closest('.chip[data-staff]'); if (!c || e.button !== 0) return; if (editor && e.pointerType !== 'touch') staffDrag(e, c.dataset.staff, null); };
-  panel.onclick = (orig => e => { orig(e); const c = e.target.closest('.chip[data-staff]'); if (c && (!editor || e.pointerType === 'touch' || e.detail === 0)) openStaffQuick(c.dataset.staff); })(panel.onclick);
+  panel.onpointerdown = e => { const c = e.target.closest('.schip[data-staff]'); if (!c || e.button !== 0) return; if (editor && e.pointerType !== 'touch') staffDrag(e, c.dataset.staff, null); };
+  panel.onclick = (orig => e => { orig(e); const c = e.target.closest('.schip[data-staff]'); if (c && (!editor || e.pointerType === 'touch' || e.detail === 0)) openStaffQuick(c.dataset.staff); })(panel.onclick);
 }
 function openStaffQuick(id) { import('./roster-pages.js').then(m => m.openStaffProfile(id)); }
 
@@ -1014,7 +1014,7 @@ function exportRoster(kind, from, to) {
 function ensureSheetCss() {
   if (document.getElementById('sheetCss')) return;
   const el = document.createElement('style'); el.id = 'sheetCss';
-  el.textContent = BOARD_CSS + `
-`;
+  el.textContent = scopeCSS(BOARD_CSS + `
+`);
   document.head.appendChild(el);
 }

@@ -2443,7 +2443,7 @@ header{padding:0 24px}
   <div class="hdr-right">
     <button class="hov-btn er" onclick="showERDashboard()" title="ER Handover">ER Handover</button>
     <button class="hov-btn dept" onclick="showDeptHandover()" title="Dept Handover">Dept Handover</button>
-    <a class="hov-btn roster" href="roster.html" title="Staff duty roster" style="text-decoration:none">Duty Roster</a>
+    <button class="hov-btn roster" onclick="rpGo('roster')" title="Staff duty roster">Duty Roster</button>
     <button class="hov-btn ql" onclick="showQuickLinks()" title="Quick Links">Quick Links</button>
     <div class="au-wrap" id="auWrap" hidden>
       <button class="au-chip" id="auChip" onclick="auToggle(event)" aria-label="Account"><span class="au-av" id="auAv">?</span><span class="au-name" id="auName"></span></button>
@@ -2453,6 +2453,7 @@ header{padding:0 24px}
         <a class="au-item au-out" href="/cdn-cgi/access/logout">Sign out</a>
       </div>
     </div>
+    <div id="rpHdr"></div>
     <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Switch to dark mode"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
   </div>
 </header>
@@ -2503,7 +2504,17 @@ header{padding:0 24px}
     <button class="hnav-btn" onclick="showOurTeam()">Our Team</button>
   </div>
   <div class="hnav-item" id="hnavItemRoster">
-    <a class="hnav-btn" href="roster.html" style="text-decoration:none">Duty Roster</a>
+    <button class="hnav-btn" onclick="hnavToggle(Array.prototype.indexOf.call(document.querySelectorAll('.hnav-item'),this.parentElement))">Duty Roster<svg class="hnav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <div class="hnav-drop">
+      <button class="hnav-drop-item" onclick="rpGo('dashboard')"><span class="hnav-dot" style="background:#05557a"></span>Dashboard</button>
+      <button class="hnav-drop-item" onclick="rpGo('roster')"><span class="hnav-dot" style="background:#0aa5b5"></span>Duty Roster</button>
+      <button class="hnav-drop-item" onclick="rpGo('my')"><span class="hnav-dot" style="background:#6366f1"></span>My Roster<span class="hnav-count rp-count" data-rp-badge="my" hidden></span></button>
+      <button class="hnav-drop-item" onclick="rpGo('staff')"><span class="hnav-dot" style="background:#10b981"></span>Staff Directory</button>
+      <button class="hnav-drop-item" onclick="rpGo('requests')"><span class="hnav-dot" style="background:#f59e0b"></span>Requests<span class="hnav-count rp-count" data-rp-badge="requests" hidden></span></button>
+      <button class="hnav-drop-item" onclick="rpGo('reports')"><span class="hnav-dot" style="background:#8b5cf6"></span>Reports</button>
+      <button class="hnav-drop-item" data-rp-admin hidden onclick="rpGo('activity')"><span class="hnav-dot" style="background:#64748b"></span>Versions &amp; Audit</button>
+      <button class="hnav-drop-item" data-rp-admin hidden onclick="rpGo('settings')"><span class="hnav-dot" style="background:#64748b"></span>Roster Settings</button>
+    </div>
   </div>
 </nav>
 
@@ -2534,7 +2545,7 @@ header{padding:0 24px}
           <button class="lp-qa-btn" onclick="showStickyNotes()"><span class="lp-qa-ic" style="background:rgba(245,158,11,.14)"></span><span><b>Sticky Notes</b><small>Templates &amp; notes</small></span></button>
           <button class="lp-qa-btn" onclick="showToolsSection()"><span class="lp-qa-ic" style="background:rgba(59,130,246,.12)"></span><span><b>Tools</b><small>Clinical calculators</small></span></button>
           <button class="lp-qa-btn" onclick="showOurTeam()"><span class="lp-qa-ic" style="background:rgba(5,85,122,.12)"></span><span><b>Our Team</b><small>Doctors directory</small></span></button>
-          <a class="lp-qa-btn" href="roster.html" style="text-decoration:none;color:inherit"><span class="lp-qa-ic" style="background:rgba(10,143,158,.12)"></span><span><b>Duty Roster</b><small>Shifts, on-call &amp; leave</small></span></a>
+          <a class="lp-qa-btn" href="#/roster" style="text-decoration:none;color:inherit"><span class="lp-qa-ic" style="background:rgba(10,143,158,.12)"></span><span><b>Duty Roster</b><small>Shifts, on-call &amp; leave</small></span></a>
         </div>
       </div>
       </div>
@@ -2885,6 +2896,7 @@ header{padding:0 24px}
 </div><!-- end deptContent -->
   <div id="stickyContent"></div>
   <div id="disclaimerContent"></div>
+<div id="rosterContent" style="display:none"></div>
 <footer id="siteFooter" class="site-footer">
   <div class="sf-inner">
     <div class="sf-brand">
@@ -2899,7 +2911,7 @@ header{padding:0 24px}
     </div>
     <nav class="sf-col" aria-label="Categories"><h4>Categories</h4><a href="#" onclick="hnavGo('pain');return false">Pain &amp; Fever</a><a href="#" onclick="hnavGo('respiratory');return false">Respiratory</a><a href="#" onclick="hnavGo('cardiovascular');return false">Cardiovascular</a><a href="#" onclick="hnavGo('gi');return false">Gastroenterology</a><a href="#" onclick="hnavGo('antibiotics');return false">Antibiotics</a><a href="#" onclick="hnavGo('antifungal');return false">Antifungal &amp; Antiviral</a></nav>
     <nav class="sf-col" aria-label="Populations"><h4>Populations</h4><a href="#" onclick="hnavGo('paed-opd');return false">Paeds OPD</a><a href="#" onclick="hnavGo('paed-acute');return false">Paeds Acute</a><a href="#" onclick="hnavGo('gynae');return false">Gynaecology</a><a href="#" onclick="hnavGo('pregnancy');return false">Pregnancy</a><a href="#" onclick="hnavGo('lactation');return false">Lactation</a><a href="#" onclick="hnavGo('g6pd');return false">G6PD Guide</a></nav>
-    <nav class="sf-col" aria-label="Portal"><h4>Portal</h4><a href="#" onclick="showERDashboard();return false">ER Handover</a><a href="#" onclick="showDeptHandover();return false">Dept Handover</a><a href="#" onclick="showQuickLinks();return false">Quick Links</a><a href="#" onclick="showStickyNotes();return false">Sticky Notes</a><a href="#" onclick="showToolsSection();return false">Tools</a><a href="#" onclick="showOurTeam();return false">Our Team</a><a href="roster.html">Duty Roster</a></nav>
+    <nav class="sf-col" aria-label="Portal"><h4>Portal</h4><a href="#" onclick="showERDashboard();return false">ER Handover</a><a href="#" onclick="showDeptHandover();return false">Dept Handover</a><a href="#" onclick="showQuickLinks();return false">Quick Links</a><a href="#" onclick="showStickyNotes();return false">Sticky Notes</a><a href="#" onclick="showToolsSection();return false">Tools</a><a href="#" onclick="showOurTeam();return false">Our Team</a><a href="#/roster">Duty Roster</a></nav>
     <nav class="sf-col" aria-label="Resources"><h4>Resources</h4><a href="#" onclick="hnavGo('files');return false">National Guidelines</a><a href="https://dranoof.github.io/myportal/">Dr. ASMH Portal</a><a href="https://asmh.gov.mv" target="_blank" rel="noopener">ASMH Website</a><a href="#" onclick="showDisclaimer();return false">Disclaimer</a></nav>
   </div>
   <div class="sf-bottom">
@@ -5767,4 +5779,25 @@ function showDisclaimer() {
   }).catch(function(){});
 })();
 </script>
+<script type="module">
+/* Duty roster inside the CarePortal: pages open at #/dashboard, #/roster, #/my, … */
+const RP = ['dashboard', 'roster', 'my', 'staff', 'requests', 'reports', 'activity', 'settings'];
+let rp = null;
+const load = () => rp || (rp = import('./roster-embed.js').then(m => { m.init(); return m; }));
+window.rpGo = r => { document.querySelectorAll('.hnav-item').forEach(i => i.classList.remove('open')); if (location.hash === '#/' + r) load().then(m => m.show(r)); else location.hash = '#/' + r; };
+function rpRoute() {
+  const r = (location.hash.match(/^#\/([\w-]+)/) || [])[1];
+  if (r && RP.includes(r)) load().then(m => m.show(r));
+  else if (rp) rp.then(m => m.hide());
+}
+addEventListener('hashchange', rpRoute);
+rpRoute();
+(window.requestIdleCallback || ((f) => setTimeout(f, 1200)))(() => load(), { timeout: 2500 });
+</script>
+<style>
+#hnavItemRoster.active > .hnav-btn{color:var(--teal,#0aa5b5)}
+.rp-count[hidden]{display:none}
+.hnav-drop-item .rp-count{background:#dc2626;color:#fff}
+#rpHdr:empty{display:none}
+</style>
 </body>

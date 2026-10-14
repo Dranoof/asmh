@@ -38,6 +38,8 @@ export const fmt = {
   hrs: h => (Math.round(h * 10) / 10) + ' h'
 };
 export const today = () => E.todayStr();
+/** container for floating elements (drag ghosts, tooltips) so they keep roster styling */
+export const layer = () => document.getElementById('rpLayer') || document.body;
 
 /* lookups (fresh each render) */
 export const dept = id => R.state.department.find(d => d.id === id) || { name: '—', color: '#94a3b8', code: '?' };
@@ -49,6 +51,43 @@ export const can = (cap, dep) => !!R.me && E.can(R.me, cap, dep);
 export const viewMode = () => (can('drafts') ? 'draft' : 'published');
 export function staffIds(sh) { return R.state.assignment.filter(a => a.shift_id === sh.id).map(a => a.staff_id); }
 export function proposedIds(sh) { return R.state.assignment.filter(a => a.shift_id === sh.id && a.proposed).map(a => a.staff_id); }
+
+/* ------------------------------------------------------------------ */
+/* CSS scoping: the roster lives inside the CarePortal page, so every  */
+/* roster rule is limited to elements inside a `.rp` container.        */
+/* ------------------------------------------------------------------ */
+const ROOTISH = /^(?::root|html|body)(?![\w-])/;
+function scopeSel(sel, scope) {
+  sel = sel.trim(); if (!sel) return sel;
+  let theme = '', rest = sel, m;
+  for (;;) {
+    if ((m = rest.match(/^\[data-theme=("?)dark\1\]/))) { theme = '[data-theme="dark"] '; rest = rest.slice(m[0].length); continue; }
+    if ((m = rest.match(ROOTISH))) { rest = rest.slice(m[0].length); if (!theme && !rest.trim()) rest = ''; sel = null; continue; }
+    break;
+  }
+  if (sel !== null && !theme) return scope + ' ' + rest;       // ordinary selector
+  rest = rest.trim();
+  if (!rest) return theme + scope;
+  return theme + scope + (/^[>+~]/.test(rest) ? ' ' : ' ') + rest;
+}
+export function scopeCSS(css, scope = '.rp') {
+  css = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  let out = '', i = 0;
+  while (i < css.length) {
+    const open = css.indexOf('{', i); if (open < 0) break;
+    const head = css.slice(i, open).trim();
+    // find matching close brace
+    let depth = 1, j = open + 1;
+    while (j < css.length && depth) { if (css[j] === '{') depth++; else if (css[j] === '}') depth--; j++; }
+    const body = css.slice(open + 1, j - 1);
+    if (/^@(media|supports|container|layer)\b/.test(head)) out += head + '{' + scopeCSS(body, scope) + '}';
+    else if (head.startsWith('@')) out += head + '{' + body + '}';
+    else if (/^(html|html\s*,\s*body)$/.test(head)) { /* page-level sizing: not wanted when embedded */ }
+    else out += head.split(/,(?![^(]*\))/).map(x => scopeSel(x, scope)).join(',') + '{' + body + '}';
+    i = j;
+  }
+  return out;
+}
 
 /* ------------------------------------------------------------------ */
 /* events                                                              */
@@ -239,7 +278,7 @@ export function confirmBox({ title, body, ok = 'Confirm', danger = false }) {
 export function download(name, content, type) {
   const blob = content instanceof Blob ? content : new Blob([content], { type: type || 'text/plain' });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
-  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 400);
+  (document.getElementById('rpLayer') || document.body).appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 400);
 }
 const loaded = {};
 export function loadScript(src) {

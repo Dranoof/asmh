@@ -1,10 +1,10 @@
 # ASMH CarePortal — Duty Roster: setup and architecture
 
-The Staff Duty Roster is `roster.html`. It runs in two modes:
+The Staff Duty Roster opens inside the CarePortal itself (`index.html#/roster`, or the **Duty Roster** menu in the top navigation). Its account menu (role, demo "view as", notifications) sits in the portal header. The old `roster.html` address forwards there. It runs in two modes:
 
 | Mode | Where | Data | Sign-in |
 | --- | --- | --- | --- |
-| **Demo** | GitHub Pages (`dranoof.github.io/asmh/roster.html`) or any host without the backend | Fictional staff generated in the browser and saved only in that browser. Clearly labelled "Demo data". | None. A "View as" switcher lets you try each role. |
+| **Demo** | GitHub Pages (`dranoof.github.io/asmh/#/roster`) or any host without the backend | Fictional staff generated in the browser and saved only in that browser. Clearly labelled "Demo data". | None. A "View as" switcher lets you try each role. |
 | **Live** | Cloudflare Pages with D1 + Cloudflare Access | One shared database for every device | Cloudflare Access (email code or Google), verified on the server |
 
 GitHub Pages only serves static files and cannot run a secure backend, so the live roster needs Cloudflare Pages (free plan). It uses the same Cloudflare Access setup described in *CarePortal Sign-in Setup*.
@@ -12,7 +12,7 @@ GitHub Pages only serves static files and cannot run a secure backend, so the li
 ## Architecture
 
 ```
-Browser (roster.html + roster-*.js)
+Browser (index.html + roster-embed.js + roster-*.js)
    │  fetch /api/state, /api/action, /api/rev (polled every 20 s)
    ▼
 Cloudflare Pages worker (_worker.js, built from roster-worker.src.js)
@@ -39,7 +39,7 @@ Cloudflare D1 (SQLite): records, audit, meta
    - `ADMIN_EMAILS`: e.g. `dranooof@gmail.com` (comma-separated; these accounts are always administrators)
 4. **Redeploy.** Go to **Deployments → … → Retry deployment**, or commit any change.
 5. **Check.** Open `https://<site>.pages.dev/api/health`. It should show `"database": true, "access": true`.
-6. **Open the roster.** Visit `/roster.html`. The badge in the top bar should read **Live · synced**. Tables are created automatically, and the default departments and shift templates are added on first use.
+6. **Open the roster.** Visit `/#/roster` (or `/roster.html`, which forwards there). The badge in the top bar should read **Live · synced**. Tables are created automatically, and the default departments and shift templates are added on first use.
 7. **Add real data.** Add staff (each with their sign-in email) under **Staff Directory**. Under **Settings → Users & roles**, give roster administrators and supervisors their roles and departments. Then set staffing requirements and build the first roster.
 
 Never set `DEV_INSECURE_AUTH` in Cloudflare. It exists only for local testing.
@@ -52,7 +52,7 @@ Never set `DEV_INSECURE_AUTH` in Cloudflare. It exists only for local testing.
 
 ## Changing the code
 
-The UI files (`roster.html`, `roster.css`, `roster-*.js`) are served as they are. If you change `roster-engine.js` or `roster-worker.src.js`, rebuild the server bundle before committing:
+The UI files (`index.html`, `roster.css`, `roster-*.js`) are served as they are. If you change `roster-engine.js` or `roster-worker.src.js`, rebuild the server bundle before committing:
 
 ```
 npx esbuild roster-worker.src.js --bundle --format=esm --outfile=_worker.js

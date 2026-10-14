@@ -157,9 +157,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
 .rtool-1 h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-right:6px}
 .range-lbl{font-size:15px;font-weight:700;min-width:150px}
 .rtool-2{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
-.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-left:auto}
-.legend span{display:inline-flex;align-items:center;gap:5px}
-.legend i{width:10px;height:10px;border-radius:3px}
+.rlegend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-left:auto}
+.rlegend span{display:inline-flex;align-items:center;gap:5px}
+.rlegend i{width:10px;height:10px;border-radius:3px}
 .statusbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;border-radius:10px;margin-bottom:10px;font-size:13px;background:var(--surface);border:1px solid var(--line)}
 .statusbar .tag{height:24px}
 .menu-wrap{position:relative}
@@ -176,12 +176,12 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
 .cal-head .gutter{border-right:1px solid var(--line)}
 .dh{padding:8px 10px;border-right:1px solid var(--line);display:flex;align-items:center;gap:8px;min-width:0;cursor:default}
 .dh:last-child{border-right:0}
-.dh .dn{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1}
-.dh .dw{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.dh .bdn{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.dh .bdw{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 .dh .dsum{margin-left:auto;display:flex;gap:4px}
-.dh.today .dn{background:var(--brand-2);color:#fff;border-radius:9px;padding:4px 7px}
-[data-theme="dark"] .dh.today .dn{color:#0b1a1f}
-.dh.today .dw{color:var(--brand-2)}
+.dh.today .bdn{background:var(--brand-2);color:#fff;border-radius:9px;padding:4px 7px}
+[data-theme="dark"] .dh.today .bdn{color:#0b1a1f}
+.dh.today .bdw{color:var(--brand-2)}
 .dh.weekend{background:var(--surface-2)}
 .dh .dtitle{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cal-body{flex:1;overflow:auto;position:relative}
@@ -249,16 +249,16 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
 .ptabs button.on{background:var(--surface-3);color:var(--ink)}
 .ptabs b{font-size:11px;margin-left:3px;padding:0 5px;border-radius:5px;background:var(--red);color:#fff}
 .pbody{overflow:auto;flex:1;min-height:0}
-.chip{display:flex;align-items:center;gap:9px;padding:8px 12px;border-bottom:1px solid var(--line);cursor:grab;background:var(--surface);transition:background .12s}
-.chip:hover{background:var(--surface-2)}
-.chip:active{cursor:grabbing}
-.chip .av{width:28px;height:28px;font-size:10.5px}
-.chip b{font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.chip small{font-size:11.5px;color:var(--muted)}
-.chip .hrs{margin-left:auto;text-align:right;font-variant-numeric:tabular-nums;font-size:12px;font-weight:700}
-.chip .hrs small{display:block;font-weight:500}
-.chip.over .hrs{color:var(--red)}
-.chip.leave{opacity:.55}
+.schip{display:flex;align-items:center;gap:9px;padding:8px 12px;border-bottom:1px solid var(--line);cursor:grab;background:var(--surface);transition:background .12s}
+.schip:hover{background:var(--surface-2)}
+.schip:active{cursor:grabbing}
+.schip .av{width:28px;height:28px;font-size:10.5px}
+.schip b{font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.schip small{font-size:11.5px;color:var(--muted)}
+.schip .hrs{margin-left:auto;text-align:right;font-variant-numeric:tabular-nums;font-size:12px;font-weight:700}
+.schip .hrs small{display:block;font-weight:500}
+.schip.over .hrs{color:var(--red)}
+.schip.leave{opacity:.55}
 .drag-chip{position:fixed;z-index:210;pointer-events:none;padding:6px 10px;border-radius:9px;background:var(--brand);color:#fff;font-weight:700;font-size:12.5px;box-shadow:var(--shadow-3)}
 
 /* ---------- modal / drawer ---------- */
@@ -313,9 +313,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
 .next small{opacity:.85}
 .next .when{margin-left:auto;text-align:right}
 .duty{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line)}
-.duty .dd{width:52px;text-align:center;flex-shrink:0}
-.duty .dd b{display:block;font-size:20px;line-height:1}
-.duty .dd small{font-size:11px;color:var(--muted);text-transform:uppercase;font-weight:700}
+.duty .bdd{width:52px;text-align:center;flex-shrink:0}
+.duty .bdd b{display:block;font-size:20px;line-height:1}
+.duty .bdd small{font-size:11px;color:var(--muted);text-transform:uppercase;font-weight:700}
 .duty .bar-c{width:4px;align-self:stretch;border-radius:2px}
 
 /* print */
@@ -341,7 +341,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:13px}
   .fgrid{grid-template-columns:1fr}
   .search{min-width:0;flex:1 1 100%}
   .rtool-2 select.inp{flex:1 1 40%}
-  .legend{margin-left:0}
+  .rlegend{margin-left:0}
   .cal-wide{min-width:760px}
   .mc{min-height:76px;padding:5px}.mrow span{display:none}
   .modal{border-radius:16px 16px 0 0;margin-top:auto;max-height:92vh}
