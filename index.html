@@ -2506,7 +2506,6 @@ header{padding:0 24px}
   <div class="hnav-item" id="hnavItemRoster">
     <button class="hnav-btn" onclick="hnavToggle(Array.prototype.indexOf.call(document.querySelectorAll('.hnav-item'),this.parentElement))">Duty Roster<svg class="hnav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
     <div class="hnav-drop">
-      <button class="hnav-drop-item" onclick="rpGo('dashboard')"><span class="hnav-dot" style="background:#05557a"></span>Dashboard</button>
       <button class="hnav-drop-item" onclick="rpGo('roster')"><span class="hnav-dot" style="background:#0aa5b5"></span>Duty Roster</button>
       <button class="hnav-drop-item" onclick="rpGo('my')"><span class="hnav-dot" style="background:#6366f1"></span>My Roster<span class="hnav-count rp-count" data-rp-badge="my" hidden></span></button>
       <button class="hnav-drop-item" onclick="rpGo('staff')"><span class="hnav-dot" style="background:#10b981"></span>Staff Directory</button>
@@ -2584,6 +2583,7 @@ header{padding:0 24px}
             <div id="lpAnnList"><div class="lp-ann-empty">Loading…</div></div>
           </div>
         </div>
+        <div id="lpWork" class="lp-work"></div>
         <div class="lp-card lp-stats" id="lpStats">
           <div class="lp-card-hdr lp-st-hdr">
             <h3>Hospital statistics</h3>
@@ -5787,18 +5787,41 @@ const load = () => rp || (rp = import('./roster-embed.js').then(m => { m.init();
 window.rpGo = r => { document.querySelectorAll('.hnav-item').forEach(i => i.classList.remove('open')); if (location.hash === '#/' + r) load().then(m => m.show(r)); else location.hash = '#/' + r; };
 function rpRoute() {
   const r = (location.hash.match(/^#\/([\w-]+)/) || [])[1];
+  if (r === 'dashboard') { history.replaceState(null, '', location.pathname + location.search); if (rp) rp.then(m => m.hide()); if (window.showLanding) showLanding(); return; }
   if (r && RP.includes(r)) load().then(m => m.show(r));
   else if (rp) rp.then(m => m.hide());
 }
 addEventListener('hashchange', rpRoute);
 rpRoute();
-(window.requestIdleCallback || ((f) => setTimeout(f, 1200)))(() => load(), { timeout: 2500 });
+(window.requestIdleCallback || ((f) => setTimeout(f, 1200)))(() => load().then(m => m.home && m.home(document.getElementById('lpWork'))), { timeout: 2500 });
 </script>
 <style>
 #hnavItemRoster.active > .hnav-btn{color:var(--teal,#0aa5b5)}
 .rp-count[hidden]{display:none}
 .hnav-drop-item .rp-count{background:#dc2626;color:#fff}
 #rpHdr:empty{display:none}
+</style>
+<style id="lp-workforce">
+a.lp-tile{text-decoration:none}
+.lp-work:empty{display:none}
+.lw-head{margin-top:26px}
+.lp-tile-num.lw-sm{font-size:18px;line-height:1.3}
+.lp-tile.lw-bad .lp-tile-num{color:#dc2626}
+.lw-row{margin-bottom:18px}
+.lw-muted{font-size:12px;color:var(--muted)}
+.lw-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}
+.lw-item{display:grid;grid-template-columns:8px minmax(120px,170px) minmax(0,1fr);gap:12px;align-items:center;padding:8px 4px;border-top:1px solid var(--border);text-decoration:none;color:inherit;font-size:13px;border-radius:6px}
+.lw-item:nth-child(-n+2){border-top:0}
+.lw-item:hover{background:var(--bg)}
+.lw-item i{width:8px;height:8px;border-radius:50%}
+.lw-svc{font-weight:600}.lw-svc small{display:block;font-weight:400;font-size:11px;color:var(--muted)}
+.lw-names{color:var(--text2)}.lw-names em{color:#dc2626;font-style:normal;font-weight:600}
+.lw-sub{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:2px 0 4px}
+.lw-p{font-size:13px;line-height:1.6;margin:0 0 12px;color:var(--text2)}
+.lw-tag{font-size:10.5px;font-weight:600;color:#b45309;background:rgba(245,158,11,.14);border-radius:999px;padding:1px 6px}
+.lw-empty{font-size:13px;color:var(--muted);padding:16px 0;text-align:center}
+@media (max-width:1200px){.lw-list{grid-template-columns:1fr}.lw-item:nth-child(2){border-top:1px solid var(--border)}}
+@media (max-width:700px){.lw-item{grid-template-columns:8px minmax(0,1fr)}.lw-names{grid-column:2}}
 </style>
 <!-- ═══════ CLEAN LOOK — tidy header & navigation ═══════ -->
 <style id="clean-look">
