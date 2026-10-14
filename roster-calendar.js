@@ -63,7 +63,7 @@ export function renderRoster(main) {
         <div class="row" style="gap:4px"><button class="ibtn" data-a="prev" aria-label="Previous">${icon('left')}</button><button class="ibtn" data-a="next" aria-label="Next">${icon('right')}</button></div>
         <span class="range-lbl">${esc(label)}</span>
         <span class="grow"></span>
-        <div class="seg" role="tablist">${['sheet', 'day', 'week', 'month'].map(v => `<button class="${UI.view === v ? 'on' : ''}" data-view="${v}">${v[0].toUpperCase() + v.slice(1)}</button>`).join('')}</div>
+        <div class="seg" role="tablist">${['sheet', 'day', 'week', 'month'].map(v => `<button class="${UI.view === v ? 'on' : ''}" data-view="${v}">${v === 'sheet' ? 'Board' : v[0].toUpperCase() + v.slice(1)}</button>`).join('')}</div>
         ${editor ? `<button class="btn primary" data-a="add">${icon('plus')}Add shift</button><button class="btn accent" data-a="publish">${icon('send')}Publish roster</button>` : ''}
         <div class="menu-wrap"><button class="btn" data-a="menu">${icon('more')}<span class="hide-mobile">${editor ? 'Tools' : 'Export'}</span></button><div class="menu" id="rMenu" hidden>
           ${editor ? `<button data-a="copyweek">${icon('copy')}Copy previous week</button><button data-a="generate">${icon('magic')}Auto-generate draft…</button><button data-a="bulk">${icon('users')}Bulk assign…</button><button data-a="recur">${icon('layers')}Recurring shift pattern…</button><hr>` : ''}
@@ -460,16 +460,6 @@ export function sheetHTML(from, print = false) {
   </table>`;
 }
 
-function renderSheet(cal, from) {
-  cal.innerHTML = `<div class="cal-body sheet-wrap">${sheetHTML(from)}</div>`;
-  cal.onclick = e => {
-    const n = e.target.closest('[data-new]');
-    if (n) { const t = tpl('tpl_' + n.dataset.new); return openShiftEditor(null, t ? { date: n.dataset.date, template_id: t.id, name: t.name, start: t.start, end: t.end, department_id: (R.state.shift.find(s => s.template_id === t.id) || {}).department_id || undefined, designation: 'Medical Officer' } : { date: n.dataset.date }); }
-    const c = e.target.closest('[data-id]'); if (c) { selected = c.dataset.id; openShift(c.dataset.id); }
-  };
-  cal.onkeydown = e => { const c = e.target.closest('[data-id]'); if (c && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openShift(c.dataset.id); } };
-}
-
 export function printSheet(from) {
   const w = window.open('', '_blank');
   if (!w) { toast('Allow pop-ups to print.', 'err'); return; }
@@ -503,6 +493,258 @@ const SHEET_CSS = `
 .sheet td.sc .oth,.sheet tr.lv td span{display:block;font-size:11.5px}
 .sheet tfoot td.fn{text-align:left;font-style:italic;font-family:"Times New Roman",serif;font-size:12px}
 .sheet tfoot td.fn.r{text-align:right}
+`;
+
+/* ------------------------------------------------------------------ */
+/* board view — interactive weekly MO roster (print = paper sheet)    */
+/* ------------------------------------------------------------------ */
+const BAND_ICON = { night: 'moon', morning: 'clock', evening: 'clock', admin: 'users', off: 'home' };
+const shortDr = s => (s && s.name || 'Unknown').replace(/^Dr\.? /, '');
+function hueOf(id) { let h = 0; for (const c of String(id)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h % 360; }
+const avStyle = id => `--h:${hueOf(id)}`;
+let focusId = null;
+
+function chipHTML(staffId, opts = {}) {
+  const s = staffById(staffId), me = R.me.staff_id === staffId;
+  const q = UI.q.trim().toLowerCase(), hit = q && s && s.name.toLowerCase().includes(q);
+  const cls = ['dchip', me ? 'me' : '', hit ? 'hit' : '', opts.prop ? 'prop' : '', opts.warn ? 'warn' : '', focusId === staffId ? 'hl' : '', opts.drag ? 'drag' : ''].join(' ');
+  return `<button type="button" class="${cls}" data-staff="${staffId}" ${opts.shift ? `data-from="${opts.shift}"` : ''} title="${esc((s ? s.name : 'Unknown') + (opts.tl ? ' · team leader' : '') + (opts.warn ? ' · ' + opts.warn : '') + (opts.prop ? ' · proposed' : ''))}">
+    <span class="dav" style="${avStyle(staffId)}">${esc(initials(s && s.name.replace(/^Dr\.? /, '')))}</span><span class="dn">${esc(shortDr(s))}</span>${opts.tl ? '<span class="tl" aria-label="team leader">★</span>' : ''}${opts.tag ? `<span class="dtag">${esc(opts.tag)}</span>` : ''}</button>`;
+}
+
+function boardHTML(from) {
+  const M = sheetModel(from), st = settings(), t = E.todayStr();
+  const editor = can('edit') && showMode() === 'draft';
+  const issues = E.analyze(R.state, from, M.days[6], { mode: showMode() }).issues.filter(i => i.staff_id && i.shift_id);
+  const warnOf = (shId, sid) => (issues.find(i => i.shift_id === shId && i.staff_id === sid) || {}).text;
+  const collapsed = new Set(UI.collapsed || []);
+  const onDuty = M.days.map((d, i) => R.state.staff.filter(s => s.designation === 'Medical Officer').length - M.off[i].length - M.leave[i].length);
+  let row = 1, html = '';
+  const at = (r, c, span = 1) => `grid-row:${r}${span > 1 ? ' / span ' + span : ''};grid-column:${c}`;
+  // header
+  html += `<div class="bh corner" style="${at(row, 1)}"><b>Service</b><small>${esc(fmt.range(from, M.days[6]))}</small></div>`;
+  M.days.forEach((d, i) => {
+    const fri = E.weekday(d) === 5;
+    html += `<div class="bh day ${d === t ? 'today' : ''} ${E.isWeekend(d, st) ? 'wkend' : ''} ${fri ? 'fri' : ''}" style="${at(row, i + 2)}"><span class="dw">${fmt.dow(d)}</span><span class="dd">${fmt.day(d)}</span><span class="dm">${fmt.mon(d)}${d === t ? ' · Today' : ''}</span><span class="dc"><i></i>${onDuty[i]} on · ${M.off[i].length} off</span></div>`;
+  });
+  row++;
+  const bands = SHEET.map(b => b.full ? Object.assign({ band: 'ADMIN & RELIEF', kind: 'admin', time: 'Day duty', key: 'admin' }, b) : Object.assign({ key: b.kind }, b));
+  for (const b of bands) {
+    const isC = collapsed.has(b.key);
+    const filled = b.rows.reduce((n, r) => n + M.days.filter((_, di) => { const c = M.cell[r.k + '|' + di]; return c && c.sh; }).length, 0);
+    html += `<button type="button" class="bband ${b.kind}" data-band="${b.key}" style="${at(row, '1 / -1')}" aria-expanded="${!isC}"><span class="bi">${icon(BAND_ICON[b.kind] || 'clock')}</span><b>${esc(b.band[0] + b.band.slice(1).toLowerCase())}</b><span class="bt">${esc(b.time.replace(/^(\d\d)(\d\d)-(\d\d)(\d\d)$/, '$1:$2 – $3:$4'))}</span><span class="bn">${filled} duties</span><span class="chev">${icon(isC ? 'right' : 'down')}</span></button>`;
+    row++;
+    if (isC) continue;
+    const start = row;
+    b.rows.forEach((r, ri) => {
+      const rr = start + ri;
+      if (r.label !== undefined) html += `<div class="bl ${b.kind} ${r.cls || ''}" style="${at(rr, 1, r.group || 1)}"><b>${esc(r.label.replace(/^1200-2000 - /, ''))}</b>${r.tl ? '<small>★ team leader + 1</small>' : r.sub ? `<small>${esc(r.sub)}</small>` : r.k === 'relief' ? '<small>12:00 – 20:00</small>' : ''}</div>`;
+      M.days.forEach((d, di) => {
+        const c = M.cell[r.k + '|' + di];
+        if (c && c.skip) return;
+        const span = c && c.span || 1;
+        const pos = at(rr, di + 2, span);
+        const cls = `bc ${b.kind} ${r.cls || ''} ${d === t ? 'today' : ''} ${span > 1 ? 'merged' : ''} ${r.tl ? 'tlrow' : ''}`;
+        if (!c) { html += `<div class="${cls} empty" style="${pos}" ${editor ? `data-new="${r.k}" data-date="${d}"` : ''}>${editor ? `<span class="add" title="Add ${esc(r.label || 'ER')} duty">${icon('plus', 'sm')}</span>` : ''}</div>`; return; }
+        const sh = c.sh, cv = coverage(sh);
+        const chips = sh.staff.map((id, k) => chipHTML(id, { shift: sh.id, tl: r.tl && k === 0, prop: sh.prop.includes(id), warn: warnOf(sh.id, id), drag: editor })).join('');
+        html += `<div class="${cls} ${sh._raw.dirty && showMode() === 'draft' ? 'dirty' : ''} ${cv.short ? 'short' : ''}" style="${pos}" data-shift="${sh.id}" tabindex="0" title="${esc(sh.name + ' · ' + sh.start + '–' + sh.end + (span > 1 ? ' · covers both rows' : ''))}">${chips}${cv.short ? `<span class="assign">${icon('plus', 'sm')}${cv.got ? cv.short + ' more' : 'Assign'}</span>` : ''}${sh.notes ? `<span class="note">${esc(sh.notes)}</span>` : ''}</div>`;
+      });
+    });
+    row = start + b.rows.length;
+  }
+  // off + leave
+  const offKey = 'off', offC = collapsed.has(offKey);
+  html += `<button type="button" class="bband off" data-band="off" style="${at(row, '1 / -1')}" aria-expanded="${!offC}"><span class="bi">${icon('home')}</span><b>Off &amp; away</b><span class="bt">${editor ? 'Drag a doctor from here onto a duty to assign · drop a duty chip here to remove' : 'Doctors without a duty that day'}</span><span class="chev">${icon(offC ? 'right' : 'down')}</span></button>`;
+  row++;
+  if (!offC) {
+    html += `<div class="bl off" style="${at(row, 1)}"><b>Off</b></div>`;
+    M.days.forEach((d, di) => { html += `<div class="bc off ${d === t ? 'today' : ''}" data-offday="${d}" style="${at(row, di + 2)}">${M.off[di].map(s => chipHTML(s.id, { drag: editor })).join('') || '<span class="none">—</span>'}</div>`; });
+    row++;
+    if (M.leave.some(x => x.length)) {
+      html += `<div class="bl off" style="${at(row, 1)}"><b>Leave / deputation</b></div>`;
+      M.days.forEach((d, di) => { html += `<div class="bc off lv ${d === t ? 'today' : ''}" style="${at(row, di + 2)}">${M.leave[di].map(x => chipHTML(x.s.id, { tag: x.l.type === 'Annual leave' ? 'AL' : (x.l.remarks || x.l.type).replace(/^Deputation to /, 'Dep. ') })).join('')}</div>`; });
+      row++;
+    }
+  }
+  if (M.other.some(x => x.length)) {
+    html += `<div class="bl" style="${at(row, 1)}"><b>Other duties</b></div>`;
+    M.other.forEach((list, di) => { html += `<div class="bc" style="${at(row, di + 2)}">${list.map(sh => `<span class="note" data-open="${sh.id}">${esc(sh.name)}</span>${sh.staff.map(id => chipHTML(id, { shift: sh.id, drag: editor })).join('')}`).join('')}</div>`; });
+    row++;
+  }
+  return html;
+}
+
+function focusCard(from) {
+  if (!focusId) return '';
+  const s = staffById(focusId); if (!s) return '';
+  const M = sheetModel(from);
+  const items = M.days.map((d, di) => {
+    const list = [];
+    Object.entries(M.cell).forEach(([k, c]) => { if (c.sh && k.endsWith('|' + di) && c.sh.staff.includes(focusId)) list.push(c.sh); });
+    M.other[di].forEach(sh => sh.staff.includes(focusId) && list.push(sh));
+    const lv = M.leave[di].find(x => x.s.id === focusId);
+    return { d, list, lv };
+  });
+  const all = items.flatMap(x => x.list), hrs = all.reduce((h, sh) => h + E.hoursOf(sh), 0), nights = all.filter(sh => E.kindOf(sh, R.state) === 'night').length;
+  const kindCls = sh => E.kindOf(sh, R.state);
+  const label = sh => sh.name.replace(/^(Morning|Evening|Night) · /, '').replace(' (team leader)', ' ★');
+  return `<div class="bfocus"><span class="dav lg" style="${avStyle(focusId)}">${esc(initials(s.name.replace(/^Dr\.? /, '')))}</span>
+    <div class="bf-who"><b>${esc(s.name)}</b><small>${all.length} dut${all.length === 1 ? 'y' : 'ies'} · ${fmt.hrs(hrs)}${nights ? ' · ' + nights + ' night' + (nights > 1 ? 's' : '') : ''} this week</small></div>
+    <div class="bf-days">${items.map(x => `<div class="bf-d ${x.d === E.todayStr() ? 'today' : ''}"><span>${fmt.dow(x.d)} ${fmt.day(x.d)}</span>${x.list.length ? x.list.map(sh => `<i class="${kindCls(sh)}" data-open="${sh.id}">${esc(label(sh))}</i>`).join('') : x.lv ? '<i class="lvp">Leave</i>' : '<i class="offp">Off</i>'}</div>`).join('')}</div>
+    <button class="ibtn" data-unfocus aria-label="Clear highlight">${icon('x')}</button></div>`;
+}
+
+function renderSheet(cal, from) {
+  const mos = R.state.staff.filter(s => s.designation === 'Medical Officer' && s.status !== 'Inactive').sort((a, b) => a.name.localeCompare(b.name));
+  if (focusId && !staffById(focusId)) focusId = null;
+  const editor = can('edit') && showMode() === 'draft';
+  cal.innerHTML = `<div class="btool">
+      <div class="bt-l"><b>Medical Officers duty roster</b><span class="muted small">${esc(fmt.range(from, E.addDays(from, 6)))} · ${editor ? 'click a duty to edit · drag doctors to move them' : 'click a doctor to see their week'}</span></div>
+      <div class="bt-r">
+        ${R.me.staff_id ? `<button class="btn sm ${focusId === R.me.staff_id ? 'primary' : ''}" data-mine>${icon('user')}My duties</button>` : ''}
+        <select class="inp sm" data-focussel aria-label="Highlight a doctor"><option value="">Highlight a doctor…</option>${mos.map(s => `<option value="${s.id}" ${focusId === s.id ? 'selected' : ''}>${esc(s.name)}</option>`).join('')}</select>
+        <button class="btn sm" data-printsheet>${icon('print')}Print sheet</button>
+      </div></div>
+    <div id="bfocus">${focusCard(from)}</div>
+    <div class="board-wrap"><div class="board ${focusId ? 'focusing' : ''}" id="board">${boardHTML(from)}</div></div>`;
+  const board = $('#board', cal);
+  const setFocus = id => { focusId = focusId === id ? null : id; renderSheet(cal, from); };
+  // hover highlight across the week
+  board.onpointerover = e => {
+    const c = e.target.closest('.dchip'); if (!c || focusId) return;
+    board.classList.add('hovering');
+    $$(`.dchip[data-staff="${c.dataset.staff}"]`, board).forEach(x => x.classList.add('hl'));
+  };
+  board.onpointerout = e => {
+    const c = e.target.closest('.dchip'); if (!c || focusId) return;
+    if (e.relatedTarget && c.contains(e.relatedTarget)) return;
+    board.classList.remove('hovering'); $$('.dchip.hl', board).forEach(x => x.classList.remove('hl'));
+  };
+  cal.onclick = e => {
+    if (e.target.closest('[data-unfocus]')) return setFocus(focusId);
+    if (e.target.closest('[data-mine]')) return setFocus(R.me.staff_id);
+    if (e.target.closest('[data-printsheet]')) return printSheet(from);
+    const o = e.target.closest('[data-open]'); if (o) return openShift(o.dataset.open);
+    const band = e.target.closest('[data-band]');
+    if (band) { const s = new Set(UI.collapsed || []); s.has(band.dataset.band) ? s.delete(band.dataset.band) : s.add(band.dataset.band); UI.collapsed = [...s]; saveUI(); return renderSheet(cal, from); }
+    if (e.target.closest('.dchip')) return;            // handled by pointer logic
+    const n = e.target.closest('[data-new]');
+    if (n) { const t = tpl('tpl_' + n.dataset.new); return openShiftEditor(null, t ? { date: n.dataset.date, template_id: t.id, name: t.name, start: t.start, end: t.end, department_id: (R.state.shift.find(s => s.template_id === t.id) || {}).department_id || undefined, designation: 'Medical Officer' } : { date: n.dataset.date }); }
+    const c = e.target.closest('[data-shift]'); if (c) { selected = c.dataset.shift; openShift(c.dataset.shift); }
+  };
+  const sel = $('[data-focussel]', cal); if (sel) sel.onchange = e => { focusId = e.target.value || null; renderSheet(cal, from); };
+  cal.onkeydown = e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const chip = e.target.closest('.dchip'); if (chip) { e.preventDefault(); return setFocus(chip.dataset.staff); }
+    const c = e.target.closest('[data-shift]'); if (c && e.target === c) { e.preventDefault(); openShift(c.dataset.shift); }
+  };
+  // drag a doctor chip: onto a duty = assign/move, onto the Off row = remove from duty
+  board.onpointerdown = e => {
+    const chip = e.target.closest('.dchip'); if (!chip || e.button !== 0) return;
+    const staffId = chip.dataset.staff, fromShift = chip.dataset.from || null;
+    const canDrag = editor && chip.classList.contains('drag') && e.pointerType !== 'touch';
+    const sx = e.clientX, sy = e.clientY; let moved = false, over = null, ghost = null;
+    const move = ev => {
+      if (!canDrag) return;
+      if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 6) return;
+      if (!moved) { moved = true; ghost = chip.cloneNode(true); ghost.classList.add('ghost'); document.body.appendChild(ghost); chip.classList.add('lifting'); board.classList.add('dragging'); }
+      ghost.style.left = ev.clientX + 10 + 'px'; ghost.style.top = ev.clientY + 8 + 'px';
+      const el = document.elementFromPoint(ev.clientX, ev.clientY);
+      const tgt = el && (el.closest('.bc[data-shift]') || (fromShift && el.closest('.bc[data-offday]')));
+      const ok = tgt && tgt.dataset.shift !== fromShift ? tgt : null;
+      if (over && over !== ok) over.classList.remove('dropok');
+      over = ok; if (over) over.classList.add('dropok');
+    };
+    const up = async () => {
+      document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', up);
+      if (ghost) ghost.remove(); chip.classList.remove('lifting'); board.classList.remove('dragging');
+      if (!moved) return setFocus(staffId);
+      if (!over) return;
+      over.classList.remove('dropok');
+      if (over.dataset.offday) await act('assign.remove', { shift_id: fromShift, staff_id: staffId });
+      else await act('assign.add', { shift_id: over.dataset.shift, staff_id: staffId, from_shift_id: fromShift || undefined });
+    };
+    document.addEventListener('pointermove', move); document.addEventListener('pointerup', up);
+  };
+}
+
+const BOARD_CSS = `
+.cal.cal-sheet{height:auto;min-height:0;overflow:visible}
+.btool{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
+.btool .bt-l{display:flex;flex-direction:column;gap:2px}.btool .bt-l b{font-size:15px}
+.btool .bt-r{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btool .inp.sm{height:32px;padding:0 10px;font-size:13px;max-width:220px}
+.board-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.board{display:grid;grid-template-columns:150px repeat(7,minmax(122px,1fr));min-width:1004px;position:relative}
+.board>*{min-width:0}
+.bh{position:sticky;top:0;z-index:4;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 8px 8px}
+.bh.corner{left:0;z-index:6;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;border-right:1px solid var(--line)}
+.bh.corner b{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.bh.corner small{color:var(--faint);font-size:11.5px}
+.bh.day{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:8px;align-items:end;border-left:1px solid var(--line)}
+.bh.day .dw{grid-column:1/-1;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bh.day .dd{font-size:24px;font-weight:700;line-height:1.05;color:var(--ink)}
+.bh.day .dm{font-size:12px;color:var(--muted);align-self:center}
+.bh.day .dc{grid-column:1/-1;margin-top:6px;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.bh.day .dc i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.bh.day.today{background:linear-gradient(var(--brand-soft2),var(--brand-soft2)),var(--surface)}
+.bh.day.today .dd,.bh.day.today .dm{color:var(--brand-2)}
+.bh.day.fri .dw,.bh.day.fri .dd{color:var(--red)}
+.bband{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2);position:sticky;left:0;font-size:13px;color:var(--ink)}
+.bband:hover{background:var(--surface-3)}.bband:focus-visible{outline:2px solid var(--brand);outline-offset:-2px}
+.bband .bi{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;color:#fff;background:var(--k)}
+.bband .bi .ic{width:15px;height:15px}
+.bband b{font-size:13.5px}.bband .bt{color:var(--muted)}.bband .bn{margin-left:auto;color:var(--faint);font-size:12px}
+.bband .chev{color:var(--muted);display:grid}.bband .chev .ic{width:16px;height:16px}
+.bband.off .bn{display:none}.bband.off .chev{margin-left:auto}
+:is(.board,.bfocus) .night{--k:#6366f1;--kbg:rgba(99,102,241,.07)}:is(.board,.bfocus) .morning{--k:#0ea5e9;--kbg:rgba(14,165,233,.07)}:is(.board,.bfocus) .evening{--k:#f59e0b;--kbg:rgba(245,158,11,.08)}:is(.board,.bfocus) .admin{--k:#10b981;--kbg:rgba(16,185,129,.07)}:is(.board,.bfocus) .off{--k:#64748b;--kbg:transparent}
+.bl{position:sticky;left:0;z-index:3;background:var(--surface);border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 10px 8px 14px;display:flex;flex-direction:column;justify-content:center;gap:1px;box-shadow:inset 3px 0 0 var(--k)}
+.bl b{font-size:13px;font-weight:650}.bl small{font-size:11px;color:var(--muted)}
+.bc{position:relative;border-left:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px;display:flex;flex-wrap:wrap;align-content:center;gap:4px;min-height:44px;background:var(--kbg);transition:background .15s}
+.bc.today{background:linear-gradient(var(--brand-soft),var(--brand-soft)),var(--kbg)}
+.bc[data-shift]{cursor:pointer}.bc[data-shift]:hover{background:linear-gradient(var(--brand-soft),var(--brand-soft)),var(--kbg);box-shadow:inset 0 0 0 1.5px var(--brand-3)}
+.bc[data-shift]:focus-visible{outline:2px solid var(--brand);outline-offset:-2px}
+.bc.tlrow{border-bottom-style:dashed}
+.bc.merged{align-content:center;justify-content:center}
+.bc.dirty::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:2px;background:var(--amber)}
+.bc.empty .add{opacity:0;margin:auto;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:var(--brand-2);border:1.5px dashed var(--line-2);transition:opacity .15s}
+.bc.empty[data-new]{cursor:copy}.bc.empty[data-new]:hover .add{opacity:1}
+.bc.relief{--kbg:rgba(245,158,11,.10)}
+.bc.dropok{box-shadow:inset 0 0 0 2px var(--brand);background:var(--brand-soft2)}
+.bc.off{background:transparent;align-content:flex-start}.bc.off .none{color:var(--faint);margin:auto}
+.bc .note{flex-basis:100%;font-size:11px;color:var(--muted);font-style:italic;padding-left:2px;cursor:pointer}
+.bc .mtag{position:absolute;right:6px;bottom:4px;font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+.bc .assign{display:inline-flex;align-items:center;gap:3px;font-size:11.5px;font-weight:600;color:var(--red);border:1.5px dashed var(--red-line);border-radius:999px;padding:3px 8px}
+.bc .assign .ic{width:12px;height:12px}
+.dchip{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:2px 8px 2px 2px;border-radius:999px;background:var(--surface);border:1px solid var(--line-2);font-size:12.5px;color:var(--ink);cursor:pointer;line-height:1.2;transition:opacity .15s,box-shadow .15s,transform .1s}
+.dchip.drag{cursor:grab}
+.dchip:hover{box-shadow:0 1px 4px rgba(0,0,0,.12)}.dchip:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
+.dchip .dn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dav{flex-shrink:0;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:9.5px;font-weight:700;color:#fff;background:hsl(var(--h) 55% 42%);letter-spacing:.02em}
+.dav.lg{width:40px;height:40px;font-size:14px}
+.dchip .tl{color:#d97706;font-size:12px;margin-left:-1px}
+.dchip .dtag{font-size:10.5px;font-weight:600;color:var(--amber);background:var(--amber-bg);border-radius:999px;padding:1px 6px}
+.dchip.me{border-color:var(--brand-2);box-shadow:0 0 0 1.5px var(--brand-soft2)}.dchip.me .dn{font-weight:700}
+.dchip.prop{border-style:dashed;font-style:italic}
+.dchip.warn{border-color:var(--amber-line);background:var(--amber-bg)}
+.dchip.hit{background:#fef08a;color:#000;border-color:#eab308}
+.board.hovering .dchip:not(.hl),.board.focusing .dchip:not(.hl){opacity:.28}
+.dchip.hl{border-color:hsl(var(--h,200) 55% 42%);box-shadow:0 0 0 2px var(--brand-3);opacity:1;transform:translateY(-1px)}
+.board.focusing .bc:has(.dchip.hl){box-shadow:inset 0 0 0 1.5px var(--brand-3)}
+.dchip.lifting{opacity:.35}.dchip.ghost{position:fixed;z-index:1000;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.25);transform:rotate(-2deg)}
+.board.dragging .bc[data-shift],.board.dragging .bc[data-offday]{cursor:copy}
+.bfocus{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--brand-soft);flex-wrap:wrap}
+.bfocus .bf-who{display:flex;flex-direction:column;min-width:140px}.bfocus .bf-who small{color:var(--muted);font-size:12px}
+.bfocus .bf-days{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.bf-d{display:flex;flex-direction:column;gap:3px;min-width:84px;padding:6px 8px;border-radius:10px;background:var(--surface);border:1px solid var(--line)}
+.bf-d.today{border-color:var(--brand-2)}
+.bf-d span{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.bf-d i{font-style:normal;font-size:12px;font-weight:600;padding:2px 6px;border-radius:6px;color:#fff;background:var(--k,#64748b);cursor:pointer}
+.bf-d i.offp{background:var(--surface-3);color:var(--muted);cursor:default}.bf-d i.lvp{background:var(--amber-bg);color:var(--amber);cursor:default}
+.bf-d i.day{--k:#10b981}
+[data-theme="dark"] .dav{background:hsl(var(--h) 45% 38%)}
+[data-theme="dark"] .dchip.hit{background:#854d0e;color:#fff}
+@media (max-width:720px){.board{grid-template-columns:104px repeat(7,minmax(112px,1fr));min-width:888px}.bl{padding:6px 6px 6px 10px}.bl b{font-size:12px}.btool .inp.sm{max-width:160px}}
 `;
 
 /* ------------------------------------------------------------------ */
@@ -772,20 +1014,7 @@ function exportRoster(kind, from, to) {
 function ensureSheetCss() {
   if (document.getElementById('sheetCss')) return;
   const el = document.createElement('style'); el.id = 'sheetCss';
-  el.textContent = SHEET_CSS + `
-.cal.cal-sheet{height:auto;min-height:0}
-.cal-sheet .sheet-wrap{overflow:auto;padding:0}
-.sheet td.sc[data-id]{cursor:pointer}.sheet td.sc[data-id]:hover,.sheet td.sc[data-new]:hover{outline:2px solid var(--brand);outline-offset:-2px}
-.sheet td.sc[data-new]{cursor:copy}
-.sheet td.sc.dirty{box-shadow:inset 3px 0 0 #f59e0b}.sheet td.sc.sel{outline:2px solid var(--brand);outline-offset:-2px}
-.sheet .me{font-weight:700;background:rgba(5,85,122,.14);border-radius:4px;padding:0 3px}
-.sheet .hit{background:#fde047;color:#000;border-radius:3px;padding:0 2px}
-.sheet .prop{font-style:italic;opacity:.75}
-.sheet .ua{display:inline-block;color:#dc2626;font-size:11px;font-weight:600;border:1px dashed #dc2626;border-radius:4px;padding:0 4px;margin-left:2px}
-.sheet .shd th.today{background:var(--brand);color:#fff}
-:root{--sheet-line:#555;--sheet-head:#e6e6e6;--sheet-svc:#efefef;--sheet-er:#f1f1f1;--sheet-gap:#c4c4c4}
-[data-theme="dark"]{--sheet-line:#5b6670;--sheet-head:#26313a;--sheet-svc:#222c34;--sheet-er:#1e272e;--sheet-gap:#3a454e}
-[data-theme="dark"] .sheet .band,[data-theme="dark"] .sheet tr.relief th,[data-theme="dark"] .sheet tr.relief td{color:#111}
+  el.textContent = BOARD_CSS + `
 `;
   document.head.appendChild(el);
 }
