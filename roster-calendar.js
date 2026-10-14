@@ -50,6 +50,7 @@ function coverage(sh) {
 /* ------------------------------------------------------------------ */
 export function renderRoster(main) {
   if (!UI._init) { UI.dept = ''; UI._init = true; saveUI(); }   // first visit: whole MO roster
+  UI.view = 'sheet';                                             // board is the only view
   if (UI.dept && !R.state.department.some(d => d.id === UI.dept)) UI.dept = '';
   if (!can('drafts')) UI.show = 'published';
   const { from, to } = rangeOf(), editor = can('edit');
@@ -63,7 +64,6 @@ export function renderRoster(main) {
         <div class="row" style="gap:4px"><button class="ibtn" data-a="prev" aria-label="Previous">${icon('left')}</button><button class="ibtn" data-a="next" aria-label="Next">${icon('right')}</button></div>
         <span class="range-lbl">${esc(label)}</span>
         <span class="grow"></span>
-        <div class="seg" role="tablist">${['sheet', 'day', 'week', 'month'].map(v => `<button class="${UI.view === v ? 'on' : ''}" data-view="${v}">${v === 'sheet' ? 'Board' : v[0].toUpperCase() + v.slice(1)}</button>`).join('')}</div>
         ${editor ? `<button class="btn primary" data-a="add">${icon('plus')}Add shift</button><button class="btn accent" data-a="publish">${icon('send')}Publish roster</button>` : ''}
         <div class="menu-wrap"><button class="btn" data-a="menu">${icon('more')}<span class="hide-mobile">${editor ? 'Tools' : 'Export'}</span></button><div class="menu" id="rMenu" hidden>
           ${editor ? `<button data-a="copyweek">${icon('copy')}Copy previous week</button><button data-a="generate">${icon('magic')}Auto-generate draft…</button><button data-a="bulk">${icon('users')}Bulk assign…</button><button data-a="recur">${icon('layers')}Recurring shift pattern…</button><hr>` : ''}
