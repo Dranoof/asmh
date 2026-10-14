@@ -823,6 +823,21 @@ const BOARD_CSS = `
 .boff-ar{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:4px}
 .boff-ar>span{font-size:10.5px;color:var(--muted);white-space:nowrap}
 .boff-d.dropok{box-shadow:inset 0 0 0 2px var(--brand);background:var(--brand-soft2)}
+/* plain-text doctor names (no pills / avatars) */
+.dchip{background:none;border:0;padding:1px 3px;border-radius:4px;box-shadow:none;font-size:12.5px;color:var(--ink)}
+.dchip .dav{display:none}
+.dchip:hover{box-shadow:none;background:var(--surface-3)}
+.dchip.me{border:0;box-shadow:none;background:none;color:var(--brand-2)}
+.dchip.warn{border:0;background:var(--amber-bg)}
+.dchip.prop{border:0;text-decoration:underline dotted}
+.dchip.hl{box-shadow:none;background:var(--brand-soft2);transform:none}
+.dchip.ghost{background:var(--surface);border:1px solid var(--line-2);padding:3px 8px}
+.bc{gap:2px 4px}
+.bc .dchip:not(:first-of-type)::before{content:"/";color:var(--faint);margin-right:5px;font-weight:400}
+.boff-c{gap:2px 6px}
+.boff-c .dchip{padding:1px 0}
+.boff-c .dchip:not(:last-of-type)::after{content:",";color:var(--faint);font-weight:400}
+.boff-ar .dchip{padding-left:0}
 @media (max-width:1100px){.bwrap{grid-template-columns:1fr}.boff{position:static}.boff-days{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.boff-d{border-right:1px solid var(--line)}}
 @media (max-width:720px){.board{grid-template-columns:104px repeat(7,minmax(112px,1fr));min-width:888px}.bl{padding:6px 6px 6px 10px}.bl b{font-size:12px}.btool .inp.sm{max-width:160px}}
 `;
