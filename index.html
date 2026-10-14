@@ -5800,4 +5800,96 @@ rpRoute();
 .hnav-drop-item .rp-count{background:#dc2626;color:#fff}
 #rpHdr:empty{display:none}
 </style>
+<!-- ═══════ CLEAN LOOK — tidy header & navigation ═══════ -->
+<style id="clean-look">
+/* ── Header: one logo, search, bell, profile, theme ── */
+header{height:60px;gap:18px;box-shadow:none;border-bottom:1px solid var(--border)}
+header .logo-img,header .logo-sep{display:none!important}
+header .hov-btn{display:none!important}
+.search-wrap{max-width:520px;flex:1}
+.search-wrap input{border-radius:10px}
+
+/* ── Navigation: one tidy row ── */
+.hnav{border-bottom:1px solid var(--border);box-shadow:none;gap:2px}
+.hnav-btn{font-weight:500;color:var(--text2);border-radius:8px;padding:7px 12px}
+.hnav-btn:hover{background:var(--bg);color:var(--text)}
+.hnav-item.active>.hnav-btn{color:var(--accent);font-weight:600}
+.hnav-sep{width:1px;height:20px;background:var(--border2);margin:0 6px;align-self:center;flex-shrink:0}
+.hnav-item.cl-right{margin-left:auto}
+.hnav-item.cl-right .hnav-drop{left:auto;right:0}
+.hnav .cl-ico{width:15px;height:15px;margin-right:6px;vertical-align:-3px;opacity:.75}
+
+/* ── Calmer surfaces: flat cards, no tinted gradients ── */
+.layout,.main,#mainContent{background:transparent}
+[class*="card"],[class*="panel"],[class*="tile"],[class*="stat"]{box-shadow:none!important}
+.rp-tabs{border-bottom:1px solid var(--border);background:transparent}
+.rp-tabs .tab{border-radius:8px}
+
+/* ── Hide the duplicated footer link lists (all in the nav already) ── */
+.site-footer .sf-col:not(:last-of-type){display:none!important}
+.site-footer .sf-inner{display:flex!important;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.site-footer .sf-col:last-of-type{display:flex;flex-direction:row;flex-wrap:wrap;gap:18px;align-items:center}
+.site-footer .sf-col:last-of-type h4{display:none}
+</style>
+<script id="clean-look-js">
+(function(){
+  function svg(p){return '<svg class="cl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';}
+  var ICON={
+    er:svg('<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>'),
+    dept:svg('<path d="M2 20h20M4 20V8l8-5 8 5v12M10 20v-6h4v6"/>'),
+    more:''
+  };
+  function navBtn(label,icon,onClick){
+    var it=document.createElement('div');it.className='hnav-item';
+    var b=document.createElement('button');b.className='hnav-btn';b.innerHTML=(icon||'')+label;
+    b.addEventListener('click',function(e){
+      onClick(e);
+      document.querySelectorAll('.hnav-item.active').forEach(function(i){i.classList.remove('active')});
+      it.classList.add('active');
+    });
+    it.dataset.cl='1';it.appendChild(b);return it;
+  }
+  function closeAll(){document.querySelectorAll('.hnav-item.open').forEach(function(i){i.classList.remove('open')});}
+  function init(){
+    var nav=document.getElementById('hnav'); if(!nav||nav.dataset.clean) return; nav.dataset.clean='1';
+    var hov=function(c){return document.querySelector('.hov-btn.'+c);};
+    // Dropdowns open by position; make them position-independent before reordering
+    nav.querySelectorAll('.hnav-btn').forEach(function(b){
+      if(/hnavToggle\(\d+\)/.test(b.getAttribute('onclick')||''))
+        b.setAttribute('onclick',"hnavToggle(Array.prototype.indexOf.call(document.querySelectorAll('.hnav-item'),this.parentElement))");
+    });
+    var first=nav.firstElementChild;
+
+    // 1) Handovers first — the most-used daily actions
+    var er=navBtn('ER Handover',ICON.er,function(){closeAll();hov('er')&&hov('er').click();});
+    var dp=navBtn('Dept Handover',ICON.dept,function(){closeAll();hov('dept')&&hov('dept').click();});
+    nav.insertBefore(er,first); nav.insertBefore(dp,first);
+    var roster=document.getElementById('hnavItemRoster');
+    if(roster) nav.insertBefore(roster,first);
+    var sep=document.createElement('span');sep.className='hnav-sep';nav.insertBefore(sep,first);
+
+    // 2) Clinical references stay in the middle; the rest folds into "More"
+    var more=document.createElement('div');more.className='hnav-item cl-right';
+    var mb=document.createElement('button');mb.className='hnav-btn';
+    mb.innerHTML='More<svg class="hnav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>';
+    mb.addEventListener('click',function(e){e.stopPropagation();hnavToggle(Array.prototype.indexOf.call(document.querySelectorAll('.hnav-item'),more));});
+    var drop=document.createElement('div');drop.className='hnav-drop';
+    function addItem(label,fn){var d=document.createElement('button');d.className='hnav-drop-item';d.textContent=label;d.addEventListener('click',function(){closeAll();fn();});drop.appendChild(d);}
+    ['hnavItem3','hnavItem3b','hnavItem4','hnavItem5'].forEach(function(id){
+      var item=document.getElementById(id); if(!item) return;
+      var b=item.querySelector('.hnav-btn'); item.style.display='none';
+      addItem(b.textContent.trim(),function(){b.click();});
+    });
+    if(hov('ql')) addItem('Quick Links',function(){hov('ql').click();});
+    more.appendChild(mb);more.appendChild(drop);nav.appendChild(more);
+    // Clear the highlight on the handover links when any other section is chosen
+    nav.addEventListener('click',function(e){
+      var it=e.target.closest('.hnav-item');
+      if(it&&!it.dataset.cl) nav.querySelectorAll('[data-cl].active').forEach(function(i){i.classList.remove('active')});
+    },true);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+<!-- ═══════ END CLEAN LOOK ═══════ -->
 </body>
