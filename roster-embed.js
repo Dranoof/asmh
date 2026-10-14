@@ -5,13 +5,13 @@
  * ===================================================================== */
 import { R, E, $, $$, esc, icon, initials, can, boot, on, act, setPersona, toast, scopeCSS, fmt } from './roster-core.js';
 import { renderRoster } from './roster-calendar.js';
-import { renderDashboard, renderMy, renderStaff, renderRequests, renderReports, renderActivity, renderSettings } from './roster-pages.js';
+import { renderHomeWorkforce, renderMy, renderStaff, renderRequests, renderReports, renderActivity, renderSettings } from './roster-pages.js';
 
 export const PAGES = [
-  ['dashboard', 'Dashboard', 'grid'], ['roster', 'Duty Roster', 'cal'], ['my', 'My Roster', 'user'], ['staff', 'Staff Directory', 'users'],
+  ['roster', 'Duty Roster', 'cal'], ['my', 'My Roster', 'user'], ['staff', 'Staff Directory', 'users'],
   ['requests', 'Requests', 'inbox'], ['reports', 'Reports', 'chart'], ['activity', 'Versions & Audit', 'history', true], ['settings', 'Settings', 'gear', true]
 ];
-const ROUTES = { dashboard: renderDashboard, roster: renderRoster, my: renderMy, staff: renderStaff, requests: renderRequests, reports: renderReports, activity: renderActivity, settings: renderSettings };
+const ROUTES = { roster: renderRoster, my: renderMy, staff: renderStaff, requests: renderRequests, reports: renderReports, activity: renderActivity, settings: renderSettings };
 
 const SPRITE = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
@@ -106,7 +106,7 @@ function buildApp() {
 /* ---------------- routing ---------------- */
 function pick(r) {
   if (!ROUTES[r]) r = can('edit') ? 'roster' : R.me.staff_id ? 'my' : 'roster';
-  if ((r === 'activity' && !can('audit')) || (r === 'settings' && !can('settings') && !can('edit'))) r = 'dashboard';
+  if ((r === 'activity' && !can('audit')) || (r === 'settings' && !can('settings') && !can('edit'))) r = 'roster';
   return r;
 }
 function draw() {
@@ -226,6 +226,16 @@ function wire() {
     const k = { ArrowLeft: 'prev', ArrowRight: 'next', t: 'today', n: 'add' }[e.key];
     if (k) { const b = document.querySelector(`.rp [data-a="${k}"]`); if (b) { e.preventDefault(); b.click(); } }
   });
+}
+
+/** workforce summary on the portal landing page (replaces the roster dashboard) */
+export async function home(el) {
+  if (!el || el.dataset.rpHome) return;
+  el.dataset.rpHome = '1';
+  await init();
+  if (R.mode === 'error') { el.hidden = true; return; }
+  const draw = () => { try { renderHomeWorkforce(el); } catch (e) { console.error(e); } };
+  draw(); on(draw); setInterval(draw, 60000);
 }
 
 /** load styles, the header menu and the roster data (once) */
