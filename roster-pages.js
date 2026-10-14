@@ -64,6 +64,48 @@ export function renderDashboard(main) {
 }
 
 /* ================================================================== */
+/* HOME — workforce summary on the CarePortal landing page            */
+/* ================================================================== */
+const drN = n => 'Dr ' + String(n || '').replace(/^Dr\.?\s*/, '');
+export function renderHomeWorkforce(el) {
+  if (!el || !R.state) return;
+  const t = E.todayStr(), now = E.nowMinAbs(), mode = pubMode();
+  const near = shiftsOn(E.addDays(t, -1), E.addDays(t, 14), mode);
+  const onNow = near.filter(s => { const p = E.span(s); return p.s <= now && p.e > now; });
+  const onToday = new Set(near.filter(s => s.date === t).flatMap(s => s.staff_ids));
+  const staffNow = new Set(onNow.flatMap(s => s.staff_ids));
+  const mos = R.state.staff.filter(s => s.status !== 'Inactive' && s.designation === 'Medical Officer');
+  const away = mos.map(s => ({ s, l: E.approvedLeave(R.state, s.id, t) })).filter(x => x.l);
+  const off = mos.filter(s => !onToday.has(s.id) && !away.some(x => x.s.id === s.id));
+  const an = E.analyze(R.state, t, E.addDays(t, 13), { mode });
+  const unfilled = Object.values(an.coverage).filter(c => c.short > 0).length;
+  const pendingLeave = R.state.leave.filter(l => l.status === 'pending' && (can('approve', (staffById(l.staff_id) || {}).department_id) || l.staff_id === R.me.staff_id)).length;
+  const me = R.me && R.me.staff_id;
+  const mine = me ? near.find(s => s.staff_ids.includes(me) && E.span(s).e > now) : null;
+  const svc = s => esc(s.name.replace(/^(Morning|Evening|Night) · /, ''));
+  const names = ids => ids.map(id => esc(drN((staffById(id) || {}).name))).join(', ');
+  const tag = l => l.type === 'Annual leave' ? 'AL' : (l.remarks || l.type).replace(/^Deputation to /, 'Dep. ');
+  const when = s => E.span(s).s <= now ? 'On duty now · until ' + s.end : fmt.dow(s.date) + ' ' + fmt.day(s.date) + ' ' + fmt.mon(s.date) + ' · ' + s.start + '–' + s.end;
+  el.innerHTML = `
+    <div class="lp-head lw-head"><h2>Workforce today</h2><a class="lp-link" href="#/roster">Open duty roster →</a></div>
+    <div class="lp-tiles lw-tiles">
+      <a class="lp-tile" href="#/roster"><span class="lp-tile-lbl">Doctors on duty now</span><span class="lp-tile-num">${staffNow.size}</span><span class="lp-tile-sub">${onToday.size} rostered today · ${off.length} off</span></a>
+      <a class="lp-tile" href="#/my"><span class="lp-tile-lbl">My next duty</span>${mine ? `<span class="lp-tile-num lw-sm">${svc(mine)}</span><span class="lp-tile-sub">${esc(when(mine))}</span>` : '<span class="lp-tile-num">–</span><span class="lp-tile-sub">No upcoming duty</span>'}</a>
+      <a class="lp-tile" href="#/requests"><span class="lp-tile-lbl">Pending leave requests</span><span class="lp-tile-num">${pendingLeave}</span><span class="lp-tile-sub">${can('approve') ? 'awaiting your decision' : 'your open requests'}</span></a>
+      <a class="lp-tile ${unfilled ? 'lw-bad' : ''}" href="#/roster"><span class="lp-tile-lbl">Unfilled shifts</span><span class="lp-tile-num">${unfilled}</span><span class="lp-tile-sub">next 14 days</span></a>
+    </div>
+    <div class="lp-row lw-row">
+      <div class="lp-card"><div class="lp-card-hdr"><h3>On duty now</h3><span class="lw-muted">${onNow.length} post${onNow.length === 1 ? '' : 's'}</span></div>
+        ${onNow.length ? `<div class="lw-list">${onNow.map(s => `<a class="lw-item" href="#/roster"><i style="background:${colorOf(s)}"></i><span class="lw-svc">${svc(s)}<small>${s.start}–${s.end}</small></span><span class="lw-names">${names(s.staff_ids) || '<em>Unassigned</em>'}</span></a>`).join('')}</div>` : '<div class="lw-empty">No one is rostered at this moment.</div>'}
+      </div>
+      <div class="lp-card"><div class="lp-card-hdr"><h3>Off &amp; away today</h3><span class="lw-muted">${fmt.dow(t)} ${fmt.day(t)} ${fmt.mon(t)}</span></div>
+        <div class="lw-sub">Off</div><p class="lw-p">${off.map(s => esc(drN(s.name))).join(', ') || '—'}</p>
+        ${away.length ? `<div class="lw-sub">On leave / away</div><p class="lw-p">${away.map(x => `${esc(drN(x.s.name))} <span class="lw-tag">${esc(tag(x.l))}</span>`).join(', ')}</p>` : ''}
+      </div>
+    </div>`;
+}
+
+/* ================================================================== */
 /* MY ROSTER                                                          */
 /* ================================================================== */
 export function renderMy(main) {
