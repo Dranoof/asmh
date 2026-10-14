@@ -5803,7 +5803,7 @@ rpRoute();
 <!-- ═══════ CLEAN LOOK — tidy header & navigation ═══════ -->
 <style id="clean-look">
 /* ── Header: one logo, search, bell, profile, theme ── */
-header{height:60px;gap:18px;box-shadow:none;border-bottom:1px solid var(--border)}
+header{gap:18px;box-shadow:none;border-bottom:1px solid var(--border)}
 header .logo-img,header .logo-sep{display:none!important}
 header .hov-btn{display:none!important}
 .search-wrap{max-width:520px;flex:1}
@@ -5822,7 +5822,8 @@ header .hov-btn{display:none!important}
 /* ── Calmer surfaces: flat cards, no tinted gradients ── */
 .layout,.main,#mainContent{background:transparent}
 [class*="card"],[class*="panel"],[class*="tile"],[class*="stat"]{box-shadow:none!important}
-.rp-tabs{border-bottom:1px solid var(--border);background:transparent}
+.rp.rp-app{margin:0!important}
+.rp-tabs{top:0!important;background:var(--hdr-bg)!important;backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:8px 24px!important;margin:0!important}
 .rp-tabs .tab{border-radius:8px}
 
 /* ── Hide the duplicated footer link lists (all in the nav already) ── */
