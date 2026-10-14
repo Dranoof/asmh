@@ -814,7 +814,8 @@ export function viewFor(state, actor) {
     const ok = new Set(v.shift.map(s => s.id));
     v.assignment = v.assignment.filter(a => ok.has(a.shift_id));
   }
-  if (!can(actor, 'contacts')) v.staff.forEach(s => { if (s.id !== actor.staff_id) { delete s.email; delete s.phone; } });
+  // phone numbers are shared with all staff (duty contacts); emails stay supervisor-only
+  if (!can(actor, 'contacts')) v.staff.forEach(s => { if (s.id !== actor.staff_id) delete s.email; });
   if (!can(actor, 'users')) v.user = v.user.filter(u => u.email === actor.email);
   const approver = can(actor, 'approve');
   v.leave = v.leave.filter(l => l.staff_id === actor.staff_id || (approver && can(actor, 'approve', (state.staff.find(s => s.id === l.staff_id) || {}).department_id)) || l.status === 'approved')
